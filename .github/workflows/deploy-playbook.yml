@@ -91,9 +91,13 @@ jobs:
         run: |
           printf '%s' "$ENV_PLAYBOOK" > .env.playbook
           printf '\nDATABASE_PROVIDER=postgres\nHYPERDRIVE_ID=%s\n' "$HYPERDRIVE_ID" >> .env.playbook
+          # Axiom export switch (docs/maintainers/runbooks/axiom-apm.md). A
+          # variable, so turning it on or off never rewrites ENV_PLAYBOOK.
+          [ -z "$OTEL_ENABLED" ] || printf 'OTEL_ENABLED=%s\n' "$OTEL_ENABLED" >> .env.playbook
         env:
           ENV_PLAYBOOK: ${{ secrets.ENV_PLAYBOOK }}
           HYPERDRIVE_ID: ${{ vars.RELAY_HYPERDRIVE_ID }}
+          OTEL_ENABLED: ${{ vars.RELAY_OTEL_ENABLED }}
 
       # Fail in seconds on a misconfigured secret instead of after the build.
       - name: Validate deployment configuration
