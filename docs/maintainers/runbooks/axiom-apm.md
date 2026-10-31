@@ -78,7 +78,7 @@ These URLs still reach traces, by design:
 
    The names are case-sensitive. The token stays in Cloudflare. Do not put it in `ENV_PLAYBOOK` or in the repository.
 
-4. In the `ENV_PLAYBOOK` repository secret, set `OTEL_ENABLED=true`. Set `OTEL_LOGS_ENABLED=true` only if you accept what logs send (see [Privacy](#privacy)).
+4. Set the repository variable `RELAY_OTEL_ENABLED` to `true` (**Settings** > **Secrets and variables** > **Actions** > **Variables**, or `gh variable set RELAY_OTEL_ENABLED --body true`). The deploy appends it to `.env.playbook` after `ENV_PLAYBOOK`, so it wins over a value in the secret. Set `OTEL_LOGS_ENABLED=true` in `ENV_PLAYBOOK` only if you accept what logs send (see [Privacy](#privacy)).
 5. Run the **Deploy (Playbook Media)** workflow.
 6. Make sure that it works:
    1. In **Observability** > **Destinations**, each destination shows "Last: n minutes ago", not "Error" or "Never run".
@@ -156,4 +156,4 @@ On the Cloudflare side, traces drop from 100% to 1%, and so do logs when `OTEL_L
 | The Axiom bill grows.                                | Lower `OTEL_SAMPLING_RATE`, or turn `OTEL_LOGS_ENABLED` off.                                                                                                       |
 | A key or token appears in a URL in Axiom.            | Move it to a header in the code, as in `src/server/lib/crux.ts`. Then delete the data in Axiom and rotate the key.                                                 |
 
-To stop the export, empty `OTEL_ENABLED` and `OTEL_LOGS_ENABLED` in `ENV_PLAYBOOK` and deploy.
+To stop the export, set `RELAY_OTEL_ENABLED` to `false`, empty `OTEL_LOGS_ENABLED` in `ENV_PLAYBOOK`, and deploy.
