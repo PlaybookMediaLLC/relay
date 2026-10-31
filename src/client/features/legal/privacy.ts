@@ -7,7 +7,7 @@ import type { LegalDocument } from "./LegalPage";
  */
 export const PRIVACY: LegalDocument = {
   title: "Privacy Policy",
-  updated: "October 30, 2026",
+  updated: "October 31, 2026",
   summary: [
     "We collect what we need to run Relay: your Google sign-in details, the data you connect, and what you create.",
     "Search Console and Analytics access is read-only. You can disconnect it at any time.",
@@ -64,6 +64,7 @@ export const PRIVACY: LegalDocument = {
             "To secure the Service, prevent abuse, and find and fix problems.",
             "To answer your questions and give support.",
             "To tell you about your account, security, and important changes to the Service or to our policies.",
+            "To email you product updates, only if you opt in. Every update has an unsubscribe link, and you can turn them off in your settings at any time.",
             "To meet legal obligations and to enforce our [Terms of Service](/terms).",
           ],
         },
@@ -78,7 +79,7 @@ export const PRIVACY: LegalDocument = {
         {
           list: [
             "**Contract:** to provide the Service that you signed up for.",
-            "**Consent:** to access the Google and GitHub data that you choose to connect. You can withdraw consent at any time by disconnecting.",
+            "**Consent:** to access the Google and GitHub data that you choose to connect, and to send product updates if you opt in. You can withdraw consent at any time by disconnecting or unsubscribing.",
             "**Legitimate interests:** to secure the Service, prevent abuse, improve features and communicate with you about the Service. These interests do not override your rights.",
             "**Legal obligation:** to keep records that tax and other laws require.",
           ],
@@ -117,7 +118,7 @@ export const PRIVACY: LegalDocument = {
         "We share information only in these cases:",
         {
           list: [
-            "**Service providers** that help us run the Service, under contracts that limit their use of it: Cloudflare (hosting, database, security and bot protection), Google (sign-in and the APIs you connect), GitHub (only when you connect a repository), Autumn and Stripe (billing), DataForSEO (keyword, SERP, backlink and AI-answer research, which receives keywords, domains and URLs but not your Google data), OpenRouter with the AI model providers it routes to (only when you use AI features), Trigger.dev (timing of the scheduled jobs you turn on, which receives project and job identifiers but not your Google data or site content), and Axiom (error and performance monitoring, which receives technical records of a small sample of requests for up to 30 days: page and API addresses, timings, and status and error codes; these can include the address of a Search Console property or the ID of an Analytics property, but not your reports, request bodies, passwords or sign-in tokens).",
+            "**Service providers** that help us run the Service, under contracts that limit their use of it: Cloudflare (hosting, database, security and bot protection), Google (sign-in and the APIs you connect), GitHub (only when you connect a repository), Autumn and Stripe (billing), DataForSEO (keyword, SERP, backlink and AI-answer research, which receives keywords, domains and URLs but not your Google data), OpenRouter with the AI model providers it routes to (only when you use AI features), Trigger.dev (timing of the scheduled jobs you turn on, which receives project and job identifiers but not your Google data or site content), Loops (account and product-update emails, which receives your email address, account ID, plan, product-update choice and account events such as onboarding steps, but not your Google data or site content), and Axiom (error and performance monitoring, which receives technical records of a small sample of requests for up to 30 days: page and API addresses, timings, and status and error codes; these can include the address of a Search Console property or the ID of an Analytics property, but not your reports, request bodies, passwords or sign-in tokens).",
             "**People you choose.** Members of your workspace can see its projects and data. Anyone with a report link that you share can see that report.",
             "**AI clients you connect**, as described above.",
             "**Legal reasons.** When we must do so by law, or to protect the rights, safety and security of our users, the public or Playbook Media.",

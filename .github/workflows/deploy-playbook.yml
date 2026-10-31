@@ -94,10 +94,16 @@ jobs:
           # Axiom export switch (docs/maintainers/runbooks/axiom-apm.md). A
           # variable, so turning it on or off never rewrites ENV_PLAYBOOK.
           [ -z "$OTEL_ENABLED" ] || printf 'OTEL_ENABLED=%s\n' "$OTEL_ENABLED" >> .env.playbook
+          # Product updates through Loops (docs/maintainers/playbook-deployment.md).
+          # The key has its own secret for the same reason.
+          [ -z "$LOOPS_API_KEY" ] || printf 'LOOPS_API_KEY=%s\n' "$LOOPS_API_KEY" >> .env.playbook
+          [ -z "$LOOPS_PRODUCT_UPDATES_LIST_ID" ] || printf 'LOOPS_PRODUCT_UPDATES_LIST_ID=%s\n' "$LOOPS_PRODUCT_UPDATES_LIST_ID" >> .env.playbook
         env:
           ENV_PLAYBOOK: ${{ secrets.ENV_PLAYBOOK }}
           HYPERDRIVE_ID: ${{ vars.RELAY_HYPERDRIVE_ID }}
           OTEL_ENABLED: ${{ vars.RELAY_OTEL_ENABLED }}
+          LOOPS_API_KEY: ${{ secrets.RELAY_LOOPS_API_KEY }}
+          LOOPS_PRODUCT_UPDATES_LIST_ID: ${{ vars.RELAY_LOOPS_PRODUCT_UPDATES_LIST_ID }}
 
       # Fail in seconds on a misconfigured secret instead of after the build.
       - name: Validate deployment configuration
