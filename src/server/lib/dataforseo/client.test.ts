@@ -70,8 +70,9 @@ vi.mock("@/server/lib/runtime-env", () => ({
 // playbook-seam: RFC-0009 limits and the ledger have their own tests
 // (src/server/billing/spendAdmission.test.ts); here they pass through.
 vi.mock("@/server/billing/spendAdmission", async () => ({
-  reserveWithinLimits: (await import("@/server/billing/subscription"))
-    .reserveUsageCredits,
+  reserveWithinLimits: vi.fn(
+    (await import("@/server/billing/subscription")).reserveUsageCredits,
+  ),
 }));
 vi.mock("@/server/billing/spendLedger", () => ({ recordSettlement: vi.fn() }));
 
@@ -136,6 +137,11 @@ vi.mock("@/server/lib/dataforseo/ai", () => ({
   LLM_RESPONSE_WEB_SEARCH_DEFAULT: true,
 }));
 
+vi.mock("@/server/lib/dataforseo/ai-tracking", () => ({
+  postAiTrackingTasks: vi.fn(),
+  fetchAiTrackingLiveAnswer: vi.fn(),
+}));
+
 import { waitUntil } from "cloudflare:workers";
 import {
   createDataforseoClient,
@@ -146,6 +152,8 @@ import { DataforseoChargedTaskError } from "@/server/lib/dataforseo/envelope";
 import { AppError } from "@/server/lib/errors";
 import { fetchBacklinksSummary } from "@/server/lib/dataforseo/backlinks";
 import { fetchRankCheckSerp } from "@/server/lib/dataforseo/serp";
+import { postAiTrackingTasks } from "@/server/lib/dataforseo/ai-tracking";
+import { reserveWithinLimits } from "@/server/billing/spendAdmission";
 
 const billingCustomer = {
   organizationId: "org_123",
@@ -298,6 +306,64 @@ describe("meterDataforseoCall", () => {
     ).rejects.toMatchObject({ code: "UPSTREAM_UNAVAILABLE" });
 
     expect(vi.mocked(waitUntil)).toHaveBeenCalledTimes(1);
+    expect(finalizeMock.mock.calls[0][0]).toMatchObject({ action: "release" });
+  });
+});
+
+describe("AI visibility queued posts", () => {
+  const input = {
+    engine: "chatgpt" as const,
+    locationCode: 2840,
+    languageCode: "en",
+    tasks: [
+      { tag: "a", prompt: "Which SEO tools?" },
+      { tag: "b", prompt: "Best rank tracker?" },
+    ],
+  };
+
+  it("holds credits within the spend limits at post and charges the arrived answers as one rounded sum", async () => {
+    setupHostedMode();
+    mockMonthlyBalance(5000);
+    vi.mocked(postAiTrackingTasks).mockResolvedValue({
+      data: [
+        { tag: "a", taskId: "task-a", costUsd: 0.0011 },
+        { tag: "b", taskId: "task-b", costUsd: 0.0011 },
+      ],
+      billing: { costUsd: 0.0022, path: ["task_post"] },
+    });
+
+    const client = createDataforseoClient(billingCustomer);
+    const { hold } = await client.aiSearch.trackingTaskPost(input);
+    expect(reserveWithinLimits).toHaveBeenCalledOnce(); // playbook-seam
+    expect(finalizeMock).not.toHaveBeenCalled();
+    await client.aiSearch.settleTrackingHold({
+      hold: hold!,
+      costs: [0.0011, 0.0011],
+    });
+
+    // Rounding each answer up would charge 4 credits; the sum rounds to 3.
+    expect(finalizeMock).toHaveBeenCalledExactlyOnceWith(
+      expect.objectContaining({
+        lockId: checkMock.mock.calls[0][0].lock?.lockId,
+        action: "confirm",
+        overrideValue: creditsForProviderUsd(0.0022),
+      }),
+      {},
+    );
+  });
+
+  it("releases the hold when the post fails", async () => {
+    setupHostedMode();
+    mockMonthlyBalance(5000);
+    vi.mocked(postAiTrackingTasks).mockRejectedValue(
+      new AppError("UPSTREAM_UNAVAILABLE"),
+    );
+
+    const client = createDataforseoClient(billingCustomer);
+    await expect(client.aiSearch.trackingTaskPost(input)).rejects.toMatchObject(
+      { code: "UPSTREAM_UNAVAILABLE" },
+    );
+
     expect(finalizeMock.mock.calls[0][0]).toMatchObject({ action: "release" });
   });
 });

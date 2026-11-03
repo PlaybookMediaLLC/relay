@@ -16,7 +16,7 @@ it.each([
   expect(getProjectNavGroup("site", path)?.label).toBe(expected);
 });
 
-it("keeps all sixteen project destinations discoverable in five workspaces", () => {
+it("keeps all seventeen project destinations discoverable in five workspaces", () => {
   const groups = getProjectNavGroups("site");
   expect(groups.map((group) => group.label)).toEqual([
     "Home",
@@ -27,7 +27,7 @@ it("keeps all sixteen project destinations discoverable in five workspaces", () 
   ]);
   expect(
     new Set(groups.flatMap((group) => group.items.map((item) => item.to))).size,
-  ).toBe(16);
+  ).toBe(17);
 });
 
 it("limits paid-provider setup to the views that need it", () => {
@@ -49,6 +49,7 @@ it("limits paid-provider setup to the views that need it", () => {
     "/ai-visibility/research",
     "/prompt-explorer",
     "/rank-tracking/123",
+    "/local-seo",
   ]) {
     expect(isPaidResearchPath(`/p/project${suffix}`)).toBe(true);
   }

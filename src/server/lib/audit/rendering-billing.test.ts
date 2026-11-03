@@ -73,7 +73,7 @@ async function buyer(projectLimit?: number) {
   };
 }
 type Buyer = Awaited<ReturnType<typeof buyer>>;
-// 100 pages hold 384 credits: every page falling back to Context.
+// 100 pages hold 128 credits: twice every page rendering on Cloudflare.
 const lockFor100Pages = (customer: Buyer) =>
   lockRenderingCredits({ customer, auditId: "audit", maxPages: 100 });
 const ledgerOf = (customer: Buyer) =>
@@ -90,7 +90,7 @@ const ledgerOf = (customer: Buyer) =>
 beforeEach(() => {
   mocks.isHosted.mockResolvedValue(true);
   mocks.getUsageCreditsRemaining.mockResolvedValue({
-    monthlyRemaining: 300,
+    monthlyRemaining: 100,
     topupRemaining: 1_000,
   });
   mocks.holdCredits.mockImplementation(
@@ -123,46 +123,46 @@ describe("rendering credit lock", () => {
     expect(await ledgerOf(customer)).toEqual([]);
   });
 
-  it("holds the worst case from the monthly balance first, then top-up, for at most 24 hours, one ledger row per hold", async () => {
+  it("holds twice the Cloudflare estimate from the monthly balance first, then top-up, for at most 24 hours, one ledger row per hold", async () => {
     const customer = await buyer();
     const locks = await lockFor100Pages(customer);
     expect(
       locks.map((lock) => [lock.featureId, lock.estimatedCredits]),
     ).toEqual([
-      ["usage_credits", 300],
-      ["topup_credits", 84],
+      ["usage_credits", 100],
+      ["topup_credits", 28],
     ]);
     const ttlMs = mocks.holdCredits.mock.calls[0][0].ttlMs ?? 0;
     expect(ttlMs).toBeGreaterThan(60 * 60_000);
     expect(ttlMs).toBeLessThanOrEqual(24 * 60 * 60_000);
     expect(await ledgerOf(customer)).toEqual([
-      { status: "admitted", estimated: 84, actual: null },
-      { status: "admitted", estimated: 300, actual: null },
+      { status: "admitted", estimated: 28, actual: null },
+      { status: "admitted", estimated: 100, actual: null },
     ]);
   });
 
   it("refuses over the monthly spend limit before any hold", async () => {
-    const customer = await buyer(383);
+    const customer = await buyer(127);
     await expect(lockFor100Pages(customer)).rejects.toMatchObject({
       code: "SPEND_LIMIT_REACHED",
     });
     expect(mocks.holdCredits).not.toHaveBeenCalled();
     expect(await ledgerOf(customer)).toEqual([
-      { status: "refused", estimated: 384, actual: null },
+      { status: "refused", estimated: 128, actual: null },
     ]);
   });
 
   it("refuses before holding anything when both balances together fall short", async () => {
     mocks.getUsageCreditsRemaining.mockResolvedValue({
-      monthlyRemaining: 300,
-      topupRemaining: 83,
+      monthlyRemaining: 100,
+      topupRemaining: 27,
     });
     const customer = await buyer();
     const error = await lockFor100Pages(customer).catch(
       (reason: unknown) => reason,
     );
     expect(error).toMatchObject({ code: "INSUFFICIENT_CREDITS" });
-    expect(String(error)).toContain("needs $0.39 of credits");
+    expect(String(error)).toContain("needs $0.13 of credits");
     expect(mocks.holdCredits).not.toHaveBeenCalled();
     expect(mocks.sendCreditsExhaustedEvent).toHaveBeenCalledWith(customer);
     expect(await ledgerOf(customer)).toMatchObject([{ status: "refused" }]);
@@ -220,8 +220,8 @@ describe("rendering settlement", () => {
       ["topup_credits", 0],
     ]);
     expect(await ledgerOf(customer)).toEqual([
-      { status: "released", estimated: 84, actual: 0 },
-      { status: "settled", estimated: 300, actual: 13 },
+      { status: "released", estimated: 28, actual: 0 },
+      { status: "settled", estimated: 100, actual: 13 },
     ]);
   });
 
@@ -241,12 +241,12 @@ describe("rendering settlement", () => {
     });
     expect(mocks.finalizeHold).toHaveBeenLastCalledWith(
       locks[1],
-      84,
+      28,
       expect.anything(),
     );
     expect(await ledgerOf(customer)).toEqual([
-      { status: "settled", estimated: 84, actual: 84 },
-      { status: "settle_failed", estimated: 300, actual: 300 },
+      { status: "settled", estimated: 28, actual: 28 },
+      { status: "settle_failed", estimated: 100, actual: 100 },
     ]);
   });
 });

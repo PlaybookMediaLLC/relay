@@ -11,6 +11,7 @@ import {
   IconLayoutDashboard as LayoutDashboard,
   IconListCheck as ListCheck, // playbook-seam
   IconLink as Link2,
+  IconMapPin as MapPin,
   IconMessage as MessageSquare,
   IconSearch as Search,
   IconTrendingUp as TrendingUp,
@@ -53,6 +54,11 @@ const projectNavItems = [
     to: "/p/$projectId/rank-tracking" as const,
     label: "Rank Tracking",
     icon: TrendingUp,
+  },
+  {
+    to: "/p/$projectId/local-seo" as const,
+    label: "Local SEO",
+    icon: MapPin,
   },
   {
     to: "/p/$projectId/search-performance" as const,
@@ -159,6 +165,7 @@ export function getProjectNavGroups(projectId: string) {
         byPath("/p/$projectId/prompt-explorer"),
         byPath("/p/$projectId/audit"),
         byPath("/p/$projectId/rank-tracking"),
+        byPath("/p/$projectId/local-seo"),
       ],
     },
     {
@@ -196,7 +203,7 @@ export const dataforseoHelpLinkOptions = linkOptions({
 
 /** Provider setup belongs to the research views that require it. */
 export function isPaidResearchPath(pathname: string) {
-  return /^\/p\/[^/]+\/(?:keywords|domain|backlinks|rank-tracking|ai-visibility|prompt-explorer)(?:\/|$)/.test(
+  return /^\/p\/[^/]+\/(?:keywords|domain|backlinks|rank-tracking|local-seo|ai-visibility|prompt-explorer)(?:\/|$)/.test(
     pathname,
   );
 }
