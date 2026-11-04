@@ -7,8 +7,8 @@ import {
   GridFourIcon as LayoutGrid, // playbook-seam
   PlusIcon as Plus,
   GearIcon as Settings,
+  FoldersIcon as FolderCog,
 } from "@phosphor-icons/react";
-import { IconFolderCog as FolderCog } from "@tabler/icons-react";
 import { setLastProjectId } from "@/client/lib/active-project";
 import { CreateProjectModal } from "@/client/features/projects/CreateProjectModal";
 import {

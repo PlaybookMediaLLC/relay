@@ -15,8 +15,8 @@ import {
   MagnifyingGlassIcon as Search,
   TrendUpIcon as TrendingUp,
   TargetIcon as Target,
+  ListChecksIcon as ClipboardCheck,
 } from "@phosphor-icons/react";
-import { IconClipboardCheck as ClipboardCheck } from "@tabler/icons-react";
 import { linkOptions } from "@tanstack/react-router";
 import { GoogleGlyphMuted } from "@/client/features/gsc/GoogleGlyph";
 

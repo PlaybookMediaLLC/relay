@@ -3,8 +3,8 @@ import {
   WarningCircleIcon as CircleAlert,
   TrayIcon as Inbox,
   type Icon as AppIcon,
+  MagnifyingGlassIcon as SearchX,
 } from "@phosphor-icons/react";
-import { IconZoomCancel as SearchX } from "@tabler/icons-react";
 import {
   Empty,
   EmptyContent,

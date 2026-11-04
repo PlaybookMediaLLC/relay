@@ -6,8 +6,8 @@ import {
   InfoIcon as Info,
   WarningIcon as TriangleAlert,
   type Icon as AppIcon,
+  FileXIcon as FileWarning,
 } from "@phosphor-icons/react";
-import { IconFileAlert as FileWarning } from "@tabler/icons-react";
 import { cn } from "cn";
 import { Badge } from "@/client/components/ui/badge";
 import { Spinner } from "@/client/components/ui/spinner";

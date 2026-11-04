@@ -174,6 +174,9 @@ import type { Plugin } from "vite";
  *   and its query test, and RankTrackingDomainList.tsx: the domain list says
  *   "Last check failed" for a failed run. The test carries a max-lines
  *   exemption.
+ * - src/routes/__root.tsx and src/client/mcp-widgets/main.tsx: Phosphor
+ *   icons are aria-hidden by default through IconContext
+ *   (src/client/lib/iconDefaults.ts).
  * - src/standalone-server.ts and wrangler.standalone.json: the Docker
  *   edition exports and binds the SEO check Workflow too.
  * - src/client/features/settings/DeleteAccountSettings.tsx: error copy is a

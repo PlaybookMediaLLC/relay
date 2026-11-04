@@ -17,6 +17,8 @@ import { LandingNotFound } from "@/client/features/landing/LandingNotFound"; // 
 import { runtimeAuthModeScript } from "@/lib/auth-mode";
 import { PrivacyBootstrap } from "@/client/components/PrivacyChoices";
 import { TooltipProvider } from "@/client/components/ui/tooltip";
+import { IconContext } from "@phosphor-icons/react"; // playbook-seam
+import { ICON_DEFAULTS } from "@/client/lib/iconDefaults"; // playbook-seam
 import appCss from "@/client/styles/app.css?url";
 import { Toaster } from "sonner";
 import { queryClient } from "@/client/tanstack-db";
@@ -90,25 +92,30 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body>
         <RelayClientOnly /* playbook-seam */>
           <QueryClientProvider client={queryClient}>
-            <TooltipProvider>
-              <PrivacyBootstrap />
-              {children}
-              <ExportToSheetsModal />
-              <Toaster position="bottom-right" mobileOffset={{ bottom: 100 }} />
-              {showDevtools ? (
-                <TanStackDevtools
-                  config={{ position: "bottom-right" }}
-                  eventBusConfig={{ connectToServerBus: true }}
-                  plugins={[
-                    {
-                      name: "TanStack Router",
-                      render: <TanStackRouterDevtoolsPanel />,
-                      defaultOpen: true,
-                    },
-                  ]}
+            <IconContext.Provider value={ICON_DEFAULTS} /* playbook-seam */>
+              <TooltipProvider>
+                <PrivacyBootstrap />
+                {children}
+                <ExportToSheetsModal />
+                <Toaster
+                  position="bottom-right"
+                  mobileOffset={{ bottom: 100 }}
                 />
-              ) : null}
-            </TooltipProvider>
+                {showDevtools ? (
+                  <TanStackDevtools
+                    config={{ position: "bottom-right" }}
+                    eventBusConfig={{ connectToServerBus: true }}
+                    plugins={[
+                      {
+                        name: "TanStack Router",
+                        render: <TanStackRouterDevtoolsPanel />,
+                        defaultOpen: true,
+                      },
+                    ]}
+                  />
+                ) : null}
+              </TooltipProvider>
+            </IconContext.Provider>
           </QueryClientProvider>
         </RelayClientOnly>
         <Scripts />
