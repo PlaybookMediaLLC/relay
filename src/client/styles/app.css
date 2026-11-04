@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/geist";
+@import "@fontsource-variable/inter";
 @import "@fontsource-variable/geist-mono";
 
 /* shadcn components here are built on Base UI. The shadcn variables below are
@@ -11,11 +11,11 @@
 
 @theme {
   --container-8xl: 88rem;
-  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  /* Self-hosted through Fontsource, which declares font-display: swap. */
+  --font-sans: "Inter Variable", sans-serif;
   --font-display: var(--font-sans);
-  --font-mono:
-    "Geist Mono Variable", ui-monospace, SFMono-Regular, Menlo, Monaco,
-    Consolas, "Liberation Mono", "Courier New", monospace;
+  /* Code, IDs, API keys and tokens. */
+  --font-mono: "Geist Mono Variable", Menlo, monospace;
 }
 
 @theme inline {
