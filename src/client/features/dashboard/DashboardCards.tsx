@@ -4,8 +4,8 @@ import { QueryError } from "@/client/components/QueryState";
 import {
   CircleNotchIcon as LoaderCircle,
   CheckIcon as Check,
+  FileMagnifyingGlassIcon as ScanSearch,
 } from "@phosphor-icons/react";
-import { IconScanEye as ScanSearch } from "@tabler/icons-react";
 import { CardShell } from "@/client/components/CardShell";
 import { Progress } from "@/client/components/ui/progress";
 import { Button } from "@/client/components/ui/button";

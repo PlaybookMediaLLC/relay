@@ -6,8 +6,8 @@ import {
   ColumnsIcon as Columns3,
   ChatTextIcon as MessageSquare,
   SparkleIcon as Sparkles,
+  ListMagnifyingGlassIcon as SearchCheck,
 } from "@phosphor-icons/react";
-import { IconZoomCheck as SearchCheck } from "@tabler/icons-react";
 import { useHostedPlanGate } from "@/client/features/billing/HostedPlanGate";
 import { ResearchPageShell } from "@/client/features/ai-search/ResearchPageShell";
 import { PromptTrackingWithoutUpgradeButton } from "@/client/features/ai-visibility/shared";

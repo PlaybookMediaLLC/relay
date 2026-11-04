@@ -1,5 +1,5 @@
 import { PauseIcon as Pause } from "@phosphor-icons/react";
-import { IconCalendarTime as CalendarClock } from "@tabler/icons-react";
+import { CalendarBlankIcon as CalendarClock } from "@phosphor-icons/react";
 import { Button } from "@/client/components/ui/button";
 import type { AiTracker } from "@/shared/ai-visibility";
 import { scheduleLabel } from "@/shared/rank-tracking";

@@ -7,8 +7,8 @@ import {
   BracketsCurlyIcon as FileJson,
   ListIcon as List,
   TableIcon as Sheet,
+  TableIcon as FileSpreadsheet,
 } from "@phosphor-icons/react";
-import { IconFileSpreadsheet as FileSpreadsheet } from "@tabler/icons-react";
 import { Button } from "@/client/components/ui/button";
 import {
   DropdownMenu,

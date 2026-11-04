@@ -4,8 +4,8 @@ import {
   GlobeIcon as Globe,
   LightbulbIcon as Lightbulb,
   UsersIcon as Users,
+  ListChecksIcon as ClipboardCheck,
 } from "@phosphor-icons/react";
-import { IconClipboardCheck as ClipboardCheck } from "@tabler/icons-react";
 import type { DashboardActivation } from "@/server/features/dashboard/services/DashboardService";
 import type { DashboardSetupStep } from "@/types/schemas/dashboard";
 

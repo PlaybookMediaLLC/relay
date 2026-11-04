@@ -1,6 +1,10 @@
 import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ArrowSquareOutIcon as ExternalLink } from "@phosphor-icons/react";
+import {
+  ArrowSquareOutIcon as ExternalLink,
+  IconContext, // playbook-seam
+} from "@phosphor-icons/react";
+import { ICON_DEFAULTS } from "@/client/lib/iconDefaults"; // playbook-seam
 import { Button } from "@/client/components/ui/button";
 import { Alert, AlertDescription } from "@/client/components/ui/alert";
 import { Skeleton } from "@/client/components/ui/skeleton";
@@ -88,6 +92,8 @@ const root = document.getElementById("root");
 if (!root) throw new Error("Widget page is missing its #root element.");
 createRoot(root).render(
   <QueryClientProvider client={queryClient}>
-    <Widget />
+    <IconContext.Provider value={ICON_DEFAULTS} /* playbook-seam */>
+      <Widget />
+    </IconContext.Provider>
   </QueryClientProvider>,
 );

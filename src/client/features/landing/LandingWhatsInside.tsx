@@ -9,11 +9,9 @@ import {
   TargetIcon,
   GlobeIcon,
   type Icon,
+  ListChecksIcon,
+  ChatCircleTextIcon,
 } from "@phosphor-icons/react";
-import {
-  IconClipboardCheck,
-  IconMessageCircleSearch,
-} from "@tabler/icons-react";
 import {
   ConsoleArt,
   ExperimentArt,
@@ -215,13 +213,13 @@ const SMALL_FEATURES: {
     body: "Referring domains, anchors, new and lost links.",
   },
   {
-    icon: IconClipboardCheck,
+    icon: ListChecksIcon,
     title: "Site audit",
     body: "Crawl issues and Lighthouse scores, prioritized.",
     badge: "New",
   },
   {
-    icon: IconMessageCircleSearch,
+    icon: ChatCircleTextIcon,
     title: "AI visibility",
     body: "See how ChatGPT and Perplexity answer for your topics.",
   },

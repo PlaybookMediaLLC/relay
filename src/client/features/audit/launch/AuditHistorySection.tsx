@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import type { UseQueryResult } from "@tanstack/react-query";
 import { TrashIcon as Trash2 } from "@phosphor-icons/react";
-import { IconScanEye as ScanSearch } from "@tabler/icons-react";
+import { FileMagnifyingGlassIcon as ScanSearch } from "@phosphor-icons/react";
 import type { getAuditHistory } from "@/serverFunctions/audit";
 import { ConfirmDialog } from "@/client/components/ConfirmDialog";
 import { EmptyState } from "@/client/components/EmptyState";
