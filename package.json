@@ -137,7 +137,6 @@
     "http-message-sig": "0.3.0",
     "jose": "^6.2.12",
     "leaflet": "^1.9.4",
-    "lucide-react": "^0.542.0",
     "mdast-util-from-markdown": "2.0.3",
     "mdast-util-mdx": "3.0.0",
     "mdast-util-to-string": "4.0.0",
