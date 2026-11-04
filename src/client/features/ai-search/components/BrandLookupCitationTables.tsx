@@ -1,9 +1,9 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { Link } from "@tanstack/react-router";
 import {
-  IconExternalLink as ExternalLink,
-  IconSparkles as Sparkles,
-} from "@tabler/icons-react";
+  ArrowSquareOutIcon as ExternalLink,
+  SparkleIcon as Sparkles,
+} from "@phosphor-icons/react";
 import { SortableHeader } from "@/client/components/table/SortableHeader";
 import { HelpLabel } from "@/client/components/HelpLabel";
 import { ExpandableList } from "@/client/components/ExpandableList";

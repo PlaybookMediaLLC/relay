@@ -10,7 +10,7 @@ import {
   getRankPositionMatrix,
   estimateRankCheckCost,
 } from "@/serverFunctions/rank-tracking";
-import { IconAlertTriangle as AlertTriangle } from "@tabler/icons-react";
+import { WarningIcon as AlertTriangle } from "@phosphor-icons/react";
 import { Alert, AlertDescription } from "@/client/components/ui/alert";
 import { QueryState } from "@/client/components/QueryState";
 import { SkeletonCard } from "@/client/components/SkeletonPresets";

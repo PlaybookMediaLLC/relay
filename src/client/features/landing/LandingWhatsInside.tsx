@@ -1,16 +1,18 @@
 import type { ReactNode } from "react";
 import {
-  IconChartLine,
-  IconClipboardCheck,
-  IconFileText,
-  IconFlask,
-  IconLink,
-  IconListDetails,
-  IconMessageCircleSearch,
-  IconSearch,
-  IconTarget,
-  IconWorld,
+  ChartLineIcon,
+  FileTextIcon,
+  FlaskIcon,
+  LinkIcon,
+  ListBulletsIcon,
+  MagnifyingGlassIcon,
+  TargetIcon,
+  GlobeIcon,
   type Icon,
+} from "@phosphor-icons/react";
+import {
+  IconClipboardCheck,
+  IconMessageCircleSearch,
 } from "@tabler/icons-react";
 import {
   ConsoleArt,
@@ -39,7 +41,7 @@ const CARDS: Card[] = [
     emphasis: "Highest-impact fixes first.",
     color: "#dd55e7",
     bg: "#1c031f",
-    icon: IconTarget,
+    icon: TargetIcon,
     art: <OpportunityArt />,
   },
   {
@@ -48,7 +50,7 @@ const CARDS: Card[] = [
     emphasis: "See the trend, not a snapshot.",
     color: "#1cecbb",
     bg: "#031310",
-    icon: IconChartLine,
+    icon: ChartLineIcon,
     art: <RankArt />,
   },
   {
@@ -57,7 +59,7 @@ const CARDS: Card[] = [
     emphasis: "Save the ones worth writing.",
     color: "#0088ff",
     bg: "#030719",
-    icon: IconSearch,
+    icon: MagnifyingGlassIcon,
     art: <KeywordArt />,
   },
   {
@@ -66,7 +68,7 @@ const CARDS: Card[] = [
     emphasis: "Know what actually moved.",
     color: "#ff5252",
     bg: "#200401",
-    icon: IconFlask,
+    icon: FlaskIcon,
     art: <ExperimentArt />,
   },
   {
@@ -75,7 +77,7 @@ const CARDS: Card[] = [
     emphasis: "Read-only and private.",
     color: "#17c253",
     bg: "#02160b",
-    icon: IconListDetails,
+    icon: ListBulletsIcon,
     art: <ConsoleArt />,
   },
   {
@@ -84,7 +86,7 @@ const CARDS: Card[] = [
     emphasis: "Share it with one link.",
     color: "#ffdd00",
     bg: "#191303",
-    icon: IconFileText,
+    icon: FileTextIcon,
     art: <ReportArt />,
   },
 ];
@@ -135,10 +137,7 @@ export function LandingWhatsInside() {
       <Reveal className="mx-auto mt-32 grid w-full max-w-[370px] grid-cols-1 gap-10 px-9 md:max-w-[828px] md:grid-cols-2 lg:max-w-[1024px] lg:grid-cols-4 lg:gap-20">
         {SMALL_FEATURES.map(({ icon: Icon, title, body, badge }) => (
           <div key={title} className="flex gap-3 md:block">
-            <Icon
-              className="mb-0 size-6 shrink-0 text-[#fafafa] md:mb-3"
-              stroke={1.5}
-            />
+            <Icon className="mb-0 size-6 shrink-0 text-[#fafafa] md:mb-3" />
             <div>
               <p className="mb-[9px] flex items-center text-[16px] leading-[22.4px] tracking-[0.16px] text-[#fafafa]">
                 {title}
@@ -181,7 +180,7 @@ function FeatureCard({ card }: { card: Card }) {
           className="mr-2 grid size-6 shrink-0 place-items-center rounded-md"
           style={{ background: card.color }}
         >
-          <Icon className="size-4 text-black/70" stroke={2} />
+          <Icon className="size-4 text-black/70" />
         </span>
         <h3
           className="text-[16px] font-medium leading-[140%] tracking-[0.16px]"
@@ -206,12 +205,12 @@ const SMALL_FEATURES: {
   badge?: string;
 }[] = [
   {
-    icon: IconWorld,
+    icon: GlobeIcon,
     title: "Domain overview",
     body: "Traffic, keywords and competitors for any domain.",
   },
   {
-    icon: IconLink,
+    icon: LinkIcon,
     title: "Backlinks",
     body: "Referring domains, anchors, new and lost links.",
   },

@@ -2,15 +2,15 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
-  IconExternalLink as ExternalLink,
-  IconFileDownload as FileDown,
-  IconWorld as Globe,
-  IconLock as Lock,
-  IconMaximize as Maximize2,
-  IconMinimize as Minimize2,
-  IconDots as MoreHorizontal,
-  IconTrash as Trash2,
-} from "@tabler/icons-react";
+  ArrowSquareOutIcon as ExternalLink,
+  FileArrowDownIcon as FileDown,
+  GlobeIcon as Globe,
+  LockIcon as Lock,
+  CornersOutIcon as Maximize2,
+  CornersInIcon as Minimize2,
+  DotsThreeIcon as MoreHorizontal,
+  TrashIcon as Trash2,
+} from "@phosphor-icons/react";
 import { z } from "zod";
 import { BackLink, PageHeader } from "@/client/components/PageHeader";
 import { QueryError } from "@/client/components/QueryState";

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
-  IconLoader2 as LoaderCircle,
-  IconPlus as Plus,
-} from "@tabler/icons-react";
+  CircleNotchIcon as LoaderCircle,
+  PlusIcon as Plus,
+} from "@phosphor-icons/react";
 import { Button } from "@/client/components/ui/button";
 import {
   WebsiteCompetitorRow,

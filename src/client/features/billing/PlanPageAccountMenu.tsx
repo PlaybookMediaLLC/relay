@@ -1,8 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import {
-  IconSettings as Settings,
-  IconUser as User,
-} from "@tabler/icons-react";
+import { GearIcon as Settings, UserIcon as User } from "@phosphor-icons/react";
 import { ThemePreferenceDropdownItems } from "@/client/components/ThemePreferenceMenuItems";
 import { Button } from "@/client/components/ui/button";
 import {

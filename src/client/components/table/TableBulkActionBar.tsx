@@ -1,4 +1,7 @@
-import { IconDownload as Download, IconX as X } from "@tabler/icons-react";
+import {
+  DownloadSimpleIcon as Download,
+  XIcon as X,
+} from "@phosphor-icons/react";
 import type { ReactNode } from "react";
 import { Button } from "@/client/components/ui/button";
 import {

@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  IconLink as Link2,
-  IconPlaylistAdd as ListPlus,
-  IconMessages as MessagesSquare,
-} from "@tabler/icons-react";
+  LinkIcon as Link2,
+  ListPlusIcon as ListPlus,
+  ChatsIcon as MessagesSquare,
+} from "@phosphor-icons/react";
 import { z } from "zod";
 import { PromptResearchPage } from "@/client/features/ai-visibility/PromptResearchPage";
 import { PromptTrackingWithoutUpgradeButton } from "@/client/features/ai-visibility/shared";

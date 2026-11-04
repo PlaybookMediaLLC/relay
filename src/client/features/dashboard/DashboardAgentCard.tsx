@@ -1,7 +1,7 @@
 import type { ComponentType, ReactNode } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { cn } from "cn";
-import { Bot, X } from "lucide-react";
+import { RobotIcon as Bot, XIcon as X } from "@phosphor-icons/react";
 import { CopyButton } from "@/client/components/CopyButton";
 import { Button } from "@/client/components/ui/button";
 import { Card } from "@/client/components/ui/card";

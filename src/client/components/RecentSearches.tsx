@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
 import {
-  IconClock as Clock,
-  IconHistory as History,
-  IconX as X,
+  ClockIcon as Clock,
+  ClockCounterClockwiseIcon as History,
+  XIcon as X,
   type Icon as AppIcon,
-} from "@tabler/icons-react";
+} from "@phosphor-icons/react";
 import { EmptyState } from "@/client/components/EmptyState";
 import { Button } from "@/client/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/client/components/ui/card";

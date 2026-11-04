@@ -1,8 +1,8 @@
 import { useState, type ReactNode } from "react";
 import {
-  IconChevronRight as ChevronRight,
-  IconExternalLink as ExternalLink,
-} from "@tabler/icons-react";
+  CaretRightIcon as ChevronRight,
+  ArrowSquareOutIcon as ExternalLink,
+} from "@phosphor-icons/react";
 import { TableCell, TableRow } from "@/client/components/ui/table";
 import { SeverityBadge } from "@/client/features/audit/shared";
 import type { LighthouseIssue } from "./types";

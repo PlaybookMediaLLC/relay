@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { IconBell } from "@tabler/icons-react";
+import { BellIcon } from "@phosphor-icons/react";
 import { Button } from "@/client/components/ui/button";
 import {
   Sheet,
@@ -48,7 +48,7 @@ export function NotificationsBell() {
         }
         onClick={() => setOpen(true)}
       >
-        <IconBell />
+        <BellIcon />
         <span>Notifications</span>
       </SidebarMenuButton>
       {unread > 0 && <SidebarMenuBadge>{unread}</SidebarMenuBadge>}

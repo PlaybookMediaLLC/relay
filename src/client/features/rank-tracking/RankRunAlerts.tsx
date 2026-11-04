@@ -1,4 +1,4 @@
-import { IconAlertTriangle as AlertTriangle } from "@tabler/icons-react";
+import { WarningIcon as AlertTriangle } from "@phosphor-icons/react";
 import { Alert, AlertDescription } from "@/client/components/ui/alert";
 import { InsufficientCreditsError } from "@/client/features/billing/InsufficientCreditsError";
 import { isOutOfCreditsRunError } from "@/shared/rank-tracking";

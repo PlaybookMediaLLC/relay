@@ -2,7 +2,7 @@ import { AiSetupCostNote } from "./AiSetupCostNote";
 import { useEffect, useState, type ReactNode } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { NavTab, NavTabs } from "@/client/components/NavTabs";
-import { IconSparkles as Sparkles } from "@tabler/icons-react";
+import { SparkleIcon as Sparkles } from "@phosphor-icons/react";
 import { Alert, AlertDescription } from "@/client/components/ui/alert";
 import { Button } from "@/client/components/ui/button";
 import { Card, CardContent } from "@/client/components/ui/card";

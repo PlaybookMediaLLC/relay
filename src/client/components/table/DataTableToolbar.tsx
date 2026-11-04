@@ -1,7 +1,7 @@
 import {
-  IconRotateClockwise2 as RotateCcw,
-  IconAdjustmentsHorizontal as SlidersHorizontal,
-} from "@tabler/icons-react";
+  ArrowClockwiseIcon as RotateCcw,
+  SlidersHorizontalIcon as SlidersHorizontal,
+} from "@phosphor-icons/react";
 import type { ComponentProps, ReactNode } from "react";
 import { Badge } from "@/client/components/ui/badge";
 import { Button } from "@/client/components/ui/button";

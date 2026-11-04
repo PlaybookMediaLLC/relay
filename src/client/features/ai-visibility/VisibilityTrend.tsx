@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
-  IconInfoCircle as Info,
-  IconAlertTriangle as TriangleAlert,
-} from "@tabler/icons-react";
+  InfoIcon as Info,
+  WarningIcon as TriangleAlert,
+} from "@phosphor-icons/react";
 import { cn } from "cn";
 import { SegmentedToggle } from "@/client/components/SegmentedToggle";
 import { Skeleton } from "@/client/components/ui/skeleton";

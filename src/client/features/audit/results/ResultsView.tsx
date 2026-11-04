@@ -1,6 +1,6 @@
 import { MetricsTable } from "@/client/components/MetricsTable";
 import { useMemo, type ReactNode } from "react";
-import { IconShieldExclamation as ShieldAlert } from "@tabler/icons-react";
+import { ShieldWarningIcon as ShieldAlert } from "@phosphor-icons/react";
 import {
   exportIssues,
   exportPages,

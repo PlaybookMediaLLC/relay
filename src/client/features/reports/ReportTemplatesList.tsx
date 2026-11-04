@@ -1,8 +1,8 @@
 import {
-  IconTemplate as LayoutTemplate,
-  IconPencil as Pencil,
-  IconTrash as Trash2,
-} from "@tabler/icons-react";
+  LayoutIcon as LayoutTemplate,
+  PencilSimpleIcon as Pencil,
+  TrashIcon as Trash2,
+} from "@phosphor-icons/react";
 import { EmptyState } from "@/client/components/EmptyState";
 import { RowActionsMenu } from "@/client/components/RowActionsMenu";
 import { DropdownMenuItem } from "@/client/components/ui/dropdown-menu";

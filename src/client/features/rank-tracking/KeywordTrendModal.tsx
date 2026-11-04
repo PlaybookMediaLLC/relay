@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
 import {
-  IconCopy as Copy,
-  IconDownload as Download,
-  IconExternalLink as ExternalLink,
-} from "@tabler/icons-react";
+  CopyIcon as Copy,
+  DownloadSimpleIcon as Download,
+  ArrowSquareOutIcon as ExternalLink,
+} from "@phosphor-icons/react";
 import { reverse, sortBy } from "remeda";
 import { toast } from "sonner";
 import { useQuery } from "@tanstack/react-query";

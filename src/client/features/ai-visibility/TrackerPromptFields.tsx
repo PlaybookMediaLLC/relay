@@ -2,10 +2,10 @@ import { useId } from "react";
 import { useMutation } from "@tanstack/react-query";
 import Papa from "papaparse";
 import {
-  IconPlus as Plus,
-  IconLoader2 as Loader2,
-  IconSparkles as Sparkles,
-} from "@tabler/icons-react";
+  PlusIcon as Plus,
+  CircleNotchIcon as Loader2,
+  SparkleIcon as Sparkles,
+} from "@phosphor-icons/react";
 import { generateAiVisibilityPrompts } from "@/serverFunctions/ai-visibility";
 import { AiQueryError } from "./shared";
 import { toast } from "sonner";

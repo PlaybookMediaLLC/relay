@@ -1,8 +1,8 @@
 import { KeywordCostPreview } from "./KeywordCostPreview";
 import {
-  IconInfoCircle as Info,
-  IconSearch as Search,
-} from "@tabler/icons-react";
+  InfoIcon as Info,
+  MagnifyingGlassIcon as Search,
+} from "@phosphor-icons/react";
 import { getFieldError } from "@/client/lib/forms";
 import { MAX_KEYWORDS_PER_SUBMIT } from "@/client/features/keywords/keywordResearchTypes";
 import { isLabsLocationCode } from "@/client/features/keywords/locations";

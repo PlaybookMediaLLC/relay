@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { IconInfoCircle as Info, IconPlus as Plus } from "@tabler/icons-react";
+import { InfoIcon as Info, PlusIcon as Plus } from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { ExportMenu } from "@/client/components/ExportMenu";
 import { SegmentedToggle } from "@/client/components/SegmentedToggle";

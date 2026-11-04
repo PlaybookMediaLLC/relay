@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { CalendarDays, List, Pencil, Play } from "lucide-react";
+import {
+  CalendarDotsIcon as CalendarDays,
+  ListIcon as List,
+  PencilSimpleIcon as Pencil,
+  PlayIcon as Play,
+} from "@phosphor-icons/react";
 import { getLocalTracker, startLocalCheck } from "@/serverFunctions/local-seo";
 import { QueryError, QueryState } from "@/client/components/QueryState";
 import { ConfirmDialog } from "@/client/components/ConfirmDialog";

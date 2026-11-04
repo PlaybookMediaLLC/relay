@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { IconLayoutSidebar as PanelLeft } from "@tabler/icons-react";
+import { SidebarSimpleIcon as PanelLeft } from "@phosphor-icons/react";
 import { BrandMark } from "@/client/components/BrandMark";
 import { SidebarTrigger, useSidebar } from "@/client/components/ui/sidebar";
 import {

@@ -1,8 +1,8 @@
 import {
-  IconFileDownload as FileDown,
-  IconDeviceFloppy as Save,
-  IconTable as Sheet,
-} from "@tabler/icons-react";
+  FileArrowDownIcon as FileDown,
+  FloppyDiskIcon as Save,
+  TableIcon as Sheet,
+} from "@phosphor-icons/react";
 import {
   lastTwelveMonths,
   MONTH_SHORT_LABELS,

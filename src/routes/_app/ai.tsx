@@ -19,9 +19,9 @@ import {
 } from "@/client/components/ui/card";
 import { PageHeader } from "@/client/components/PageHeader";
 import {
-  IconArrowUpRight as ArrowUpRight,
-  IconInfoCircle as Info,
-} from "@tabler/icons-react";
+  ArrowUpRightIcon as ArrowUpRight,
+  InfoIcon as Info,
+} from "@phosphor-icons/react";
 import { getClientAuthMode } from "@/lib/auth-mode";
 import { captureClientEvent } from "@/client/lib/posthog";
 import {

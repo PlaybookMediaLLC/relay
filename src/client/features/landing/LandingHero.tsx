@@ -1,11 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
-  IconBattery3,
-  IconBrandGoogle,
-  IconChevronRight,
-  IconWifi,
-} from "@tabler/icons-react";
+  BatteryHighIcon,
+  GoogleLogoIcon,
+  CaretRightIcon,
+  WifiHighIcon,
+} from "@phosphor-icons/react";
 import { BrandMark } from "@/client/components/BrandMark";
 import { AppWindow } from "./AppWindow";
 import { Logo } from "./LandingPrimitives";
@@ -149,7 +149,7 @@ export function LandingHero({ signedIn }: { signedIn: boolean }) {
                     to={signedIn ? "/app" : "/sign-in"}
                     className="landing-cta-light"
                   >
-                    <IconBrandGoogle className="size-[18px]" />
+                    <GoogleLogoIcon className="size-[18px]" />
                     {signedIn ? "Open Relay" : "Continue with Google"}
                   </Link>
                 </div>
@@ -158,7 +158,7 @@ export function LandingHero({ signedIn }: { signedIn: boolean }) {
                   className="mt-3 inline-flex items-center gap-1 text-[13px] text-white/50 transition-colors hover:text-white/70"
                 >
                   Free plan included, no card required
-                  <IconChevronRight className="size-3.5" />
+                  <CaretRightIcon className="size-3.5" />
                 </a>
                 <p className="mt-12 text-[16px] leading-[22.4px] tracking-[0.16px]">
                   <Typewriter text="SEO fixes from your Search Console, ranked by clicks." />
@@ -248,8 +248,8 @@ function MenuBar() {
         </span>
       ))}
       <span className="ml-auto flex items-center gap-3 text-white/75">
-        <IconBattery3 className="size-4" stroke={1.6} />
-        <IconWifi className="size-3.5" stroke={2} />
+        <BatteryHighIcon className="size-4" />
+        <WifiHighIcon className="size-3.5" />
         <span>Wed 9:41 AM</span>
       </span>
     </div>

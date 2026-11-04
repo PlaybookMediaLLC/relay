@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
-import { LineChart } from "lucide-react";
+import { ChartLineIcon as LineChart } from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { Button } from "@/client/components/ui/button";
 import {

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { IconTarget as Target } from "@tabler/icons-react";
+import { TargetIcon as Target } from "@phosphor-icons/react";
 import { EmptyState } from "@/client/components/EmptyState";
 import {
   Table,

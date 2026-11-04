@@ -1,13 +1,13 @@
 import type { ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
-  IconAlertCircle as AlertCircle,
-  IconCircleCheck as CheckCircle,
-  IconFileAlert as FileWarning,
-  IconInfoCircle as Info,
-  IconAlertTriangle as TriangleAlert,
+  WarningCircleIcon as AlertCircle,
+  CheckCircleIcon as CheckCircle,
+  InfoIcon as Info,
+  WarningIcon as TriangleAlert,
   type Icon as AppIcon,
-} from "@tabler/icons-react";
+} from "@phosphor-icons/react";
+import { IconFileAlert as FileWarning } from "@tabler/icons-react";
 import { cn } from "cn";
 import { Badge } from "@/client/components/ui/badge";
 import { Spinner } from "@/client/components/ui/spinner";

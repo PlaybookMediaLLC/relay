@@ -1,5 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { IconWorld as Globe, IconSearch as Search } from "@tabler/icons-react";
+import {
+  GlobeIcon as Globe,
+  MagnifyingGlassIcon as Search,
+} from "@phosphor-icons/react";
 import { EmptyState } from "@/client/components/EmptyState";
 import { RecentSearches } from "@/client/components/RecentSearches";
 import { LOCATIONS } from "@/client/features/keywords/utils";

@@ -4,11 +4,11 @@ import { Link, useRouter } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { findLast } from "remeda";
 import {
-  IconFolderCog as FolderCog,
-  IconLayoutGrid as LayoutGrid, // playbook-seam
-  IconPlus as Plus,
-  IconSettings as Settings,
-} from "@tabler/icons-react";
+  GridFourIcon as LayoutGrid, // playbook-seam
+  PlusIcon as Plus,
+  GearIcon as Settings,
+} from "@phosphor-icons/react";
+import { IconFolderCog as FolderCog } from "@tabler/icons-react";
 import { setLastProjectId } from "@/client/lib/active-project";
 import { CreateProjectModal } from "@/client/features/projects/CreateProjectModal";
 import {

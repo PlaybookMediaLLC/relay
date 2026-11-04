@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { IconTrash as Trash2 } from "@tabler/icons-react";
+import { TrashIcon as Trash2 } from "@phosphor-icons/react";
 import { useState } from "react";
 import { toast } from "sonner";
 import {

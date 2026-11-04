@@ -6,7 +6,7 @@ import {
   useQuery,
   type QueryClient,
 } from "@tanstack/react-query";
-import { IconLoader2 as Loader2 } from "@tabler/icons-react";
+import { CircleNotchIcon as Loader2 } from "@phosphor-icons/react";
 import { FormDialog } from "@/client/components/FormDialog";
 import { Button } from "@/client/components/ui/button";
 import {

@@ -1,4 +1,8 @@
-import { ExternalLink, MessageSquare, RefreshCw } from "lucide-react";
+import {
+  ArrowSquareOutIcon as ExternalLink,
+  ChatIcon as MessageSquare,
+  ArrowsClockwiseIcon as RefreshCw,
+} from "@phosphor-icons/react";
 import { Button } from "@/client/components/ui/button";
 import { safeHttpUrl } from "@/shared/safe-url";
 import type { SearchConsoleData } from "@/shared/mcp-contracts";

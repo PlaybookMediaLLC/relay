@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { IconSparkles as Sparkles } from "@tabler/icons-react";
+import { SparkleIcon as Sparkles } from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { Card, CardContent } from "@/client/components/ui/card";
 import { WebsiteResearchProgress } from "./WebsiteResearchProgress";

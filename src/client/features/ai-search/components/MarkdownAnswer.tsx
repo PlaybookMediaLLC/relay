@@ -1,8 +1,8 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import {
-  IconChevronDown as ChevronDown,
-  IconChevronUp as ChevronUp,
-} from "@tabler/icons-react";
+  CaretDownIcon as ChevronDown,
+  CaretUpIcon as ChevronUp,
+} from "@phosphor-icons/react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { MARKDOWN_COMPONENTS } from "@/client/components/Markdown";

@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
 import {
-  IconAlertCircle as CircleAlert,
-  IconInbox as Inbox,
-  IconZoomCancel as SearchX,
+  WarningCircleIcon as CircleAlert,
+  TrayIcon as Inbox,
   type Icon as AppIcon,
-} from "@tabler/icons-react";
+} from "@phosphor-icons/react";
+import { IconZoomCancel as SearchX } from "@tabler/icons-react";
 import {
   Empty,
   EmptyContent,

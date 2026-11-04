@@ -265,14 +265,16 @@ select:not([data-slot]) {
   }
 }
 
-/* Icons: every @tabler/icons-react glyph renders <svg class="tabler-icon ...">.
-   Change the tokens below to restyle all icons at once. Size utilities on an
-   icon (size-4, size-5...) still win because they sit in the utilities layer.
-   Shared sizing: 14px in navigation, 20px on cards, 16px elsewhere. */
+/* Icons are Phosphor (@phosphor-icons/react), whose glyphs all draw on a
+   256-unit viewBox and fill with currentColor. A few without a Phosphor match
+   stay on @tabler/icons-react (<svg class="tabler-icon">). Change the tokens
+   below to restyle all icons at once. Size utilities on an icon (size-4,
+   size-5...) still win because they sit in the utilities layer.
+   Shared sizing: 20px in navigation and on cards, 16px elsewhere. */
 :root {
   --icon-size: 1rem;
   --icon-stroke: 1.5;
-  --icon-nav: 14px;
+  --icon-nav: 20px;
   --icon-card: 20px;
 }
 
@@ -281,11 +283,15 @@ select:not([data-slot]) {
     @apply border-border outline-ring/50;
   }
 
+  svg[viewBox="0 0 256 256"],
   .tabler-icon {
     width: var(--icon-size);
     height: var(--icon-size);
-    stroke-width: var(--icon-stroke);
     flex-shrink: 0;
+  }
+
+  .tabler-icon {
+    stroke-width: var(--icon-stroke);
   }
 }
 

@@ -7,9 +7,9 @@ import {
   TableRow,
 } from "@/client/components/ui/table";
 import {
-  IconInfoCircle as Info,
-  IconAlertTriangle as TriangleAlert,
-} from "@tabler/icons-react";
+  InfoIcon as Info,
+  WarningIcon as TriangleAlert,
+} from "@phosphor-icons/react";
 import { Alert, AlertTitle } from "@/client/components/ui/alert";
 import { Badge } from "@/client/components/ui/badge";
 import { Card } from "@/client/components/ui/card";

@@ -5,7 +5,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { IconAdjustmentsHorizontal as SlidersHorizontal } from "@tabler/icons-react";
+import { SlidersHorizontalIcon as SlidersHorizontal } from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { QueryError } from "@/client/components/QueryState";
 import { ExportMenu } from "@/client/components/ExportMenu";

@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { IconList as List, IconLayoutRows as Rows3 } from "@tabler/icons-react";
+import { ListIcon as List, RowsIcon as Rows3 } from "@phosphor-icons/react";
 import type { OnChangeFn, SortingState } from "@tanstack/react-table";
 import { BacklinksFilterPanel } from "./BacklinksFilterPanel";
 import { backlinksFilterConditionLimit } from "./backlinksFilterTypes";

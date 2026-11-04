@@ -1,11 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import { IconInfoCircle } from "@tabler/icons-react";
+import { InfoIcon } from "@phosphor-icons/react";
 import { Alert, AlertDescription } from "@/client/components/ui/alert";
 
 export function RankTrackingChangesAlert({ projectId }: { projectId: string }) {
   return (
     <Alert variant="info">
-      <IconInfoCircle />
+      <InfoIcon />
       <AlertDescription className="text-foreground">
         <p className="font-medium">Check the status of each rank run.</p>
         <p>

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { IconAlertCircle as AlertCircle } from "@tabler/icons-react";
+import { WarningCircleIcon as AlertCircle } from "@phosphor-icons/react";
 import { Alert, AlertTitle } from "@/client/components/ui/alert";
 import { Button } from "@/client/components/ui/button";
 import {

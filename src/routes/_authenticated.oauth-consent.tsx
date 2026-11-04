@@ -1,12 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  IconBuilding as Building2,
-  IconCheck as Check,
-  IconDatabase as Database,
-  IconKey as KeyRound,
-  IconUser as User,
-} from "@tabler/icons-react";
+  BuildingIcon as Building2,
+  CheckIcon as Check,
+  DatabaseIcon as Database,
+  KeyIcon as KeyRound,
+  UserIcon as User,
+} from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { useSession } from "@/lib/auth-client";
 import { clearLastProjectId } from "@/client/lib/active-project";

@@ -2,10 +2,7 @@ import { DomainCostPreview } from "./components/DomainCostPreview";
 /* eslint-disable max-lines, max-lines-per-function -- Domain Overview keeps page-only orchestration colocated to avoid fake indirection. */
 import { useCallback, useEffect, useMemo, useRef, type FormEvent } from "react";
 import { useForm, useStore } from "@tanstack/react-form";
-import {
-  IconWorld as Globe,
-  IconInfoCircle as Info,
-} from "@tabler/icons-react";
+import { GlobeIcon as Globe, InfoIcon as Info } from "@phosphor-icons/react";
 import { BackButton, PageHeader } from "@/client/components/PageHeader";
 import { Alert, AlertDescription } from "@/client/components/ui/alert";
 import { Badge } from "@/client/components/ui/badge";

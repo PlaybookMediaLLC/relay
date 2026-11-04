@@ -1,22 +1,22 @@
 import { sortBy } from "remeda";
 import {
-  IconBookmark as Bookmark,
-  IconRobot as Bot,
-  IconBrain as Brain,
-  IconChartLine as ChartLine,
-  IconClipboardCheck as ClipboardCheck,
-  IconFileText as FileText,
-  IconFlask as FlaskConical,
-  IconWorld as Globe,
-  IconLayoutDashboard as LayoutDashboard,
-  IconListCheck as ListCheck, // playbook-seam
-  IconLink as Link2,
-  IconMapPin as MapPin,
-  IconMessage as MessageSquare,
-  IconSearch as Search,
-  IconTrendingUp as TrendingUp,
-  IconTarget as Target,
-} from "@tabler/icons-react";
+  BookmarkSimpleIcon as Bookmark,
+  RobotIcon as Bot,
+  BrainIcon as Brain,
+  ChartLineIcon as ChartLine,
+  FileTextIcon as FileText,
+  FlaskIcon as FlaskConical,
+  GlobeIcon as Globe,
+  SquaresFourIcon as LayoutDashboard,
+  ListChecksIcon as ListCheck, // playbook-seam
+  LinkIcon as Link2,
+  MapPinIcon as MapPin,
+  ChatTextIcon as MessageSquare,
+  MagnifyingGlassIcon as Search,
+  TrendUpIcon as TrendingUp,
+  TargetIcon as Target,
+} from "@phosphor-icons/react";
+import { IconClipboardCheck as ClipboardCheck } from "@tabler/icons-react";
 import { linkOptions } from "@tanstack/react-router";
 import { GoogleGlyphMuted } from "@/client/features/gsc/GoogleGlyph";
 

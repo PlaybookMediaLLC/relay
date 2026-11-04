@@ -1,8 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import {
-  IconLink as Link2,
-  IconSettings as Settings,
-} from "@tabler/icons-react";
+import { LinkIcon as Link2, GearIcon as Settings } from "@phosphor-icons/react";
 import { EmptyState } from "@/client/components/EmptyState";
 import { Button } from "@/client/components/ui/button";
 import {

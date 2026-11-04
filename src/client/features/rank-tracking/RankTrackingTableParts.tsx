@@ -1,4 +1,4 @@
-import { IconSparkles as Sparkles } from "@tabler/icons-react";
+import { SparkleIcon as Sparkles } from "@phosphor-icons/react";
 import { Badge } from "@/client/components/ui/badge";
 import {
   Tooltip,

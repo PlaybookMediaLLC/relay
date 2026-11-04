@@ -1,8 +1,8 @@
 import {
-  IconCheck as Check,
-  IconPencil as Pencil,
-  IconTrash as Trash2,
-} from "@tabler/icons-react";
+  CheckIcon as Check,
+  PencilSimpleIcon as Pencil,
+  TrashIcon as Trash2,
+} from "@phosphor-icons/react";
 import { DomainFavicon } from "@/client/features/ai-visibility/DomainFavicon";
 import { Button } from "@/client/components/ui/button";
 import { Input } from "@/client/components/ui/input";

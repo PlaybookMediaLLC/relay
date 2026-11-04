@@ -1,9 +1,9 @@
 import { useIsMutating, useMutation, useQuery } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import {
-  IconShieldExclamation as ShieldAlert,
-  IconShieldCheck as ShieldCheck,
-} from "@tabler/icons-react";
+  ShieldWarningIcon as ShieldAlert,
+  ShieldCheckIcon as ShieldCheck,
+} from "@phosphor-icons/react";
 import {
   CrawlerAccessForm,
   CrawlerAccessSetupHint,

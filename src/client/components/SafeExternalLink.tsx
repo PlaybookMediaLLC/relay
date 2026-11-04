@@ -1,4 +1,4 @@
-import { IconExternalLink as ExternalLink } from "@tabler/icons-react";
+import { ArrowSquareOutIcon as ExternalLink } from "@phosphor-icons/react";
 
 import { safeHttpUrl } from "@/shared/safe-url";
 

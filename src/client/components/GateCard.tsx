@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { Icon as AppIcon } from "@tabler/icons-react";
+import { type Icon as AppIcon } from "@phosphor-icons/react";
 import { cn } from "cn";
 import { Card, CardContent } from "@/client/components/ui/card";
 

@@ -1,6 +1,6 @@
 import type { ComponentProps, ReactNode } from "react";
 import { createLink } from "@tanstack/react-router";
-import { IconChevronLeft as ChevronLeft } from "@tabler/icons-react";
+import { CaretLeftIcon as ChevronLeft } from "@phosphor-icons/react";
 import { cn } from "cn";
 
 /**

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { IconArrowRight as ArrowRight } from "@tabler/icons-react";
+import { ArrowRightIcon as ArrowRight } from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { QueryError } from "@/client/components/QueryState";
 import { StatusScreen } from "@/client/components/StatusScreen";

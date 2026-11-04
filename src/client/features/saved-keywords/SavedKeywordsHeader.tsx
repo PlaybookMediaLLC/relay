@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { EmptyState } from "@/client/components/EmptyState";
 import { useState } from "react";
-import { IconRefresh as RefreshCw } from "@tabler/icons-react";
+import { ArrowsClockwiseIcon as RefreshCw } from "@phosphor-icons/react";
 import { ConfirmDialog } from "@/client/components/ConfirmDialog";
 import { ExportMenu } from "@/client/components/ExportMenu";
 import { PageHeader } from "@/client/components/PageHeader";

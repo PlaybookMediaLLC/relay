@@ -1,7 +1,7 @@
 import {
-  IconArrowDown as ArrowDown,
-  IconArrowUp as ArrowUp,
-} from "@tabler/icons-react";
+  ArrowDownIcon as ArrowDown,
+  ArrowUpIcon as ArrowUp,
+} from "@phosphor-icons/react";
 import { HelpLabel } from "@/client/components/HelpLabel";
 
 type SortableColumn = {

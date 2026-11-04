@@ -1,7 +1,7 @@
 import {
-  IconChevronLeft as ChevronLeft,
-  IconChevronRight as ChevronRight,
-} from "@tabler/icons-react";
+  CaretLeftIcon as ChevronLeft,
+  CaretRightIcon as ChevronRight,
+} from "@phosphor-icons/react";
 import { useEffect, type ReactNode } from "react";
 import { Button } from "@/client/components/ui/button";
 import {

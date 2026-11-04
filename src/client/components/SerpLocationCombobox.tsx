@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { IconMapPin as MapPin } from "@tabler/icons-react";
+import { MapPinIcon as MapPin } from "@phosphor-icons/react";
 import { Badge } from "@/client/components/ui/badge";
 import {
   Combobox,

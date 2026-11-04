@@ -1,7 +1,7 @@
 import {
-  IconAlertTriangle as AlertTriangle,
-  IconInfoCircle as Info,
-} from "@tabler/icons-react";
+  WarningIcon as AlertTriangle,
+  InfoIcon as Info,
+} from "@phosphor-icons/react";
 import { SafeExternalLink } from "@/client/components/SafeExternalLink";
 import {
   Alert,

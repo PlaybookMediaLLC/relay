@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
 import { Line, LineChart, ReferenceArea } from "recharts";
-import { IconTrendingUp as TrendingUp } from "@tabler/icons-react";
+import { TrendUpIcon as TrendingUp } from "@phosphor-icons/react";
 import { EmptyState } from "@/client/components/EmptyState";
 import { SegmentedToggle } from "@/client/components/SegmentedToggle";
 import {

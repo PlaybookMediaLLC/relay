@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { IconAlertCircle as CircleAlert } from "@tabler/icons-react";
+import { WarningCircleIcon as CircleAlert } from "@phosphor-icons/react";
 import { EmptyState } from "@/client/components/EmptyState";
 import {
   Alert,

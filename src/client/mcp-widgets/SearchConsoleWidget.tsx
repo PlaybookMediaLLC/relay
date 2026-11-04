@@ -3,7 +3,11 @@ import { z } from "zod";
 import { SearchConsoleConnection } from "./SearchConsoleConnection";
 import { SearchConsoleTable } from "./SearchConsoleTable";
 import { SearchConsoleDateRange } from "./SearchConsoleDateRange";
-import { ArrowLeft, MessageSquare, Save } from "lucide-react";
+import {
+  ArrowLeftIcon as ArrowLeft,
+  ChatIcon as MessageSquare,
+  FloppyDiskIcon as Save,
+} from "@phosphor-icons/react";
 import { Button } from "@/client/components/ui/button";
 import { Input } from "@/client/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/client/components/ui/tabs";

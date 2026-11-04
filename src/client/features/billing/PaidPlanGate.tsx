@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import type { Icon as AppIcon } from "@tabler/icons-react";
+import { type Icon as AppIcon } from "@phosphor-icons/react";
 import { GateCard } from "@/client/components/GateCard";
 import { SkeletonCard } from "@/client/components/SkeletonPresets";
 import { Button } from "@/client/components/ui/button";

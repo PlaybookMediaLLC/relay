@@ -1,8 +1,8 @@
 import {
-  IconMinus as Minus,
-  IconPlus as Plus,
-  IconX as X,
-} from "@tabler/icons-react";
+  MinusIcon as Minus,
+  PlusIcon as Plus,
+  XIcon as X,
+} from "@phosphor-icons/react";
 import { useState, type KeyboardEvent } from "react";
 import {
   DataTableFilterGroup,

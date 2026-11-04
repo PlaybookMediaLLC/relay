@@ -6,15 +6,16 @@ import { useState, type ComponentType } from "react";
 import { toast } from "sonner";
 import { cn } from "cn";
 import {
-  IconArrowsLeftRight as ArrowLeftRight,
-  IconCheck as Check,
-  IconChevronLeft as ChevronLeft,
-  IconHelpCircle as CircleHelp,
-  IconCreditCard as CreditCard,
-  IconLogout as LogOut,
-  IconSettings as Settings,
-  IconSelector as Selector,
-} from "@tabler/icons-react";
+  ArrowsLeftRightIcon as ArrowLeftRight,
+  CheckIcon as Check,
+  CaretLeftIcon as ChevronLeft,
+  QuestionIcon as CircleHelp,
+  CreditCardIcon as CreditCard,
+  SignOutIcon as LogOut,
+  GearIcon as Settings,
+  CaretUpDownIcon as Selector,
+  type IconWeight,
+} from "@phosphor-icons/react";
 import { organizationContextQueryOptions } from "@/client/features/team/organizationQueries";
 import { switchOrganization } from "@/serverFunctions/organization";
 import { clearLastProjectId } from "@/client/lib/active-project";
@@ -70,7 +71,7 @@ import {
 // Quiet rows that brighten on hover; the active row is a soft raised pill.
 // In the collapsed rail the same rows become 32px icon buttons.
 const navButtonClass =
-  "h-10 gap-2.5 rounded-lg px-2.5 text-ui font-medium text-sidebar-foreground transition-colors hover:bg-sidebar-accent/70 hover:text-sidebar-accent-foreground data-active:bg-sidebar-active data-active:text-sidebar-accent-foreground data-active:shadow-[0_1px_2px_rgb(0_0_0/0.06),inset_0_0_0_1px_var(--sidebar-border)] [&_svg]:size-4";
+  "h-10 gap-2.5 rounded-lg px-2.5 text-ui font-medium text-sidebar-foreground transition-colors hover:bg-sidebar-accent/70 hover:text-sidebar-accent-foreground data-active:bg-sidebar-active data-active:text-sidebar-accent-foreground data-active:shadow-[0_1px_2px_rgb(0_0_0/0.06),inset_0_0_0_1px_var(--sidebar-border)] [&_svg]:icon-nav";
 
 function SidebarNavLink({
   icon: Icon,
@@ -79,7 +80,8 @@ function SidebarNavLink({
   placeholder = false,
   active = false,
 }: {
-  icon: ComponentType<{ className?: string }>;
+  // Phosphor icons take a weight; the Google glyph ignores it.
+  icon: ComponentType<{ className?: string; weight?: IconWeight }>;
   label: string;
   linkProps: LinkOptions;
   /** Show the row without its link, while its project is still unknown. */
@@ -104,7 +106,7 @@ function SidebarNavLink({
       aria-disabled={placeholder || undefined}
       className={navButtonClass}
     >
-      <Icon />
+      <Icon weight={isActive ? "fill" : "regular"} />
       <span>{label}</span>
     </SidebarMenuButton>
   );

@@ -1,4 +1,4 @@
-import { IconCalendar as CalendarDays } from "@tabler/icons-react";
+import { CalendarBlankIcon as CalendarDays } from "@phosphor-icons/react";
 import { Input } from "@/client/components/ui/input";
 import {
   Select,

@@ -1,8 +1,8 @@
 import { useState, type FormEvent, type KeyboardEvent } from "react";
 import {
-  IconArrowUp as ArrowUp,
-  IconSquare as Square,
-} from "@tabler/icons-react";
+  ArrowUpIcon as ArrowUp,
+  SquareIcon as Square,
+} from "@phosphor-icons/react";
 import {
   InputGroup,
   InputGroupAddon,

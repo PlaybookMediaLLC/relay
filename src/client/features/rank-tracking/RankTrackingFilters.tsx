@@ -1,5 +1,5 @@
 import { useId } from "react";
-import { IconRotateClockwise2 as RotateCcw } from "@tabler/icons-react";
+import { ArrowClockwiseIcon as RotateCcw } from "@phosphor-icons/react";
 import { Badge } from "@/client/components/ui/badge";
 import { Button } from "@/client/components/ui/button";
 import { Input } from "@/client/components/ui/input";

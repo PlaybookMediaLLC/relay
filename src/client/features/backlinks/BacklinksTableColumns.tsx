@@ -1,5 +1,5 @@
 import type { ColumnDef } from "@tanstack/react-table";
-import { IconChevronRight as ChevronRight } from "@tabler/icons-react";
+import { CaretRightIcon as ChevronRight } from "@phosphor-icons/react";
 import { SortableHeader } from "@/client/components/table/SortableHeader";
 import { HelpLabel } from "@/client/components/HelpLabel";
 import { SafeExternalLink } from "@/client/components/SafeExternalLink";
