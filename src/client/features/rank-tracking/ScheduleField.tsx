@@ -1,5 +1,5 @@
 import { useId, useState } from "react";
-import { IconInfoCircle as Info } from "@tabler/icons-react";
+import { InfoIcon as Info } from "@phosphor-icons/react";
 import { Button } from "@/client/components/ui/button";
 import {
   Field,

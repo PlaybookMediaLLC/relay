@@ -1,6 +1,6 @@
 import { useId, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Upload } from "lucide-react";
+import { UploadSimpleIcon as Upload } from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { Button } from "@/client/components/ui/button";
 import { Checkbox } from "@/client/components/ui/checkbox";

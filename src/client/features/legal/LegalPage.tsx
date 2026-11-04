@@ -1,4 +1,4 @@
-import { IconCheck } from "@tabler/icons-react";
+import { CheckIcon } from "@phosphor-icons/react";
 import { useSession } from "@/lib/auth-client";
 import { LandingFooter } from "@/client/features/landing/LandingFooter";
 import { LandingNav } from "@/client/features/landing/LandingHero";
@@ -60,10 +60,7 @@ export function LegalPage({ document }: { document: LegalDocument }) {
                   key={item}
                   className="flex gap-3 text-[15px] leading-[22.5px] text-(--l-text-2)"
                 >
-                  <IconCheck
-                    className="mt-[3px] size-4 shrink-0 text-(--l-text)"
-                    stroke={2}
-                  />
+                  <CheckIcon className="mt-[3px] size-4 shrink-0 text-(--l-text)" />
                   {item}
                 </li>
               ))}

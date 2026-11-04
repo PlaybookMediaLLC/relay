@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { IconX } from "@tabler/icons-react";
+import { XIcon } from "@phosphor-icons/react";
 import { AppBanner } from "@/client/layout/AppBanner";
 
 /* Playbook fork: an info banner the user can close. It stays closed in this
@@ -42,7 +42,7 @@ export function DismissibleBanner({
           }}
           className="grid size-6 shrink-0 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
         >
-          <IconX className="size-4" />
+          <XIcon className="size-4" />
         </button>
       </span>
     </AppBanner>

@@ -1,8 +1,8 @@
 import { cn } from "cn";
 import {
-  IconInfoCircle as Info,
-  IconAlertTriangle as TriangleAlert,
-} from "@tabler/icons-react";
+  InfoIcon as Info,
+  WarningIcon as TriangleAlert,
+} from "@phosphor-icons/react";
 import { EngineLabel } from "./EngineLabel";
 import { Checkbox } from "@/client/components/ui/checkbox";
 import {

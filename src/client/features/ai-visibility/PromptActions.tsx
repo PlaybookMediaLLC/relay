@@ -1,9 +1,9 @@
 import {
-  IconArchive as Archive,
-  IconPlayerPause as Pause,
-  IconPencil as Pencil,
-  IconPlayerPlay as Play,
-} from "@tabler/icons-react";
+  ArchiveIcon as Archive,
+  PauseIcon as Pause,
+  PencilSimpleIcon as Pencil,
+  PlayIcon as Play,
+} from "@phosphor-icons/react";
 import { RowActionsMenu } from "@/client/components/RowActionsMenu";
 import { DropdownMenuItem } from "@/client/components/ui/dropdown-menu";
 

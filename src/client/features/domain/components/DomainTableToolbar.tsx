@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { IconAlertTriangle as AlertTriangle } from "@tabler/icons-react";
+import { WarningIcon as AlertTriangle } from "@phosphor-icons/react";
 import { ExportMenu } from "@/client/components/ExportMenu";
 import {
   DataTableFilterToggle,

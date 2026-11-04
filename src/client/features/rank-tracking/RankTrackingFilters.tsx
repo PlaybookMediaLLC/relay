@@ -1,5 +1,5 @@
 import { useId } from "react";
-import { IconRotateClockwise2 as RotateCcw } from "@tabler/icons-react";
+import { ArrowClockwiseIcon as RotateCcw } from "@phosphor-icons/react";
 import { Badge } from "@/client/components/ui/badge";
 import { Button } from "@/client/components/ui/button";
 import { Input } from "@/client/components/ui/input";
@@ -21,7 +21,7 @@ type DomainListFilterOption = {
 };
 
 const FILTER_LABEL_CLASS =
-  "text-[11px] font-semibold uppercase tracking-wide text-muted-foreground";
+  "text-label uppercase tracking-wide text-muted-foreground";
 
 /** `draft` is the unapplied panel state; it reaches the URL after a pause. */
 export function FilterPanel({

@@ -4,14 +4,14 @@ import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { LOCATIONS } from "@/client/features/keywords/locations";
 import {
-  IconAlertTriangle as AlertTriangle,
-  IconAlertCircle as CircleAlert,
-  IconArchive as Archive,
-  IconWorld as Globe,
-  IconInfoCircle as Info,
-  IconPlus as Plus,
-  IconChevronRight as ChevronRight,
-} from "@tabler/icons-react";
+  WarningIcon as AlertTriangle,
+  WarningCircleIcon as CircleAlert,
+  ArchiveIcon as Archive,
+  GlobeIcon as Globe,
+  InfoIcon as Info,
+  PlusIcon as Plus,
+  CaretRightIcon as ChevronRight,
+} from "@phosphor-icons/react";
 import {
   Tooltip,
   TooltipContent,

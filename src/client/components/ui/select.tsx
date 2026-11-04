@@ -4,10 +4,10 @@ import * as React from "react";
 import { Select as SelectPrimitive } from "@base-ui/react/select";
 import { cn } from "cn";
 import {
-  IconChevronDown as ChevronDownIcon,
-  IconCheck as CheckIcon,
-  IconChevronUp as ChevronUpIcon,
-} from "@tabler/icons-react";
+  CaretDownIcon as ChevronDownIcon,
+  CheckIcon,
+  CaretUpIcon as ChevronUpIcon,
+} from "@phosphor-icons/react";
 
 const Select = SelectPrimitive.Root;
 

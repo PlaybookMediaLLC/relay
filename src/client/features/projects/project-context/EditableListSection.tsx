@@ -1,5 +1,8 @@
 import { useState, type ReactNode } from "react";
-import { IconPencil as Pencil, IconPlus as Plus } from "@tabler/icons-react";
+import {
+  PencilSimpleIcon as Pencil,
+  PlusIcon as Plus,
+} from "@phosphor-icons/react";
 import { Button } from "@/client/components/ui/button";
 import { EmptyState } from "@/client/components/EmptyState";
 import { InlineConfirm } from "@/client/components/InlineConfirm";

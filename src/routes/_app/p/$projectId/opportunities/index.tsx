@@ -5,7 +5,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { IconSearch as Search } from "@tabler/icons-react";
+import { MagnifyingGlassIcon as Search } from "@phosphor-icons/react";
 import { PageHeader } from "@/client/components/PageHeader";
 import { QueryState } from "@/client/components/QueryState";
 import { Button } from "@/client/components/ui/button";

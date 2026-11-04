@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import {
-  IconArrowRight as ArrowRight,
-  IconTag as Tag,
-} from "@tabler/icons-react";
+  ArrowRightIcon as ArrowRight,
+  TagIcon as Tag,
+} from "@phosphor-icons/react";
 import { QueryError } from "@/client/components/QueryState";
 import { StatusScreen } from "@/client/components/StatusScreen";
 import { Button } from "@/client/components/ui/button";
@@ -112,7 +112,7 @@ function YcPlanPage() {
           alt="OpenSEO"
           className="mx-auto size-10 rounded-lg"
         />
-        <h1 className="text-xl font-semibold">OpenSEO for YC founders</h1>
+        <h1 className="text-heading">OpenSEO for YC founders</h1>
         <p className="text-sm text-muted-foreground">
           A bigger monthly credit pool for teams doing serious SEO work, with
           your first month free through the YC deal.

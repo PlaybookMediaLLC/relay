@@ -5,7 +5,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { IconAdjustmentsHorizontal as SlidersHorizontal } from "@tabler/icons-react";
+import { SlidersHorizontalIcon as SlidersHorizontal } from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { QueryError } from "@/client/components/QueryState";
 import { ExportMenu } from "@/client/components/ExportMenu";
@@ -245,7 +245,7 @@ export function SearchPerformancePage({
       <div className="mx-auto max-w-7xl space-y-4">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <h1 className="text-2xl font-semibold">Search Performance</h1>
+            <h1 className="text-heading">Search Performance</h1>
             <p className="text-sm text-muted-foreground">
               See your site&apos;s clicks, impressions, CTR, and position from
               Google Search Console.

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { AlertTriangle } from "lucide-react";
+import { WarningIcon as AlertTriangle } from "@phosphor-icons/react";
 import { Alert, AlertDescription } from "@/client/components/ui/alert";
 import { useHostedPlanGate } from "@/client/features/billing/HostedPlanGate";
 import { getScheduledRankChecksPaused } from "@/serverFunctions/rank-tracking";

@@ -2,10 +2,10 @@
 import { useMemo, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  IconCopy as Copy,
-  IconLoader2 as Loader2,
-  IconDeviceFloppy as Save,
-} from "@tabler/icons-react";
+  CopyIcon as Copy,
+  CircleNotchIcon as Loader2,
+  FloppyDiskIcon as Save,
+} from "@phosphor-icons/react";
 import { toast } from "sonner";
 import {
   DataTable,

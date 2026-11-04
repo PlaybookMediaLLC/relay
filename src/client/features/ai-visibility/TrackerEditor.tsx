@@ -2,7 +2,7 @@ import { useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { useForm } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
-import { IconLoader2 as Loader2, IconX as X } from "@tabler/icons-react";
+import { CircleNotchIcon as Loader2, XIcon as X } from "@phosphor-icons/react";
 import { Button } from "@/client/components/ui/button";
 import {
   Dialog,

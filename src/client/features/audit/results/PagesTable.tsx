@@ -4,7 +4,7 @@ import {
   type ColumnDef,
   type SortingState,
 } from "@tanstack/react-table";
-import { IconExternalLink as ExternalLink } from "@tabler/icons-react";
+import { ArrowSquareOutIcon as ExternalLink } from "@phosphor-icons/react";
 import { Badge } from "@/client/components/ui/badge";
 import { DataTable, useDataTable } from "@/client/components/table/DataTable";
 import { SortableHeader } from "@/client/components/table/SortableHeader";

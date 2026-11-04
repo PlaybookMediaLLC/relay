@@ -1,8 +1,8 @@
 import {
-  IconCalendar as CalendarDays,
-  IconAdjustmentsHorizontal as SlidersHorizontal,
-  IconTable as Table,
-} from "@tabler/icons-react";
+  CalendarBlankIcon as CalendarDays,
+  SlidersHorizontalIcon as SlidersHorizontal,
+  TableIcon as Table,
+} from "@phosphor-icons/react";
 import { SegmentedToggle } from "@/client/components/SegmentedToggle";
 import { ExportMenu } from "@/client/components/ExportMenu";
 import { Badge } from "@/client/components/ui/badge";

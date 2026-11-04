@@ -19,9 +19,9 @@ import {
 } from "@/client/components/ui/card";
 import { PageHeader } from "@/client/components/PageHeader";
 import {
-  IconArrowUpRight as ArrowUpRight,
-  IconInfoCircle as Info,
-} from "@tabler/icons-react";
+  ArrowUpRightIcon as ArrowUpRight,
+  InfoIcon as Info,
+} from "@phosphor-icons/react";
 import { getClientAuthMode } from "@/lib/auth-mode";
 import { captureClientEvent } from "@/client/lib/posthog";
 import {
@@ -256,7 +256,7 @@ function AiPage() {
                       href={`https://openseo.so/docs/skills/${name}`}
                       target="_blank"
                       rel="noreferrer"
-                      className={`shrink-0 font-mono text-[13px] sm:w-48 ${LINK_CLASS}`}
+                      className={`shrink-0 font-mono text-ui sm:w-48 ${LINK_CLASS}`}
                     >
                       /{name}
                     </a>

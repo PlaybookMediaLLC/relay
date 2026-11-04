@@ -1,9 +1,9 @@
 import { useId } from "react";
 import {
-  IconLink as Link,
-  IconLink as Link2,
-  IconUnlink as Unlink,
-} from "@tabler/icons-react";
+  LinkIcon as Link,
+  LinkIcon as Link2,
+  LinkBreakIcon as Unlink,
+} from "@phosphor-icons/react";
 import { SegmentedToggle } from "@/client/components/SegmentedToggle";
 import { DataTableFilterGroup } from "@/client/components/table/DataTableToolbar";
 import { Checkbox } from "@/client/components/ui/checkbox";

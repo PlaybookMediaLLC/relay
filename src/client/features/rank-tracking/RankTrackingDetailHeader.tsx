@@ -1,9 +1,9 @@
 import {
-  IconDeviceDesktop as Monitor,
-  IconPlus as Plus,
-  IconSettings as Settings,
-  IconDeviceMobile as Smartphone,
-} from "@tabler/icons-react";
+  DesktopIcon as Monitor,
+  PlusIcon as Plus,
+  GearIcon as Settings,
+  DeviceMobileIcon as Smartphone,
+} from "@phosphor-icons/react";
 import { SegmentedToggle } from "@/client/components/SegmentedToggle";
 import { Button } from "@/client/components/ui/button";
 import {

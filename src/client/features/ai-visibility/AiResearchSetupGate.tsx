@@ -2,7 +2,7 @@ import { AiSetupCostNote } from "./AiSetupCostNote";
 import { useEffect, useState, type ReactNode } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { NavTab, NavTabs } from "@/client/components/NavTabs";
-import { IconSparkles as Sparkles } from "@tabler/icons-react";
+import { SparkleIcon as Sparkles } from "@phosphor-icons/react";
 import { Alert, AlertDescription } from "@/client/components/ui/alert";
 import { Button } from "@/client/components/ui/button";
 import { Card, CardContent } from "@/client/components/ui/card";
@@ -200,7 +200,7 @@ export function AiResearchSetupGate({
             <div className="mb-4 flex size-10 items-center justify-center rounded-lg border border-border bg-muted">
               <Sparkles className="size-5" />
             </div>
-            <h1 className="text-2xl font-semibold tracking-tight">
+            <h1 className="text-heading tracking-tight">
               Set up AI visibility
             </h1>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
-  IconLoader2 as LoaderCircle,
-  IconPlus as Plus,
-} from "@tabler/icons-react";
+  CircleNotchIcon as LoaderCircle,
+  PlusIcon as Plus,
+} from "@phosphor-icons/react";
 import { Button } from "@/client/components/ui/button";
 import {
   WebsiteCompetitorRow,
@@ -71,7 +71,7 @@ export function WebsiteSetupReview({
           }}
         >
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight">
+            <h1 className="text-heading tracking-tight">
               {research.preserveCompetitors
                 ? "Complete project setup"
                 : "Edit competitors"}

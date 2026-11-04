@@ -1,10 +1,10 @@
 import {
-  IconCopy as Copy,
-  IconFileDownload as FileDown,
-  IconTable as Sheet,
-  IconTags as Tags,
-  IconTrash as Trash2,
-} from "@tabler/icons-react";
+  CopyIcon as Copy,
+  FileArrowDownIcon as FileDown,
+  TableIcon as Sheet,
+  TagIcon as Tags,
+  TrashIcon as Trash2,
+} from "@phosphor-icons/react";
 import {
   TableBulkActionBar,
   TableBulkActionButton,

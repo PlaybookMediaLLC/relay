@@ -1,4 +1,4 @@
-import { IconAlertCircle as AlertCircle } from "@tabler/icons-react";
+import { WarningCircleIcon as AlertCircle } from "@phosphor-icons/react";
 import { BackButton } from "@/client/components/PageHeader";
 import { useQuery } from "@tanstack/react-query";
 import { QueryError, QueryState } from "@/client/components/QueryState";
@@ -122,7 +122,7 @@ export function AuditDetail({
           <BackButton onClick={onBack}>All audits</BackButton>
           <div className="space-y-1">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-              <h1 className="text-2xl font-semibold tracking-tight">
+              <h1 className="text-heading tracking-tight">
                 {extractHostname(status.startUrl)}
               </h1>
               {!isRunning && <StatusBadge status={status.status} />}

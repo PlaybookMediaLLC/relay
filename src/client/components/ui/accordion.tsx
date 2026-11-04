@@ -1,9 +1,9 @@
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
 import { cn } from "cn";
 import {
-  IconChevronDown as ChevronDownIcon,
-  IconChevronUp as ChevronUpIcon,
-} from "@tabler/icons-react";
+  CaretDownIcon as ChevronDownIcon,
+  CaretUpIcon as ChevronUpIcon,
+} from "@phosphor-icons/react";
 
 function Accordion({ className, ...props }: AccordionPrimitive.Root.Props) {
   return (

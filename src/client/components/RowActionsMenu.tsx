@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { IconDots as MoreHorizontal } from "@tabler/icons-react";
+import { DotsThreeIcon as MoreHorizontal } from "@phosphor-icons/react";
 import { Button } from "@/client/components/ui/button";
 import {
   DropdownMenu,

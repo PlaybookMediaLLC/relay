@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { IconCircleOff as CircleSlash } from "@tabler/icons-react";
+import { ProhibitIcon as CircleSlash } from "@phosphor-icons/react";
 import { sort } from "remeda";
 import type { RankPositionMatrixCell } from "@/serverFunctions/rank-tracking";
 import { EmptyState } from "@/client/components/EmptyState";

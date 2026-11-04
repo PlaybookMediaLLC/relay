@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { AlertTriangle } from "lucide-react";
+import { WarningIcon as AlertTriangle } from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { SectionHeader } from "@/client/components/PageHeader";
 import type { ErrorCode } from "@/shared/error-codes";

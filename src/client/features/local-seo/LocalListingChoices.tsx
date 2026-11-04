@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Star } from "lucide-react";
+import { StarIcon as Star } from "@phosphor-icons/react";
 import { RadioGroup, RadioGroupItem } from "@/client/components/ui/radio-group";
 import type { lookupLocalBusiness } from "@/serverFunctions/local-seo";
 

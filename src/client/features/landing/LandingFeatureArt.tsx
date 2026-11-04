@@ -1,9 +1,9 @@
 import {
-  IconArrowRight,
-  IconFileDescription,
-  IconHeading,
-  IconLink,
-} from "@tabler/icons-react";
+  ArrowRightIcon,
+  FileTextIcon,
+  TextHIcon,
+  LinkIcon,
+} from "@phosphor-icons/react";
 import { Logo } from "./LandingPrimitives";
 
 /* One bold, legible piece of the real UI per "What's inside" card, in the
@@ -78,7 +78,7 @@ export function RankArt() {
             <span className="text-white/80">{keyword}</span>
             <span className="flex items-center gap-1 tabular-nums text-white/45">
               {from}
-              <IconArrowRight className="size-3" />
+              <ArrowRightIcon className="size-3" />
               <span className="rounded bg-[#1cecbb]/20 px-1.5 font-medium text-[#1cecbb]">
                 {to}
               </span>
@@ -118,9 +118,9 @@ export function KeywordArt() {
 
 export function ExperimentArt() {
   const tests = [
-    { label: "Title", icon: IconHeading, active: true },
-    { label: "Meta", icon: IconFileDescription },
-    { label: "Links", icon: IconLink },
+    { label: "Title", icon: TextHIcon, active: true },
+    { label: "Meta", icon: FileTextIcon },
+    { label: "Links", icon: LinkIcon },
   ];
   return (
     <div className="landing-glass ml-16 mt-2 rounded-[32px] bg-[#3a3a3c]/50 p-5">
@@ -143,7 +143,7 @@ export function ExperimentArt() {
                     }
               }
             >
-              <Icon className="size-7" stroke={1.8} />
+              <Icon className="size-7" />
             </span>
             <span
               className="rounded-full px-3 py-0.5 text-[12px]"
@@ -232,7 +232,7 @@ export function ReportArt() {
         </div>
       </div>
       <span className="absolute -bottom-3 -right-6 flex items-center gap-1.5 rounded-full bg-[#ffdd00] px-3 py-1.5 text-[12px] font-medium text-black shadow-[0_8px_20px_-6px_rgb(0_0_0/0.6)]">
-        <IconLink className="size-3.5" stroke={2} />
+        <LinkIcon className="size-3.5" />
         Copy link
       </span>
     </div>

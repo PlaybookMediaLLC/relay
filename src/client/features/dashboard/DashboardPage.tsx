@@ -1,8 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import {
-  IconLink as Link2,
-  IconSettings as Settings,
-} from "@tabler/icons-react";
+import { LinkIcon as Link2, GearIcon as Settings } from "@phosphor-icons/react";
 import { EmptyState } from "@/client/components/EmptyState";
 import { Button } from "@/client/components/ui/button";
 import {
@@ -183,9 +180,7 @@ export function DashboardPage({
             <p className="mb-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">
               Your website
             </p>
-            <h1 className="text-2xl font-semibold">
-              {activation.domain || "Home"}
-            </h1>
+            <h1 className="text-heading">{activation.domain || "Home"}</h1>
             <p className="mt-1 text-sm text-muted-foreground">
               Search visibility, links and site health in one place.
             </p>

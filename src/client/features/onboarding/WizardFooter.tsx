@@ -1,8 +1,8 @@
 import type { ReactNode, Ref } from "react";
 import {
-  IconArrowLeft as ArrowLeft,
-  IconArrowRight as ArrowRight,
-} from "@tabler/icons-react";
+  ArrowLeftIcon as ArrowLeft,
+  ArrowRightIcon as ArrowRight,
+} from "@phosphor-icons/react";
 import { cn } from "cn";
 import { Button } from "@/client/components/ui/button";
 

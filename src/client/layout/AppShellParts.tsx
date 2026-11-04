@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import {
-  IconAlertTriangle as AlertTriangle,
-  IconExternalLink as ExternalLink,
-  IconInfoCircle as Info,
-} from "@tabler/icons-react";
+  WarningIcon as AlertTriangle,
+  ArrowSquareOutIcon as ExternalLink,
+  InfoIcon as Info,
+} from "@phosphor-icons/react";
 import { AppBanner } from "@/client/layout/AppBanner";
 import { dataforseoHelpLinkOptions } from "@/client/navigation/items";
 import { isEveryAppClientAuthMode } from "@/lib/auth-mode";

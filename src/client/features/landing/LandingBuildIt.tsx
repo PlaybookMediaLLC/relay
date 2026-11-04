@@ -1,16 +1,16 @@
 import type { ReactNode } from "react";
 import {
-  IconAdjustmentsHorizontal,
-  IconChevronDown,
-  IconCpu,
-  IconFileText,
-  IconHome,
-  IconRepeat,
-  IconSearch,
-  IconSettings,
-  IconSparkles,
+  SlidersHorizontalIcon,
+  CaretDownIcon,
+  CpuIcon,
+  FileTextIcon,
+  HouseIcon,
+  RepeatIcon,
+  MagnifyingGlassIcon,
+  GearIcon,
+  SparkleIcon,
   type Icon,
-} from "@tabler/icons-react";
+} from "@phosphor-icons/react";
 import { cn } from "cn";
 import { Logo, Reveal } from "./LandingPrimitives";
 
@@ -27,7 +27,7 @@ function Point({
 }) {
   return (
     <div className="flex items-center gap-[14px]">
-      <Icon className="size-[30px] shrink-0" style={{ color }} stroke={1.4} />
+      <Icon className="size-[30px] shrink-0" style={{ color }} />
       <div className="flex flex-col gap-1">
         <p className="text-[16px] leading-[22.4px] text-[#fafafa]">{title}</p>
         <p className="text-[14px] leading-[21px] text-[#888b91]">{body}</p>
@@ -55,19 +55,19 @@ export function LandingBuildIt() {
             </p>
           </div>
           <Point
-            icon={IconAdjustmentsHorizontal}
+            icon={SlidersHorizontalIcon}
             color="#0088ff"
             title="Beyond keywords: positioning"
             body="Set goals, audiences and competitors once. Research and reports follow them."
           />
           <Point
-            icon={IconCpu}
+            icon={CpuIcon}
             color="#0088ff"
             title="Pick the right model for the job"
             body="Use Claude, GPT or Gemini through your own agent, or the built-in assistant."
           />
           <Point
-            icon={IconRepeat}
+            icon={RepeatIcon}
             color="#0088ff"
             title="Consistent every week"
             body="Saved keywords, tracked ranks and recurring audits keep the signal steady."
@@ -80,26 +80,26 @@ export function LandingBuildIt() {
 
 const SIDEBAR: { label: string; icon: Icon; tile: string; active?: boolean }[] =
   [
-    { label: "Home", icon: IconHome, tile: "from-[#fd9426] to-[#f26f24]" },
+    { label: "Home", icon: HouseIcon, tile: "from-[#fd9426] to-[#f26f24]" },
     {
       label: "Context",
-      icon: IconSparkles,
+      icon: SparkleIcon,
       tile: "from-[#0fb7fa] to-[#0072fb]",
       active: true,
     },
     {
       label: "Keywords",
-      icon: IconSearch,
+      icon: MagnifyingGlassIcon,
       tile: "from-[#0fb7fa] to-[#0072fb]",
     },
     {
       label: "Reports",
-      icon: IconFileText,
+      icon: FileTextIcon,
       tile: "from-[#34c759] to-[#248a3d]",
     },
     {
       label: "Settings",
-      icon: IconSettings,
+      icon: GearIcon,
       tile: "from-[#8e8e93] to-[#636366]",
     },
   ];
@@ -162,7 +162,7 @@ function CustomArt() {
                     tile,
                   )}
                 >
-                  <ItemIcon className="size-[11px] text-white" stroke={2.2} />
+                  <ItemIcon className="size-[11px] text-white" />
                 </span>
                 <span
                   className={cn(
@@ -291,7 +291,7 @@ function ModelPick() {
         <ModelTile model={first} />
         {first.name}
       </span>
-      <IconChevronDown className="size-2.5 text-white/40" />
+      <CaretDownIcon className="size-2.5 text-white/40" />
     </span>
   );
 }
@@ -317,7 +317,7 @@ function Select({ label }: { label: string }) {
   return (
     <span className="flex h-7 flex-1 items-center justify-between rounded-md border border-white/[0.12] bg-white/[0.06] px-2 text-[9px] text-white">
       {label}
-      <IconChevronDown className="size-2.5 text-white/40" />
+      <CaretDownIcon className="size-2.5 text-white/40" />
     </span>
   );
 }

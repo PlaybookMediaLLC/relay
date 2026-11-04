@@ -1,7 +1,7 @@
 import { TaskRecipes } from "@/client/features/projects/TaskRecipes";
 import { useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
-import { IconSearch } from "@tabler/icons-react";
+import { MagnifyingGlassIcon } from "@phosphor-icons/react";
 import {
   getProjectNavGroup,
   getProjectNavGroups,
@@ -53,7 +53,7 @@ export function WorkspaceNavigation({ projectId }: { projectId: string }) {
       </div>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger render={<Button variant="outline" />}>
-          <IconSearch /> Search &amp; start a task
+          <MagnifyingGlassIcon /> Search &amp; start a task
         </DialogTrigger>
         <DialogContent className="max-h-[90dvh] overflow-y-auto sm:max-w-xl">
           <DialogHeader>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IconTrash as Trash2 } from "@tabler/icons-react";
+import { TrashIcon as Trash2 } from "@phosphor-icons/react";
 import { Button } from "@/client/components/ui/button";
 
 /**

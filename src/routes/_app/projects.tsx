@@ -3,9 +3,9 @@ import { projectsQueryOptions } from "@/client/features/projects/projectQueries"
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  IconChevronRight as ChevronRight,
-  IconPlus as Plus,
-} from "@tabler/icons-react";
+  CaretRightIcon as ChevronRight,
+  PlusIcon as Plus,
+} from "@phosphor-icons/react";
 import { toast } from "sonner";
 import {
   deleteArchivedProject,

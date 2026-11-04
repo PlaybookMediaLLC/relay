@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { ArrowRight } from "lucide-react";
+import { ArrowRightIcon as ArrowRight } from "@phosphor-icons/react";
 import * as React from "react";
 import { toast } from "sonner";
 import { Button } from "@/client/components/ui/button";

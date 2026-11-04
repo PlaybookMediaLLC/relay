@@ -1,5 +1,5 @@
 import { queryOptions, useMutation, useQuery } from "@tanstack/react-query";
-import { IconDownload as Download } from "@tabler/icons-react";
+import { DownloadSimpleIcon as Download } from "@phosphor-icons/react";
 import { QueryError } from "@/client/components/QueryState";
 import { buttonVariants } from "@/client/components/ui/button";
 import {

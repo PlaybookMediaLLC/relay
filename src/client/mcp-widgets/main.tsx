@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ExternalLink } from "lucide-react";
+import { ArrowSquareOutIcon as ExternalLink } from "@phosphor-icons/react";
 import { Button } from "@/client/components/ui/button";
 import { Alert, AlertDescription } from "@/client/components/ui/alert";
 import { Skeleton } from "@/client/components/ui/skeleton";

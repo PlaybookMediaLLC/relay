@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
-  IconInfoCircle as Info,
-  IconAlertTriangle as TriangleAlert,
-} from "@tabler/icons-react";
+  InfoIcon as Info,
+  WarningIcon as TriangleAlert,
+} from "@phosphor-icons/react";
 import { cn } from "cn";
 import { SegmentedToggle } from "@/client/components/SegmentedToggle";
 import { Skeleton } from "@/client/components/ui/skeleton";
@@ -98,7 +98,7 @@ export function VisibilityTrend({
                     {trendSeries.map((series) => (
                       <span
                         key={series.key}
-                        className="inline-flex items-center gap-1 text-[11px] text-muted-foreground"
+                        className="inline-flex items-center gap-1 text-label font-normal text-muted-foreground"
                       >
                         <span
                           className="size-2 rounded-sm"

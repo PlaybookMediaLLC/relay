@@ -1,9 +1,9 @@
 import { useEffect, useEffectEvent, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
-  IconArrowRight as ArrowRight,
-  IconCheck as Check,
-} from "@tabler/icons-react";
+  ArrowRightIcon as ArrowRight,
+  CheckIcon as Check,
+} from "@phosphor-icons/react";
 import { AgentList } from "./AgentList";
 import { ONE_CLICK_INSTALLS } from "./agentInstalls";
 import { AgentSetupPanel } from "./AgentSetupPanel";

@@ -4,11 +4,11 @@ import { Link, useRouter } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { findLast } from "remeda";
 import {
-  IconFolderCog as FolderCog,
-  IconLayoutGrid as LayoutGrid, // playbook-seam
-  IconPlus as Plus,
-  IconSettings as Settings,
-} from "@tabler/icons-react";
+  GridFourIcon as LayoutGrid, // playbook-seam
+  PlusIcon as Plus,
+  GearIcon as Settings,
+} from "@phosphor-icons/react";
+import { IconFolderCog as FolderCog } from "@tabler/icons-react";
 import { setLastProjectId } from "@/client/lib/active-project";
 import { CreateProjectModal } from "@/client/features/projects/CreateProjectModal";
 import {
@@ -134,7 +134,7 @@ export function ProjectSwitcher({
           <ComboboxTrigger
             aria-label={`Switch project${activeProject ? ` (${activeProject.name})` : ""}`}
             title={activeProject?.name}
-            className="grid size-8 place-items-center rounded-lg bg-foreground text-[12px] font-semibold text-background outline-none ring-offset-2 ring-offset-sidebar transition-opacity hover:opacity-85 focus-visible:ring-2 focus-visible:ring-sidebar-ring [&>svg]:hidden"
+            className="grid size-8 place-items-center rounded-lg bg-foreground text-caption font-semibold text-background outline-none ring-offset-2 ring-offset-sidebar transition-opacity hover:opacity-85 focus-visible:ring-2 focus-visible:ring-sidebar-ring [&>svg]:hidden"
           >
             {(activeProject?.name ?? "?").trim().charAt(0).toUpperCase()}
           </ComboboxTrigger>
@@ -146,16 +146,16 @@ export function ProjectSwitcher({
             >
               <span
                 aria-hidden
-                className="grid size-7 shrink-0 place-items-center rounded-lg bg-foreground text-[12px] font-semibold text-background"
+                className="grid size-7 shrink-0 place-items-center rounded-lg bg-foreground text-caption font-semibold text-background"
               >
                 {(activeProject?.name ?? "?").trim().charAt(0).toUpperCase()}
               </span>
               <span className="flex min-w-0 flex-1 flex-col leading-tight">
-                <span className="truncate text-[13px] font-medium">
+                <span className="truncate text-ui font-medium">
                   {activeProject?.name ?? "Select project"}
                 </span>
                 {activeProject?.domain ? (
-                  <span className="truncate text-[11px] text-muted-foreground">
+                  <span className="truncate text-label font-normal text-muted-foreground">
                     {activeProject.domain}
                   </span>
                 ) : null}

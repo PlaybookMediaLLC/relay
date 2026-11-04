@@ -1,4 +1,8 @@
-import { ExternalLink, MessageSquare, RefreshCw } from "lucide-react";
+import {
+  ArrowSquareOutIcon as ExternalLink,
+  ChatIcon as MessageSquare,
+  ArrowsClockwiseIcon as RefreshCw,
+} from "@phosphor-icons/react";
 import { Button } from "@/client/components/ui/button";
 import { safeHttpUrl } from "@/shared/safe-url";
 import type { SearchConsoleData } from "@/shared/mcp-contracts";
@@ -22,7 +26,7 @@ export function SearchConsoleConnection({
   return (
     <section className="space-y-4 rounded-xl border border-border bg-card p-5">
       <div>
-        <h1 className="text-xl font-semibold">
+        <h1 className="text-heading">
           {setupUrl
             ? "Set up Google Search Console"
             : connection

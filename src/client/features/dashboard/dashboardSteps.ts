@@ -1,11 +1,11 @@
 import {
-  IconRobot as Bot,
-  IconClipboardCheck as ClipboardCheck,
-  IconFolderPlus as FolderPlus,
-  IconWorld as Globe,
-  IconBulb as Lightbulb,
-  IconUsers as Users,
-} from "@tabler/icons-react";
+  RobotIcon as Bot,
+  FolderPlusIcon as FolderPlus,
+  GlobeIcon as Globe,
+  LightbulbIcon as Lightbulb,
+  UsersIcon as Users,
+} from "@phosphor-icons/react";
+import { IconClipboardCheck as ClipboardCheck } from "@tabler/icons-react";
 import type { DashboardActivation } from "@/server/features/dashboard/services/DashboardService";
 import type { DashboardSetupStep } from "@/types/schemas/dashboard";
 

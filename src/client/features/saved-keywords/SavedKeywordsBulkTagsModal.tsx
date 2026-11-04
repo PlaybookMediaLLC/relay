@@ -1,9 +1,9 @@
 import {
-  IconCheck as Check,
-  IconPlus as Plus,
-  IconSearch as Search,
-  IconX as X,
-} from "@tabler/icons-react";
+  CheckIcon as Check,
+  PlusIcon as Plus,
+  MagnifyingGlassIcon as Search,
+  XIcon as X,
+} from "@phosphor-icons/react";
 import { useMemo, useRef, useState } from "react";
 import { Badge } from "@/client/components/ui/badge";
 import { Button } from "@/client/components/ui/button";

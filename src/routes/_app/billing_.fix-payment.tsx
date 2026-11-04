@@ -228,7 +228,7 @@ function Page({ title, children }: { title: string; children: ReactNode }) {
     <div className="mx-auto box-content max-w-7xl space-y-5 page-pad">
       <div>
         <p className="text-sm font-medium text-muted-foreground">Billing</p>
-        <h1 className="mt-1 text-2xl font-bold tracking-tight">{title}</h1>
+        <h1 className="mt-1 text-heading tracking-tight">{title}</h1>
       </div>
       {children}
       <p className="text-xs text-muted-foreground">

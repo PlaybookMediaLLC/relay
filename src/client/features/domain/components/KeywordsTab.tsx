@@ -7,10 +7,10 @@ import {
 } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import {
-  IconDownload as Download,
-  IconDeviceFloppy as Save,
-  IconTable as Sheet,
-} from "@tabler/icons-react";
+  DownloadSimpleIcon as Download,
+  FloppyDiskIcon as Save,
+  TableIcon as Sheet,
+} from "@phosphor-icons/react";
 import {
   TableBulkActionBar,
   TableBulkActionButton,

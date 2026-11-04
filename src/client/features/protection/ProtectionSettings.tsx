@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { CircleCheck, CircleMinus, CircleX } from "lucide-react";
+import {
+  CheckCircleIcon as CircleCheck,
+  MinusCircleIcon as CircleMinus,
+  XCircleIcon as CircleX,
+} from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { CardShell } from "@/client/components/CardShell";
 import { ConfirmDialog } from "@/client/components/ConfirmDialog";

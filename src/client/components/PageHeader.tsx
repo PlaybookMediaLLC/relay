@@ -1,6 +1,6 @@
 import type { ComponentProps, ReactNode } from "react";
 import { createLink } from "@tanstack/react-router";
-import { IconChevronLeft as ChevronLeft } from "@tabler/icons-react";
+import { CaretLeftIcon as ChevronLeft } from "@phosphor-icons/react";
 import { cn } from "cn";
 
 /**
@@ -22,7 +22,7 @@ export function PageHeader({
   const header = (
     <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-3 pb-1">
       <div className="min-w-0 flex-1 basis-64 space-y-1.5">
-        <h1 className="font-display text-[26px] font-semibold leading-tight tracking-[-0.6px] text-foreground">
+        <h1 className="font-display text-heading tracking-[-0.6px] text-foreground">
           {title}
         </h1>
         {description ? (

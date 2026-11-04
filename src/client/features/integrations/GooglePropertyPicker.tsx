@@ -16,11 +16,11 @@ import {
   type ReactNode,
 } from "react";
 import {
-  IconCheck as Check,
-  IconChevronDown as ChevronDown,
-  IconPlus as Plus,
-  IconSearch as Search,
-} from "@tabler/icons-react";
+  CheckIcon as Check,
+  CaretDownIcon as ChevronDown,
+  PlusIcon as Plus,
+  MagnifyingGlassIcon as Search,
+} from "@phosphor-icons/react";
 
 export type GooglePickerSelection = { accountId: string; propertyId: string };
 type Property = {

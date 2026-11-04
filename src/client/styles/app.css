@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/geist";
+@import "@fontsource-variable/inter";
 @import "@fontsource-variable/geist-mono";
 
 /* shadcn components here are built on Base UI. The shadcn variables below are
@@ -11,11 +11,48 @@
 
 @theme {
   --container-8xl: 88rem;
-  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  /* Self-hosted through Fontsource, which declares font-display: swap. */
+  --font-sans: "Inter Variable", sans-serif;
   --font-display: var(--font-sans);
-  --font-mono:
-    "Geist Mono Variable", ui-monospace, SFMono-Regular, Menlo, Monaco,
-    Consolas, "Liberation Mono", "Courier New", monospace;
+  /* Code, IDs, API keys and tokens. */
+  --font-mono: "Geist Mono Variable", Menlo, monospace;
+
+  /* Type scale: text-label, text-caption, text-ui, text-ui-lg, text-body and
+     text-heading. A size utility's weight gives way to an explicit font-*. */
+  --text-label: 11px;
+  --text-label--line-height: 16px;
+  --text-label--font-weight: 600;
+  --text-caption: 12px;
+  --text-caption--line-height: 16px;
+  --text-caption--font-weight: 400;
+  --text-ui: 13px;
+  --text-ui--line-height: 20px;
+  --text-ui--font-weight: 400;
+  --text-ui-lg: 14px;
+  --text-ui-lg--line-height: 20px;
+  --text-ui-lg--font-weight: 500;
+  --text-body: 16px;
+  --text-body--line-height: 24px;
+  --text-body--font-weight: 400;
+  --text-heading: 22px;
+  --text-heading--line-height: 28px;
+  --text-heading--font-weight: 500;
+
+  /* Tailwind's own steps resolve to the closest step of the scale, so
+     existing text-xs, text-sm and the rest follow it. Their weights are
+     unchanged. 3xl and up stay display sizes. */
+  --text-xs: var(--text-caption);
+  --text-xs--line-height: var(--text-caption--line-height);
+  --text-sm: var(--text-ui);
+  --text-sm--line-height: var(--text-ui--line-height);
+  --text-base: var(--text-body);
+  --text-base--line-height: var(--text-body--line-height);
+  --text-lg: var(--text-body);
+  --text-lg--line-height: var(--text-body--line-height);
+  --text-xl: var(--text-heading);
+  --text-xl--line-height: var(--text-heading--line-height);
+  --text-2xl: var(--text-heading);
+  --text-2xl--line-height: var(--text-heading--line-height);
 }
 
 @theme inline {
@@ -228,14 +265,16 @@ select:not([data-slot]) {
   }
 }
 
-/* Icons: every @tabler/icons-react glyph renders <svg class="tabler-icon ...">.
-   Change the tokens below to restyle all icons at once. Size utilities on an
-   icon (size-4, size-5...) still win because they sit in the utilities layer.
-   Shared sizing: 14px in navigation, 20px on cards, 16px elsewhere. */
+/* Icons are Phosphor (@phosphor-icons/react), whose glyphs all draw on a
+   256-unit viewBox and fill with currentColor. A few without a Phosphor match
+   stay on @tabler/icons-react (<svg class="tabler-icon">). Change the tokens
+   below to restyle all icons at once. Size utilities on an icon (size-4,
+   size-5...) still win because they sit in the utilities layer.
+   Shared sizing: 20px in navigation and on cards, 16px elsewhere. */
 :root {
   --icon-size: 1rem;
   --icon-stroke: 1.5;
-  --icon-nav: 14px;
+  --icon-nav: 20px;
   --icon-card: 20px;
 }
 
@@ -244,11 +283,15 @@ select:not([data-slot]) {
     @apply border-border outline-ring/50;
   }
 
+  svg[viewBox="0 0 256 256"],
   .tabler-icon {
     width: var(--icon-size);
     height: var(--icon-size);
-    stroke-width: var(--icon-stroke);
     flex-shrink: 0;
+  }
+
+  .tabler-icon {
+    stroke-width: var(--icon-stroke);
   }
 }
 

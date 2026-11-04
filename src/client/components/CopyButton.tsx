@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { IconCheck as Check, IconCopy as Copy } from "@tabler/icons-react";
+import { CheckIcon as Check, CopyIcon as Copy } from "@phosphor-icons/react";
 import { Button } from "@/client/components/ui/button";
 import { useCopy } from "@/client/hooks/useCopy";
 

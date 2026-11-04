@@ -5,9 +5,9 @@ import type {
   RowSelectionState,
 } from "@tanstack/react-table";
 import {
-  IconChevronDown as ChevronDown,
-  IconChevronRight as ChevronRight,
-} from "@tabler/icons-react";
+  CaretDownIcon as ChevronDown,
+  CaretRightIcon as ChevronRight,
+} from "@phosphor-icons/react";
 import { SafeExternalLink } from "@/client/components/SafeExternalLink";
 import {
   DataTable,

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { IconAlertTriangle as AlertTriangle } from "@tabler/icons-react";
+import { WarningIcon as AlertTriangle } from "@phosphor-icons/react";
 import { Alert, AlertDescription } from "@/client/components/ui/alert";
 import { SUBSCRIBE_ROUTE } from "@/shared/billing";
 

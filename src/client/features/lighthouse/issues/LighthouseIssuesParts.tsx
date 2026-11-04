@@ -56,7 +56,7 @@ export function LighthouseIssuesHeader({
       <Card>
         <CardContent className="space-y-4">
           <div className="space-y-1">
-            <h1 className="text-2xl font-semibold">Lighthouse Issues</h1>
+            <h1 className="text-heading">Lighthouse Issues</h1>
             <p className="text-sm text-muted-foreground break-all">
               {finalUrl ?? (isLoading ? "Loading URL..." : null)}
             </p>

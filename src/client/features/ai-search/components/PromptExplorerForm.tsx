@@ -1,6 +1,6 @@
 import type { FormEvent } from "react";
 import { cn } from "cn";
-import { IconInfoCircle as Info } from "@tabler/icons-react";
+import { InfoIcon as Info } from "@phosphor-icons/react";
 import {
   Tooltip,
   TooltipTrigger,

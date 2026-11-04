@@ -1,4 +1,4 @@
-import { Info } from "lucide-react";
+import { InfoIcon as Info } from "@phosphor-icons/react";
 import type { BillingUsage } from "@/server/billing/usage";
 import { Alert, AlertDescription } from "@/client/components/ui/alert";
 import { QueryState } from "@/client/components/QueryState";

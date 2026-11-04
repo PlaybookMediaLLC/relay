@@ -63,7 +63,7 @@ export function BrandLookupShareOfVoice({
 
       {/* Captions only the platforms actually summed — when one platform's
           cross_aggregated call failed, the leaderboard must not claim both. */}
-      <p className="border-t border-border px-4 py-2 text-[11px] text-muted-foreground">
+      <p className="border-t border-border px-4 py-2 text-label font-normal text-muted-foreground">
         Share of mentions on{" "}
         {shareOfVoice.platforms.map(formatPlatformLabel).join(" and ")}
       </p>

@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import {
-  IconChevronRight as ChevronRight,
-  IconMapPin as MapPin,
-  IconPlus as Plus,
-} from "@tabler/icons-react";
+  CaretRightIcon as ChevronRight,
+  MapPinIcon as MapPin,
+  PlusIcon as Plus,
+} from "@phosphor-icons/react";
 import { listLocalTrackers } from "@/serverFunctions/local-seo";
 import { localAreaLabel } from "@/shared/local-seo";
 import {

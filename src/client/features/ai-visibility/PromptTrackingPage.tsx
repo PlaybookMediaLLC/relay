@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  IconMessage as MessageSquare,
-  IconPlayerPlay as Play,
-  IconPlus as Plus,
-  IconAdjustments as Settings2,
-} from "@tabler/icons-react";
+  ChatTextIcon as MessageSquare,
+  PlayIcon as Play,
+  PlusIcon as Plus,
+  SlidersIcon as Settings2,
+} from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { EmptyState } from "@/client/components/EmptyState";
 import { SkeletonPageContent } from "@/client/components/SkeletonPresets";

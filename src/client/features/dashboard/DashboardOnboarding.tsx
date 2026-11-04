@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  IconCheck as Check,
-  IconChevronRight as ChevronRight,
-  IconRotateClockwise2 as RotateCcw,
-} from "@tabler/icons-react";
+  CheckIcon as Check,
+  CaretRightIcon as ChevronRight,
+  ArrowClockwiseIcon as RotateCcw,
+} from "@phosphor-icons/react";
 import { usesBetterAuthClient } from "@/lib/auth-mode";
 import { captureClientEvent } from "@/client/lib/posthog";
 import { setDashboardStepDismissed } from "@/serverFunctions/dashboard";

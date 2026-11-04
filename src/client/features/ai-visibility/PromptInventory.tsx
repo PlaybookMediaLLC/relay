@@ -2,9 +2,9 @@ import { useState } from "react";
 import { cn } from "cn";
 import { Link, useNavigate } from "@tanstack/react-router";
 import {
-  IconChevronDown as ChevronDown,
-  IconChevronRight as ChevronRight,
-} from "@tabler/icons-react";
+  CaretDownIcon as ChevronDown,
+  CaretRightIcon as ChevronRight,
+} from "@phosphor-icons/react";
 import type {
   AiEngine,
   AiObservationRow,
