@@ -24,7 +24,6 @@ import {
 } from "@/server/features/audit/services/audit-capacity";
 import { AppError } from "@/server/lib/errors";
 import { deleteR2Prefix } from "@/server/lib/r2";
-import { RENDERED_MAX_AUDIT_PAGES } from "@/shared/audit-limits";
 import { AuditProgressKV } from "@/server/lib/audit/progress-kv";
 import {
   parseAuditConfig,
@@ -67,12 +66,6 @@ async function startAudit(input: {
   const maxPages = clampAuditMaxPages(input.maxPages);
   if (maxPages > limits.maxPagesPerAudit) {
     throw new AppError("AUDIT_PAGE_LIMIT_EXCEEDED");
-  }
-  if (renderJavaScript && maxPages > RENDERED_MAX_AUDIT_PAGES) {
-    throw new AppError(
-      "AUDIT_PAGE_LIMIT_EXCEEDED",
-      `Audits that render JavaScript are limited to ${RENDERED_MAX_AUDIT_PAGES.toLocaleString("en-US")} pages.`,
-    );
   }
 
   const lighthouseStrategy = input.lighthouseStrategy ?? "auto";
@@ -316,7 +309,7 @@ async function remove(auditId: string, projectId: string) {
     console.warn(`Failed to destroy audit scratchpad ${auditId}:`, error);
   }
   // Best-effort: the stored Lighthouse reports. A miss is swept when the
-  // account is erased (storage-erasure.ts).
+  // account is erased (account-deletion/storage.ts).
   try {
     await deleteR2Prefix(env.R2, `site-audit/${projectId}/${auditId}/`);
   } catch (error) {

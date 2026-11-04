@@ -161,6 +161,13 @@ import type { Plugin } from "vite";
  * - deploy/alchemy/alchemy.run.ts: both workers take their observability
  *   settings from relayObservability, which can export traces and logs to
  *   Axiom (deploy/alchemy/relay-env.ts).
+ * - src/standalone-server.ts and wrangler.standalone.json: the Docker
+ *   edition exports and binds the SEO check Workflow too.
+ * - src/client/features/settings/DeleteAccountSettings.tsx: error copy is a
+ *   lookup, not a switch with a default (switch-exhaustiveness-check).
+ * - RankTrackingService.ts, SearchPerformanceParts.tsx, RankCheckWorkflow.ts
+ *   and src/routes/_app/p/$projectId/saved.tsx: fork lines push these upstream
+ *   files past the line limits, so they carry a max-lines exemption.
  * - vite.config.ts: unit tests also run deploy/**\/*.test.ts.
  * - src/db/pg/retry.ts: each Postgres query and each transaction runs in a
  *   trace span (src/db/pg/querySpan.ts).
