@@ -1,13 +1,13 @@
 import type { CSSProperties } from "react";
 import {
-  IconArrowRight,
-  IconBriefcase,
-  IconPaperclip,
-  IconPencil,
-  IconRocket,
-  IconTerminal2,
+  ArrowRightIcon,
+  BriefcaseIcon,
+  PaperclipIcon,
+  PencilSimpleIcon,
+  RocketIcon,
+  TerminalWindowIcon,
   type Icon,
-} from "@tabler/icons-react";
+} from "@phosphor-icons/react";
 import { cn } from "cn";
 import { Reveal, useAutoCycle } from "./LandingPrimitives";
 
@@ -22,7 +22,7 @@ const AUDIENCES: {
   {
     name: "Founders",
     role: "Ship SEO without hiring",
-    icon: IconRocket,
+    icon: RocketIcon,
     tint: "#ffb764",
     headline: "The weekly SEO meeting, in one screen",
     body: "Connect Search Console and Relay ranks this week’s opportunities by impact. Approve the top three and get back to building.",
@@ -30,7 +30,7 @@ const AUDIENCES: {
   {
     name: "Agencies",
     role: "One workspace per client",
-    icon: IconBriefcase,
+    icon: BriefcaseIcon,
     tint: "#7fb2ff",
     headline: "Every client, one login",
     body: "Projects, rank tracking and shareable reports for each client, billed at data cost instead of per seat.",
@@ -38,7 +38,7 @@ const AUDIENCES: {
   {
     name: "Developers",
     role: "SEO from the terminal",
-    icon: IconTerminal2,
+    icon: TerminalWindowIcon,
     tint: "#1cecbb",
     headline: "Your agent does the research",
     body: "Point Claude Code or Cursor at the Relay MCP server. It audits, researches keywords and opens the pull request.",
@@ -46,7 +46,7 @@ const AUDIENCES: {
   {
     name: "Content teams",
     role: "Write what will rank",
-    icon: IconPencil,
+    icon: PencilSimpleIcon,
     tint: "#dd55e7",
     headline: "Briefs backed by real data",
     body: "Keyword clusters, SERP checks and AI-answer tracking in one place, tied to the pages you already have.",
@@ -157,7 +157,7 @@ function Avatar({
       )}
       style={{ background: audience.tint }}
     >
-      <Icon className="size-1/2 text-black/75" stroke={1.8} />
+      <Icon className="size-1/2 text-black/75" />
     </span>
   );
 }
@@ -213,12 +213,11 @@ function Folder({
             {audience.body}
           </span>
           <span className="mt-4 flex items-center gap-1.5 text-[13px] font-medium text-[#0088ff]">
-            <IconArrowRight className="size-3.5" /> Try it on the Free plan
+            <ArrowRightIcon className="size-3.5" /> Try it on the Free plan
           </span>
-          <IconPaperclip
+          <PaperclipIcon
             aria-hidden
             className="absolute -right-6 top-4 size-[64px] rotate-12 text-[#a7a9ae]"
-            stroke={1.2}
           />
         </span>
       </span>

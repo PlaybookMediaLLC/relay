@@ -10,10 +10,10 @@ import {
   InputGroupInput,
 } from "@/client/components/ui/input-group";
 import {
-  IconChevronDown as ChevronDownIcon,
-  IconX as XIcon,
-  IconCheck as CheckIcon,
-} from "@tabler/icons-react";
+  CaretDownIcon as ChevronDownIcon,
+  XIcon,
+  CheckIcon,
+} from "@phosphor-icons/react";
 
 const Combobox = ComboboxPrimitive.Root;
 

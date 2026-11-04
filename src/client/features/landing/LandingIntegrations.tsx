@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 import {
-  IconAdjustmentsHorizontal,
-  IconCpu,
+  SlidersHorizontalIcon,
+  CpuIcon,
   type Icon,
-} from "@tabler/icons-react";
+} from "@phosphor-icons/react";
 import { cn } from "cn";
 import { Logo, Reveal } from "./LandingPrimitives";
 
@@ -194,12 +194,12 @@ export function LandingAgents() {
           client, without opening a dashboard.
         </p>
         <AgentPoint
-          icon={IconAdjustmentsHorizontal}
+          icon={SlidersHorizontalIcon}
           title="Works where you code"
           body="One MCP URL gives your agent 76 tools: keywords, SERPs, backlinks, audits and your Search Console data."
         />
         <AgentPoint
-          icon={IconCpu}
+          icon={CpuIcon}
           title="Less clicking, more shipping"
           body="Ask for a competitor gap analysis and get the fix as a pull request, not a spreadsheet."
         />
@@ -222,7 +222,7 @@ function AgentPoint({
 }) {
   return (
     <div className="mt-12 flex items-center">
-      <Icon className="mr-4 size-6 shrink-0 text-[#ffdd00]" stroke={1.5} />
+      <Icon className="mr-4 size-6 shrink-0 text-[#ffdd00]" />
       <div>
         <p className="text-base font-medium text-[#fafafa]">{title}</p>
         <p className="text-sm text-[#888b91]">{body}</p>

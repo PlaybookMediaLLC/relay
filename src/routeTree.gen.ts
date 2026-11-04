@@ -39,6 +39,7 @@ import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as ApiPrivacyRegionRouteImport } from './routes/api/privacy-region'
 import { Route as ApiSearchRouteImport } from './routes/api/search'
 import { Route as ApiSignUpStatusRouteImport } from './routes/api/sign-up-status'
+import { Route as ApiVerifyEmailLinkRouteImport } from './routes/api/verify-email-link'
 import { Route as DocsSplatRouteImport } from './routes/docs/$'
 import { Route as MediaNameRouteImport } from './routes/media.$name'
 import { Route as RReportIdRouteImport } from './routes/r/$reportId'
@@ -100,6 +101,7 @@ import { Route as AppPProjectIdSettingsAutomationRouteImport } from './routes/_a
 import { Route as AppPProjectIdSettingsContextRouteImport } from './routes/_app/p/$projectId/settings/context'
 import { Route as AppPProjectIdSettingsConversionRouteImport } from './routes/_app/p/$projectId/settings/conversion'
 import { Route as AppPProjectIdSettingsIntegrationsRouteImport } from './routes/_app/p/$projectId/settings/integrations'
+import { Route as AppPProjectIdSettingsProtectionRouteImport } from './routes/_app/p/$projectId/settings/protection'
 import { Route as AppPProjectIdSettingsSeoChecksRouteImport } from './routes/_app/p/$projectId/settings/seo-checks'
 import { Route as AppPProjectIdSettingsSpendingRouteImport } from './routes/_app/p/$projectId/settings/spending'
 import { Route as ApiCiV1ChecksIdRouteImport } from './routes/api/ci/v1/checks/$id'
@@ -257,6 +259,11 @@ const ApiSearchRoute = ApiSearchRouteImport.update({
 const ApiSignUpStatusRoute = ApiSignUpStatusRouteImport.update({
   id: '/api/sign-up-status',
   path: '/api/sign-up-status',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiVerifyEmailLinkRoute = ApiVerifyEmailLinkRouteImport.update({
+  id: '/api/verify-email-link',
+  path: '/api/verify-email-link',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DocsSplatRoute = DocsSplatRouteImport.update({
@@ -590,6 +597,12 @@ const AppPProjectIdSettingsIntegrationsRoute =
     path: '/integrations',
     getParentRoute: () => AppPProjectIdSettingsRoute,
   } as any)
+const AppPProjectIdSettingsProtectionRoute =
+  AppPProjectIdSettingsProtectionRouteImport.update({
+    id: '/protection',
+    path: '/protection',
+    getParentRoute: () => AppPProjectIdSettingsRoute,
+  } as any)
 const AppPProjectIdSettingsSeoChecksRoute =
   AppPProjectIdSettingsSeoChecksRouteImport.update({
     id: '/seo-checks',
@@ -665,6 +678,7 @@ export interface FileRoutesByFullPath {
   '/api/privacy-region': typeof ApiPrivacyRegionRoute
   '/api/search': typeof ApiSearchRoute
   '/api/sign-up-status': typeof ApiSignUpStatusRoute
+  '/api/verify-email-link': typeof ApiVerifyEmailLinkRoute
   '/docs/$': typeof DocsSplatRoute
   '/media/$name': typeof MediaNameRoute
   '/r/$reportId': typeof RReportIdRoute
@@ -718,6 +732,7 @@ export interface FileRoutesByFullPath {
   '/p/$projectId/settings/context': typeof AppPProjectIdSettingsContextRoute
   '/p/$projectId/settings/conversion': typeof AppPProjectIdSettingsConversionRoute
   '/p/$projectId/settings/integrations': typeof AppPProjectIdSettingsIntegrationsRoute
+  '/p/$projectId/settings/protection': typeof AppPProjectIdSettingsProtectionRoute
   '/p/$projectId/settings/seo-checks': typeof AppPProjectIdSettingsSeoChecksRoute
   '/p/$projectId/settings/spending': typeof AppPProjectIdSettingsSpendingRoute
   '/api/ci/v1/checks/$id': typeof ApiCiV1ChecksIdRoute
@@ -762,6 +777,7 @@ export interface FileRoutesByTo {
   '/api/privacy-region': typeof ApiPrivacyRegionRoute
   '/api/search': typeof ApiSearchRoute
   '/api/sign-up-status': typeof ApiSignUpStatusRoute
+  '/api/verify-email-link': typeof ApiVerifyEmailLinkRoute
   '/docs/$': typeof DocsSplatRoute
   '/media/$name': typeof MediaNameRoute
   '/r/$reportId': typeof RReportIdRoute
@@ -810,6 +826,7 @@ export interface FileRoutesByTo {
   '/p/$projectId/settings/context': typeof AppPProjectIdSettingsContextRoute
   '/p/$projectId/settings/conversion': typeof AppPProjectIdSettingsConversionRoute
   '/p/$projectId/settings/integrations': typeof AppPProjectIdSettingsIntegrationsRoute
+  '/p/$projectId/settings/protection': typeof AppPProjectIdSettingsProtectionRoute
   '/p/$projectId/settings/seo-checks': typeof AppPProjectIdSettingsSeoChecksRoute
   '/p/$projectId/settings/spending': typeof AppPProjectIdSettingsSpendingRoute
   '/api/ci/v1/checks/$id': typeof ApiCiV1ChecksIdRoute
@@ -859,6 +876,7 @@ export interface FileRoutesById {
   '/api/privacy-region': typeof ApiPrivacyRegionRoute
   '/api/search': typeof ApiSearchRoute
   '/api/sign-up-status': typeof ApiSignUpStatusRoute
+  '/api/verify-email-link': typeof ApiVerifyEmailLinkRoute
   '/docs/$': typeof DocsSplatRoute
   '/media/$name': typeof MediaNameRoute
   '/r/$reportId': typeof RReportIdRoute
@@ -912,6 +930,7 @@ export interface FileRoutesById {
   '/_app/p/$projectId/settings/context': typeof AppPProjectIdSettingsContextRoute
   '/_app/p/$projectId/settings/conversion': typeof AppPProjectIdSettingsConversionRoute
   '/_app/p/$projectId/settings/integrations': typeof AppPProjectIdSettingsIntegrationsRoute
+  '/_app/p/$projectId/settings/protection': typeof AppPProjectIdSettingsProtectionRoute
   '/_app/p/$projectId/settings/seo-checks': typeof AppPProjectIdSettingsSeoChecksRoute
   '/_app/p/$projectId/settings/spending': typeof AppPProjectIdSettingsSpendingRoute
   '/api/ci/v1/checks/$id': typeof ApiCiV1ChecksIdRoute
@@ -959,6 +978,7 @@ export interface FileRouteTypes {
     | '/api/privacy-region'
     | '/api/search'
     | '/api/sign-up-status'
+    | '/api/verify-email-link'
     | '/docs/$'
     | '/media/$name'
     | '/r/$reportId'
@@ -1012,6 +1032,7 @@ export interface FileRouteTypes {
     | '/p/$projectId/settings/context'
     | '/p/$projectId/settings/conversion'
     | '/p/$projectId/settings/integrations'
+    | '/p/$projectId/settings/protection'
     | '/p/$projectId/settings/seo-checks'
     | '/p/$projectId/settings/spending'
     | '/api/ci/v1/checks/$id'
@@ -1056,6 +1077,7 @@ export interface FileRouteTypes {
     | '/api/privacy-region'
     | '/api/search'
     | '/api/sign-up-status'
+    | '/api/verify-email-link'
     | '/docs/$'
     | '/media/$name'
     | '/r/$reportId'
@@ -1104,6 +1126,7 @@ export interface FileRouteTypes {
     | '/p/$projectId/settings/context'
     | '/p/$projectId/settings/conversion'
     | '/p/$projectId/settings/integrations'
+    | '/p/$projectId/settings/protection'
     | '/p/$projectId/settings/seo-checks'
     | '/p/$projectId/settings/spending'
     | '/api/ci/v1/checks/$id'
@@ -1152,6 +1175,7 @@ export interface FileRouteTypes {
     | '/api/privacy-region'
     | '/api/search'
     | '/api/sign-up-status'
+    | '/api/verify-email-link'
     | '/docs/$'
     | '/media/$name'
     | '/r/$reportId'
@@ -1205,6 +1229,7 @@ export interface FileRouteTypes {
     | '/_app/p/$projectId/settings/context'
     | '/_app/p/$projectId/settings/conversion'
     | '/_app/p/$projectId/settings/integrations'
+    | '/_app/p/$projectId/settings/protection'
     | '/_app/p/$projectId/settings/seo-checks'
     | '/_app/p/$projectId/settings/spending'
     | '/api/ci/v1/checks/$id'
@@ -1242,6 +1267,7 @@ export interface RootRouteChildren {
   ApiPrivacyRegionRoute: typeof ApiPrivacyRegionRoute
   ApiSearchRoute: typeof ApiSearchRoute
   ApiSignUpStatusRoute: typeof ApiSignUpStatusRoute
+  ApiVerifyEmailLinkRoute: typeof ApiVerifyEmailLinkRoute
   DocsSplatRoute: typeof DocsSplatRoute
   MediaNameRoute: typeof MediaNameRoute
   RReportIdRoute: typeof RReportIdRoute
@@ -1475,6 +1501,13 @@ declare module '@tanstack/react-router' {
       path: '/api/sign-up-status'
       fullPath: '/api/sign-up-status'
       preLoaderRoute: typeof ApiSignUpStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/verify-email-link': {
+      id: '/api/verify-email-link'
+      path: '/api/verify-email-link'
+      fullPath: '/api/verify-email-link'
+      preLoaderRoute: typeof ApiVerifyEmailLinkRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/docs/$': {
@@ -1904,6 +1937,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppPProjectIdSettingsIntegrationsRouteImport
       parentRoute: typeof AppPProjectIdSettingsRoute
     }
+    '/_app/p/$projectId/settings/protection': {
+      id: '/_app/p/$projectId/settings/protection'
+      path: '/protection'
+      fullPath: '/p/$projectId/settings/protection'
+      preLoaderRoute: typeof AppPProjectIdSettingsProtectionRouteImport
+      parentRoute: typeof AppPProjectIdSettingsRoute
+    }
     '/_app/p/$projectId/settings/seo-checks': {
       id: '/_app/p/$projectId/settings/seo-checks'
       path: '/seo-checks'
@@ -2036,6 +2076,7 @@ interface AppPProjectIdSettingsRouteChildren {
   AppPProjectIdSettingsContextRoute: typeof AppPProjectIdSettingsContextRoute
   AppPProjectIdSettingsConversionRoute: typeof AppPProjectIdSettingsConversionRoute
   AppPProjectIdSettingsIntegrationsRoute: typeof AppPProjectIdSettingsIntegrationsRoute
+  AppPProjectIdSettingsProtectionRoute: typeof AppPProjectIdSettingsProtectionRoute
   AppPProjectIdSettingsSeoChecksRoute: typeof AppPProjectIdSettingsSeoChecksRoute
   AppPProjectIdSettingsSpendingRoute: typeof AppPProjectIdSettingsSpendingRoute
   AppPProjectIdSettingsIndexRoute: typeof AppPProjectIdSettingsIndexRoute
@@ -2047,6 +2088,7 @@ const AppPProjectIdSettingsRouteChildren: AppPProjectIdSettingsRouteChildren = {
   AppPProjectIdSettingsConversionRoute: AppPProjectIdSettingsConversionRoute,
   AppPProjectIdSettingsIntegrationsRoute:
     AppPProjectIdSettingsIntegrationsRoute,
+  AppPProjectIdSettingsProtectionRoute: AppPProjectIdSettingsProtectionRoute,
   AppPProjectIdSettingsSeoChecksRoute: AppPProjectIdSettingsSeoChecksRoute,
   AppPProjectIdSettingsSpendingRoute: AppPProjectIdSettingsSpendingRoute,
   AppPProjectIdSettingsIndexRoute: AppPProjectIdSettingsIndexRoute,
@@ -2214,6 +2256,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPrivacyRegionRoute: ApiPrivacyRegionRoute,
   ApiSearchRoute: ApiSearchRoute,
   ApiSignUpStatusRoute: ApiSignUpStatusRoute,
+  ApiVerifyEmailLinkRoute: ApiVerifyEmailLinkRoute,
   DocsSplatRoute: DocsSplatRoute,
   MediaNameRoute: MediaNameRoute,
   RReportIdRoute: RReportIdRoute,

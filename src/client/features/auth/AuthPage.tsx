@@ -155,7 +155,7 @@ export function AuthPageCard({
           className="mx-auto size-10 rounded-lg"
         />
         <div>
-          <h1 className="text-xl font-semibold">{title}</h1>
+          <h1 className="text-heading">{title}</h1>
           {helperText ? (
             <p className="mt-1 text-sm text-muted-foreground">{helperText}</p>
           ) : null}

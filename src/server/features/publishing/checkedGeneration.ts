@@ -73,8 +73,10 @@ export async function generateChecked<T>(options: {
                 ],
               }
             : { prompt }),
-          onStepFinish: (step) => {
-            const stepCost = requireOpenRouterCostUsd(step.providerMetadata);
+          onStepFinish: async (step) => {
+            const stepCost = await requireOpenRouterCostUsd(
+              step.providerMetadata,
+            );
             costUsd += stepCost;
             spend.push({
               provider: "openrouter",

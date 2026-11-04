@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { ExternalLink, MessageSquare } from "lucide-react";
+import {
+  ArrowSquareOutIcon as ExternalLink,
+  ChatIcon as MessageSquare,
+} from "@phosphor-icons/react";
 import { Button } from "@/client/components/ui/button";
 import { Badge } from "@/client/components/ui/badge";
 import { Checkbox } from "@/client/components/ui/checkbox";
@@ -51,7 +54,7 @@ export function SerpWidget({
   return (
     <section className="space-y-3">
       <div>
-        <h1 className="text-2xl font-semibold">Google Search Results</h1>
+        <h1 className="text-heading">Google Search Results</h1>
         <p className="text-sm text-muted-foreground">
           See who ranks and compare the pages behind a keyword.
         </p>

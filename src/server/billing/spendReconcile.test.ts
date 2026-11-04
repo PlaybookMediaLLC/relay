@@ -44,6 +44,7 @@ async function ledgerRow(
   createdAt: string,
   attempts = 1,
   provider: "dataforseo" | "rendering" = "dataforseo",
+  feature = "backlinks",
 ) {
   const { run } = await setupRun(database.client, database.slugPrefix);
   const id = crypto.randomUUID();
@@ -51,7 +52,7 @@ async function ledgerRow(
     id,
     organizationId: run.projectId,
     projectId: run.projectId,
-    feature: "backlinks",
+    feature,
     provider,
     actor: "member",
     periodMonth: "2026-10",
@@ -136,4 +137,40 @@ it("leaves a rendering lock to its audit until the lock expires", async () => {
   );
   expect(mocks.track).not.toHaveBeenCalled();
   expect(await rowOf(expired)).toEqual({ status: "released", attempts: 0 });
+});
+
+it("leaves a queued AI visibility hold to its run, and tracks it as prompt responses once it expires", async () => {
+  const running = await ledgerRow(
+    "admitted",
+    minutesAgo(120),
+    0,
+    "dataforseo",
+    "ai_tracking",
+  );
+  const failed = await ledgerRow(
+    "settle_failed",
+    minutesAgo(120),
+    1,
+    "dataforseo",
+    "ai_tracking",
+  );
+  const expired = await ledgerRow(
+    "settle_failed",
+    minutesAgo(25 * 60),
+    1,
+    "dataforseo",
+    "ai_tracking",
+  );
+  await reconcileSpend(now);
+  expect(await rowOf(running)).toEqual({ status: "admitted", attempts: 0 });
+  expect(mocks.finalize).toHaveBeenCalledExactlyOnceWith(
+    expect.objectContaining({ lockId: `lock-${failed}` }),
+    5,
+    expect.objectContaining({ ledgerId: failed }),
+  );
+  expect(mocks.track).toHaveBeenCalledOnce();
+  expect(mocks.track.mock.lastCall?.[0]).toMatchObject({
+    creditFeature: "ai_prompt_responses",
+    properties: { ledgerId: expired },
+  });
 });

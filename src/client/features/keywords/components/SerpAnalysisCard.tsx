@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import { createColumnHelper } from "@tanstack/react-table";
 import {
-  IconExternalLink as ExternalLink,
-  IconWorld as Globe,
-} from "@tabler/icons-react";
+  ArrowSquareOutIcon as ExternalLink,
+  GlobeIcon as Globe,
+} from "@phosphor-icons/react";
 import { ErrorState } from "@/client/components/ErrorState";
 import { GetCreditsButton } from "@/client/features/billing/InsufficientCreditsError";
 import { ExportMenu } from "@/client/components/ExportMenu";
@@ -159,6 +159,10 @@ export function SerpAnalysisCard({
               {hasItems ? (
                 <span className="text-xs text-muted-foreground">
                   {items.length} organic results
+                </span>
+              ) : loading ? (
+                <span className="text-xs text-muted-foreground" role="status">
+                  Fetching live results… This can take up to a minute.
                 </span>
               ) : null}
             </div>

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import {
-  IconDots as MoreHorizontal,
-  IconPlayerPlay as Play,
-  IconRefresh as RefreshCw,
-} from "@tabler/icons-react";
+  DotsThreeIcon as MoreHorizontal,
+  PlayIcon as Play,
+  ArrowsClockwiseIcon as RefreshCw,
+} from "@phosphor-icons/react";
 import { ConfirmDialog } from "@/client/components/ConfirmDialog";
 import { Button } from "@/client/components/ui/button";
 import {

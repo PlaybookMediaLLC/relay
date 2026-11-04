@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { IconArrowRight } from "@tabler/icons-react";
+import { ArrowRightIcon } from "@phosphor-icons/react";
 import { cn } from "cn";
 import { Reveal } from "./LandingPrimitives";
 
@@ -129,7 +129,7 @@ function PlanCard({
       : "bg-[#1c1d1f] text-white/60 hover:text-white",
   );
   const arrow = (
-    <IconArrowRight className="size-[18px] transition-transform group-hover:translate-x-0.5" />
+    <ArrowRightIcon className="size-[18px] transition-transform group-hover:translate-x-0.5" />
   );
   return (
     <div

@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { IconArrowRight, IconChevronDown, IconMail } from "@tabler/icons-react";
+import {
+  ArrowRightIcon,
+  CaretDownIcon,
+  EnvelopeSimpleIcon,
+} from "@phosphor-icons/react";
 import { cn } from "cn";
 import { BrandMark } from "@/client/components/BrandMark";
 import { Eyebrow, Reveal } from "./LandingPrimitives";
@@ -49,7 +53,7 @@ export function LandingFaq() {
                     className="flex w-full items-center justify-between gap-4 rounded-lg py-4 text-left text-[18px] leading-7 text-(--l-text) outline-none transition-colors hover:text-white focus-visible:ring-2 focus-visible:ring-white/70"
                   >
                     {question}
-                    <IconChevronDown
+                    <CaretDownIcon
                       className={cn(
                         "size-5 shrink-0 transition-transform duration-300",
                         isOpen && "rotate-180",
@@ -80,7 +84,7 @@ export function LandingFaq() {
             href="mailto:team@playbookmedia.io"
             className="mt-4 inline-flex w-fit items-center gap-1.5 rounded-full bg-(--l-control) px-4 py-2 text-[16px] text-(--l-text-2) transition-colors hover:text-white"
           >
-            Email us <IconArrowRight className="size-4" />
+            Email us <ArrowRightIcon className="size-4" />
           </a>
         </div>
       </Reveal>
@@ -143,7 +147,7 @@ export function LandingFooter() {
             aria-label="Email us"
             className="grid size-10 place-items-center text-(--l-text-3) transition-colors duration-300 hover:text-white hover:duration-0"
           >
-            <IconMail className="size-5" />
+            <EnvelopeSimpleIcon className="size-5" />
           </a>
         </div>
         <nav className="mt-12 grid grid-cols-2 gap-10 md:grid-cols-4">

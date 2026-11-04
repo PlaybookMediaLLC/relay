@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { IconSparkles as Sparkles } from "@tabler/icons-react";
+import { SparkleIcon as Sparkles } from "@phosphor-icons/react";
 import { GateCard } from "@/client/components/GateCard";
 import { Button } from "@/client/components/ui/button";
 

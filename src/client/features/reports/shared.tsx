@@ -2,9 +2,9 @@ import { formatRelativeTime } from "@/client/lib/relative-time";
 import { useId } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  IconCopy as Copy,
-  IconExternalLink as ExternalLink,
-} from "@tabler/icons-react";
+  CopyIcon as Copy,
+  ArrowSquareOutIcon as ExternalLink,
+} from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { ConfirmDialog } from "@/client/components/ConfirmDialog";
 import { Button } from "@/client/components/ui/button";

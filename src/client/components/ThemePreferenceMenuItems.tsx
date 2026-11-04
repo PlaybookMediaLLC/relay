@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
 import {
-  IconDeviceDesktop as Monitor,
-  IconMoon as Moon,
-  IconSun as Sun,
-} from "@tabler/icons-react";
+  DesktopIcon as Monitor,
+  MoonIcon as Moon,
+  SunIcon as Sun,
+} from "@phosphor-icons/react";
 import { SegmentedToggle } from "@/client/components/SegmentedToggle";
 import {
   DropdownMenuLabel,

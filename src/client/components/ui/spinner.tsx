@@ -1,5 +1,5 @@
 import { cn } from "cn";
-import { IconLoader2 as Loader2Icon } from "@tabler/icons-react";
+import { CircleNotchIcon as Loader2Icon } from "@phosphor-icons/react";
 
 function Spinner({ className, ...props }: React.ComponentProps<"svg">) {
   return (
@@ -7,6 +7,7 @@ function Spinner({ className, ...props }: React.ComponentProps<"svg">) {
       data-slot="spinner"
       role="status"
       aria-label="Loading"
+      aria-hidden={false}
       className={cn("size-4 animate-spin", className)}
       {...props}
     />

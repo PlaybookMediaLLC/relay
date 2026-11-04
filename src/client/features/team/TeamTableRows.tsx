@@ -1,9 +1,9 @@
 import {
-  IconCrown as Crown,
-  IconGitPullRequest as PullRequest, // playbook-seam
-  IconSend as Send,
-  IconTrash as Trash2,
-} from "@tabler/icons-react";
+  CrownIcon as Crown,
+  GitPullRequestIcon as PullRequest, // playbook-seam
+  PaperPlaneRightIcon as Send,
+  TrashIcon as Trash2,
+} from "@phosphor-icons/react";
 import { useState } from "react";
 import { ConfirmDialog } from "@/client/components/ConfirmDialog";
 import { RowActionsMenu } from "@/client/components/RowActionsMenu";

@@ -1,6 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { ReactNode } from "react";
-import { ChevronRight, CircleCheck, CircleX, Download } from "lucide-react";
+import {
+  CaretRightIcon as ChevronRight,
+  CheckCircleIcon as CircleCheck,
+  XCircleIcon as CircleX,
+  DownloadSimpleIcon as Download,
+} from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { revalidateLogic } from "@tanstack/react-form";

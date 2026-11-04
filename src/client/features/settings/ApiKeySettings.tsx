@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { QueryState } from "@/client/components/QueryState";
-import { IconTrash as Trash2 } from "@tabler/icons-react";
+import { TrashIcon as Trash2 } from "@phosphor-icons/react";
 import { useState } from "react";
 import { revalidateLogic } from "@tanstack/react-form";
 import { toast } from "sonner";

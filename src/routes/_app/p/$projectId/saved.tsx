@@ -83,6 +83,7 @@ export const Route = createFileRoute("/_app/p/$projectId/saved")({
 
 const FILTER_DEBOUNCE_MS = 350;
 
+// oxlint-disable-next-line max-lines-per-function -- playbook-seam: the fork's empty state pushes this upstream page past 320 lines
 function SavedKeywordsPage() {
   const { projectId } = Route.useParams();
   const search = Route.useSearch();
@@ -310,6 +311,7 @@ function SavedKeywordsPage() {
     <div className="overflow-auto page-pad">
       <div className="mx-auto max-w-7xl space-y-4">
         <SavedKeywordsHeader
+          projectId={projectId}
           totalCount={totalCount}
           exporting={exporter.exporting}
           metricsRefreshing={refreshMetricsMutation.isPending}

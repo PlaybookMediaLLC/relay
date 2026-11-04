@@ -1,9 +1,9 @@
 import {
-  IconChevronDown as ChevronDown,
-  IconGauge as Gauge,
-  IconLink as Link2,
-  IconDots as MoreHorizontal,
-} from "@tabler/icons-react";
+  CaretDownIcon as ChevronDown,
+  GaugeIcon as Gauge,
+  LinkIcon as Link2,
+  DotsThreeIcon as MoreHorizontal,
+} from "@phosphor-icons/react";
 import { Button } from "@/client/components/ui/button";
 import {
   DropdownMenu,

@@ -18,8 +18,8 @@ import { AppError } from "@/server/lib/errors";
 import { captureServerEvent } from "@/server/lib/posthog";
 import { isHostedServerAuthMode } from "@/server/lib/runtime-env";
 import {
-  estimateRenderingCredits,
   renderingCreditsNeededText,
+  renderingHoldCredits,
   renderUsageCredits,
   renderUsageUsd,
   type RenderUsage,
@@ -33,13 +33,14 @@ import {
 export type RenderingLock = UsageCreditHold;
 
 /**
- * Holds the worst-case rendering cost of a hosted audit before it starts:
- * every page falling back to Context. The estimate first passes the monthly
- * spend limits (SPEND_LIMIT_REACHED), then the Autumn hold; each lock gets its
- * own ledger row. Throws INSUFFICIENT_CREDITS when the monthly and top-up
- * balances together cannot cover it. Returns no locks outside hosted mode,
- * where rendering is unmetered. An audit that dies without settling returns
- * its hold when the lock expires.
+ * Holds a hosted rendered audit's estimated cost before it starts
+ * (`renderingHoldCredits`). A site that falls back to Context more than that
+ * covers stops crawling when the hold runs out. The estimate first passes the
+ * monthly spend limits (SPEND_LIMIT_REACHED), then the Autumn hold; each lock
+ * gets its own ledger row. Throws INSUFFICIENT_CREDITS when the monthly and
+ * top-up balances together cannot cover it. Returns no locks outside hosted
+ * mode, where rendering is unmetered. An audit that dies without settling
+ * returns its hold when the lock expires.
  *
  * Unlike a single DataForSEO call, one audit's hold is large enough to split:
  * the monthly balance covers what it can and top-up covers the rest.
@@ -53,7 +54,7 @@ export async function lockRenderingCredits(input: {
   const { id: customerId } = await getOrCreateOrganizationCustomer(
     input.customer,
   );
-  const required = estimateRenderingCredits(input.maxPages).high;
+  const required = renderingHoldCredits(input.maxPages);
   const ledgerId = await admitSpend({
     customer: input.customer,
     feature: "site_audit",
@@ -66,6 +67,7 @@ export async function lockRenderingCredits(input: {
   );
   const properties = {
     creditFeature: "site_audit",
+    projectId: input.customer.projectId,
     source: "site_audit_rendering",
     auditId: input.auditId,
   };
@@ -143,6 +145,7 @@ export async function settleRenderingLocks(input: {
     remaining -= charge;
     const { landed, error } = await finalizeHold(lock, charge, {
       source: "site_audit_rendering",
+      projectId: input.customer.projectId,
       auditId: input.auditId,
       ...input.usage,
     });

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { IconPlayerPlay as Play } from "@tabler/icons-react";
+import { PlayIcon as Play } from "@phosphor-icons/react";
 import { BackLink, PageHeader } from "@/client/components/PageHeader";
 import { SkeletonCard } from "@/client/components/SkeletonPresets";
 import { Button } from "@/client/components/ui/button";

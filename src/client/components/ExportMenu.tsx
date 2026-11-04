@@ -1,14 +1,14 @@
 import { Fragment, type ReactNode } from "react";
 import {
-  IconChevronDown as ChevronDown,
-  IconCopy as Copy,
-  IconDownload as Download,
-  IconFileDownload as FileDown,
-  IconJson as FileJson,
-  IconFileSpreadsheet as FileSpreadsheet,
-  IconList as List,
-  IconTable as Sheet,
-} from "@tabler/icons-react";
+  CaretDownIcon as ChevronDown,
+  CopyIcon as Copy,
+  DownloadSimpleIcon as Download,
+  FileArrowDownIcon as FileDown,
+  BracketsCurlyIcon as FileJson,
+  ListIcon as List,
+  TableIcon as Sheet,
+  TableIcon as FileSpreadsheet,
+} from "@phosphor-icons/react";
 import { Button } from "@/client/components/ui/button";
 import {
   DropdownMenu,

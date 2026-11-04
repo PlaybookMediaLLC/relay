@@ -1,9 +1,9 @@
 import { useIsMutating, useMutation, useQuery } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import {
-  IconShieldExclamation as ShieldAlert,
-  IconShieldCheck as ShieldCheck,
-} from "@tabler/icons-react";
+  ShieldWarningIcon as ShieldAlert,
+  ShieldCheckIcon as ShieldCheck,
+} from "@phosphor-icons/react";
 import {
   CrawlerAccessForm,
   CrawlerAccessSetupHint,
@@ -35,9 +35,9 @@ import {
  * The setup steps only show while the domain has no usable signature. Once
  * one is saved they collapse to a single line with the re-run button. An
  * unrendered crawl Shopify still rate limited with the signature asks for
- * rendering instead. On Every App, where CRAWLER_ACCESS_SECRET is optional,
- * the warning says to set it first when it isn't: a signature created too
- * early only runs down its expiry.
+ * rendering instead. Where CRAWLER_ACCESS_SECRET is optional (Every App and
+ * self-hosts), the warning says to set it first when it isn't: a signature
+ * created too early only runs down its expiry.
  */
 export function ShopifyCrawlWarning({
   projectId,

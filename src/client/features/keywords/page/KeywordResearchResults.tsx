@@ -1,8 +1,8 @@
 import {
-  IconFileDownload as FileDown,
-  IconDeviceFloppy as Save,
-  IconTable as Sheet,
-} from "@tabler/icons-react";
+  FileArrowDownIcon as FileDown,
+  FloppyDiskIcon as Save,
+  TableIcon as Sheet,
+} from "@phosphor-icons/react";
 import {
   lastTwelveMonths,
   MONTH_SHORT_LABELS,
@@ -176,6 +176,9 @@ function TableCard({ controller }: Props) {
         isFiltered={activeFilterCount > 0}
         resetFilters={controller.resetFilters}
         handleRowClick={controller.handleRowClick}
+        serpLoadingKeyword={
+          controller.serpLoading ? controller.activeSerpKeyword : null
+        }
         toolbar={
           <>
             <DataTableToolbar

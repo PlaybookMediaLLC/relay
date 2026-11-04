@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
 import { Line, LineChart, ReferenceArea } from "recharts";
-import { IconTrendingUp as TrendingUp } from "@tabler/icons-react";
+import { TrendUpIcon as TrendingUp } from "@phosphor-icons/react";
 import { EmptyState } from "@/client/components/EmptyState";
 import { SegmentedToggle } from "@/client/components/SegmentedToggle";
 import {
@@ -52,7 +52,7 @@ export function RankTrendChart({
 
   return (
     <div className="space-y-1">
-      <div className="flex items-center justify-between text-[11px] text-muted-foreground">
+      <div className="flex items-center justify-between text-label font-normal text-muted-foreground">
         <span>Google position (1 = best)</span>
         <span className="inline-flex items-center gap-1">
           Better <span aria-hidden>↑</span>

@@ -2,7 +2,7 @@ import { RevenueReport } from "@/client/features/revenue/RevenueReport";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { IconFlask as FlaskConical } from "@tabler/icons-react";
+import { FlaskIcon as FlaskConical } from "@phosphor-icons/react";
 import { PageHeader } from "@/client/components/PageHeader";
 import { QueryError } from "@/client/components/QueryState";
 import { EmptyState } from "@/client/components/EmptyState";

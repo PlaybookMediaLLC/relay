@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import {
-  IconFileText as FileText,
-  IconTrash as Trash2,
-} from "@tabler/icons-react";
+  FileTextIcon as FileText,
+  TrashIcon as Trash2,
+} from "@phosphor-icons/react";
 import { EmptyState } from "@/client/components/EmptyState";
 import { RowActionsMenu } from "@/client/components/RowActionsMenu";
 import { DropdownMenuItem } from "@/client/components/ui/dropdown-menu";

@@ -1,8 +1,8 @@
 import {
-  IconPencil as Pencil,
-  IconAdjustments as Settings2,
-  IconTag as TagIcon,
-} from "@tabler/icons-react";
+  PencilSimpleIcon as Pencil,
+  SlidersIcon as Settings2,
+  TagIcon,
+} from "@phosphor-icons/react";
 import { useState } from "react";
 import { Button } from "@/client/components/ui/button";
 import {

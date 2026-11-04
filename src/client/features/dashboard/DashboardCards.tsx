@@ -2,15 +2,15 @@ import { GoogleSearchConsoleLogo } from "@/client/features/integrations/GooglePr
 import { startAudit } from "@/serverFunctions/audit";
 import { QueryError } from "@/client/components/QueryState";
 import {
-  IconLoader2 as LoaderCircle,
-  IconScanEye as ScanSearch,
-} from "@tabler/icons-react";
+  CircleNotchIcon as LoaderCircle,
+  CheckIcon as Check,
+  FileMagnifyingGlassIcon as ScanSearch,
+} from "@phosphor-icons/react";
 import { CardShell } from "@/client/components/CardShell";
 import { Progress } from "@/client/components/ui/progress";
 import { Button } from "@/client/components/ui/button";
 import { Link } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { IconCheck as Check } from "@tabler/icons-react";
 import { GoogleConnectionCard } from "@/client/features/integrations/GoogleConnectionCard";
 import { SeverityBadge } from "@/client/features/audit/shared";
 import { AUDIT_ISSUE_TYPES } from "@/shared/audit-issues";

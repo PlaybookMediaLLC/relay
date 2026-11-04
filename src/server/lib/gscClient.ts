@@ -115,7 +115,7 @@ export function createGscClient(opts: {
     headers: Record<string, string>;
   }> {
     if ((await getGoogleAccessMode()) === "gateway") {
-      const gatewayFetch = await getGatewayGoogleFetch();
+      const gatewayFetch = await getGatewayGoogleFetch(opts.userId);
       if (!gatewayFetch) {
         throw new GscTokenError(
           "Google isn't reachable through the Every App gateway here.",

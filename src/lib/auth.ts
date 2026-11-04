@@ -1,6 +1,7 @@
 // oxlint-disable max-lines -- keep upstream auth configuration beside Relay's Google-only and audit seams for upstream sync
 import { env } from "cloudflare:workers";
 import { auditAuthRoute } from "@/server/features/activity/authAudit"; // playbook-seam
+import { linkWithToken } from "@/server/auth/emailLinks"; // playbook-seam
 import { betterAuth } from "better-auth";
 import {
   APIError,
@@ -41,7 +42,8 @@ import {
   productUpdatesOnByDefault,
   requestPrivacyChoices,
 } from "@/shared/privacy-choices";
-import { markOnboardingMilestone } from "@/server/email/onboarding-drip";
+import { markMcpConnected } from "@/server/features/activation/mcpActivation";
+import { assertNotScheduledForDeletion } from "@/server/account-deletion/signInBlock";
 import {
   sendHostedPasswordResetEmail,
   sendHostedVerificationEmail,
@@ -60,7 +62,11 @@ const hostedBaseUrlSchema = z
     );
   }, "BETTER_AUTH_URL must use https or a loopback host");
 
-const createdApiKeySchema = z.object({ referenceId: z.string() });
+const createdApiKeySchema = z.object({
+  referenceId: z.string(),
+  // Bound by the api-key/create before hook.
+  metadata: z.looseObject({ organizationId: z.string().min(1) }),
+});
 
 function createAuth() {
   // Modes with their own accounts need the real configured URL (cookies,
@@ -216,10 +222,10 @@ function createAuth() {
       ...(standalone
         ? { autoSignIn: false }
         : {
-            sendResetPassword: async ({ user, url }) => {
+            sendResetPassword: async ({ user, url, token }) => {
               await sendHostedPasswordResetEmail({
                 email: user.email,
-                resetUrl: url,
+                resetUrl: linkWithToken(url, "/reset-password", token), // playbook-seam: token in the fragment
               });
             },
           }),
@@ -229,11 +235,15 @@ function createAuth() {
         ? undefined
         : {
             sendOnSignUp: true,
-            autoSignInAfterVerification: true,
-            sendVerificationEmail: async ({ user, url }) => {
+            // playbook-seam: a verification link only confirms the email. If
+            // it also signed in, any page could sign a visitor into the
+            // sender's account with /verify-email#token= (login CSRF). Keep
+            // user.changeEmail off: Better Auth's change-email links sign in.
+            autoSignInAfterVerification: false,
+            sendVerificationEmail: async ({ user, url, token }) => {
               await sendHostedVerificationEmail({
                 email: user.email,
-                confirmationUrl: url,
+                confirmationUrl: linkWithToken(url, "/verify-email", token), // playbook-seam: token in the fragment
               });
             },
           },
@@ -305,14 +315,14 @@ function createAuth() {
         if (ctx.path !== "/api-key/create") return;
         const created = createdApiKeySchema.safeParse(ctx.context.returned);
         if (!created.success) return;
-        const user = await AuthRepository.getHostedUser(
-          created.data.referenceId,
-        );
+        const { referenceId, metadata } = created.data;
+        const user = await AuthRepository.getHostedUser(referenceId);
         if (!user) return;
-        await markOnboardingMilestone(
-          { userId: user.id, userEmail: user.email },
-          "mcpConnected",
-        );
+        await markMcpConnected({
+          userId: user.id,
+          userEmail: user.email,
+          organizationId: metadata.organizationId,
+        });
       }),
     },
     databaseHooks: {
@@ -373,14 +383,14 @@ function createAuth() {
       session: {
         create: {
           before: async (session) => {
-            // Runs on every sign-in (each sign-in mints a session row).
-            // Resolution order: last-active org while still a member → most
-            // recently joined org → newly created default organization —
-            // except that a membership-less user with a pending invitation
-            // gets no organization minted (null active org) so accepting the invite
-            // leaves them in exactly the inviter's org. Inject Better Auth's
-            // createOrganization so the helper can stay reusable without
-            // importing auth.ts and creating a cycle.
+            // Runs on every sign-in (each sign-in mints a session row). Refuses
+            // an account waiting to be deleted, then resolves the active org:
+            // last-active org while still a member → most recently joined → a
+            // new default one — except a membership-less user with a pending
+            // invitation gets none (null active org), so accepting leaves them
+            // in exactly the inviter's org. createOrganization is injected so
+            // the helper needn't import auth.ts and create a cycle.
+            await assertNotScheduledForDeletion(session.userId);
             const resolved = await resolveSignInHostedOrganization(
               session.userId,
               (body) => auth.api.createOrganization({ body }),

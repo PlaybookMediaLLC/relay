@@ -1,10 +1,10 @@
 import {
-  IconAlertCircle as AlertCircle,
-  IconCircleCheck as CheckCircle2,
-  IconExternalLink as ExternalLink,
-  IconWorld as Globe,
-  IconCircleX as XCircle,
-} from "@tabler/icons-react";
+  WarningCircleIcon as AlertCircle,
+  CheckCircleIcon as CheckCircle2,
+  ArrowSquareOutIcon as ExternalLink,
+  GlobeIcon as Globe,
+  XCircleIcon as XCircle,
+} from "@phosphor-icons/react";
 import { cn } from "cn";
 import { MarkdownAnswer } from "@/client/features/ai-search/components/MarkdownAnswer";
 import { getModelAccent } from "@/client/features/ai-search/platformLabels";

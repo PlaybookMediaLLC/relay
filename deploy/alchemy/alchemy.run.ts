@@ -1,4 +1,4 @@
-// oxlint-disable max-lines -- keep the upstream deployment stack and Relay bindings together for upstream sync
+/* eslint-disable max-lines -- the one production stack: every Worker, binding, var and secret is declared here */
 import * as Alchemy from "alchemy";
 import * as Cloudflare from "alchemy/Cloudflare";
 import * as CfWorkers from "@distilled.cloud/cloudflare/workers";
@@ -9,7 +9,11 @@ import * as Effect from "effect/Effect";
 import { Redacted } from "effect";
 import { unstable_readConfig } from "wrangler";
 import { z } from "zod";
-import { relayBindings, relayDataEnv } from "./relay-env.ts"; // playbook-seam
+import {
+  relayBindings,
+  relayDataEnv,
+  relayObservability,
+} from "./relay-env.ts"; // playbook-seam
 import {
   emailAccessGate,
   HOSTED_PROD_STAGE,
@@ -126,6 +130,13 @@ const makeResources = (stage: string, usesD1: boolean) => {
     OAUTH_KV: Cloudflare.KV.Namespace("OAUTH_KV", {
       title: prod ? PROD_NAMES.oauthKv : `open-seo-oauth-kv-${stage}`,
     }).pipe(keep),
+    // Feature flags (src/server/lib/featureFlags.ts), app worker and prod
+    // only: every other stage, and every self-host, reads them all as off.
+    // Alchemy owns just the app. The flags themselves are created and flipped
+    // in the Cloudflare dashboard: a managed Flag resource would push its
+    // declared state back over a flip made during an outage whenever a deploy
+    // updated it.
+    ...(prod ? { FLAGS: Cloudflare.Flagship.App("FLAGS", {}).pipe(keep) } : {}),
   };
 };
 
@@ -281,6 +292,7 @@ const dataEnv = {
   GOOGLE_CLIENT_SECRET: optionalSecret("GOOGLE_CLIENT_SECRET"),
   GOOGLE_MAPS_API_KEY: optionalSecret("GOOGLE_MAPS_API_KEY"),
   OPENROUTER_API_KEY: optionalSecret("OPENROUTER_API_KEY"),
+  OPENROUTER_BASE_URL: optionalVar("OPENROUTER_BASE_URL"),
   OPENROUTER_MODEL: optionalVar("OPENROUTER_MODEL"),
   CONTEXT_API_KEY: optionalSecret("CONTEXT_API_KEY"),
   AUTUMN_SECRET_KEY: optionalSecret("AUTUMN_SECRET_KEY"),
@@ -288,7 +300,6 @@ const dataEnv = {
   DUB_API_KEY: optionalSecret("DUB_API_KEY"),
   META_PIXEL_ID: optionalVar("META_PIXEL_ID"),
   META_CONVERSIONS_API_TOKEN: optionalSecret("META_CONVERSIONS_API_TOKEN"),
-  GDPR_ERASURE_SECRET: optionalSecret("GDPR_ERASURE_SECRET"),
   LOOPS_API_KEY: optionalSecret("LOOPS_API_KEY"),
   LOOPS_TRANSACTIONAL_VERIFY_EMAIL_ID: optionalVar(
     "LOOPS_TRANSACTIONAL_VERIFY_EMAIL_ID",
@@ -300,9 +311,16 @@ const dataEnv = {
     "LOOPS_TRANSACTIONAL_INVITATION_ID",
   ),
   LOOPS_PRODUCT_UPDATES_LIST_ID: optionalVar("LOOPS_PRODUCT_UPDATES_LIST_ID"),
+  LOOPS_TRANSACTIONAL_ACCOUNT_DELETION_ID: optionalVar(
+    "LOOPS_TRANSACTIONAL_ACCOUNT_DELETION_ID",
+  ),
   POSTHOG_PUBLIC_KEY: optionalVar("POSTHOG_PUBLIC_KEY"),
   ...relayDataEnv, // playbook-seam: fork settings (deploy/alchemy/relay-env.ts)
   POSTHOG_HOST: optionalVar("POSTHOG_HOST"),
+  POSTHOG_PROJECT_ID: optionalVar("POSTHOG_PROJECT_ID"),
+  POSTHOG_ACCOUNT_DELETION_API_KEY: optionalSecret(
+    "POSTHOG_ACCOUNT_DELETION_API_KEY",
+  ),
   TURNSTILE_SECRET_KEY: optionalSecret("TURNSTILE_SECRET_KEY"),
   TURNSTILE_SITE_KEY: optionalVar("TURNSTILE_SITE_KEY"),
   // Alchemy reconciles worker vars and secrets on every deploy, so every value
@@ -416,7 +434,8 @@ export default Alchemy.Stack(
       authMode === "cloudflare_access" || authMode === "password";
 
     // Created once and bound into BOTH workers — they share the same
-    // D1/KV/R2 (and prod Hyperdrive). OAUTH_KV stays app-worker-only.
+    // D1/KV/R2 (and prod Hyperdrive). OAUTH_KV and FLAGS stay
+    // app-worker-only.
     const resources = makeResources(stage, databaseProvider !== "postgres");
 
     // Aux worker: the site-audit engine (src/audit-worker.ts) — the
@@ -438,10 +457,11 @@ export default Alchemy.Stack(
       // CPU allowance the app worker used to carry for them. Configurable
       // CPU limits are a paid-plan feature (see selfHostPlan).
       ...(selfHostPlan ? {} : { limits: { cpuMs: 300_000 } }),
-      observability: {
+      // playbook-seam: Axiom export (deploy/alchemy/relay-env.ts)
+      observability: yield* relayObservability({
         enabled: wrangler.observability?.enabled ?? true,
         traces: { enabled: wrangler.observability?.traces?.enabled ?? false },
-      },
+      }),
       env: {
         ...(resources.DB ? { DB: resources.DB } : {}),
         KV: resources.KV,
@@ -510,10 +530,11 @@ export default Alchemy.Stack(
       // limits are a paid-plan feature; self-host deploys get the plan
       // default instead (see selfHostPlan).
       ...(selfHostPlan ? {} : { limits: { cpuMs: 300_000 } }),
-      observability: {
+      // playbook-seam: Axiom export (deploy/alchemy/relay-env.ts)
+      observability: yield* relayObservability({
         enabled: wrangler.observability?.enabled ?? true,
         traces: { enabled: wrangler.observability?.traces?.enabled ?? false },
-      },
+      }),
       // Hosted prod pins the fetch handler next to its Postgres primary
       // (PlanetScale, AWS us-east-1); each request makes several sequential
       // Hyperdrive round trips. Other stages run on D1 and keep
@@ -542,9 +563,8 @@ export default Alchemy.Stack(
         POLICY_AUD: access.policyAud,
         EMAIL: yield* Cloudflare.Email.SendEmail("EMAIL"), // playbook-seam: Relay team invites (src/server/email/relay-email.ts)
 
-        // Service binding to the audit worker's AuditEngine entrypoint
-        // (cancel + GDPR erasure of scratchpad state; env key = binding
-        // name).
+        // Service binding to the audit worker's AuditEngine entrypoint (cancel
+        // and account deletion's scratchpad wipe; env key = binding name).
         AUDIT_ENGINE: auditWorker,
 
         // Per-user throttle for /mcp API-key auth (see

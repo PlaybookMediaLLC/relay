@@ -77,7 +77,7 @@ flowchart LR
   audit -.-> ph
 ```
 
-This deployment runs `AUTH_MODE=hosted`, so the hosted integrations apply. Autumn handles billing (see [Current status](#current-status)). Team invitations go through Cloudflare Email Sending: the `EMAIL` binding sends from `invites@mail.playbookmedia.io`, a sending domain onboarded in Cloudflare Email Service (`src/server/email/relay-email.ts`). Loops is not configured, so its fallback path never runs here. Dub (referrals) is not configured. The Turnstile keys are set, but Google-only sign-in does not use them. OpenRouter (AI features) and PostHog keys are set in `ENV_PLAYBOOK`.
+This deployment runs `AUTH_MODE=hosted`, so the hosted integrations apply. Autumn handles billing (see [Current status](#current-status)). Team invitations go through Cloudflare Email Sending: the `EMAIL` binding sends from `invites@mail.playbookmedia.io`, a sending domain onboarded in Cloudflare Email Service (`src/server/email/relay-email.ts`). Loops sends product updates from `updates.playbookmedia.io` (Loops team "Playbook Media", list "Relay product updates"). The deploy reads its key from the `RELAY_LOOPS_API_KEY` secret and the list ID from the `RELAY_LOOPS_PRODUCT_UPDATES_LIST_ID` variable. Team invitations still go through the `EMAIL` binding, which takes precedence over Loops. Dub (referrals) is not configured. The Turnstile keys are set, but Google-only sign-in does not use them. OpenRouter (AI features) and PostHog keys are set in `ENV_PLAYBOOK`.
 
 ## Cloudflare resources and bindings
 
@@ -230,7 +230,7 @@ Keep `BETTER_AUTH_SECRET` stable. Changing it invalidates sessions and the store
 
 ## Operating notes
 
-- **Logs:** use the Workers Observability dashboard for `open-seo-playbook`, or run `pnpm alchemy tail` locally.
+- **Logs:** use the Workers Observability dashboard for `open-seo-playbook`, or run `pnpm alchemy tail` locally. To send traces and logs to Axiom, see [Axiom APM](runbooks/axiom-apm.md).
 - **Database:** to query the database, run `wrangler d1 execute open-seo-db-playbook --remote --command "..."` with `CLOUDFLARE_ACCOUNT_ID` set. Migrations are applied only by the deploy; do not hand-edit `d1_migrations`.
 - **Rollback:** redeploy an earlier commit with the workflow's manual dispatch. D1 migrations only move forward, so a code rollback across a schema change needs care. Use D1 Time Travel (`wrangler d1 time-travel restore`) to recover data.
 - **Teardown:** run `pnpm alchemy destroy deploy/alchemy/alchemy.run.ts --env-file .env.playbook --stage playbook`. This deletes the D1 database and all other data for the stage.
@@ -274,7 +274,7 @@ Keep `BETTER_AUTH_SECRET` stable. Changing it invalidates sessions and the store
 | PostHog                                                                       | Outbound     | Optional                                                           | `POSTHOG_*`, `OPENSEO_TELEMETRY_DISABLED`                                                                        |
 | Autumn                                                                        | Outbound     | Yes in `hosted` mode                                               | `AUTUMN_SECRET_KEY`, `AUTUMN_WEBHOOK_SECRET`                                                                     |
 | Cloudflare Email Sending                                                      | Outbound     | Yes, for team invitations                                          | `EMAIL` binding, sending domain `mail.playbookmedia.io`                                                          |
-| Loops, Dub                                                                    | Outbound     | Optional in `hosted` mode                                          | Unset here                                                                                                       |
+| Loops, Dub                                                                    | Outbound     | Optional in `hosted` mode                                          | Loops: `RELAY_LOOPS_API_KEY` secret and `RELAY_LOOPS_PRODUCT_UPDATES_LIST_ID` variable. Dub: unset               |
 | Turnstile                                                                     | Inbound      | Not used with Google-only sign-in                                  | `TURNSTILE_*` set, unused                                                                                        |
 | Trigger.dev                                                                   | Scheduler    | Only for scheduled jobs                                            | `TRIGGER_SECRET_KEY`, `GROWTH_JOBS_SECRET`, `GROWTH_JOBS_MODE`                                                   |
 | GitHub Actions                                                                | CI/CD        | Yes                                                                | `deploy-playbook.yml`, `ci.yml`                                                                                  |

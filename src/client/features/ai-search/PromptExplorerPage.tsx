@@ -3,11 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { identity, sortBy } from "remeda";
 import {
-  IconLayoutColumns as Columns3,
-  IconMessage as MessageSquare,
-  IconZoomCheck as SearchCheck,
-  IconSparkles as Sparkles,
-} from "@tabler/icons-react";
+  ColumnsIcon as Columns3,
+  ChatTextIcon as MessageSquare,
+  SparkleIcon as Sparkles,
+  ListMagnifyingGlassIcon as SearchCheck,
+} from "@phosphor-icons/react";
 import { useHostedPlanGate } from "@/client/features/billing/HostedPlanGate";
 import { ResearchPageShell } from "@/client/features/ai-search/ResearchPageShell";
 import { PromptTrackingWithoutUpgradeButton } from "@/client/features/ai-visibility/shared";

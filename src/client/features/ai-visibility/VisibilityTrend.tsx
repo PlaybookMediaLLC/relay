@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
-  IconInfoCircle as Info,
-  IconAlertTriangle as TriangleAlert,
-} from "@tabler/icons-react";
+  InfoIcon as Info,
+  WarningIcon as TriangleAlert,
+} from "@phosphor-icons/react";
 import { cn } from "cn";
 import { SegmentedToggle } from "@/client/components/SegmentedToggle";
 import { Skeleton } from "@/client/components/ui/skeleton";
@@ -19,7 +19,11 @@ import {
 import type { AiTrend, AiTrendMetric } from "@/shared/ai-visibility";
 import { EngineLabel } from "./EngineLabel";
 import { trendSeries, VisibilityTrendChart } from "./VisibilityTrendChart";
-import { AiQueryError, type AiTrendDays, aiTrendQueryOptions } from "./shared";
+import {
+  AiQueryError,
+  aiTrendQueryOptions,
+  DEFAULT_AI_TREND_DAYS,
+} from "./shared";
 
 const periods = [
   { value: "7", icon: null, label: "7d" },
@@ -55,7 +59,7 @@ export function VisibilityTrend({
   projectId: string;
   collecting: boolean;
 }) {
-  const [days, setDays] = useState<AiTrendDays>(7);
+  const [days, setDays] = useState(DEFAULT_AI_TREND_DAYS);
   const query = useQuery(aiTrendQueryOptions(projectId, days));
   const trend = query.data;
   const message = trend && notice(trend, collecting);
@@ -94,7 +98,7 @@ export function VisibilityTrend({
                     {trendSeries.map((series) => (
                       <span
                         key={series.key}
-                        className="inline-flex items-center gap-1 text-[11px] text-muted-foreground"
+                        className="inline-flex items-center gap-1 text-label font-normal text-muted-foreground"
                       >
                         <span
                           className="size-2 rounded-sm"

@@ -1,21 +1,22 @@
 import { sortBy } from "remeda";
 import {
-  IconBookmark as Bookmark,
-  IconRobot as Bot,
-  IconBrain as Brain,
-  IconChartLine as ChartLine,
-  IconClipboardCheck as ClipboardCheck,
-  IconFileText as FileText,
-  IconFlask as FlaskConical,
-  IconWorld as Globe,
-  IconLayoutDashboard as LayoutDashboard,
-  IconListCheck as ListCheck, // playbook-seam
-  IconLink as Link2,
-  IconMessage as MessageSquare,
-  IconSearch as Search,
-  IconTrendingUp as TrendingUp,
-  IconTarget as Target,
-} from "@tabler/icons-react";
+  BookmarkSimpleIcon as Bookmark,
+  RobotIcon as Bot,
+  BrainIcon as Brain,
+  ChartLineIcon as ChartLine,
+  FileTextIcon as FileText,
+  FlaskIcon as FlaskConical,
+  GlobeIcon as Globe,
+  SquaresFourIcon as LayoutDashboard,
+  ListChecksIcon as ListCheck, // playbook-seam
+  LinkIcon as Link2,
+  MapPinIcon as MapPin,
+  ChatTextIcon as MessageSquare,
+  MagnifyingGlassIcon as Search,
+  TrendUpIcon as TrendingUp,
+  TargetIcon as Target,
+  ListChecksIcon as ClipboardCheck,
+} from "@phosphor-icons/react";
 import { linkOptions } from "@tanstack/react-router";
 import { GoogleGlyphMuted } from "@/client/features/gsc/GoogleGlyph";
 
@@ -53,6 +54,11 @@ const projectNavItems = [
     to: "/p/$projectId/rank-tracking" as const,
     label: "Rank Tracking",
     icon: TrendingUp,
+  },
+  {
+    to: "/p/$projectId/local-seo" as const,
+    label: "Local SEO",
+    icon: MapPin,
   },
   {
     to: "/p/$projectId/search-performance" as const,
@@ -159,6 +165,7 @@ export function getProjectNavGroups(projectId: string) {
         byPath("/p/$projectId/prompt-explorer"),
         byPath("/p/$projectId/audit"),
         byPath("/p/$projectId/rank-tracking"),
+        byPath("/p/$projectId/local-seo"),
       ],
     },
     {
@@ -196,7 +203,7 @@ export const dataforseoHelpLinkOptions = linkOptions({
 
 /** Provider setup belongs to the research views that require it. */
 export function isPaidResearchPath(pathname: string) {
-  return /^\/p\/[^/]+\/(?:keywords|domain|backlinks|rank-tracking|ai-visibility|prompt-explorer)(?:\/|$)/.test(
+  return /^\/p\/[^/]+\/(?:keywords|domain|backlinks|rank-tracking|local-seo|ai-visibility|prompt-explorer)(?:\/|$)/.test(
     pathname,
   );
 }

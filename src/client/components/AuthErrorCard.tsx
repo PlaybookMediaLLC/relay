@@ -1,5 +1,5 @@
 import { useEffect, type ReactNode } from "react";
-import { IconShieldExclamation as ShieldAlert } from "@tabler/icons-react";
+import { ShieldWarningIcon as ShieldAlert } from "@phosphor-icons/react";
 import {
   getErrorCode,
   getStandardErrorMessage,

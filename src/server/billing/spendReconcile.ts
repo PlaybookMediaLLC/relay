@@ -1,10 +1,14 @@
-import { and, eq, lt, ne, or } from "drizzle-orm";
+import { and, eq, isNull, lt, ne, or } from "drizzle-orm";
 import { db } from "@/db";
 import { spendLedger } from "@/db/schema";
 import { isHostedServerAuthMode } from "@/server/lib/runtime-env";
 import type { CreditFeature } from "@/shared/billing-credit-features";
 import { AUTUMN_SEO_DATA_BALANCE_FEATURE_ID } from "@/shared/billing";
-import { RENDERING_HOLD_TTL_MS } from "./spendLedger";
+import { AI_TRACKING_HOLD_TTL_MS } from "@/server/lib/dataforseo/ai-tracking-billing";
+import {
+  AI_TRACKING_LEDGER_FEATURE,
+  RENDERING_HOLD_TTL_MS,
+} from "./spendLedger";
 import {
   finalizeHold,
   getUsageCreditsRemaining,
@@ -28,13 +32,21 @@ const DATAFORSEO_FEATURES = [
   "local_seo",
 ] as const satisfies readonly CreditFeature[];
 const creditFeatureOf = (feature: string | null): CreditFeature =>
-  DATAFORSEO_FEATURES.find((known) => known === feature) ?? "agent";
+  feature === AI_TRACKING_LEDGER_FEATURE
+    ? "ai_prompt_responses"
+    : (DATAFORSEO_FEATURES.find((known) => known === feature) ?? "agent");
 
 type Row = typeof spendLedger.$inferSelect;
-// A rendering lock lives for the whole audit, so its row is neither released
-// nor tracked while the lock can still be finalized.
-const holdMsOf = (provider: Row["provider"]) =>
-  provider === "rendering" ? RENDERING_HOLD_TTL_MS : HOLD_MS;
+// A rendering lock lives for the whole audit, and a queued AI visibility
+// hold for the whole run, so their rows are neither released nor tracked
+// while the lock can still be finalized.
+const holdMsOf = (row: Pick<Row, "provider" | "feature">) =>
+  row.provider === "rendering"
+    ? RENDERING_HOLD_TTL_MS
+    : row.feature === AI_TRACKING_LEDGER_FEATURE
+      ? AI_TRACKING_HOLD_TTL_MS
+      : HOLD_MS;
+const LONG_HOLD_MS = Math.max(RENDERING_HOLD_TTL_MS, AI_TRACKING_HOLD_TTL_MS);
 
 /**
  * Charges one failed settlement: the hold while it is valid, else a direct
@@ -45,7 +57,7 @@ async function charge(row: Row, now: Date) {
   const credits = row.actualCredits ?? 0;
   const holdValid =
     row.holdLockId !== null &&
-    now.getTime() - new Date(row.createdAt).getTime() < holdMsOf(row.provider);
+    now.getTime() - new Date(row.createdAt).getTime() < holdMsOf(row);
   if (holdValid && row.holdLockId) {
     const { landed, error } = await finalizeHold(
       {
@@ -101,9 +113,13 @@ export async function reconcileSpend(now = new Date()) {
           or(
             and(
               ne(spendLedger.provider, "rendering"),
+              or(
+                isNull(spendLedger.feature),
+                ne(spendLedger.feature, AI_TRACKING_LEDGER_FEATURE),
+              ),
               lt(spendLedger.createdAt, staleSince(HOLD_MS)),
             ),
-            lt(spendLedger.createdAt, staleSince(RENDERING_HOLD_TTL_MS)),
+            lt(spendLedger.createdAt, staleSince(LONG_HOLD_MS)),
           ),
         ),
       ),

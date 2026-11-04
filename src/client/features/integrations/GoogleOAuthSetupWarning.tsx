@@ -1,7 +1,7 @@
 import {
-  IconAlertTriangle as AlertTriangle,
-  IconInfoCircle as Info,
-} from "@tabler/icons-react";
+  WarningIcon as AlertTriangle,
+  InfoIcon as Info,
+} from "@phosphor-icons/react";
 import { SafeExternalLink } from "@/client/components/SafeExternalLink";
 import {
   Alert,
@@ -10,11 +10,8 @@ import {
 } from "@/client/components/ui/alert";
 import { isEveryAppClientAuthMode } from "@/lib/auth-mode";
 
-// Switch to https://everyapp.com/docs/providers/google#connect-accounts (with
-// #search-console and #google-analytics) once everyapp.com deploys the
-// provider pages (merged in private-every-app #753); until then it 404s. Same link in
-// search-console-tools.ts and selfhost-preflight.ts.
-const EVERY_APP_GOOGLE_SETUP_URL = "https://everyapp.com/docs/connect-oauth";
+const EVERY_APP_GOOGLE_SETUP_URL =
+  "https://everyapp.com/docs/providers/google#connect-accounts";
 
 export function GoogleOAuthSetupWarning({
   integrationName,

@@ -1,12 +1,12 @@
 import { type UIMessage } from "ai";
 import { useState } from "react";
 import {
-  IconAlertTriangle as AlertTriangle,
-  IconCheck as Check,
-  IconChevronRight as ChevronRight,
-  IconPencil as Pencil,
-  IconArrowBackUp as Undo2,
-} from "@tabler/icons-react";
+  WarningIcon as AlertTriangle,
+  CheckIcon as Check,
+  CaretRightIcon as ChevronRight,
+  PencilSimpleIcon as Pencil,
+  ArrowUUpLeftIcon as Undo2,
+} from "@phosphor-icons/react";
 import { CopyButton } from "@/client/components/CopyButton";
 import { Markdown } from "@/client/components/Markdown";
 import { Badge } from "@/client/components/ui/badge";

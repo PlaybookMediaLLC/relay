@@ -1,5 +1,5 @@
 import type { ComponentProps, ReactNode } from "react";
-import { IconPackage as Package } from "@tabler/icons-react";
+import { PackageIcon as Package } from "@phosphor-icons/react";
 import { CopyButton } from "@/client/components/CopyButton";
 
 export const AGENT_SETUP_DESCRIPTION =

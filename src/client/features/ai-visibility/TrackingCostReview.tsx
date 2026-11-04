@@ -6,7 +6,7 @@ import {
   useQuery,
   type QueryClient,
 } from "@tanstack/react-query";
-import { IconLoader2 as Loader2 } from "@tabler/icons-react";
+import { CircleNotchIcon as Loader2 } from "@phosphor-icons/react";
 import { FormDialog } from "@/client/components/FormDialog";
 import { Button } from "@/client/components/ui/button";
 import {
@@ -229,6 +229,12 @@ export function TrackingCostReview({
                 {/* No per-answer price: engines cost different amounts. */}
                 {`${cost.observations} ${cost.observations === 1 ? "answer" : "answers"}${mode === "schedule" ? ` · about ${aiMoney(cost.monthlyCostUsd)} a month (${cost.checksPerMonth} ${cost.checksPerMonth === 1 ? "run" : "runs"})` : " · live answers, ready in a few minutes"}`}
               </FieldDescription>
+              {/* Pausing keeps the next check, so only a tracker never scheduled has none. */}
+              {mode === "check" && tracker.nextCheckAt && (
+                <FieldDescription>
+                  Your scheduled tracking doesn't change.
+                </FieldDescription>
+              )}
             </Field>
             {start.error && <AiQueryError error={start.error} />}
           </>

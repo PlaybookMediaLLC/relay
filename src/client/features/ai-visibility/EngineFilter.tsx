@@ -1,8 +1,8 @@
 import { Menu } from "@base-ui/react/menu";
 import {
-  IconCheck as Check,
-  IconChevronDown as ChevronDown,
-} from "@tabler/icons-react";
+  CheckIcon as Check,
+  CaretDownIcon as ChevronDown,
+} from "@phosphor-icons/react";
 import { Button } from "@/client/components/ui/button";
 import {
   DropdownMenu,

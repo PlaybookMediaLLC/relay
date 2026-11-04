@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ShieldAlert } from "lucide-react";
+import { ShieldWarningIcon as ShieldAlert } from "@phosphor-icons/react";
 import {
   Alert,
   AlertDescription,

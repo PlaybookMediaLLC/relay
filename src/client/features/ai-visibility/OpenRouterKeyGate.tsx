@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
-import { IconKey as KeyRound } from "@tabler/icons-react";
+import { KeyIcon as KeyRound } from "@phosphor-icons/react";
 import { GateCard } from "@/client/components/GateCard";
 import { QueryError } from "@/client/components/QueryState";
 import { SkeletonPageContent } from "@/client/components/SkeletonPresets";

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { IconPlugOff as Unplug } from "@tabler/icons-react";
+import { PlugsIcon as Unplug } from "@phosphor-icons/react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { ConfirmDialog } from "@/client/components/ConfirmDialog";

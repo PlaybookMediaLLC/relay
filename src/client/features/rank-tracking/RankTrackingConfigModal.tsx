@@ -2,7 +2,7 @@ import { useId, useState } from "react";
 import { projectsQueryOptions } from "@/client/features/projects/projectQueries";
 import { useQuery } from "@tanstack/react-query";
 import { revalidateLogic, useStore } from "@tanstack/react-form";
-import { IconInfoCircle as Info } from "@tabler/icons-react";
+import { InfoIcon as Info } from "@phosphor-icons/react";
 import { useAppForm } from "@/client/components/form/useAppForm";
 import { CountryCombobox } from "@/client/components/CountryCombobox";
 import { Button } from "@/client/components/ui/button";
@@ -39,6 +39,7 @@ import {
   withBrowserTimeZone,
   type LocalScheduleTime,
 } from "./scheduleTime";
+import { parseDbTimestamp } from "@/client/lib/db-timestamp";
 
 type Props = {
   projectId: string;
@@ -178,7 +179,7 @@ function RankTrackingConfigModalContent({
     // Shown and edited in the browser's timezone; the server converts it to UTC.
     scheduleTime: localScheduleTimeFrom(
       existingConfig?.nextCheckAt
-        ? new Date(existingConfig.nextCheckAt)
+        ? parseDbTimestamp(existingConfig.nextCheckAt)
         : randomScheduleDate(),
     ),
     serpDepth: existingConfig?.serpDepth ?? 40,

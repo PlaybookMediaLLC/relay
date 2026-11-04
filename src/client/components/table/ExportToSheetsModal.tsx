@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useLocation } from "@tanstack/react-router";
 import {
-  IconCheck as Check,
-  IconExternalLink as ExternalLink,
-} from "@tabler/icons-react";
+  CheckIcon as Check,
+  ArrowSquareOutIcon as ExternalLink,
+} from "@phosphor-icons/react";
 import { Button } from "@/client/components/ui/button";
 import {
   Dialog,

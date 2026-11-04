@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IconRotateClockwise2 as RotateCcw } from "@tabler/icons-react";
+import { ArrowClockwiseIcon as RotateCcw } from "@phosphor-icons/react";
 import type { z } from "zod";
 import { Badge } from "@/client/components/ui/badge";
 import { Button } from "@/client/components/ui/button";
@@ -25,11 +25,14 @@ export type TextFilters = Pick<
 
 export function SearchPerformanceTextFilters({
   value,
+  showQuery,
   activeFilterCount,
   onApply,
   onReset,
 }: {
   value: TextFilters;
+  /** Discover and Google News have no queries to filter on. */
+  showQuery: boolean;
   activeFilterCount: number;
   onApply: (filters: TextFilters) => void;
   onReset: () => void;
@@ -108,7 +111,7 @@ export function SearchPerformanceTextFilters({
       </div>
       <div className="grid gap-3 md:grid-cols-2">
         <div className="space-y-1.5">
-          <span className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+          <span className="text-label uppercase tracking-wide text-muted-foreground">
             Page URL
           </span>
           <div className="flex flex-col gap-2 sm:flex-row">
@@ -144,8 +147,8 @@ export function SearchPerformanceTextFilters({
             />
           </div>
         </div>
-        <div className="space-y-1.5">
-          <span className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+        <div className={showQuery ? "space-y-1.5" : "hidden"}>
+          <span className="text-label uppercase tracking-wide text-muted-foreground">
             Query
           </span>
           <div className="flex flex-col gap-2 sm:flex-row">

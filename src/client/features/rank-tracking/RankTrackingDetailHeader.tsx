@@ -1,9 +1,9 @@
 import {
-  IconDeviceDesktop as Monitor,
-  IconPlus as Plus,
-  IconSettings as Settings,
-  IconDeviceMobile as Smartphone,
-} from "@tabler/icons-react";
+  DesktopIcon as Monitor,
+  PlusIcon as Plus,
+  GearIcon as Settings,
+  DeviceMobileIcon as Smartphone,
+} from "@phosphor-icons/react";
 import { SegmentedToggle } from "@/client/components/SegmentedToggle";
 import { Button } from "@/client/components/ui/button";
 import {
@@ -27,6 +27,7 @@ import {
   comparePeriodSchema,
   type ComparePeriod,
 } from "@/types/schemas/rank-tracking-search";
+import { parseDbTimestamp } from "@/client/lib/db-timestamp";
 
 const COMPARE_ITEMS: { value: ComparePeriod; label: string }[] = [
   { value: "1d", label: "vs yesterday" },
@@ -92,7 +93,8 @@ export function RankTrackingDetailHeader({
           {run?.lastCheckedAt && (
             <>
               {" "}
-              &middot; Last: {new Date(run.lastCheckedAt).toLocaleDateString()}
+              &middot; Last:{" "}
+              {parseDbTimestamp(run.lastCheckedAt).toLocaleDateString()}
             </>
           )}
           {costEstimate && costEstimate.keywordCount > 0 && (

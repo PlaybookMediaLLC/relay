@@ -75,8 +75,10 @@ import type { Plugin } from "vite";
  * - src/client/features/projects/SettingsTabs.tsx: adds the Automation tab
  *   (src/client/features/automation/AutomationSettings.tsx), the Spending
  *   tab (src/client/features/spend/ProjectSpending.tsx), the SEO checks
- *   tab (src/client/features/seo-checks/SeoChecksSettings.tsx) and the
- *   Conversion tab (src/client/features/conversion/ConversionSettings.tsx).
+ *   tab (src/client/features/seo-checks/SeoChecksSettings.tsx), the
+ *   Conversion tab (src/client/features/conversion/ConversionSettings.tsx)
+ *   and the Protection tab
+ *   (src/client/features/protection/ProtectionSettings.tsx).
  * - src/routes/_app/billing.tsx: mounts the spending limit card
  *   (src/client/features/spend/SpendLimitsCard.tsx).
  * - src/routes/_app/route.tsx: shows the spending limit banner above the
@@ -156,6 +158,44 @@ import type { Plugin } from "vite";
  *   (src/server/features/reports/services/ReportBrandingService.ts).
  * - src/server/mcp/tools/report-template-tools.ts: list_report_templates
  *   returns the organization's brand color.
+ * - deploy/alchemy/alchemy.run.ts: both workers take their observability
+ *   settings from relayObservability, which can export traces and logs to
+ *   Axiom (deploy/alchemy/relay-env.ts).
+ * - src/server/lib/dataforseo/ai-tracking-billing.ts: queued AI visibility
+ *   posts hold inside the monthly spend limits (reserveWithinLimits), on the
+ *   `ai_tracking` ledger feature that spend reconciliation keeps open for the
+ *   hold's 24 hours. Its client test asserts both.
+ * - src/server/account-deletion/AccountDeletionRepository.ts and its test:
+ *   after the workspaces go, the erase batch also unattributes Relay's user
+ *   columns, revokes the user's GitHub tokens and deletes the erased
+ *   workspaces' activity and spend rows
+ *   (src/server/account-deletion/relayErasure.ts).
+ * - src/server/features/rank-tracking/repositories/RankTrackingRepository.ts
+ *   and its query test, and RankTrackingDomainList.tsx: the domain list says
+ *   "Last check failed" for a failed run. The test carries a max-lines
+ *   exemption.
+ * - src/routes/__root.tsx and src/client/mcp-widgets/main.tsx: Phosphor
+ *   icons are aria-hidden by default through IconContext
+ *   (src/client/lib/iconDefaults.ts).
+ * - src/standalone-server.ts and wrangler.standalone.json: the Docker
+ *   edition exports and binds the SEO check Workflow too.
+ * - src/client/features/settings/DeleteAccountSettings.tsx: error copy is a
+ *   lookup, not a switch with a default (switch-exhaustiveness-check).
+ * - RankTrackingService.ts, SearchPerformanceParts.tsx, RankCheckWorkflow.ts
+ *   and src/routes/_app/p/$projectId/saved.tsx: fork lines push these upstream
+ *   files past the line limits, so they carry a max-lines exemption.
+ * - vite.config.ts: unit tests also run deploy/**\/*.test.ts.
+ * - src/db/pg/retry.ts: each Postgres query and each transaction runs in a
+ *   trace span (src/db/pg/querySpan.ts).
+ * - src/server/features/local-seo/services/GoogleMapsService.ts: the API key
+ *   goes in the X-Goog-Api-Key header, because traces record URLs.
+ * - src/lib/auth.ts: password reset and verification emails carry the token
+ *   in the URL fragment (src/server/auth/emailLinks.ts), and a verification
+ *   link no longer signs in, which closes login CSRF through that link.
+ * - src/routes/reset-password.tsx and src/routes/verify-email.tsx: read that
+ *   token and post it (src/client/features/auth/linkToken.ts,
+ *   src/server/auth/verifyEmailLink.ts). The reset page shows its
+ *   expired-link screen when the posted token is dead.
  */
 const RELAY = "https://relay.playbookmedia.io";
 

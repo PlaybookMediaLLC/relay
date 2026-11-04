@@ -7,6 +7,11 @@ import { AuditHistorySection } from "@/client/features/audit/launch/AuditHistory
 import { LaunchFormCard } from "@/client/features/audit/launch/LaunchFormCard";
 import { useLaunchController } from "@/client/features/audit/launch/useLaunchController";
 import { useHostedPlanGate } from "@/client/features/billing/HostedPlanGate";
+import { isHostedClientAuthMode } from "@/lib/auth-mode";
+import {
+  RENDERING_COST_NOTE,
+  renderingCostText,
+} from "@/shared/audit-rendering";
 
 type LaunchViewProps = {
   projectId: string;
@@ -84,7 +89,6 @@ export function LaunchView({
               launchForm={controller.launchForm}
               commitMaxPagesInput={controller.commitMaxPagesInput}
               maxPagesLimit={controller.maxPagesLimit}
-              paidMaxPagesLimit={controller.paidMaxPagesLimit}
               canRenderJavaScript={controller.canRenderJavaScript}
               outOfCredits={controller.outOfCredits}
             />
@@ -92,17 +96,52 @@ export function LaunchView({
         </details>
 
         {controller.largeCrawlPages != null ? (
-          <ConfirmDialog
-            title="Start a large audit?"
-            confirmLabel="Continue"
+          <LargeCrawlDialog
+            pages={controller.largeCrawlPages}
+            renderJavaScript={controller.renderJavaScript}
             onConfirm={controller.confirmLargeCrawl}
             onClose={controller.cancelLargeCrawl}
-          >
-            You are about to crawl {controller.largeCrawlPages.toLocaleString()}{" "}
-            pages. This is okay, but it may take a while. Continue?
-          </ConfirmDialog>
+          />
         ) : null}
       </div>
     </div>
+  );
+}
+
+function LargeCrawlDialog({
+  pages,
+  renderJavaScript,
+  onConfirm,
+  onClose,
+}: {
+  pages: number;
+  renderJavaScript: boolean;
+  onConfirm: () => void;
+  onClose: () => void;
+}) {
+  const pageCount = pages.toLocaleString();
+  // Only hosted plans pay for rendering, so only they see a price.
+  const priced = renderJavaScript && isHostedClientAuthMode();
+  return (
+    <ConfirmDialog
+      title={
+        priced ? `Render up to ${pageCount} pages?` : "Start a large audit?"
+      }
+      confirmLabel={priced ? "Start audit" : "Continue"}
+      onConfirm={onConfirm}
+      onClose={onClose}
+    >
+      {priced ? (
+        <>
+          {RENDERING_COST_NOTE} Rendered audits can take longer than regular
+          audits.
+          <span className="mt-3 block font-semibold text-foreground">
+            {renderingCostText(pages)}
+          </span>
+        </>
+      ) : (
+        `You are about to crawl ${pageCount} pages. This is okay, but it may take a while. Continue?`
+      )}
+    </ConfirmDialog>
   );
 }

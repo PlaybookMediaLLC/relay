@@ -2,10 +2,10 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import {
-  IconArchive as Archive,
-  IconPlus as Plus,
-  IconX as X,
-} from "@tabler/icons-react";
+  ArchiveIcon as Archive,
+  PlusIcon as Plus,
+  XIcon as X,
+} from "@phosphor-icons/react";
 import { archiveSamSession } from "@/serverFunctions/sam";
 import {
   invalidateSamSessions,

@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { IconList as List, IconLayoutRows as Rows3 } from "@tabler/icons-react";
+import { ListIcon as List, RowsIcon as Rows3 } from "@phosphor-icons/react";
 import type { OnChangeFn, SortingState } from "@tanstack/react-table";
 import { BacklinksFilterPanel } from "./BacklinksFilterPanel";
 import { backlinksFilterConditionLimit } from "./backlinksFilterTypes";
@@ -55,6 +55,7 @@ export function BacklinksResultsCard({
   onHideSpamChange,
   domainExpansion,
   isTabLoading,
+  isTabRefreshing,
   showTable,
   tabErrorMessage,
   tabError,
@@ -79,6 +80,7 @@ export function BacklinksResultsCard({
   onHideSpamChange: (hideSpam: boolean) => void;
   domainExpansion: BacklinksDomainExpansion;
   isTabLoading: boolean;
+  isTabRefreshing: boolean;
   showTable: boolean;
   tabErrorMessage: string | null;
   tabError?: unknown;
@@ -129,6 +131,7 @@ export function BacklinksResultsCard({
   const filterState = filters[activeTab];
   const frame: DataTableFrameProps = {
     isLoading: isTabLoading,
+    isRefreshing: isTabRefreshing,
     isFiltered: activeFilterCount > 0,
     onClearFilters: () => {
       filterState.reset();

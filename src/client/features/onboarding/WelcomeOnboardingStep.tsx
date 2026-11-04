@@ -1,9 +1,9 @@
 import {
-  IconArrowRight as ArrowRight,
-  IconChecklist as Checklist,
-  IconGitPullRequest as PullRequest,
-  IconListNumbers as Ranked,
-} from "@tabler/icons-react";
+  ArrowRightIcon as ArrowRight,
+  ListChecksIcon as Checklist,
+  GitPullRequestIcon as PullRequest,
+  ListNumbersIcon as Ranked,
+} from "@phosphor-icons/react";
 import { Button } from "@/client/components/ui/button";
 import { OnboardingStepHeader } from "./OnboardingLayout";
 

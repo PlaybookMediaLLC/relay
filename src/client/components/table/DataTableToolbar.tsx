@@ -1,7 +1,7 @@
 import {
-  IconRotateClockwise2 as RotateCcw,
-  IconAdjustmentsHorizontal as SlidersHorizontal,
-} from "@tabler/icons-react";
+  ArrowClockwiseIcon as RotateCcw,
+  SlidersHorizontalIcon as SlidersHorizontal,
+} from "@phosphor-icons/react";
 import type { ComponentProps, ReactNode } from "react";
 import { Badge } from "@/client/components/ui/badge";
 import { Button } from "@/client/components/ui/button";
@@ -136,7 +136,7 @@ export function DataTableFilterGroup({
     <div className="space-y-2 rounded-lg border border-border bg-card p-2.5">
       <div className="flex items-center gap-2">
         {icon}
-        <p className="text-[11px] font-semibold tracking-wide text-muted-foreground uppercase">
+        <p className="text-label tracking-wide text-muted-foreground uppercase">
           {label}
         </p>
       </div>

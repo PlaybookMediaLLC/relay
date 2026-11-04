@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
-import { IconLoader2 as Loader2 } from "@tabler/icons-react";
+import { CircleNotchIcon as Loader2 } from "@phosphor-icons/react";
 import { QueryError } from "@/client/components/QueryState";
 import { Spinner } from "@/client/components/Spinner";
 import { Badge } from "@/client/components/ui/badge";
@@ -70,7 +70,10 @@ export const aiResearchKeywordsQueryOptions = (projectId: string) =>
     queryFn: () => listAiResearchKeywords({ data: { projectId } }),
   });
 
-export type AiTrendDays = 7 | 28 | 90;
+type AiTrendDays = 7 | 28 | 90;
+
+/** Long enough to show a trend on a weekly schedule. */
+export const DEFAULT_AI_TREND_DAYS: AiTrendDays = 28;
 
 export const aiTrendQueryOptions = (projectId: string, days: AiTrendDays) =>
   queryOptions({

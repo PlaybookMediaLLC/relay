@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import {
-  IconShieldExclamation as ShieldAlert,
-  IconTool as Wrench,
-} from "@tabler/icons-react";
+  ShieldWarningIcon as ShieldAlert,
+  WrenchIcon as Wrench,
+} from "@phosphor-icons/react";
 import { GateCard } from "@/client/components/GateCard";
 import { Alert, AlertDescription } from "@/client/components/ui/alert";
 import { Button } from "@/client/components/ui/button";

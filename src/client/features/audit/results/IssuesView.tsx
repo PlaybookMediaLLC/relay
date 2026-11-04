@@ -1,5 +1,5 @@
 import { useMemo, useState, type ReactNode } from "react";
-import { IconChevronRight as ChevronRight } from "@tabler/icons-react";
+import { CaretRightIcon as ChevronRight } from "@phosphor-icons/react";
 import { sort } from "remeda";
 import {
   getIssueDescriptor,

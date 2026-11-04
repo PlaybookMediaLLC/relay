@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { Icon as AppIcon } from "@tabler/icons-react";
+import { type Icon as AppIcon } from "@phosphor-icons/react";
 import { cn } from "cn";
 import { Card, CardContent } from "@/client/components/ui/card";
 
@@ -52,7 +52,7 @@ export function GateCard({
             </div>
           ) : null}
           {badge}
-          <h2 className="text-xl font-semibold tracking-tight">{title}</h2>
+          <h2 className="text-heading tracking-tight">{title}</h2>
           <div className="space-y-3 text-sm leading-relaxed text-muted-foreground">
             {description}
           </div>
