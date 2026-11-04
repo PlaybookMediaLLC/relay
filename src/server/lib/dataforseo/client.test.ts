@@ -70,8 +70,9 @@ vi.mock("@/server/lib/runtime-env", () => ({
 // playbook-seam: RFC-0009 limits and the ledger have their own tests
 // (src/server/billing/spendAdmission.test.ts); here they pass through.
 vi.mock("@/server/billing/spendAdmission", async () => ({
-  reserveWithinLimits: (await import("@/server/billing/subscription"))
-    .reserveUsageCredits,
+  reserveWithinLimits: vi.fn(
+    (await import("@/server/billing/subscription")).reserveUsageCredits,
+  ),
 }));
 vi.mock("@/server/billing/spendLedger", () => ({ recordSettlement: vi.fn() }));
 
@@ -149,6 +150,7 @@ import { AppError } from "@/server/lib/errors";
 import { fetchBacklinksSummary } from "@/server/lib/dataforseo/backlinks";
 import { fetchRankCheckSerp } from "@/server/lib/dataforseo/serp";
 import { postAiTrackingTasks } from "@/server/lib/dataforseo/ai-tracking";
+import { reserveWithinLimits } from "@/server/billing/spendAdmission";
 
 const billingCustomer = {
   organizationId: "org_123",
@@ -333,6 +335,10 @@ describe("AI visibility queued posts", () => {
     const client = createDataforseoClient(billingCustomer);
     const { hold } = await client.aiSearch.trackingTaskPost(input);
     expect(finalizeMock).not.toHaveBeenCalled();
+    // playbook-seam: the hold passes the monthly spend limits.
+    expect(vi.mocked(reserveWithinLimits)).toHaveBeenCalledWith(
+      expect.objectContaining({ creditFeature: "ai_prompt_responses" }),
+    );
     await client.aiSearch.settleTrackingHold({
       hold: hold!,
       costs: [0.0011, 0.0011],

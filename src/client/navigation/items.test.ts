@@ -49,6 +49,7 @@ it("limits paid-provider setup to the views that need it", () => {
     "/ai-visibility/research",
     "/prompt-explorer",
     "/rank-tracking/123",
+    "/local-seo",
   ]) {
     expect(isPaidResearchPath(`/p/project${suffix}`)).toBe(true);
   }

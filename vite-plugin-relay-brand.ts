@@ -161,6 +161,8 @@ import type { Plugin } from "vite";
  * - deploy/alchemy/alchemy.run.ts: both workers take their observability
  *   settings from relayObservability, which can export traces and logs to
  *   Axiom (deploy/alchemy/relay-env.ts).
+ * - src/server/lib/dataforseo/ai-tracking-billing.ts: queued AI visibility
+ *   posts hold inside the monthly spend limits (reserveWithinLimits).
  * - src/standalone-server.ts and wrangler.standalone.json: the Docker
  *   edition exports and binds the SEO check Workflow too.
  * - src/client/features/settings/DeleteAccountSettings.tsx: error copy is a

@@ -1,6 +1,6 @@
+import { reserveWithinLimits } from "@/server/billing/spendAdmission"; // playbook-seam
 import {
   getOrCreateOrganizationCustomer,
-  reserveUsageCredits,
   settleUsageCredits,
   type BillingCustomerContext,
   type UsageCreditHold,
@@ -40,9 +40,13 @@ export async function postAiTrackingTasksOnHold(
   }
   const billingCustomer = await getOrCreateOrganizationCustomer(customer);
   // One call gets one hold, or INSUFFICIENT_CREDITS.
+  // playbook-seam: the hold passes the monthly spend limits (RFC-0009).
+  // ponytail: spendReconcile assumes a 30-minute hold for this row, so the
+  // limit stops counting an unsettled run after 35 minutes until it settles.
+  // Give the ledger row the hold's TTL if runs overshoot limits.
   const {
     holds: [hold],
-  } = await reserveUsageCredits({
+  } = await reserveWithinLimits({
     customer,
     customerId: billingCustomer.id,
     callCredits: [

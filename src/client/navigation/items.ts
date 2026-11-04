@@ -203,7 +203,7 @@ export const dataforseoHelpLinkOptions = linkOptions({
 
 /** Provider setup belongs to the research views that require it. */
 export function isPaidResearchPath(pathname: string) {
-  return /^\/p\/[^/]+\/(?:keywords|domain|backlinks|rank-tracking|ai-visibility|prompt-explorer)(?:\/|$)/.test(
+  return /^\/p\/[^/]+\/(?:keywords|domain|backlinks|rank-tracking|local-seo|ai-visibility|prompt-explorer)(?:\/|$)/.test(
     pathname,
   );
 }
