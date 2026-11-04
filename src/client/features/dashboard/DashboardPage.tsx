@@ -183,9 +183,7 @@ export function DashboardPage({
             <p className="mb-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">
               Your website
             </p>
-            <h1 className="text-2xl font-semibold">
-              {activation.domain || "Home"}
-            </h1>
+            <h1 className="text-heading">{activation.domain || "Home"}</h1>
             <p className="mt-1 text-sm text-muted-foreground">
               Search visibility, links and site health in one place.
             </p>

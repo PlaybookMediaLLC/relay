@@ -91,7 +91,7 @@ export function RankTrackingOverview({
         <div className="flex flex-wrap gap-x-3 gap-y-1">
           {BUCKETS.map((b) => {
             const className =
-              "inline-flex items-center gap-1 text-[11px] text-muted-foreground";
+              "inline-flex items-center gap-1 text-label font-normal text-muted-foreground";
             const swatch = (
               <span
                 className="size-2 rounded-sm"

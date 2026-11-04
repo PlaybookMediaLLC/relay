@@ -111,7 +111,7 @@ export function SearchPerformanceTextFilters({
       </div>
       <div className="grid gap-3 md:grid-cols-2">
         <div className="space-y-1.5">
-          <span className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+          <span className="text-label uppercase tracking-wide text-muted-foreground">
             Page URL
           </span>
           <div className="flex flex-col gap-2 sm:flex-row">
@@ -148,7 +148,7 @@ export function SearchPerformanceTextFilters({
           </div>
         </div>
         <div className={showQuery ? "space-y-1.5" : "hidden"}>
-          <span className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+          <span className="text-label uppercase tracking-wide text-muted-foreground">
             Query
           </span>
           <div className="flex flex-col gap-2 sm:flex-row">

@@ -21,7 +21,7 @@ type DomainListFilterOption = {
 };
 
 const FILTER_LABEL_CLASS =
-  "text-[11px] font-semibold uppercase tracking-wide text-muted-foreground";
+  "text-label uppercase tracking-wide text-muted-foreground";
 
 /** `draft` is the unapplied panel state; it reaches the URL after a pause. */
 export function FilterPanel({

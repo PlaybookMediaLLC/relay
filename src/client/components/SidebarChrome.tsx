@@ -26,7 +26,7 @@ const isMac =
 /** The shortcut hint shown in the collapse and expand tooltips. */
 function ShortcutHint() {
   return (
-    <span className="ml-2 rounded border border-current/25 px-1 font-mono text-[10px] opacity-70">
+    <span className="ml-2 rounded border border-current/25 px-1 font-mono text-label font-normal opacity-70">
       {isMac ? "⌘B" : "Ctrl B"}
     </span>
   );

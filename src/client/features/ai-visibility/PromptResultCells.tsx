@@ -193,7 +193,7 @@ export function CompetitorStack({
           </span>
         ))}
         {named.length > shown.length && (
-          <span className="-ml-1.5 flex size-7 items-center justify-center rounded-full border border-border bg-muted text-[11px] font-medium tabular-nums text-muted-foreground">
+          <span className="-ml-1.5 flex size-7 items-center justify-center rounded-full border border-border bg-muted text-label font-medium tabular-nums text-muted-foreground">
             +{named.length - shown.length}
           </span>
         )}

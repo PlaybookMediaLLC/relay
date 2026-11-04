@@ -70,7 +70,7 @@ import {
 // Quiet rows that brighten on hover; the active row is a soft raised pill.
 // In the collapsed rail the same rows become 32px icon buttons.
 const navButtonClass =
-  "h-10 gap-2.5 rounded-lg px-2.5 text-sm text-sidebar-foreground transition-colors hover:bg-sidebar-accent/70 hover:text-sidebar-accent-foreground data-active:bg-sidebar-active data-active:font-medium data-active:text-sidebar-accent-foreground data-active:shadow-[0_1px_2px_rgb(0_0_0/0.06),inset_0_0_0_1px_var(--sidebar-border)] [&_svg]:size-4";
+  "h-10 gap-2.5 rounded-lg px-2.5 text-ui font-medium text-sidebar-foreground transition-colors hover:bg-sidebar-accent/70 hover:text-sidebar-accent-foreground data-active:bg-sidebar-active data-active:text-sidebar-accent-foreground data-active:shadow-[0_1px_2px_rgb(0_0_0/0.06),inset_0_0_0_1px_var(--sidebar-border)] [&_svg]:size-4";
 
 function SidebarNavLink({
   icon: Icon,
@@ -323,13 +323,13 @@ function AccountFooter({ ready, rail }: { ready: boolean; rail: boolean }) {
                 />
                 <span className="flex min-w-0 flex-1 flex-col text-left leading-tight">
                   <span
-                    className="truncate text-[13px] font-medium text-sidebar-foreground"
+                    className="truncate text-ui font-medium text-sidebar-foreground"
                     data-ph-mask
                   >
                     {session?.user?.name || email}
                   </span>
                   <span
-                    className="truncate text-[11px] text-sidebar-foreground"
+                    className="truncate text-label font-normal text-sidebar-foreground"
                     data-ph-mask
                   >
                     {email}
@@ -443,7 +443,7 @@ function AccountAvatar({
       className="size-8 shrink-0 rounded-full object-cover ring-1 ring-sidebar-border"
     />
   ) : (
-    <span className="grid size-8 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#5b8cff] to-[#b06ab3] text-[13px] font-semibold text-white">
+    <span className="grid size-8 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#5b8cff] to-[#b06ab3] text-ui font-semibold text-white">
       {initial}
     </span>
   );

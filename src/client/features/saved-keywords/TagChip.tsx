@@ -21,7 +21,7 @@ export function TagDot({
 type Size = "xs" | "sm";
 
 const SIZE_CLASS: Record<Size, string> = {
-  xs: "h-5 px-1.5 text-[11px]",
+  xs: "h-5 px-1.5 text-label font-normal",
   sm: "h-6 px-2 text-xs",
 };
 

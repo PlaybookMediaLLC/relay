@@ -22,7 +22,7 @@ export function SearchConsoleConnection({
   return (
     <section className="space-y-4 rounded-xl border border-border bg-card p-5">
       <div>
-        <h1 className="text-xl font-semibold">
+        <h1 className="text-heading">
           {setupUrl
             ? "Set up Google Search Console"
             : connection

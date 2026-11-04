@@ -42,7 +42,7 @@ export function NotificationsBell() {
     <SidebarMenuItem>
       <SidebarMenuButton
         tooltip="Notifications"
-        className="h-8 gap-2.5 rounded-lg px-2.5 text-[13px] text-sidebar-foreground/65 hover:bg-sidebar-accent/70 hover:text-sidebar-foreground [&_svg]:size-4 [&_svg]:opacity-70"
+        className="h-8 gap-2.5 rounded-lg px-2.5 text-ui font-medium text-sidebar-foreground/65 hover:bg-sidebar-accent/70 hover:text-sidebar-foreground [&_svg]:size-4 [&_svg]:opacity-70"
         aria-label={
           unread ? `Notifications, ${unread} unread` : "Notifications"
         }

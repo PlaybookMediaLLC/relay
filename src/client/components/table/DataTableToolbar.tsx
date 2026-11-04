@@ -136,7 +136,7 @@ export function DataTableFilterGroup({
     <div className="space-y-2 rounded-lg border border-border bg-card p-2.5">
       <div className="flex items-center gap-2">
         {icon}
-        <p className="text-[11px] font-semibold tracking-wide text-muted-foreground uppercase">
+        <p className="text-label tracking-wide text-muted-foreground uppercase">
           {label}
         </p>
       </div>

@@ -16,6 +16,43 @@
   --font-display: var(--font-sans);
   /* Code, IDs, API keys and tokens. */
   --font-mono: "Geist Mono Variable", Menlo, monospace;
+
+  /* Type scale: text-label, text-caption, text-ui, text-ui-lg, text-body and
+     text-heading. A size utility's weight gives way to an explicit font-*. */
+  --text-label: 11px;
+  --text-label--line-height: 16px;
+  --text-label--font-weight: 600;
+  --text-caption: 12px;
+  --text-caption--line-height: 16px;
+  --text-caption--font-weight: 400;
+  --text-ui: 13px;
+  --text-ui--line-height: 20px;
+  --text-ui--font-weight: 400;
+  --text-ui-lg: 14px;
+  --text-ui-lg--line-height: 20px;
+  --text-ui-lg--font-weight: 500;
+  --text-body: 16px;
+  --text-body--line-height: 24px;
+  --text-body--font-weight: 400;
+  --text-heading: 22px;
+  --text-heading--line-height: 28px;
+  --text-heading--font-weight: 500;
+
+  /* Tailwind's own steps resolve to the closest step of the scale, so
+     existing text-xs, text-sm and the rest follow it. Their weights are
+     unchanged. 3xl and up stay display sizes. */
+  --text-xs: var(--text-caption);
+  --text-xs--line-height: var(--text-caption--line-height);
+  --text-sm: var(--text-ui);
+  --text-sm--line-height: var(--text-ui--line-height);
+  --text-base: var(--text-body);
+  --text-base--line-height: var(--text-body--line-height);
+  --text-lg: var(--text-body);
+  --text-lg--line-height: var(--text-body--line-height);
+  --text-xl: var(--text-heading);
+  --text-xl--line-height: var(--text-heading--line-height);
+  --text-2xl: var(--text-heading);
+  --text-2xl--line-height: var(--text-heading--line-height);
 }
 
 @theme inline {

@@ -162,7 +162,7 @@ export function SearchConsoleWidget({
   return (
     <section className="space-y-3">
       <div>
-        <h1 className="text-2xl font-semibold">Search Performance</h1>
+        <h1 className="text-heading">Search Performance</h1>
         <p className="break-all text-sm text-muted-foreground">
           {data.siteUrl} · {data.startDate} to {data.endDate}
         </p>

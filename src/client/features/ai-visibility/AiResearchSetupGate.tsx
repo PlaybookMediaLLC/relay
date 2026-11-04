@@ -200,7 +200,7 @@ export function AiResearchSetupGate({
             <div className="mb-4 flex size-10 items-center justify-center rounded-lg border border-border bg-muted">
               <Sparkles className="size-5" />
             </div>
-            <h1 className="text-2xl font-semibold tracking-tight">
+            <h1 className="text-heading tracking-tight">
               Set up AI visibility
             </h1>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">

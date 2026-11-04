@@ -122,7 +122,7 @@ export function AuditDetail({
           <BackButton onClick={onBack}>All audits</BackButton>
           <div className="space-y-1">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-              <h1 className="text-2xl font-semibold tracking-tight">
+              <h1 className="text-heading tracking-tight">
                 {extractHostname(status.startUrl)}
               </h1>
               {!isRunning && <StatusBadge status={status.status} />}

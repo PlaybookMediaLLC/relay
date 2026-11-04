@@ -98,7 +98,7 @@ export function VisibilityTrend({
                     {trendSeries.map((series) => (
                       <span
                         key={series.key}
-                        className="inline-flex items-center gap-1 text-[11px] text-muted-foreground"
+                        className="inline-flex items-center gap-1 text-label font-normal text-muted-foreground"
                       >
                         <span
                           className="size-2 rounded-sm"

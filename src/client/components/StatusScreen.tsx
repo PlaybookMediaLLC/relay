@@ -51,9 +51,7 @@ export function StatusScreen({
             className="size-10 rounded-lg"
           />
         ) : null}
-        {title ? (
-          <h1 className="text-center text-xl font-semibold">{title}</h1>
-        ) : null}
+        {title ? <h1 className="text-center text-heading">{title}</h1> : null}
         {pending ? <Spinner /> : null}
         {description ? (
           <p className="text-center text-sm text-muted-foreground">

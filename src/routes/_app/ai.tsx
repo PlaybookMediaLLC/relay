@@ -256,7 +256,7 @@ function AiPage() {
                       href={`https://openseo.so/docs/skills/${name}`}
                       target="_blank"
                       rel="noreferrer"
-                      className={`shrink-0 font-mono text-[13px] sm:w-48 ${LINK_CLASS}`}
+                      className={`shrink-0 font-mono text-ui sm:w-48 ${LINK_CLASS}`}
                     >
                       /{name}
                     </a>
