@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { and, eq, inArray, isNull, notExists, type Column } from "drizzle-orm";
 import type { runBatch } from "@/db/runBatch";
 import {
   accessibilityFixChecks,
@@ -21,9 +21,9 @@ import {
   opportunities,
   opportunityDecisions,
   opportunityInvestigations,
-  opportunityProposals,
   opportunityRuns,
   opportunityTickets,
+  organization,
   organizationBranding,
   performanceLabChecks,
   projectConversionEvents,
@@ -47,16 +47,44 @@ type BatchExecutor = Parameters<Parameters<typeof runBatch>[0]>[0];
 
 /**
  * Relay's statements in upstream's erase batch
- * (AccountDeletionRepository.eraseUser). These Relay columns name a user
- * without a foreign key, so nothing cascades to them: in a workspace that
- * stays, they name `to` instead. Rows that only describe the user go.
+ * (AccountDeletionRepository.eraseUser), after the workspaces are deleted.
+ * These Relay columns name a user without a foreign key, so nothing cascades
+ * to them: in a workspace that stays, they name `to` instead. Rows that only
+ * describe the user go.
+ *
+ * Not opportunity_proposals.created_by: the proposal's change hash binds it
+ * (proposalFingerprint), so a new author would block its publication.
  */
 export function relayErasureStatements(
   tx: BatchExecutor,
-  userId: string,
+  input: { userId: string; organizationIds: string[] },
   to: string,
 ) {
+  const { userId, organizationIds } = input;
+  // audit_events and spend_ledger have no foreign key to the workspace.
+  const erased = (column: Column) =>
+    and(
+      inArray(column, organizationIds),
+      notExists(
+        tx
+          .select({ id: organization.id })
+          .from(organization)
+          .where(eq(organization.id, column)),
+      ),
+    );
   return [
+    // The user's personal GitHub token stops acting for a workspace that
+    // stays, as upstream deletes their Google connections.
+    tx
+      .update(publishingConnections)
+      .set({ revokedAt: new Date().toISOString(), encryptedToken: null })
+      .where(
+        and(
+          eq(publishingConnections.createdBy, userId),
+          eq(publishingConnections.transport, "pat"),
+          isNull(publishingConnections.revokedAt),
+        ),
+      ),
     tx
       .update(accessibilityFixChecks)
       .set({ checkedBy: to })
@@ -150,10 +178,6 @@ export function relayErasureStatements(
       .set({ createdBy: to })
       .where(eq(opportunityInvestigations.createdBy, userId)),
     tx
-      .update(opportunityProposals)
-      .set({ createdBy: to })
-      .where(eq(opportunityProposals.createdBy, userId)),
-    tx
       .update(opportunityRuns)
       .set({ requestedBy: to })
       .where(eq(opportunityRuns.requestedBy, userId)),
@@ -238,5 +262,11 @@ export function relayErasureStatements(
     // A GitHub App install state names the user in its value. States last 10
     // minutes and erasure comes 14 days after the request, so theirs expired.
     tx.delete(verification).where(expiredAppStates()),
+    ...(organizationIds.length > 0
+      ? [
+          tx.delete(auditEvents).where(erased(auditEvents.organizationId)),
+          tx.delete(spendLedger).where(erased(spendLedger.organizationId)),
+        ]
+      : []),
   ];
 }

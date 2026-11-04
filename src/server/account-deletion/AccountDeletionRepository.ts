@@ -365,7 +365,6 @@ async function eraseUser(input: {
       .update(reportTemplates)
       .set({ createdByUserId: DELETED_USER_ID })
       .where(eq(reportTemplates.createdByUserId, userId)),
-    ...relayErasureStatements(tx, userId, DELETED_USER_ID), // playbook-seam
     ...(organizationIds.length > 0
       ? [
           // Re-checked inside the batch: a workspace someone joined since the
@@ -388,6 +387,7 @@ async function eraseUser(input: {
           ),
         ]
       : []),
+    ...relayErasureStatements(tx, input, DELETED_USER_ID), // playbook-seam
     // Cascades to sessions, accounts, memberships, onboarding answers,
     // chat sessions, and the deletion request itself.
     tx.delete(user).where(eq(user.id, userId)),

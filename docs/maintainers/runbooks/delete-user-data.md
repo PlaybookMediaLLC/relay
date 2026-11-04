@@ -11,7 +11,14 @@ The upstream sync of 2026-11-04 removed `scripts/relay-erase-user-d1.ts`. Upstre
 
 ## What Relay adds to the erasure
 
-Relay's tables name a user in columns without a foreign key. In the same database batch as upstream's erasure, `src/server/account-deletion/relayErasure.ts` sets each of these columns to `gdpr-deleted-user` in the workspaces that stay. It also deletes the user's digest preferences, notification read marks and expired GitHub App install states. When you add a Relay table with a user column, add the column to that file.
+In the same database batch as upstream's erasure, `src/server/account-deletion/relayErasure.ts` does these steps:
+
+1. It sets Relay's user columns without a foreign key to `gdpr-deleted-user` in the workspaces that stay. `opportunity_proposals.created_by` keeps the old id, because the proposal's change hash includes it.
+2. It revokes the user's GitHub personal access token connections in the workspaces that stay. A member reconnects the repository.
+3. It deletes the activity log and spend ledger rows of the erased workspaces. These tables have no foreign key to the workspace.
+4. It deletes the user's digest preferences, notification read marks and expired GitHub App install states.
+
+When you add a Relay table with a user column, add the column to that file.
 
 ## When a user requests deletion
 
@@ -23,6 +30,6 @@ select user_id, delete_after from account_deletion_requests;
 
 ## Steps that stay manual
 
-1. **GitHub personal access tokens.** Erasure deletes the token rows of the user's solo workspaces. It does not revoke the tokens at GitHub. Ask the user to revoke each token in their GitHub settings.
+1. **GitHub personal access tokens.** Erasure removes the stored tokens from Relay. It does not revoke them at GitHub. Ask the user to revoke each token in their GitHub settings.
 2. **GitHub App.** If the user installed the Relay GitHub App, ask them to uninstall it. Relay cannot uninstall it for them.
 3. **The D1 rollback copy.** The D1 database `open-seo-db-playbook` stays for rollback from PostgreSQL. It holds user data from before the switch, and erasure does not touch it. Delete the user's rows there too, or delete the database when the rollback window ends.

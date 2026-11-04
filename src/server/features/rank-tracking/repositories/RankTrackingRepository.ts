@@ -370,7 +370,7 @@ async function getConfigSummaries(projectId: string) {
   const latestRunMap = new Map<
     string,
     {
-      status: string; // playbook-seam
+      status: (typeof rankCheckRuns.$inferSelect)["status"]; // playbook-seam
       completedAt: string | null;
       errorMessage: string | null;
     }

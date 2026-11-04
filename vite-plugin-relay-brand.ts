@@ -166,7 +166,9 @@ import type { Plugin } from "vite";
  *   `ai_tracking` ledger feature that spend reconciliation keeps open for the
  *   hold's 24 hours. Its client test asserts both.
  * - src/server/account-deletion/AccountDeletionRepository.ts and its test:
- *   the erase batch also unattributes Relay's user columns
+ *   after the workspaces go, the erase batch also unattributes Relay's user
+ *   columns, revokes the user's GitHub tokens and deletes the erased
+ *   workspaces' activity and spend rows
  *   (src/server/account-deletion/relayErasure.ts).
  * - src/server/features/rank-tracking/repositories/RankTrackingRepository.ts
  *   and its query test, and RankTrackingDomainList.tsx: the domain list says

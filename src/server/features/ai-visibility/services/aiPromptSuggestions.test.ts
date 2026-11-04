@@ -32,7 +32,6 @@ vi.mock("@/server/billing/researchHold", () => ({
 vi.mock("../repositories/AiVisibilityRepository", () => ({
   AiVisibilityRepository: { getConfiguration: async () => null },
 }));
-vi.mock("./aiVisibilityConfiguration", () => ({ aiTopics: () => [] }));
 vi.mock("@/server/features/projects/repositories/ProjectRepository", () => ({
   ProjectRepository: {
     getProjectForOrganization: async () => ({

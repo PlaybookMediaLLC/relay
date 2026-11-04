@@ -121,7 +121,7 @@ describe("account erasure", () => {
 });
 
 // playbook-seam: Relay's columns in the erase batch (./relayErasure.ts).
-it("unattributes Relay's work in a workspace that stays, and deletes the user's own rows", async () => {
+it("unattributes Relay's work in a workspace that stays, revokes the user's GitHub token, and deletes the user's own rows", async () => {
   state.database?.exec(`
     INSERT INTO spend_limits (id, organization_id, monthly_limit_credits, updated_by, updated_at) VALUES
       ('limit', 'org-shared', 100, 'alice', '');
@@ -130,6 +130,11 @@ it("unattributes Relay's work in a workspace that stays, and deletes the user's 
       ('bob-pref', 'bob', 'org-shared', 'weekly', '');
     INSERT INTO verification (id, identifier, value, expires_at) VALUES
       ('state', 'github-app:nonce', '{"userId":"alice"}', 0);
+    INSERT INTO publishing_connections (id, project_id, repository_id, owner, repository, base_branch, root_directory, transport, encrypted_token, created_by, created_at) VALUES
+      ('github', 'p-shared', '1', 'alice', 'site', 'main', '', 'pat', 'secret', 'alice', '');
+    INSERT INTO audit_events (id, organization_id, actor_type, actor_id, action, target_type, target_id, summary, created_at) VALUES
+      ('solo-event', 'org-solo', 'user', 'alice', 'opportunity.reviewed', 'opportunity', 'o', 'Reviewed', ''),
+      ('shared-event', 'org-shared', 'user', 'alice', 'opportunity.reviewed', 'opportunity', 'o', 'Reviewed', '');
   `);
 
   await AccountDeletionRepository.eraseUser({
@@ -145,4 +150,14 @@ it("unattributes Relay's work in a workspace that stays, and deletes the user's 
     { id: "bob-pref" },
   ]);
   expect(query("SELECT id FROM verification")).toEqual([]);
+  expect(
+    query(
+      "SELECT created_by, encrypted_token, revoked_at IS NOT NULL AS revoked FROM publishing_connections",
+    ),
+  ).toEqual([
+    { created_by: "gdpr-deleted-user", encrypted_token: null, revoked: 1 },
+  ]);
+  expect(query("SELECT id, actor_id FROM audit_events")).toEqual([
+    { id: "shared-event", actor_id: "gdpr-deleted-user" },
+  ]);
 });

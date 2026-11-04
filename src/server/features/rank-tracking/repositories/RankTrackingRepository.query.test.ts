@@ -321,23 +321,22 @@ describe("getConfigSummaries", () => {
     await seedProject("proj_1");
     await seedConfig({ id: "cfg_failed" });
     await seedConfig({ id: "cfg_partial" });
-    for (const [id, configId, status, startedAt] of [
-      ["run_old", "cfg_failed", "completed", "2026-07-01T00:00:00.000Z"],
-      ["run_failed", "cfg_failed", "failed", "2026-07-02T00:00:00.000Z"],
-      ["run_partial", "cfg_partial", "completed", "2026-07-02T00:00:00.000Z"],
+    for (const [id, configId, status, errorMessage, startedAt] of [
+      ["run_old", "cfg_failed", "completed", null, "2026-07-01T00:00:00.000Z"],
+      ["run_failed", "cfg_failed", "failed", "x", "2026-07-02T00:00:00.000Z"],
+      [
+        "run_partial",
+        "cfg_partial",
+        "completed",
+        "x",
+        "2026-07-02T00:00:00.000Z",
+      ],
     ] as const) {
       await client.execute({
         sql: `INSERT INTO rank_check_runs
           (id, config_id, project_id, status, error_message, started_at, completed_at)
           VALUES (?, ?, 'proj_1', ?, ?, ?, ?)`,
-        args: [
-          id,
-          configId,
-          status,
-          id === "run_old" ? null : "x",
-          startedAt,
-          startedAt,
-        ],
+        args: [id, configId, status, errorMessage, startedAt, startedAt],
       });
     }
 

@@ -147,6 +147,13 @@ it("leaves a queued AI visibility hold to its run, and tracks it as prompt respo
     "dataforseo",
     "ai_tracking",
   );
+  const failed = await ledgerRow(
+    "settle_failed",
+    minutesAgo(120),
+    1,
+    "dataforseo",
+    "ai_tracking",
+  );
   const expired = await ledgerRow(
     "settle_failed",
     minutesAgo(25 * 60),
@@ -156,6 +163,12 @@ it("leaves a queued AI visibility hold to its run, and tracks it as prompt respo
   );
   await reconcileSpend(now);
   expect(await rowOf(running)).toEqual({ status: "admitted", attempts: 0 });
+  expect(mocks.finalize).toHaveBeenCalledExactlyOnceWith(
+    expect.objectContaining({ lockId: `lock-${failed}` }),
+    5,
+    expect.objectContaining({ ledgerId: failed }),
+  );
+  expect(mocks.track).toHaveBeenCalledOnce();
   expect(mocks.track.mock.lastCall?.[0]).toMatchObject({
     creditFeature: "ai_prompt_responses",
     properties: { ledgerId: expired },
