@@ -19,10 +19,12 @@ import {
   isHostedServerAuthMode,
 } from "@/server/lib/runtime-env";
 import { AppError } from "@/server/lib/errors";
-import { z } from "zod";
-import { normalizeAiSuggestion } from "@/shared/ai-prompt-suggestions";
 import {
-  suggestedAiTopicSchema,
+  normalizeAiSuggestion,
+  toTopicName,
+} from "@/shared/ai-prompt-suggestions";
+import {
+  generatedAiTopicSchema,
   type GenerateAiPromptsInput,
 } from "@/types/schemas/aiPromptSuggestions";
 
@@ -72,9 +74,6 @@ export async function generateAiPrompts(
       "INSUFFICIENT_CREDITS",
       "You need usage credits to generate prompts.",
     );
-  const outputSchema = topicName
-    ? suggestedAiTopicSchema.extend({ name: z.string().trim().min(1).max(120) })
-    : suggestedAiTopicSchema;
   // playbook-seam: RFC-0009 holds the estimate inside the limits (debt 3).
   const billed = { ...customer, projectId: input.projectId };
   const spend: ResearchSpend[] = [];
@@ -88,7 +87,7 @@ export async function generateAiPrompts(
       await getOptionalEnvValue("OPENROUTER_MODEL"),
       "low",
     ),
-    output: Output.object({ schema: outputSchema }),
+    output: Output.object({ schema: generatedAiTopicSchema }),
     maxOutputTokens: 2000,
     abortSignal: AbortSignal.timeout(60_000),
     system:
@@ -110,8 +109,8 @@ export async function generateAiPrompts(
       excludedPrompts: input.excludePrompts.filter(Boolean),
     }),
     // Admitted above, so settle the actual cost even if credits ran out since.
-    onStepFinish: (step) => {
-      const costUsd = requireOpenRouterCostUsd(step.providerMetadata);
+    onStepFinish: async (step) => {
+      const costUsd = await requireOpenRouterCostUsd(step.providerMetadata);
       // playbook-seam: RFC-0009 settles the steps against the hold.
       spend.push({
         provider: "openrouter",
@@ -121,8 +120,9 @@ export async function generateAiPrompts(
       });
     },
   }).finally(() => settleResearch(billed, hold, spend)); // playbook-seam
-  const generated = outputSchema.parse(result.output);
-  const name = topicName || (sameTopic(generated.name) ?? generated.name);
+  const generated = generatedAiTopicSchema.parse(result.output);
+  const generatedName = toTopicName(generated.name);
+  const name = topicName || (sameTopic(generatedName) ?? generatedName);
   // Read again after generation so suggestions also exclude concurrent saves.
   const latest = await repo.getConfiguration(input.projectId);
   const excluded = new Set(

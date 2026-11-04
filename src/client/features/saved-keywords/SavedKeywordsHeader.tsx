@@ -6,8 +6,10 @@ import { ConfirmDialog } from "@/client/components/ConfirmDialog";
 import { ExportMenu } from "@/client/components/ExportMenu";
 import { PageHeader } from "@/client/components/PageHeader";
 import { Button } from "@/client/components/ui/button";
+import { ImportKeywordsButton } from "./ImportKeywordsDialog";
 
 export function SavedKeywordsHeader({
+  projectId,
   totalCount,
   exporting,
   metricsRefreshing,
@@ -15,6 +17,7 @@ export function SavedKeywordsHeader({
   onExportSheets,
   onRefreshMetrics,
 }: {
+  projectId: string;
   totalCount: number;
   exporting: "csv" | "sheets" | null;
   metricsRefreshing: boolean;
@@ -31,32 +34,35 @@ export function SavedKeywordsHeader({
         title="Saved Keywords"
         description="Save keyword ideas from research, organize them with tags, and revisit when you're ready to act."
         actions={
-          totalCount > 0 && (
-            <>
-              <Button
-                variant="outline"
-                size="sm"
-                title="Fetch new volume, difficulty, and CPC"
-                disabled={disabled || metricsRefreshing}
-                onClick={() => setConfirmingRefresh(true)}
-              >
-                <RefreshCw
-                  data-icon="inline-start"
-                  className={metricsRefreshing ? "animate-spin" : ""}
-                />
-                {metricsRefreshing ? "Updating..." : "Update keyword stats"}
-              </Button>
+          <>
+            <ImportKeywordsButton projectId={projectId} />
+            {totalCount > 0 && (
+              <>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  title="Fetch new volume, difficulty, and CPC"
+                  disabled={disabled || metricsRefreshing}
+                  onClick={() => setConfirmingRefresh(true)}
+                >
+                  <RefreshCw
+                    data-icon="inline-start"
+                    className={metricsRefreshing ? "animate-spin" : ""}
+                  />
+                  {metricsRefreshing ? "Updating..." : "Update keyword stats"}
+                </Button>
 
-              <ExportMenu
-                actions={["sheets", "csv"]}
-                busy={exporting != null}
-                disabled={disabled}
-                onExport={(action) =>
-                  action === "sheets" ? onExportSheets() : onExportCsv()
-                }
-              />
-            </>
-          )
+                <ExportMenu
+                  actions={["sheets", "csv"]}
+                  busy={exporting != null}
+                  disabled={disabled}
+                  onExport={(action) =>
+                    action === "sheets" ? onExportSheets() : onExportCsv()
+                  }
+                />
+              </>
+            )}
+          </>
         }
       />
 

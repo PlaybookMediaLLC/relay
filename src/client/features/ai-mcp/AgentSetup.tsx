@@ -5,7 +5,7 @@ import {
   IconCheck as Check,
 } from "@tabler/icons-react";
 import { AgentList } from "./AgentList";
-import { AGENT_SETUP_LINKS } from "./agentInstalls";
+import { ONE_CLICK_INSTALLS } from "./agentInstalls";
 import { AgentSetupPanel } from "./AgentSetupPanel";
 import { getAgentSetupPrompt } from "./agentSetupPrompt";
 import { captureClientEvent } from "@/client/lib/posthog";
@@ -62,7 +62,7 @@ export function AgentSetup({
           setStartedSetup(true);
           captureClientEvent("onboarding:setup_prompt_copy");
         }}
-        actions={AGENT_SETUP_LINKS.map(({ agent, name, href, Icon }) => (
+        actions={ONE_CLICK_INSTALLS.map(({ agent, name, href, Icon }) => (
           <Button
             key={agent}
             variant="outline"

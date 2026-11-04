@@ -70,10 +70,20 @@ export async function customerHasPaidPlan(
   customerId: string,
   opts: { retryDenied?: boolean } = {},
 ) {
-  const result = await autumn.check({
-    customerId,
-    featureId: AUTUMN_PAID_PLAN_FEATURE_ID,
-  });
+  // The Autumn customer is created lazily, on an org's first billed action,
+  // so an org that only set up a rank tracker has none yet. No customer has
+  // no plan: answering "free" lets the scheduler mark the tracker
+  // plan_required instead of retrying the error every tick.
+  let result;
+  try {
+    result = await autumn.check({
+      customerId,
+      featureId: AUTUMN_PAID_PLAN_FEATURE_ID,
+    });
+  } catch (error) {
+    if (errorBodyIncludes(error, "customer_not_found")) return false;
+    throw error;
+  }
   if (result.allowed || !opts.retryDenied) return result.allowed;
 
   // Autumn sometimes returns degraded entitlement data in a successful
@@ -357,6 +367,8 @@ export async function reserveUsageCredits(args: {
   callCredits: number[];
   creditFeature?: CreditFeature;
   provider?: "dataforseo" | "openrouter"; // playbook-seam
+  /** How long an unsettled hold keeps its credits; see holdCredits. */
+  ttlMs?: number;
 }): Promise<{ holds: UsageCreditHold[]; refusedCalls: number[] }> {
   const callCredits = args.callCredits.map((credits) => Math.max(1, credits));
   const allCalls = callCredits.map((_, index) => index);
@@ -364,6 +376,8 @@ export async function reserveUsageCredits(args: {
     calls.reduce((sum, index) => sum + callCredits[index], 0);
   const properties = {
     creditFeature: args.creditFeature,
+    // The billing page groups usage by project on this.
+    projectId: args.customer.projectId,
     provider: args.provider ?? "dataforseo", // playbook-seam
     estimatedCredits: creditsFor(allCalls),
   };
@@ -388,6 +402,7 @@ export async function reserveUsageCredits(args: {
       estimatedCredits: credits,
       callIndexes: fitting,
       properties,
+      ttlMs: args.ttlMs,
     });
   };
 
@@ -484,9 +499,10 @@ export async function reserveUsageCredits(args: {
 }
 
 // The SDK throws 4xx responses with the raw response body attached. Autumn
-// answers a reused lockId with 409 `lock_already_exists`, and a finalize for
-// a lock it no longer holds with a 400 whose message starts "Lock not found"
-// (the code is the generic invalid_request).
+// answers an unknown customer with 404 `customer_not_found`, a reused lockId
+// with 409 `lock_already_exists`, and a finalize for a lock it no longer
+// holds with a 400 whose message starts "Lock not found" (the code is the
+// generic invalid_request).
 function errorBodyIncludes(error: unknown, text: string) {
   return (
     error instanceof Error &&
@@ -568,6 +584,7 @@ export async function settleUsageCredits(args: {
 
   const { landed, error } = await finalizeHold(hold, actualCredits, {
     creditFeature,
+    projectId: customer.projectId,
     provider: args.provider ?? "dataforseo", // playbook-seam
     paths,
     totalCostUsd,
@@ -663,6 +680,7 @@ export async function trackUsageCreditSpend(args: {
   const properties = {
     currency: "USD",
     creditFeature: args.creditFeature,
+    projectId: args.customer.projectId,
     totalCostUsd,
     totalCostCredits,
     ...args.properties,

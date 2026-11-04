@@ -19,6 +19,7 @@ import { credits, LimitSheet, LimitUsage } from "./spendParts";
 const LEDGER_LABELS: Record<string, string> = {
   proposal_draft: "AI drafts",
   ai_research: "AI research",
+  ai_tracking: "AI visibility tracking",
 };
 const featureLabel = (feature: string | null) =>
   feature ? (LEDGER_LABELS[feature] ?? creditFeatureLabel(feature)) : "Other";
