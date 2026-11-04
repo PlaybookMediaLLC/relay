@@ -83,8 +83,7 @@ export const Route = createFileRoute("/_app/p/$projectId/saved")({
 
 const FILTER_DEBOUNCE_MS = 350;
 
-// playbook-seam: the fork's empty state pushes this upstream page past 320 lines.
-// oxlint-disable-next-line max-lines-per-function
+// oxlint-disable-next-line max-lines-per-function -- playbook-seam: the fork's empty state pushes this upstream page past 320 lines
 function SavedKeywordsPage() {
   const { projectId } = Route.useParams();
   const search = Route.useSearch();

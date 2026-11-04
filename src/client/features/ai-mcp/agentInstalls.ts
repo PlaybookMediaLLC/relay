@@ -3,7 +3,7 @@ import { ClaudeIcon, OpenAIIcon } from "./AgentIcons";
 // playbook-seam: marketplace listings connect to upstream, so Relay uses its setup guides.
 // newChatUrl opens a new chat with the prompt filled in. Neither link is
 // documented by its chat app.
-export const AGENT_SETUP_LINKS = [
+export const ONE_CLICK_INSTALLS = [
   {
     agent: "chatgpt",
     name: "ChatGPT",

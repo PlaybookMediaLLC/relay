@@ -13,6 +13,13 @@ const stateSchema = z.object({
   projectId: z.string().min(1),
 });
 
+/** Install states past their TTL; the user is gone from them too. */
+export const expiredAppStates = () =>
+  and(
+    like(verification.identifier, `${PREFIX}%`),
+    lt(verification.expiresAt, new Date()),
+  );
+
 export async function createAppState(payload: z.infer<typeof stateSchema>) {
   const bytes = crypto.getRandomValues(new Uint8Array(32));
   const state = btoa(String.fromCharCode(...bytes))
@@ -20,14 +27,7 @@ export async function createAppState(payload: z.infer<typeof stateSchema>) {
     .replaceAll("/", "_")
     .replaceAll("=", "");
   const now = new Date();
-  await db
-    .delete(verification)
-    .where(
-      and(
-        like(verification.identifier, `${PREFIX}%`),
-        lt(verification.expiresAt, now),
-      ),
-    );
+  await db.delete(verification).where(expiredAppStates());
   await db.insert(verification).values({
     id: crypto.randomUUID(),
     identifier: `${PREFIX}${state}`,

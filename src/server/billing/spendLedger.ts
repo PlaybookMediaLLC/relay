@@ -14,6 +14,13 @@ type Hold = { lockId: string; estimatedCredits: number };
  */
 export const RENDERING_HOLD_TTL_MS = 24 * 60 * 60_000 - 60_000;
 
+/**
+ * The ledger feature of a queued AI visibility post. Its hold stays open
+ * until collection ends (AI_TRACKING_HOLD_TTL_MS), so reconciliation must
+ * not release it as a short DataForSEO hold.
+ */
+export const AI_TRACKING_LEDGER_FEATURE = "ai_tracking";
+
 // Loaded on first use: upstream's subscription.ts imports this module, and
 // the database modules read the Worker environment when they load.
 async function ledgerDb() {

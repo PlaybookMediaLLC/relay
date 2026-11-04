@@ -295,28 +295,34 @@ function DomainRow({
           {summary.lastRunCompletedAt && (
             <>
               {" "}
-              &middot; Last:{" "}
+              &middot; {/* playbook-seam: a failed check says so in red. */}
+              {summary.lastRunStatus === "failed" ? (
+                <span className="text-destructive">Last check failed</span>
+              ) : (
+                "Last:"
+              )}{" "}
               {parseDbTimestamp(
                 summary.lastRunCompletedAt,
               ).toLocaleDateString()}
-              {summary.lastRunIncomplete && (
-                <Tooltip>
-                  <TooltipTrigger
-                    render={
-                      // Above the row link, like the archive button.
-                      <span
-                        aria-label="Last check incomplete"
-                        className="pointer-events-auto relative z-10 ml-1 inline-flex cursor-help align-text-bottom"
-                      />
-                    }
-                  >
-                    <Info className="size-3.5" aria-hidden />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    Some results from the last check are missing.
-                  </TooltipContent>
-                </Tooltip>
-              )}
+              {summary.lastRunIncomplete &&
+                summary.lastRunStatus !== "failed" && (
+                  <Tooltip>
+                    <TooltipTrigger
+                      render={
+                        // Above the row link, like the archive button.
+                        <span
+                          aria-label="Last check incomplete"
+                          className="pointer-events-auto relative z-10 ml-1 inline-flex cursor-help align-text-bottom"
+                        />
+                      }
+                    >
+                      <Info className="size-3.5" aria-hidden />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      Some results from the last check are missing.
+                    </TooltipContent>
+                  </Tooltip>
+                )}
             </>
           )}
         </p>

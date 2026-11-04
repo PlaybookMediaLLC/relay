@@ -5,7 +5,7 @@ import { Bot, X } from "lucide-react";
 import { CopyButton } from "@/client/components/CopyButton";
 import { Button } from "@/client/components/ui/button";
 import { Card } from "@/client/components/ui/card";
-import { AGENT_SETUP_LINKS } from "@/client/features/ai-mcp/agentInstalls";
+import { ONE_CLICK_INSTALLS } from "@/client/features/ai-mcp/agentInstalls";
 import { captureClientEvent } from "@/client/lib/posthog";
 import { dismissDashboardAgentCard } from "@/serverFunctions/dashboard";
 import { listMcpConnections } from "@/serverFunctions/mcp-connections";
@@ -17,11 +17,11 @@ export function DashboardAgentCard({ projectId }: { projectId: string }) {
   return (
     <AgentCard
       projectId={projectId}
-      icons={AGENT_SETUP_LINKS.map(({ Icon }) => Icon)}
+      icons={ONE_CLICK_INSTALLS.map(({ Icon }) => Icon)}
       title="Use OpenSEO in ChatGPT or Claude"
       description="Research keywords and audit your site from the chatbot you already use."
     >
-      {AGENT_SETUP_LINKS.map(({ agent, name, href, Icon }) => (
+      {ONE_CLICK_INSTALLS.map(({ agent, name, href, Icon }) => (
         <Button
           key={agent}
           variant="outline"
@@ -61,7 +61,7 @@ export function DashboardAgentPromptCard({
   // An API key or a teammate's agent leaves this person with no connections
   // of their own, so offer both chat apps.
   const grants = connections.data;
-  const chats = AGENT_SETUP_LINKS.filter(
+  const chats = ONE_CLICK_INSTALLS.filter(
     ({ agent }) =>
       grants.length === 0 || grants.some((grant) => grant.webChat === agent),
   );

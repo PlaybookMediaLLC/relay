@@ -1,5 +1,4 @@
-// playbook-seam: the fork's evidence and cost notes push this upstream file past 400 lines.
-/* oxlint-disable max-lines */
+// oxlint-disable max-lines -- playbook-seam: the fork's evidence and cost notes push this upstream file past 400 lines
 import { useMemo, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {

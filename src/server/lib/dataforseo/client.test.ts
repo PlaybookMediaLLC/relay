@@ -74,7 +74,10 @@ vi.mock("@/server/billing/spendAdmission", async () => ({
     (await import("@/server/billing/subscription")).reserveUsageCredits,
   ),
 }));
-vi.mock("@/server/billing/spendLedger", () => ({ recordSettlement: vi.fn() }));
+vi.mock("@/server/billing/spendLedger", async (importOriginal) => ({
+  ...(await importOriginal<Record<string, unknown>>()),
+  recordSettlement: vi.fn(),
+}));
 
 vi.mock("@/server/lib/posthog", () => ({
   captureServerEvent: vi.fn(),
@@ -338,6 +341,7 @@ describe("AI visibility queued posts", () => {
     // playbook-seam: the hold passes the monthly spend limits.
     expect(vi.mocked(reserveWithinLimits)).toHaveBeenCalledWith(
       expect.objectContaining({ creditFeature: "ai_prompt_responses" }),
+      "ai_tracking",
     );
     await client.aiSearch.settleTrackingHold({
       hold: hold!,

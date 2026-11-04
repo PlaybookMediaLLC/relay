@@ -354,6 +354,7 @@ async function getConfigSummaries(projectId: string) {
   const latestRuns = await db
     .select({
       configId: rankCheckRuns.configId,
+      status: rankCheckRuns.status, // playbook-seam
       completedAt: rankCheckRuns.completedAt,
       errorMessage: rankCheckRuns.errorMessage,
     })
@@ -368,10 +369,15 @@ async function getConfigSummaries(projectId: string) {
 
   const latestRunMap = new Map<
     string,
-    { completedAt: string | null; errorMessage: string | null }
+    {
+      status: string; // playbook-seam
+      completedAt: string | null;
+      errorMessage: string | null;
+    }
   >();
   for (const run of latestRuns) {
     latestRunMap.set(run.configId, {
+      status: run.status, // playbook-seam
       completedAt: run.completedAt,
       errorMessage: run.errorMessage,
     });
@@ -380,6 +386,7 @@ async function getConfigSummaries(projectId: string) {
   return configs.map((config) => ({
     ...config,
     keywordCount: kwCountMap.get(config.id) ?? 0,
+    lastRunStatus: latestRunMap.get(config.id)?.status ?? null, // playbook-seam
     lastRunCompletedAt: latestRunMap.get(config.id)?.completedAt ?? null,
     // A finished run only has an error message when it failed or was partial.
     lastRunIncomplete: Boolean(latestRunMap.get(config.id)?.errorMessage),

@@ -40,6 +40,7 @@ import {
 import { GA4_OAUTH_PROVIDER_ID } from "@/shared/ga4";
 import { GSC_OAUTH_PROVIDER_ID } from "@/shared/gsc";
 import { LocalScanStatus } from "@/shared/local-seo";
+import { relayErasureStatements } from "./relayErasure"; // playbook-seam
 
 // Stands in for the erased user on rows other members keep.
 const DELETED_USER_ID = "gdpr-deleted-user";
@@ -364,6 +365,7 @@ async function eraseUser(input: {
       .update(reportTemplates)
       .set({ createdByUserId: DELETED_USER_ID })
       .where(eq(reportTemplates.createdByUserId, userId)),
+    ...relayErasureStatements(tx, userId, DELETED_USER_ID), // playbook-seam
     ...(organizationIds.length > 0
       ? [
           // Re-checked inside the batch: a workspace someone joined since the

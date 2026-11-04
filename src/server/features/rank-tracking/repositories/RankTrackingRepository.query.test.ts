@@ -1,3 +1,4 @@
+// oxlint-disable max-lines -- playbook-seam: the getConfigSummaries case pushes this upstream test past 400 lines
 import { createClient, type Client } from "@libsql/client";
 import { drizzle } from "drizzle-orm/libsql";
 import { eq } from "drizzle-orm";
@@ -84,7 +85,9 @@ beforeAll(async () => {
       status TEXT NOT NULL,
       keywords_total INTEGER NOT NULL DEFAULT 0,
       is_subset_run INTEGER NOT NULL DEFAULT 0,
-      started_at TEXT NOT NULL
+      error_message TEXT,
+      started_at TEXT NOT NULL,
+      completed_at TEXT
     );
     CREATE TABLE rank_snapshots (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -309,6 +312,48 @@ describe("getKeywordCountsForConfigs", () => {
     expect(await RankTrackingRepository.getKeywordCountsForConfigs([])).toEqual(
       new Map(),
     );
+  });
+});
+
+// playbook-seam: the domain list tells a failed check from a partial one.
+describe("getConfigSummaries", () => {
+  it("reports the latest run's status beside its incomplete flag", async () => {
+    await seedProject("proj_1");
+    await seedConfig({ id: "cfg_failed" });
+    await seedConfig({ id: "cfg_partial" });
+    for (const [id, configId, status, startedAt] of [
+      ["run_old", "cfg_failed", "completed", "2026-07-01T00:00:00.000Z"],
+      ["run_failed", "cfg_failed", "failed", "2026-07-02T00:00:00.000Z"],
+      ["run_partial", "cfg_partial", "completed", "2026-07-02T00:00:00.000Z"],
+    ] as const) {
+      await client.execute({
+        sql: `INSERT INTO rank_check_runs
+          (id, config_id, project_id, status, error_message, started_at, completed_at)
+          VALUES (?, ?, 'proj_1', ?, ?, ?, ?)`,
+        args: [
+          id,
+          configId,
+          status,
+          id === "run_old" ? null : "x",
+          startedAt,
+          startedAt,
+        ],
+      });
+    }
+
+    const summaries = await RankTrackingRepository.getConfigSummaries("proj_1");
+
+    expect(
+      Object.fromEntries(
+        summaries.map(({ id, lastRunStatus, lastRunIncomplete }) => [
+          id,
+          { lastRunStatus, lastRunIncomplete },
+        ]),
+      ),
+    ).toEqual({
+      cfg_failed: { lastRunStatus: "failed", lastRunIncomplete: true },
+      cfg_partial: { lastRunStatus: "completed", lastRunIncomplete: true },
+    });
   });
 });
 

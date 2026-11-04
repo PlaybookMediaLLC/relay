@@ -1,5 +1,4 @@
-// playbook-seam: the fork's rank-tracking UX lines push this upstream file past 400 lines.
-/* oxlint-disable max-lines */
+// oxlint-disable max-lines -- playbook-seam: the fork's rank-tracking UX lines push this upstream file past 400 lines
 import { env } from "cloudflare:workers";
 import {
   customerHasPaidPlan,

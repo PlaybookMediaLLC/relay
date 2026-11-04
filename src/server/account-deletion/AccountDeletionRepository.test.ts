@@ -119,3 +119,30 @@ describe("account erasure", () => {
     ]);
   });
 });
+
+// playbook-seam: Relay's columns in the erase batch (./relayErasure.ts).
+it("unattributes Relay's work in a workspace that stays, and deletes the user's own rows", async () => {
+  state.database?.exec(`
+    INSERT INTO spend_limits (id, organization_id, monthly_limit_credits, updated_by, updated_at) VALUES
+      ('limit', 'org-shared', 100, 'alice', '');
+    INSERT INTO growth_email_preferences (id, user_id, organization_id, digest, updated_at) VALUES
+      ('alice-pref', 'alice', 'org-shared', 'weekly', ''),
+      ('bob-pref', 'bob', 'org-shared', 'weekly', '');
+    INSERT INTO verification (id, identifier, value, expires_at) VALUES
+      ('state', 'github-app:nonce', '{"userId":"alice"}', 0);
+  `);
+
+  await AccountDeletionRepository.eraseUser({
+    userId: "alice",
+    email: "alice@example.com",
+    organizationIds: ["org-solo"],
+  });
+
+  expect(query("SELECT updated_by FROM spend_limits")).toEqual([
+    { updated_by: "gdpr-deleted-user" },
+  ]);
+  expect(query("SELECT id FROM growth_email_preferences")).toEqual([
+    { id: "bob-pref" },
+  ]);
+  expect(query("SELECT id FROM verification")).toEqual([]);
+});

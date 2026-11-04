@@ -1,5 +1,4 @@
-// playbook-seam: the RFC-0009 spend-limit skip pushes this upstream file past 400 lines.
-/* oxlint-disable max-lines */
+// oxlint-disable max-lines -- playbook-seam: the RFC-0009 spend-limit skip pushes this upstream file past 400 lines
 import {
   WorkflowEntrypoint,
   type WorkflowEvent,

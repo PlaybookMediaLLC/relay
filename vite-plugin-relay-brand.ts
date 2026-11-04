@@ -162,7 +162,16 @@ import type { Plugin } from "vite";
  *   settings from relayObservability, which can export traces and logs to
  *   Axiom (deploy/alchemy/relay-env.ts).
  * - src/server/lib/dataforseo/ai-tracking-billing.ts: queued AI visibility
- *   posts hold inside the monthly spend limits (reserveWithinLimits).
+ *   posts hold inside the monthly spend limits (reserveWithinLimits), on the
+ *   `ai_tracking` ledger feature that spend reconciliation keeps open for the
+ *   hold's 24 hours. Its client test asserts both.
+ * - src/server/account-deletion/AccountDeletionRepository.ts and its test:
+ *   the erase batch also unattributes Relay's user columns
+ *   (src/server/account-deletion/relayErasure.ts).
+ * - src/server/features/rank-tracking/repositories/RankTrackingRepository.ts
+ *   and its query test, and RankTrackingDomainList.tsx: the domain list says
+ *   "Last check failed" for a failed run. The test carries a max-lines
+ *   exemption.
  * - src/standalone-server.ts and wrangler.standalone.json: the Docker
  *   edition exports and binds the SEO check Workflow too.
  * - src/client/features/settings/DeleteAccountSettings.tsx: error copy is a
