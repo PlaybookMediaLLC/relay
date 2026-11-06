@@ -66,11 +66,17 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: .wrangler/state/v3/d1
-          key: d1-local-${{ runner.os }}-${{ hashFiles('drizzle/sqlite/**', 'wrangler.jsonc', 'pnpm-lock.yaml') }}
+          # v2: entries written before the WAL checkpoint are not reusable.
+          key: d1-local-v2-${{ runner.os }}-${{ hashFiles('drizzle/sqlite/**', 'wrangler.jsonc', 'pnpm-lock.yaml') }}
 
       - name: Migrate the local D1 database
         if: steps.d1-cache.outputs.cache-hit != 'true'
-        run: pnpm db:migrate:local
+        run: |
+          pnpm db:migrate:local
+          # The migrations leave a 5.8 MB write-ahead log against a 2.1 MB
+          # database. Cached as-is, replaying it on restore costs about what
+          # replaying the migrations would have.
+          node scripts/ci-checkpoint-d1.mjs
 
       # Saved here, not at the end of the job: the spec writes the growth
       # workflow's rows into this database, and a cache holding one run's rows
