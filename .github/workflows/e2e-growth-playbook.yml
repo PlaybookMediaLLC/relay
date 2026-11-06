@@ -55,8 +55,22 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}-chromium
 
+      # `--with-deps` shells out to apt, which is where this step's long tail
+      # comes from: a 21 s median against a 522 s P95 and six outright
+      # failures in the two weeks before it was cached, including one stall
+      # observed on a cache hit, where the browser was already present and
+      # only apt was left to run. Bound it and retry once rather than spend
+      # the job's whole budget inside a stalled mirror.
       - name: Install Chromium
-        run: pnpm exec playwright install --with-deps chromium
+        run: |
+          for attempt in 1 2; do
+            if timeout 300 pnpm exec playwright install --with-deps chromium; then
+              exit 0
+            fi
+            echo "::warning::Chromium install attempt $attempt timed out or failed."
+          done
+          echo "::error::Could not install Chromium after two attempts."
+          exit 1
 
       # 111 migrations through wrangler take about 40 seconds and depend only
       # on the SQL files, the binding and the wrangler version, so the applied
