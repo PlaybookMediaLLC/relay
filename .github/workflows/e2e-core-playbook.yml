@@ -38,11 +38,48 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Resolve the Playwright version
+        id: playwright
+        run: |
+          version=$(pnpm exec playwright --version | awk '{print $2}')
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      # The browser download is the step that fails on a bad CDN day (and the
+      # one with a multi-minute tail when it does not). The cache key is the
+      # exact Playwright version, so a browser upgrade always re-downloads.
+      - name: Restore the Chromium download
+        id: chromium-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}-chromium
+
       - name: Install Chromium
         run: pnpm exec playwright install --with-deps chromium
 
+      # 111 migrations through wrangler take about 40 seconds and depend only
+      # on the SQL files, the binding and the wrangler version, so the applied
+      # state is cached under all three. A miss just replays them.
+      - name: Restore the migrated local D1 state
+        id: d1-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .wrangler/state/v3/d1
+          key: d1-local-${{ runner.os }}-${{ hashFiles('drizzle/sqlite/**', 'wrangler.jsonc', 'pnpm-lock.yaml') }}
+
       - name: Migrate the local D1 database
+        if: steps.d1-cache.outputs.cache-hit != 'true'
         run: pnpm db:migrate:local
+
+      # Saved here, not at the end of the job: the spec writes projects and
+      # tracked domains into this database, and a cache holding one run's rows
+      # would change what the next run sees.
+      - name: Save the migrated local D1 state
+        if: steps.d1-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: .wrangler/state/v3/d1
+          key: ${{ steps.d1-cache.outputs.cache-primary-key }}
 
       # The worker reads AUTH_MODE from .env.local, as in local development.
       # A shell variable reaches only the client build.
