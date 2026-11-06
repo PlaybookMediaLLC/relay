@@ -5,30 +5,31 @@ assumed.
 
 - **Before:** 552 workflow runs on `develop` and `main`, 2026-10-26 to
   2026-11-06. Method: [README.md](README.md).
-- **After:** four complete runs of pull request
+- **After:** five complete runs of pull request
   [#223](https://github.com/PlaybookMediaLLC/relay/pull/223) on
   `perf/ci-pipeline-redesign` — same repository, same runner class, same days.
 
-Four runs is a measurement of the new pipeline, not yet a distribution. Every
-figure below is either an observed value with its sample, or labelled as a
-projection.
+Five runs is a measurement of the new pipeline, not yet a distribution, and
+the browser specs in particular vary by more between runs than several of the
+changes below are worth. Every figure is either an observed value with its
+sample, or labelled as a projection.
 
 ## Headline
 
-| Measure                         |                             Before (n=56) |            After (n=4) | Change                                                                 |
-| ------------------------------- | ----------------------------------------: | ---------------------: | ---------------------------------------------------------------------- |
-| Pull-request wall-clock         | P50 6.3, P90 13.5, P95 13.9, max 15.7 min | 3.6, 3.7, 3.9, 4.1 min | Every run beats the old P50; the worst is 3.5× better than the old P95 |
-| Runner-minutes per commit       |                                 25.9 mean | 24.4, 26.1, 26.3, 27.8 | Unchanged on a change that selects every job                           |
-| Required `ci` context ready at  |                               5.7 min P50 | 2.8, 2.8, 4.1, 4.1 min | −28% to −50%                                                           |
-| Push to production              |                               6.2 min P50 |           not measured | Projected ~4.8 min                                                     |
-| Checks gating production        |                             1 partial job |   4 complete workflows | Strictly stronger                                                      |
-| Real-SQL suites run on Postgres |                                        36 |                     57 | +21, including every billing spend suite                               |
+| Measure                         |                             Before (n=56) |                  After (n=5) | Change                                                                 |
+| ------------------------------- | ----------------------------------------: | ---------------------------: | ---------------------------------------------------------------------- |
+| Pull-request wall-clock         | P50 6.3, P90 13.5, P95 13.9, max 15.7 min |  3.6, 3.6, 3.7, 3.9, 4.1 min | Every run beats the old P50; the worst is 3.4× better than the old P95 |
+| Runner-minutes per commit       |                                 25.9 mean | 24.4, 26.1, 26.2, 26.3, 27.8 | Unchanged on a change that selects every job                           |
+| Required `ci` context ready at  |                               5.7 min P50 |  2.8, 2.8, 2.9, 3.1, 4.1 min | −28% to −50%                                                           |
+| Push to production              |                               6.2 min P50 |                 not measured | Projected ~4.8 min                                                     |
+| Checks gating production        |                             1 partial job |         4 complete workflows | Strictly stronger                                                      |
+| Real-SQL suites run on Postgres |                                        36 |                           57 | +21, including every billing spend suite                               |
 
 Every run on the branch was green.
 
 **The critical path moved.** It used to be the 5.7-minute serial `CI / ci`
-job. It is now `Security / static` (3m8s–3m50s) and `e2e-core`
-(3m25s–3m49s) — neither of which this change touches. Further work has to
+job. It is now `e2e-core` (3m25s–3m49s) and `Security / static`
+(3m8s–3m50s) — neither of which this change touches. Further work has to
 start there, not in CI.
 
 ## The execution graph
@@ -58,24 +59,26 @@ run then waits another minute on the security scan and the core browser suite.
 
 ## Per job
 
-| Job                              | Before P50 | After (every observation)  |
-| -------------------------------- | ---------: | -------------------------- |
-| `CI / ci` (the monolith)         |    5.7 min | replaced                   |
-| → `changes`                      |          — | 5s, 7s, 8s, 9s             |
-| → `static checks`                |          — | 1m33s, 1m49s, 1m51s, 2m11s |
-| → `unit and integration tests`   |          — | 2m21s, 2m35s, 2m52s, 2m58s |
-| → `worker and standalone builds` |          — | 1m22s, 1m29s, 1m32s, 1m33s |
-| → `website checks and build`     |          — | 1m16s, 1m18s, 1m21s, 1m25s |
-| → `ci` (summary)                 |          — | 2s, 3s, 4s, 4s             |
-| `CI / docker-build`              |    2.6 min | 16s, 1m31s, 1m48s, 2m12s   |
-| `CI / standalone-image`          |    3.0 min | 2m4s, 2m25s, 2m32s, 3m11s  |
-| `E2E core flows`                 |    3.8 min | 3m25s, 3m37s, 3m49s        |
-| `E2E growth workflow`            |    3.3 min | 2m58s, 3m10s, 3m15s, 3m16s |
-| `Postgres` (1 job, 36 suites)    |    2.2 min | replaced                   |
-| → 3 shards, 57 suites, parallel  |          — | 1m05s–1m27s each           |
-| → `postgres` (summary)           |          — | 2s, 3s, 4s, 4s             |
-| `Security / static` (untouched)  |    3.7 min | 3m8s, 3m22s, 3m31s, 3m50s  |
-| `Release` (untouched)            |    1.3 min | 1m11s, 1m18s, 1m20s, 1m23s |
+Every observation, not a percentile.
+
+| Job                                | Before P50 | After                             |
+| ---------------------------------- | ---------: | --------------------------------- |
+| `CI / ci` (the monolith)           |    5.7 min | replaced                          |
+| → `changes`                        |          — | 5s, 7s, 7s, 8s, 9s                |
+| → `static checks`                  |          — | 1m33s, 1m49s, 1m51s, 2m11s, 2m12s |
+| → `unit and integration tests`     |          — | 2m21s, 2m35s, 2m45s, 2m52s, 2m58s |
+| → `worker and standalone builds`   |          — | 59s, 1m22s, 1m29s, 1m32s, 1m33s   |
+| → `website checks and build`       |          — | 1m15s, 1m16s, 1m18s, 1m21s, 1m25s |
+| → `ci` (summary)                   |          — | 2s, 3s, 3s, 4s, 4s                |
+| `CI / docker-build`                |    2.6 min | 16s, 1m31s, 1m48s, 1m48s, 2m12s   |
+| `CI / standalone-image`            |    3.0 min | 2m4s, 2m23s, 2m25s, 2m32s, 3m11s  |
+| `E2E core flows`                   |    3.8 min | 3m25s, 3m30s, 3m37s, 3m49s        |
+| `E2E growth workflow`              |    3.3 min | 2m5s, 2m58s, 3m10s, 3m15s, 3m16s  |
+| `Postgres` (1 job, 36 suites)      |    2.2 min | replaced                          |
+| → 3 shards, 57 suites, in parallel |          — | 1m05s–1m30s each                  |
+| → `postgres` (summary)             |          — | 2s, 3s, 4s, 4s, 4s                |
+| `Security / static` (untouched)    |    3.7 min | 3m8s, 3m22s, 3m29s, 3m31s, 3m50s  |
+| `Release` (untouched)              |    1.3 min | 1m11s, 1m18s, 1m20s, 1m23s, 1m25s |
 
 ## What produced the saving
 
@@ -100,37 +103,48 @@ Splitting the monolithic job failed `Run website type checks` in 18 s.
 earlier in the same job. The website job now installs both workspaces; the
 2026-10-06 `.agents/PAPERCUTS.md` entry has the real fix.
 
-### 2. The D1 cache saves much less than the migration costs
+### 2. The D1 cache is worth less than the migration it removes, and the reason is not settled
 
-The migration step is 39–40 s and the cache removes it. But both specs then
-got slower:
+The migration step is 39–40 s and a cache hit removes it. But the specs did
+not get 40 s faster, and two things turned up on the way.
 
-| D1 state                             |  core spec | growth spec |
-| ------------------------------------ | ---------: | ----------: |
-| Freshly migrated (baseline, n=67/69) |  126 s P50 |    99 s P50 |
-| Freshly migrated (this branch, n=1)  |          — |       103 s |
-| Restored, write-ahead log included   | 163, 166 s |  119, 120 s |
-| Restored, checkpointed               |      151 s |       120 s |
+**The write-ahead log, which is settled.** `wrangler d1 migrations apply
+--local` leaves 5.8 MB of WAL against a 2.1 MB database. Cached as-is, the
+next run's first connection has to replay it.
+`scripts/ci-checkpoint-d1.mjs` now runs `PRAGMA wal_checkpoint(TRUNCATE)` and
+deletes the sidecar files before the cache is saved. Verified locally: 8.2 MB
+→ 2.1 MB, `PRAGMA integrity_check` returns `ok`, 148 tables, all 111
+migrations recorded. The cache key is `d1-local-v2-` so pre-checkpoint entries
+are never reused.
 
-Two separate effects, found in that order:
+**The residual, which is not settled.** Spec durations, every observation:
 
-**The write-ahead log.** `wrangler d1 migrations apply --local` leaves 5.8 MB
-of WAL against a 2.1 MB database. Cached as-is, the next run's first
-connection replays it. `scripts/ci-checkpoint-d1.mjs` now runs
-`PRAGMA wal_checkpoint(TRUNCATE)` before the save — verified locally: 8.2 MB →
-2.1 MB, `PRAGMA integrity_check` returns `ok`, 148 tables, all 111 migrations
-recorded. That recovered 15 s on the core spec and nothing on growth.
+| D1 state                             | core spec            | growth spec         |
+| ------------------------------------ | -------------------- | ------------------- |
+| Freshly migrated — baseline, n=67/69 | P50 126 s, P95 139 s | P50 99 s, P95 114 s |
+| Freshly migrated — this branch       | —                    | 103 s               |
+| Restored, write-ahead log included   | 163, 166 s           | 119, 120 s          |
+| Restored, checkpointed               | 151, 161 s           | 74, 120 s           |
 
-**The migration was also a warm-up.** `db:migrate:local` runs wrangler, which
-loads miniflare and workerd — the same modules the Vite dev server loads
-thirty seconds later. Removing the migration moves that cost into the spec
-step rather than deleting it. This explains the residual 17–25 s and why
-checkpointing only partly closed it.
+The core spec sits above its baseline P95 in all four observations, which is
+unlikely to be chance. The growth spec does not: 74 s is well below its
+baseline P50 and 120 s is above its P95, in the same configuration. So
+whatever is slowing the core spec, **run-to-run variance on these runners is
+large enough that four or five samples cannot separate it from the cache**,
+and the honest answer is that the residual is unexplained.
 
-**Net: the D1 cache is worth about 15–25 s per browser job, not 40 s.** It is
-kept because `e2e-core` is on the critical path, so seconds off it are seconds
-off the whole run — but the cache is more machinery than its saving deserves,
-and that is recorded here rather than claimed away.
+One plausible mechanism, offered as a hypothesis rather than a finding:
+`db:migrate:local` runs wrangler, which loads miniflare and workerd — the same
+modules the Vite dev server loads thirty seconds later — so removing the
+migration may move part of that cost into the spec rather than deleting it.
+Testing it means running both configurations ten times each, which is the
+measurement to do before relying on this cache for more than it currently
+delivers.
+
+**Net, on job totals:** `e2e-growth` 3.3 min → 2m5s–3m16s, `e2e-core` 3.8 min
+→ 3m25s–3m49s. Both improved; neither improved by the 40 s the migration
+costs. The cache is kept because `e2e-core` is on the critical path, and the
+uncertainty is recorded here rather than claimed away.
 
 ### 3. Caching the browser did not remove the browser step's tail
 

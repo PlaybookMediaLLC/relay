@@ -86,17 +86,17 @@ e2e-growth(failure)`) and `b2131aa4` (`ci(failure)`).
   `.wrangler/state/v3/d1` keyed on `drizzle/sqlite/**`, `wrangler.jsonc` and
   the lockfile, saved with `actions/cache/save` **immediately after the
   migration** so the specs' own writes never enter the cache.
-- **Impact measured, and smaller than intended.** The migration step (−40 s)
-  disappears on a hit, but the specs get 17–25 s slower, so the net is about
-  15–25 s per job. Two causes, both documented in
-  [benchmark-results.md](benchmark-results.md): the migration leaves a 5.8 MB
-  write-ahead log (fixed by `scripts/ci-checkpoint-d1.mjs`), and running it
-  also warmed the module cache the Vite dev server needs thirty seconds later.
-  The Chromium cache takes the install from 21 s to 11–17 s but does **not**
-  remove its tail — one hit still stalled for over eight minutes inside `apt`,
-  which is now bounded by `timeout 300` and one retry. See P2-10.
-- **Confidence.** High — every effect measured, including the two that went
-  the wrong way.
+- **Impact measured, and smaller than intended.** Job totals improved —
+  `e2e-growth` 3.3 min → 2m5s–3m16s, `e2e-core` 3.8 min → 3m25s–3m49s — but
+  by less than the 40 s the migration costs, and the residual is not
+  explained. The one settled finding is that the migration leaves a 5.8 MB
+  write-ahead log, now checkpointed by `scripts/ci-checkpoint-d1.mjs` before
+  the save. The Chromium cache takes the install from 21 s to 11–17 s but does
+  **not** remove its tail: one cache hit still stalled for over eight minutes
+  inside `apt`, now bounded by `timeout 300` and one retry. See
+  [benchmark-results.md](benchmark-results.md) and P2-10.
+- **Confidence.** Medium. The direction is measured; the size is not, because
+  spec durations vary by more between runners than the change is worth.
 - **Effort.** Half a day.
 - **Risks.** A cache of mutable state would change what a run sees — which is
   why the save point matters and is commented in both workflows.
