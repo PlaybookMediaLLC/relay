@@ -86,10 +86,17 @@ e2e-growth(failure)`) and `b2131aa4` (`ci(failure)`).
   `.wrangler/state/v3/d1` keyed on `drizzle/sqlite/**`, `wrangler.jsonc` and
   the lockfile, saved with `actions/cache/save` **immediately after the
   migration** so the specs' own writes never enter the cache.
-- **Impact measured.** On the first cache hit the migration step disappeared
-  from both jobs: −39 s each. The Chromium cache had not populated yet.
-- **Confidence.** High for D1 (measured), medium for Chromium (the mechanism is
-  standard; the tail it removes is the point).
+- **Impact measured, and smaller than intended.** The migration step (−40 s)
+  disappears on a hit, but the specs get 17–25 s slower, so the net is about
+  15–25 s per job. Two causes, both documented in
+  [benchmark-results.md](benchmark-results.md): the migration leaves a 5.8 MB
+  write-ahead log (fixed by `scripts/ci-checkpoint-d1.mjs`), and running it
+  also warmed the module cache the Vite dev server needs thirty seconds later.
+  The Chromium cache takes the install from 21 s to 11–17 s but does **not**
+  remove its tail — one hit still stalled for over eight minutes inside `apt`,
+  which is now bounded by `timeout 300` and one retry. See P2-10.
+- **Confidence.** High — every effect measured, including the two that went
+  the wrong way.
 - **Effort.** Half a day.
 - **Risks.** A cache of mutable state would change what a run sees — which is
   why the save point matters and is commented in both workflows.
@@ -128,17 +135,18 @@ e2e-growth(failure)`) and `b2131aa4` (`ci(failure)`).
 
 ## Phase 2 — architectural, not done
 
-| #    | Change                                                                             | Expected impact                                           | Effort | Risk       | Confidence                                                     |
-| ---- | ---------------------------------------------------------------------------------- | --------------------------------------------------------- | ------ | ---------- | -------------------------------------------------------------- |
-| P2-1 | Run the MCP tenant-isolation browser suite in CI                                   | Closes a hard-invariant coverage gap                      | 1 d    | Low        | Needs a cost measurement first                                 |
-| P2-2 | Required status checks on `develop`                                                | A red pull request can no longer merge                    | 10 min | Low        | Repository setting; needs the maintainer                       |
-| P2-3 | Add `e2e-core` and `postgres` to the `main` ruleset                                | Branch protection matches the deploy gate                 | 10 min | Low        | Same                                                           |
-| P2-4 | Two Playwright workers for the core suite's viewport block                         | −27 s on `e2e-core`                                       | 1 d    | **Medium** | Must pass `--repeat-each=10` locally and ten CI runs first     |
-| P2-5 | Cache `node_modules/.vite` for the browser jobs                                    | Some of the 33.8 s dev-server boot                        | 0.5 d  | Low        | Unmeasured                                                     |
-| P2-6 | `tsc --incremental` with a cached `.tsbuildinfo`                                   | Some of the 31 s type check                               | 1 d    | **Medium** | A stale buildinfo that checks less is worse than a slow check  |
-| P2-7 | Write down expand-and-contract, and check for destructive statements in migrations | Makes rollback-after-migration safe by rule, not by habit | 2 d    | Low        | Correctness, not performance                                   |
-| P2-8 | Fix or demote the security scan                                                    | Removes a check that is red on ~40% of pull requests      | 1–3 d  | Low        | Needs its own investigation                                    |
-| P2-9 | Decide whether `release.yml` should run on Relay pull requests                     | −1.3 min and one queue slot per pull request              | 0.5 d  | Low        | A product decision: does this fork support `everyapp install`? |
+| #     | Change                                                                             | Expected impact                                                                                                                      | Effort | Risk       | Confidence                                                                                    |
+| ----- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------ | ---------- | --------------------------------------------------------------------------------------------- |
+| P2-1  | Run the MCP tenant-isolation browser suite in CI                                   | Closes a hard-invariant coverage gap                                                                                                 | 1 d    | Low        | Needs a cost measurement first                                                                |
+| P2-2  | Required status checks on `develop`                                                | A red pull request can no longer merge                                                                                               | 10 min | Low        | Repository setting; needs the maintainer                                                      |
+| P2-3  | Add `e2e-core` and `postgres` to the `main` ruleset                                | Branch protection matches the deploy gate                                                                                            | 10 min | Low        | Same                                                                                          |
+| P2-4  | Two Playwright workers for the core suite's viewport block                         | −27 s on `e2e-core`                                                                                                                  | 1 d    | **Medium** | Must pass `--repeat-each=10` locally and ten CI runs first                                    |
+| P2-5  | Cache `node_modules/.vite` for the browser jobs                                    | Some of the 33.8 s dev-server boot                                                                                                   | 0.5 d  | Low        | Unmeasured                                                                                    |
+| P2-6  | `tsc --incremental` with a cached `.tsbuildinfo`                                   | Some of the 31 s type check                                                                                                          | 1 d    | **Medium** | A stale buildinfo that checks less is worse than a slow check                                 |
+| P2-7  | Write down expand-and-contract, and check for destructive statements in migrations | Makes rollback-after-migration safe by rule, not by habit                                                                            | 2 d    | Low        | Correctness, not performance                                                                  |
+| P2-8  | Fix or demote the security scan                                                    | Removes a check that is red on ~40% of pull requests                                                                                 | 1–3 d  | Low        | Needs its own investigation                                                                   |
+| P2-9  | Decide whether `release.yml` should run on Relay pull requests                     | −1.3 min and one queue slot per pull request                                                                                         | 0.5 d  | Low        | A product decision: does this fork support `everyapp install`?                                |
+| P2-10 | Run the browser jobs in `mcr.microsoft.com/playwright:v<version>-noble`            | Removes the `apt` step `--with-deps` shells out to, which is the real source of the 522 s P95 and of a stall observed on a cache hit | 1 d    | Low        | Trades a 21 s median plus an unbounded tail for a steadier image pull; measure the pull first |
 
 ### P2-2 and P2-3 in detail
 
