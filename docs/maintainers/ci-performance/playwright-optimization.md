@@ -49,14 +49,38 @@ Breaking the step down from a run's log:
 About 23 s is `apt-get`, about 7 s is the download — but the download is the
 part that goes wrong, and it is the part with no bound on how long it takes.
 
-**Change made:** `~/.cache/ms-playwright` is cached under the exact Playwright
-version resolved at runtime (`playwright --version`), so a browser upgrade
-always re-downloads and a steady state never does.
+**Changes made.** Two, in that order.
 
-**Not changed:** `--with-deps` still runs. Dropping the apt step would save
-another ~23 s, but whether `ubuntu-24.04` runner images carry every library
-Chromium needs is a question to answer by measuring, not by assuming — a wrong
-answer here does not fail loudly, it fails as a flaky browser launch.
+First, `~/.cache/ms-playwright` is cached under the exact Playwright version
+resolved at runtime (`playwright --version`), so a browser upgrade always
+re-downloads and a steady state never does. That took the step from a 21 s
+median to 11–17 s — and did **not** remove the tail. Twice in seven runs it
+hit the cache in four seconds and then stalled inside apt, with the browser
+already on disk.
+
+Second, `--with-deps` was removed. The failing run's own log settles what it
+was for:
+
+```
+The following NEW packages will be installed:
+  fonts-freefont-ttf fonts-ipafont-gothic fonts-tlwg-loma-otf fonts-unifont
+  fonts-wqy-zenhei xfonts-cyrillic xfonts-encodings xfonts-scalable
+  xfonts-utils
+0 upgraded, 9 newly installed, 0 to remove and 27 not upgraded.
+```
+
+Nine packages, all of them fonts. Not one shared library, because the
+`ubuntu-24.04` runner image already carries every library Chromium needs. The
+app ships its own webfonts (`@fontsource-variable/geist`, `inter`), so CJK,
+Cyrillic and Thai system fonts change nothing these specs assert on — and apt
+was the entire long tail.
+
+Both jobs now run `playwright install chromium` under a 180 s timeout with one
+retry for the download. There is no apt in the browser jobs any more.
+
+The safety argument for removing it: a missing library does not degrade
+quietly. Chromium fails to launch and Playwright names the library in the
+first test's error.
 
 ## The D1 migration is pure setup
 

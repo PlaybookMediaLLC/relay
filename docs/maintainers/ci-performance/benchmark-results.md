@@ -153,19 +153,50 @@ delivers.
 costs. The cache is kept because `e2e-core` is on the critical path, and the
 uncertainty is recorded here rather than claimed away.
 
-### 3. Caching the browser did not remove the browser step's tail
+### 3. The browser step's tail was apt, and apt was only installing fonts
 
-On run `42271506195`, `Install Chromium` hit the cache in 4 s and then
-**stalled for over eight minutes** with the browser already on disk. The
-remaining work at that point is `apt`, which `--with-deps` shells out to —
-and apt is where the step's 522 s P95 and six outright failures came from.
+Caching `~/.cache/ms-playwright` takes the install from a 21 s median to
+11–17 s. It does not remove the tail: twice in seven runs the step hit the
+cache in four seconds and then stalled inside `apt` with the browser already
+on disk. A `timeout 300` with one retry was added, and the next stall showed
+why that is not enough — killing the wrapper left the `apt-get` child holding
+the dpkg lock, so the retry died immediately:
 
-The cache removes the download. It does not remove apt. That step now runs
-under `timeout 300` with one retry, so a stalled mirror costs at most ten
-minutes instead of the job's entire budget. That is a bound, not a fix.
-Running these jobs in the official Playwright container, where browsers and
-system libraries are both preinstalled, is the fix — and it is a measurement
-to make, not a change to make blind.
+```
+Ign:3 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 fonts-freefont-ttf
+##[warning]Chromium install attempt 1 timed out or failed.
+...
+E: Could not get lock /var/lib/dpkg/lock-frontend. It is held by process 2683 (apt-get)
+##[error]Could not install Chromium after two attempts.
+```
+
+The same log answers the question the earlier note had deferred — whether
+`ubuntu-24.04` carries the libraries Chromium needs:
+
+```
+The following NEW packages will be installed:
+  fonts-freefont-ttf fonts-ipafont-gothic fonts-tlwg-loma-otf fonts-unifont
+  fonts-wqy-zenhei xfonts-cyrillic xfonts-encodings xfonts-scalable
+  xfonts-utils
+0 upgraded, 9 newly installed, 0 to remove and 27 not upgraded.
+Need to get 21.1 MB of archives.
+```
+
+**All nine packages are fonts.** Not one shared library — the image already
+has them all. `--with-deps` was spending 23 s at the median, an unbounded tail
+at the P95, and eight observed failures, to install CJK, Cyrillic and Thai
+fonts for a suite that renders English in the webfonts the app bundles
+itself.
+
+Both jobs now run `playwright install chromium` with no `--with-deps`, under a
+180 s timeout with one retry for the download. apt is gone from the browser
+jobs entirely. If a future runner image does drop a library, Chromium fails to
+launch and Playwright names the missing one in the first test's error, which
+is a loud failure rather than a silent one.
+
+This supersedes roadmap item P2-10 (moving the jobs into the Playwright
+container): the container was the way to avoid apt, and there is no longer any
+apt to avoid.
 
 ## Not measured
 

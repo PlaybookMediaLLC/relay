@@ -54,21 +54,27 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}-chromium
 
-      # `--with-deps` shells out to apt, which is where this step's long tail
-      # comes from: a 21 s median against a 522 s P95 and six outright
-      # failures in the two weeks before it was cached, including one stall
-      # observed on a cache hit, where the browser was already present and
-      # only apt was left to run. Bound it and retry once rather than spend
-      # the job's whole budget inside a stalled mirror.
+      # Deliberately not `--with-deps`. On ubuntu-24.04 that installs nine
+      # packages and every one of them is a font (CJK, Cyrillic, Thai,
+      # Unifont) -- "0 upgraded, 9 newly installed" -- because the runner
+      # image already carries every shared library Chromium needs. The app
+      # ships its own webfonts, so those packages change nothing these specs
+      # assert on, and apt was the step's whole long tail: a 522 s P95, six
+      # outright failures, and two stalls on cache hits where the browser was
+      # already on disk. The second stall left a held dpkg lock that failed
+      # the retry too.
+      #
+      # If a future runner image does drop a library, Chromium fails to launch
+      # and Playwright names the missing one in the first test's error.
       - name: Install Chromium
         run: |
           for attempt in 1 2; do
-            if timeout 300 pnpm exec playwright install --with-deps chromium; then
+            if timeout 180 pnpm exec playwright install chromium; then
               exit 0
             fi
-            echo "::warning::Chromium install attempt $attempt timed out or failed."
+            echo "::warning::Chromium download attempt $attempt timed out or failed."
           done
-          echo "::error::Could not install Chromium after two attempts."
+          echo "::error::Could not download Chromium after two attempts."
           exit 1
 
       # 111 migrations through wrangler take about 40 seconds and depend only
