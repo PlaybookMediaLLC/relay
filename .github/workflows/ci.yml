@@ -183,7 +183,16 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
-          cache-dependency-path: web/pnpm-lock.yaml
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            web/pnpm-lock.yaml
+
+      # web/tsconfig.json type-checks web/tests/free-tool-verification.spec.ts,
+      # which imports the root-only @playwright/test, so the website checks
+      # need both workspaces installed. See the 2026-10-06 entry in
+      # .agents/PAPERCUTS.md for the fix that would remove this dependency.
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Install website dependencies
         run: pnpm --dir web install --frozen-lockfile
