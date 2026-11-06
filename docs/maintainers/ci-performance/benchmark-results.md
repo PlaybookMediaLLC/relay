@@ -5,31 +5,38 @@ assumed.
 
 - **Before:** 552 workflow runs on `develop` and `main`, 2026-10-26 to
   2026-11-06. Method: [README.md](README.md).
-- **After:** five complete runs of pull request
+- **After:** six complete runs of pull request
   [#223](https://github.com/PlaybookMediaLLC/relay/pull/223) on
   `perf/ci-pipeline-redesign` — same repository, same runner class, same days.
 
-Five runs is a measurement of the new pipeline, not yet a distribution, and
+Six runs is a measurement of the new pipeline, not yet a distribution, and
 the browser specs in particular vary by more between runs than several of the
 changes below are worth. Every figure is either an observed value with its
 sample, or labelled as a projection.
 
+Runs are split into **cold** (the first run after a cache key changed, so the
+Chromium and D1 caches miss) and **warm** (the steady state a normal pull
+request sees). Three of each.
+
 ## Headline
 
-| Measure                         |                             Before (n=56) |                  After (n=5) | Change                                                                 |
-| ------------------------------- | ----------------------------------------: | ---------------------------: | ---------------------------------------------------------------------- |
-| Pull-request wall-clock         | P50 6.3, P90 13.5, P95 13.9, max 15.7 min |  3.6, 3.6, 3.7, 3.9, 4.1 min | Every run beats the old P50; the worst is 3.4× better than the old P95 |
-| Runner-minutes per commit       |                                 25.9 mean | 24.4, 26.1, 26.2, 26.3, 27.8 | Unchanged on a change that selects every job                           |
-| Required `ci` context ready at  |                               5.7 min P50 |  2.8, 2.8, 2.9, 3.1, 4.1 min | −28% to −50%                                                           |
-| Push to production              |                               6.2 min P50 |                 not measured | Projected ~4.8 min                                                     |
-| Checks gating production        |                             1 partial job |         4 complete workflows | Strictly stronger                                                      |
-| Real-SQL suites run on Postgres |                                        36 |                           57 | +21, including every billing spend suite                               |
+| Measure                         |                             Before (n=56) |        After, cold (n=3) |        After, warm (n=3) |
+| ------------------------------- | ----------------------------------------: | -----------------------: | -----------------------: |
+| Pull-request wall-clock         | P50 6.3, P90 13.5, P95 13.9, max 15.7 min |        3.7, 3.9, 4.1 min |    **3.5, 3.6, 3.6 min** |
+| Runner-minutes per commit       |                                 25.9 mean |         26.1, 26.3, 27.8 |         24.4, 25.5, 26.2 |
+| Required `ci` context ready at  |                               5.7 min P50 |        2.8, 3.1, 4.1 min |    **2.8, 2.9, 3.0 min** |
+| `e2e-core`                      |                                   3.8 min |             3m37s, 3m49s |  **3m22s, 3m25s, 3m30s** |
+| `e2e-growth`                    |                                   3.3 min |      3m10s, 3m15s, 3m16s |   **1m56s, 2m5s, 2m58s** |
+| Postgres validation             |                       2.2 min (36 suites) | **~1.5 min (57 suites)** | **~1.5 min (57 suites)** |
+| Push to production              |                               6.2 min P50 |             not measured |       Projected ~4.8 min |
+| Checks gating production        |                             1 partial job |     4 complete workflows |     4 complete workflows |
+| Real-SQL suites run on Postgres |                                        36 |                       57 |                       57 |
 
 Every run on the branch was green.
 
 **The critical path moved.** It used to be the 5.7-minute serial `CI / ci`
-job. It is now `e2e-core` (3m25s–3m49s) and `Security / static`
-(3m8s–3m50s) — neither of which this change touches. Further work has to
+job. It is now `e2e-core` (3m22s–3m49s) and `Security / static`
+(2m43s–3m50s) — neither of which this change touches. Further work has to
 start there, not in CI.
 
 ## The execution graph
