@@ -3,11 +3,40 @@
 **Direction adopted:** November 7, 2026  
 **Status:** Product thesis and evidence-gated roadmap, not a claim that every workflow ships today.
 
-**Relay helps independent software founders turn observable customer demand into approved website improvements and measurable acquisition learning.**
+**Relay helps independent software founders build a repeatable customer-acquisition operation: discover real demand, execute approved improvements, and learn from independently verified delivery and qualified customer outcomes.**
 
 A founder has limited engineering time and little or no dedicated growth team. Research tools can identify interesting queries and competitors, but they often stop before a useful change reaches the founder's actual website. Content tools can produce material without understanding whether it is accurate, worth publishing, or effective. Relay's job is the accountable work between the opportunity and the outcome: decide what is worth doing, prepare a constrained change in the customer's existing codebase, obtain approval, verify production, and learn from later evidence.
 
 The initial emphasis is **organic discovery, AI-search visibility where evidence exists, high-intent website pages, and acquisition conversion**. Protecting those pages from regressions is an important supporting workflow, not the definition of the whole company. Relay does not aim to become a generic product-operations suite, launch-communications platform, or every-channel marketing agent.
+
+## The company we intend to build
+
+**The ambition is a $100M+ ARR-capable customer-acquisition execution business, not a permanent $99/month SEO utility.** That is a direction against which to make product and commercial decisions, **not** a revenue forecast, a claim of current demand or permission to build every channel at once.
+
+Landing with independent software founders is an advantage: the person experiencing the acquisition problem can often authorize the source change and judge the result. But the account must become more valuable as that founder's software business grows. Relay should earn continuing responsibility for selecting, completing and learning from **recurring acquisition work**. It should eventually be possible for the same customer to use Relay when they have multiple products, important acquisition funnels, a few teammates and a larger acquisition budget. The original founder remains a credible entry customer; product design must not assume a marketing department or an enterprise implementation team on day one.
+
+The distinction between today's product and the intended business is substantive:
+
+| Dimension | First useful product | Larger recurring business |
+| --- | --- | --- |
+| **Commercial job** | Turn one credible search opportunity into an approved, live website improvement | Manage a bounded ongoing acquisition program: choose the next work, carry it through approved destinations and evaluate the resulting evidence |
+| **Use pattern** | Occasional research and individual PRs | Weekly decisions, approved improvements, protected customer paths, measurement, correction and memory across cycles, including valid no-action weeks |
+| **Revenue relationship** | Low-cost research plan or small site subscription | Higher-value recurring programs with agreed scope, volume, reliability and cost limits; accounts expand as their acquisition needs grow |
+| **Proof of value** | Verified source change and later search observations | Distinct records of what shipped, relevant demand/exposure, qualified customer behavior and observed economic outcomes with explicit attribution limitations |
+| **Product breadth** | GitHub-managed web pages, Search Console, selected AI visibility and GA4 | Gradual addition of reliable acquisition workflows and permissioned channel handoffs when paid customer demand warrants them |
+
+**The central unit of account is a paid acquisition program.** A program specifies the software product and audience, acquisition goals, a site or approved destination, a review cadence, connected evidence, allowed work and costs, owner, verification checks and reporting commitments. A program is not an autonomous marketing agent with a universal write token. It works through the customer's approved tools, and it may legitimately recommend no changes during a quiet week.
+
+Relay's prospective long-term advantage lies in the customer-specific record of accepted and rejected actions, precise approvals, verified publication, observed commercial signals and the founder's time and provider costs. A repository edit and a generic model summary are easy to reproduce; recurring, trusted execution with reliable context may be harder. That is a hypothesis to test through actual retention, expansion and support economics.
+
+**Four requirements determine whether this becomes a large company:**
+
+1. **Broader commercial responsibility:** graduate from technical SEO changes to qualified acquisition programs covering commercially important pages, selected conversion journeys, AI visibility research and appropriate other channels. Expand what Relay owns only when it can complete and verify the work.
+2. **Repeat engagement:** make the weekly review/approval/outcome cycle useful when no new product release occurred and when no edit is warranted. Track genuine founder decisions rather than scheduled task runs or content quotas.
+3. **Larger contracts:** support a founder-led company as its stakes, page groups, products and reporting requirements grow, with clearly bounded service and permission terms. Higher ACV has to be earned through delivered value and operating reliability.
+4. **Defensible outcome accounting:** separate verified technical changes from observed discovery, qualified conversion behavior and economic results. Neither a shipped PR nor first-touch attribution proves incremental acquired revenue.
+
+The detailed [acquisition company-scale plan](docs/maintainers/ACQUISITION-EXECUTION-SCALE-PLAN.md) specifies the account progression, program contract, four evidence clocks, proposed pricing tests, unit economics, milestone gates and stop conditions.
 
 ## Who this is for
 
@@ -270,46 +299,45 @@ The current [Relay SEO Check GitHub Action](https://github.com/PlaybookMediaLLC/
 
 ## Measuring the north star
 
-**Primary proposed product metric:** monthly paying independent-founder workspaces with at least one **approved acquisition-related website change independently verified live** in the previous 30 days. Count a workspace once per period; retries, additional generated drafts, unmerged PRs and variant outputs do not add completions. A technical change reaching production is not automatically an SEO improvement.
+**Proposed product north star: weekly paying acquisition programs with a completed evidence-backed decision cycle.** A program qualifies at most once per week when its source coverage is usable and an authorized founder/reviewer reviews the current work, advances a supported action, or explicitly accepts a reasoned no-action result. An unattended job, automatically generated report or fabricated suggestion is not a qualifying cycle.
 
-Report alongside it:
-- **Funnel:** connected and authorized founders → evidence-backed opportunities reviewed → approved source changes → production-verified changes → results eligible for observation.
-- **Founder value:** time and money required for each verified change; retention, repeat approved work and willingness to pay.
-- **Business outcomes, separately:** qualified organic visitors, meaningful signups/trials, activated users and paid conversions where instrumented and consented. Use comparable windows and label uncertainty, missingness, channel mix, seasonality and noncausal before/after results.
-- **Reliability guardrails:** bad recommendation/false positive rate, blocked and stale approvals, source/tenant safety, monitoring coverage, deployment verification failures and provider spend.
+**Companion delivery metric:** monthly paying founder workspaces with at least one approved acquisition-related website change independently verified live. It is an important measure of useful completed work, **not proof of more customers**, and it must not encourage unnecessary edits in quiet weeks.
 
-Quiet or low-data periods remain honest no-action/insufficient-evidence states; do not manufacture changes to maximize the metric. Track those workspaces separately as retained customers rather than pretending a change was shipped.
+### The four clocks of acquisition work
 
-### Metric definitions and anti-gaming rules
+1. **Execution:** proposal, explicit approval, GitHub PR, verified merge, separately observed deployment and independently checked technical postcondition. This is the earliest result Relay can directly verify in the initial product.
+2. **Exposure:** relevant first-party search impressions/clicks, observed AI-search prompt citations or consented acquisition-session information. All require their own source coverage and observation time.
+3. **Qualified behavior:** meaningful, founder-defined trial, signup, demo or activation events, with reliable event semantics and awareness of missing or late data.
+4. **Economic result:** customer acquisition, payments or qualified pipeline where a permitted, scoped billing/CRM source can support the fact. Do not equate an attribution label with incremental revenue.
 
-Define a **founder workspace** as a unique paying organization/workspace operating a founder-owned product. A workspace qualifies for the proposed completion numerator when a distinct, acquisition-related proposal has a recorded founder approval and fresh, independently observed production proof within the reporting period. Count the workspace once per 30-day period, not once per PR, version, agent run or retry. Distinguish a verified original-rule repair under Protect from a completed growth opportunity.
+Each layer can be verified, observed, insufficient, conflicted or unavailable independently. Describe before/after changes as observational; distinguish careful comparable-group analysis from a properly eligible controlled experiment. Never manufacture revenue uplift by combining keyword volume, an assumed conversion rate and an invented price.
 
-This is an **intermediate value metric**, not proof the founder acquired more customers. The actual acquisition readout should use connected first-party metrics with explicit source and coverage: relevant queries/pages, qualified visits where identifiable, defined trial/demo/signup events, and paid conversion only where a permitted and reliable observation exists. Rank/click movements without comparable demand or conversion data remain descriptive.
+The existing [Experiments and Results](docs/EXPERIMENTS.md) documents a 28-day Search Console baseline, seven-day exclusion and 28-day observation window; current deployment confirmation and refresh involve human actions. That contract is a foundation to reuse, not proof of automated causality detection. M16 will test defensible conversion definitions and an outcome ledger without replacing GA4, billing, analytics providers or the existing experiments system.
 
-Operational definitions worth implementing in M13 and M7:
+### Economics that keep the ambition accountable
 
-| Metric | Numerator / denominator or clock | Exclusion / caution |
-| --- | --- | --- |
-| **Time to first useful opportunity** | Project authorized → first recommendation a founder considers actionable | Do not count imported demo data or unsupported generic suggestions |
-| **Proposal acceptance rate** | Exact proposals founders approve / all reviewed, eligible proposals | Separate rejection, defer, source unsupported, missing permissions and no-action |
-| **Production verification rate** | Live-verified targeted edits / eligible approved changes attempted | No merge-only or self-attested pass; independently fixed pages counted separately |
-| **Median founder attention** | Active review and corrective minutes per work item | Track manual support or back-and-forth rather than treating it as zero |
-| **Provider cost per verified change** | Research, AI, data, checks and retries attributable to approved/verified work | Show wasted attempts and idle/coverage costs separately |
-| **Qualified-acquisition observation** | Consented relevant queries, signup/trial or downstream paid actions by agreed source and window | Never assign causality to a simple before/after difference |
-| **Repeat paid use** | Paid workspaces returning for a second qualifying workflow or renewal / eligible paid cohort | Differentiate research-credit subscription, pilot, Grow and Protect offers |
+Track **ARR, paying programs/accounts, ARPA/ACV, gross revenue retention, net revenue retention, expansion and contraction, gross margin including third-party provider/compute/routine human work, acquisition cost, payback and renewals**, alongside the product north star. Report small cohorts with actual account counts and dollars, not only impressive percentages.
 
-The existing [Experiments and Results guide](docs/EXPERIMENTS.md) defines an SEO baseline of 28 days, a seven-day exclusion, and a 28-day observation window, with data finality and minimum-coverage requirements. As currently documented, registration, merge status refresh, deployment confirmation and measurement refresh require explicit administrative action; do **not** call that measurement workflow fully automated until the implementation proves it. New scheduling may improve the workflow while retaining the same honesty about data coverage and seasonal effects.
+For clarity, the $100M ARR ambition could arithmetically mean about **10,000 accounts averaging $833/month**, **5,000 accounts averaging $1,667/month**, or **2,000 averaging $4,167/month**. These are not market-size estimates or forecasts. They illustrate why the business cannot stop at a cheap research subscription.
+
+Test a packaging ladder with founders: a limited, paid first program; a recurring program for revenue-generating software companies; and a larger bounded multi-program offering as those companies grow. The price hypotheses and upgrade criteria are in the [scale plan](docs/maintainers/ACQUISITION-EXECUTION-SCALE-PLAN.md). Do not change live billing plans or promise unlimited agent execution before paid evidence and provider economics support them.
+
+Guardrails still include acquisition recommendation quality, coverage and freshness, safe approval rate, review time, cost per verified change, verified original failures, error/unknown reporting, retention and the percentage of programs that are only being kept active by artificial work.
 
 ## Roadmap, not release promises
 
-[GitHub milestones](https://github.com/PlaybookMediaLLC/relay/milestones) and the [founder-growth execution roadmap](docs/maintainers/GROWTH-EXECUTION-ROADMAP.md) describe the current investment order. Historic technical [IRFC-0001–0032](docs/maintainers/rfcs/implementation/README.md) are source specifications and acceptance contracts, **not an unconditional instruction to build the old Protect → Product Reality Engine → Sync → Launch plan in full**.
+The current investment order is in [GitHub milestones](https://github.com/PlaybookMediaLLC/relay/milestones), the [founder growth execution roadmap](docs/maintainers/GROWTH-EXECUTION-ROADMAP.md) and the [acquisition scale plan](docs/maintainers/ACQUISITION-EXECUTION-SCALE-PLAN.md). The historical [IRFC-0001–0032](docs/maintainers/rfcs/implementation/README.md) documents technical contracts, **not a requirement to complete the old Protect → Product Reality Engine → Sync → Launch plan**.
 
-1. **First founder value:** M13 Growth v1 integrates existing opportunity research, M1/M2/M3 evidence/edit/verification capabilities and minimal onboarding. Run M7 independent-founder paid pilot discovery in parallel.
-2. **Reliable repetition:** M5 gives the founder an accountable work history; promote the narrow M10 page-memory and existing-page improvement slices where they prevent repeated ineffective work.
-3. **Acquisition reliability:** complete useful M1–M3 Protect slices and test Grow versus Protect commercially. Promote bounded M9 conversion/journey checks only for a demonstrated acquisition failure.
-4. **Better discovery:** M14 tests whether source-backed AI-search visibility yields actionable, paid growth work. Prioritize observation quality over prompt volume.
-5. **Only after demand:** evaluate selective additional publishing adapters and narrowly scoped M4 product-claim checks; M6 generalized PRE, M8 Relay-owned launch packets, M11 organizational coordination and M12 capital-intensive automation are deferred unless an independent paid use case changes the decision.
+**Prove the first job — M13, M1–M3:** connect an authorized founder site to one relevant existing-page opportunity, an approved exact website edit, an independently verified production postcondition and later measurement that states what can and cannot be inferred.
 
-**Practical next test:** use a real Playbook GitHub-managed website to prove one search opportunity → reviewed website change → customer-owned deploy → verified live page → honest subsequent observation. Then validate the same workflow with paying independent founders. Fix the broken part of that loop before adding another large module.
+**Test the buyer and price in parallel — M7 and M17:** compare founder-paid Grow and Protect entry offers with direct evidence. Define the recurring program, service limits, contribution margin and real buyer expansion triggers. Do not conflate research credits with paid acquisition execution.
 
-The north star is progress toward qualified acquisition that a founder can understand and act on, **not the number of integrations, automated messages, generated pages, or configured monitoring jobs**.
+**Make the work genuinely recurring — M15 with M5/M10:** introduce a useful weekly founder review, a small number of approved repeat playbooks, page history, decision memory, cooldowns and credible no-action weeks. More recommendations are not automatically more value.
+
+**Ground acquisition in real customer behavior — M16 with selected M9:** connect the founder's qualified conversion definition and permitted data, then preserve four evidence clocks. An accurate record of delivered work is useful; claiming incremental acquired customers requires a stronger measurement design.
+
+**Broaden carefully — M14 and M18:** AI-search observations can suggest on-site work when samples are reproducible. Additional distribution/outbound/partner or paid acquisition handoffs require concrete paying demand, scoped approvals, a reliable destination receipt and a clear boundary with Shots, Verify/Warmbly and a future Playbook Operator. M4/M6 general platforms and M8/M11/M12 remain deferred or tightly bounded.
+
+**The next engineering test** remains one end-to-end source-controlled opportunity on a Playbook site, followed by external independent-founder paid pilots. **The next company test** is whether buyers return for several useful review cycles, pay enough to cover ongoing execution and support, and expand spending as their own software companies grow.
+
+We are building toward a large recurring acquisition business, but the evidence, permissions, unit economics and customer outcomes decide whether Relay has earned each additional responsibility.

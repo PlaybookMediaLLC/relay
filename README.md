@@ -1,10 +1,10 @@
 # Relay
 
-**Turn real customer demand into safe, measurable website growth work.**
+**Turn customer demand into approved acquisition work, and learn from what actually happens.**
 
 Relay, by Playbook Media LLC, is building a code-native growth execution product for **independent software founders**. It connects search and website evidence to one practical improvement: choose a relevant opportunity, prepare a narrow change in the founder's repository, obtain exact approval, verify it live, and track later acquisition observations without claiming unsupported traffic or revenue lift.
 
-**Today:** Relay has a substantial open-source SEO, GitHub publishing and measurement foundation. **Next:** validate an end-to-end existing-page opportunity → reviewed GitHub PR → production-verified site change, and test paid founder demand. Release assurance remains a supporting technical capability and a separate commercial experiment. Broad Sync, Product Reality Engine and Relay-owned Launch work are not the default build direction.
+**Today:** Relay has a substantial open-source SEO, GitHub publishing and measurement foundation. **First proof:** an existing-page opportunity → founder-approved GitHub PR → independently verified production change. **Company ambition:** a recurring customer-acquisition execution business that grows in value with founder-led software companies. Release assurance remains a complementary paid hypothesis; broad Sync, Product Reality Engine and Relay-owned Launch are not the default build direction.
 
 [Use Relay](https://relay.playbookmedia.io) · [North-star vision](vision.md) · [Company thesis](company.md) · [Active growth milestones](docs/maintainers/GROWTH-EXECUTION-ROADMAP.md) · [RFC implementation specifications](docs/maintainers/rfcs/implementation/README.md)
 
@@ -33,6 +33,36 @@ This integrated experience is the **M13 target**, not a claim that all five step
 An existing landing page appears for a buyer-intent search query but has an outdated description. A good Relay recommendation explains the observed query and page, describes the likely intent mismatch, checks the source and proposes a literal replacement only if the code mapping is supported. It does **not** conclude that changing a description guarantees a different search snippet or additional customers.
 
 A completed technical task means the founder approved the exact change, deployed it through their own process, and the live page reflects the intended supported postcondition. A later Search Console change is an observation that may have other causes. If nothing is safe to change, recommending **no action** is a legitimate result.
+
+## The bigger business we're building toward
+
+Relay's entry product is a code-native SEO and website growth engineer. **The business ambition is larger: recurring customer-acquisition execution for software companies as they grow from independent founders into more established founder-led businesses.** Our explicit aspiration is to build a company that could support **$100M+ ARR**. That number is an ambition and useful constraint on strategy, **not** a customer forecast, proven market opportunity or current run rate.
+
+A founder shouldn't have to open five dashboards, ask a coding assistant to interpret the data, prepare a PR, remember to check the deployment, and months later wonder whether the change produced useful customers. Relay should make that one ongoing, reviewable program. A customer who needs the service every week, trusts its execution and can define meaningful qualified outcomes has a different reason to subscribe than somebody comparing keyword research plans.
+
+### Four requirements for moving beyond a small SEO tool
+
+| Business requirement | What must actually change | What would prove progress |
+| --- | --- | --- |
+| **Broader commercial responsibility** | Own recurring founder-approved acquisition work, not only one technical SEO edit | Customers commission and complete multiple prioritized acquisition tasks against an agreed conversion objective |
+| **Stronger recurring usage** | Make weekly evidence review, supported repeat actions, no-action decisions and retained learning useful | Paid founders return over several decision cycles and don't require manual rescue for every task |
+| **Higher contract values** | Sell bounded acquisition programs with more meaningful work, coverage and reliability as companies grow | Actual upgrades, renewals and acceptable provider/support cost at higher prices |
+| **Credible acquisition outcomes** | Connect independent technical delivery receipts to observed discovery, qualified behavior and economic results | Four separate evidence layers, real coverage, confidence limits and no fabricated incremental revenue |
+
+A recurring **acquisition program** defines the site or approved channel, target buyer, qualified conversion, data coverage, review cadence, allowed actions, owner, source permissions and monthly usage limits. It can legitimately recommend no changes during a quiet week. Selling a fixed number of AI-written pages or guaranteed ranking improvements would produce the wrong incentives.
+
+The intended long-term account path is to **land with an independent founder and expand with the same software business** as its acquisition needs, website traffic, products and team increase. That does not require enterprise complexity in first-run onboarding.
+
+For the full operating model, staged packaging, outcome confidence and stop conditions see [Acquisition Execution Scale Plan](docs/maintainers/ACQUISITION-EXECUTION-SCALE-PLAN.md).
+
+### Reporting four distinct results
+
+- **Execution:** Did the exact founder-approved change reach the real production destination and pass its expected technical check?
+- **Discovery:** What do Search Console, authorized sessions and reproducible AI-search samples show about exposure?
+- **Qualified behavior:** Did correctly defined, consented signup, trial, demo or activation events occur, with reliable coverage?
+- **Economic result:** Are there source-backed paying customers or qualified pipeline records? What limits attribution, and is any incremental effect identifiable?
+
+A positive search trend after a deployment is **not proof** that the edit caused more customers. Relay should show which clocks are verified, observed, incomplete or unknown instead of collapsing them into a single success badge. The existing [Experiments & Results](docs/EXPERIMENTS.md) system is a starting point; it does not already provide causal acquisition measurement.
 
 ## What the repository contains
 
@@ -113,6 +143,19 @@ M4 preserves narrow product-claim safeguards. M6 contains possible evidence/conn
 
 The milestone numbers are stable GitHub IDs, **not execution order**. Use the [growth roadmap](docs/maintainers/GROWTH-EXECUTION-ROADMAP.md) before assigning an agent a historical IRFC.
 
+### Next growth milestones after the first shipped change
+
+The original M13 website loop is necessary but insufficient for a larger recurring business. Four additional native GitHub milestones define the next company-building tests:
+
+| Milestone | Customer or commercial result | Tracking |
+| --- | --- | --- |
+| **M15 — Recurring acquisition execution** | Weekly founder review and safe repeatable playbooks with page history, true no-action outcomes and repeat paid engagement | [#271](https://github.com/PlaybookMediaLLC/relay/issues/271), [#272](https://github.com/PlaybookMediaLLC/relay/issues/272) |
+| **M16 — Qualified demand and business evidence** | Founder-approved event definitions, source coverage and a ledger that distinguishes shipped work, exposure, qualified conversions and economics | [#273](https://github.com/PlaybookMediaLLC/relay/issues/273), [#274](https://github.com/PlaybookMediaLLC/relay/issues/274) |
+| **M17 — Higher-value programs and retention** | Test recurring offer tiers, upgrade triggers, true ARR, revenue retention, service cost and account expansion | [#275](https://github.com/PlaybookMediaLLC/relay/issues/275), [#276](https://github.com/PlaybookMediaLLC/relay/issues/276) |
+| **M18 — Selective channel orchestration** | One permissioned acquisition handoff requested by paying customers, using specialized tools instead of recreating them | [#277](https://github.com/PlaybookMediaLLC/relay/issues/277), [#278](https://github.com/PlaybookMediaLLC/relay/issues/278) |
+
+**Delivery order:** M13 first value and M7 paid discovery happen in parallel. M15 and the minimum M16 measurement contract support useful repeated work. M17 tests whether real accounts pay and expand at sustainable margins. M18 is gated on that evidence and is not an instruction to automate every marketing channel.
+
 ## Measurement and what a successful result means
 
 Relay must show **three separate clocks**:
@@ -123,7 +166,7 @@ Relay must show **three separate clocks**:
 
 The existing [Experiments and Results](docs/EXPERIMENTS.md) workflow uses a 28-day Search Console baseline, a seven-day exclusion period, and a 28-day observation window after a human-confirmed production deployment, with data sufficiency and finality restrictions. Its documented controls are **manual**, including tracking registration, merge-status refresh, deployment confirmation and measurement refresh. Any new scheduled automation must preserve these boundaries until independently tested.
 
-The proposed north-star product metric is **monthly paying independent-founder workspaces with at least one approved acquisition-related website change independently verified in production**. Count a workspace once, not once per PR or AI draft. This measures delivery value; it does not prove the change acquired a customer. Pair it with real qualified traffic, trials and paid conversions only when source and consent are reliable, along with false recommendations, attention required, provider cost and renewal.
+The proposed **primary product north star** is **weekly paying acquisition programs with a meaningful, evidence-backed decision cycle**. Count a paid, authorized program once per week when sources are usable and an owner reviews or advances legitimate work or explicitly accepts a justified no-action result. An unattended report is insufficient. **Monthly paying workspaces with an independently verified acquisition-related production change** remains an important companion delivery metric, but must not incentivize pointless edits. Pair these with qualified acquisition behavior when the source and consent are reliable, false recommendations, required founder attention, actual cost, retention and expansion.
 
 A founder with no defensible action can still receive an accurate report and retain a valid **no action** state. We will not encourage low-value edits to increase activity metrics.
 
@@ -131,7 +174,7 @@ A founder with no defensible action can still receive an accurate report and ret
 
 The current [hosted research service](https://relay.playbookmedia.io) documents a free tier with $1 in monthly credits and a $10/month Base Plan with $10 in monthly credits, plus top-ups. DataForSEO and some AI calls consume metered credits. These are **research-plan terms, not priced or validated subscriptions for Grow or Protect**.
 
-A founder-paid growth workflow and a scoped Protect service are separate packaging hypotheses. Their prices, entitlements, real provider costs and renewal behavior require pilots; no Sync/Launch subscription is promised. Self-hosters supply provider credentials and infrastructure resources. See [DataForSEO key setup](docs/DATAFORSEO_API_KEY.md).
+Grow and Protect are separate paid hypotheses, not launched subscriptions. For planning, test bounded founder acquisition programs around **$199–$499/month**, recurring higher-capacity growth programs around **$750–$2,500/month**, and larger **$3,000–$8,000+** contracts only when founder-led businesses demonstrate the value, review capacity, service reliability and willingness to pay. **These are unvalidated price-test ranges, not published pricing or current entitlements.** Track actual ARR, retention, expansion and gross margin including provider and routine support costs. No Sync/Launch subscription is promised. Self-hosters supply provider credentials and infrastructure resources. See [DataForSEO key setup](docs/DATAFORSEO_API_KEY.md).
 
 ## How the application is organized
 
