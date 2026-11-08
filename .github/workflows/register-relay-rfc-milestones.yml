@@ -1,0 +1,138 @@
+# Owner-approved, one-time / manually repeatable registration of RFC roadmap milestones.
+# The connector cannot create native milestones, so this scoped GitHub Actions job does.
+# Idempotent: reuses exact-title milestones and never duplicates them.
+name: Register Relay RFC milestones
+
+on:
+  push:
+    branches: [develop]
+    paths:
+      - .github/workflows/register-relay-rfc-milestones.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  register:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Create remaining milestones and attach canonical IRFC issues
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const mapUrl = 'https://github.com/PlaybookMediaLLC/relay/blob/develop/docs/maintainers/RFC-MILESTONE-TRACEABILITY.md';
+            const phases = [
+              {
+                title: 'Relay M6: Product Reality Engine foundations and read-only agent access',
+                description: [
+                  'Stage: after Protect validation, foundation for narrowly scoped Sync.',
+                  'Outcome: project-scoped change/evidence provenance, permission-safe connectors, replayable observations, approved work items and read-only API/MCP access.',
+                  'Acceptance: one evidence-backed change-to-approved-work chain; no blanket connector credentials, publishing authority or claims of deployed status from a merge.',
+                  'Owner-facing reference: ' + mapUrl,
+                ].join('\n\n'),
+                issues: [238, 241, 239, 242, 245, 251],
+              },
+              {
+                title: 'Relay M7: Paid Protect pilot and commercial go-no-go',
+                description: [
+                  'Stage: highest-priority commercial gate, discovery can run alongside M1-M3.',
+                  'Outcome: a bounded recurring protection service with real authorization, verified coverage, operational cost and repeatable willingness to pay.',
+                  'Acceptance: evidence-backed pilots and renewal/economics decisions; keep committed payments, deployed verified repairs and proposals separate. Explicit Sync/Launch investment gates from RFC-0029.',
+                  'No due date, commercial hypotheses are not reported as achieved.',
+                  'Owner-facing reference: ' + mapUrl,
+                ].join('\n\n'),
+                issues: [240, 263],
+              },
+              {
+                title: 'Relay M8: Fact-backed coordinated customer releases (Launch)',
+                description: [
+                  'Stage: after validated Sync scope and factual source verification.',
+                  'Outcome: a manually initiated release has an existing-page launch check, approved website/docs/announcement packets, accountable owners and publication receipts.',
+                  'Acceptance: one authorized customer launch with truthful cohort/availability claims, reviewed work and independent destination verification; no automatic outbound sends.',
+                  'Owner-facing reference: ' + mapUrl,
+                ].join('\n\n'),
+                issues: [250, 252],
+              },
+              {
+                title: 'Relay M9: Protected customer journeys and revenue integrity',
+                description: [
+                  'Stage: demand-gated Protect expansion, not an initial release prerequisite.',
+                  'Outcome: safe synthetic navigation and consented, read-only instrumentation reconciliation identify real failures in signup/demo/checkout-related journeys.',
+                  'Acceptance: reproducible seeded faults with no live payments, bookings, customer creation, PII misuse or fabricated revenue attribution.',
+                  'Owner-facing reference: ' + mapUrl,
+                ].join('\n\n'),
+                issues: [253, 255],
+              },
+              {
+                title: 'Relay M10: Sustainable SEO growth and content recovery',
+                description: [
+                  'Stage: demand-gated after proven safe Protect repair loop and page history.',
+                  'Outcome: avoid repetitive ineffective edits; run bounded existing-page improvements, verifiable decay recovery and individually approved fact-backed pages.',
+                  'Acceptance: one approved production-verified improvement or legitimate no-action result; cost ceilings, cooldowns and source-backed claims. Competitor response remains optional.',
+                  'No content farm, unbounded generation or automatic publishing.',
+                  'Owner-facing reference: ' + mapUrl,
+                ].join('\n\n'),
+                issues: [254, 256, 261, 259],
+              },
+              {
+                title: 'Relay M11: Onboarding, support and partner-asset integrity',
+                description: [
+                  'Stage: demand-gated after Sync/Launch; do not replace a CRM or help desk.',
+                  'Outcome: evidence-backed onboarding/support problems and outdated sales/integration claims become safe, approved corrections.',
+                  'Acceptance: a real change corrected and independently verified with scoped consent, redaction and no unsolicited outbound messages.',
+                  'Owner-facing reference: ' + mapUrl,
+                ].join('\n\n'),
+                issues: [257, 258],
+              },
+              {
+                title: 'Relay M12: Optional safety feasibility gates for previews and delegation',
+                description: [
+                  'Stage: research only, NOT a committed production release.',
+                  'Outcome: evidence-led go/no-go on Relay-hosted untrusted builds and narrowly delegated exact-change policies.',
+                  'Acceptance: an explicit buyer need, cost and threat-model review, isolated bounded spike, refusal and rollback tests. Any failed gate closes as not planned.',
+                  'Do not bypass customer branch protections, exact approvals or production-verification requirements.',
+                  'Owner-facing reference: ' + mapUrl,
+                ].join('\n\n'),
+                issues: [260, 262],
+              },
+            ];
+            const previous = await github.paginate(github.rest.issues.listMilestones, {
+              owner, repo, state: 'all', per_page: 100,
+            });
+            const errors = [];
+            for (const phase of phases) {
+              let milestone;
+              try {
+                milestone = previous.find((m) => m.title === phase.title);
+                if (!milestone) {
+                  const response = await github.rest.issues.createMilestone({
+                    owner, repo, title: phase.title, description: phase.description, state: 'open',
+                  });
+                  milestone = response.data;
+                  core.info('Created milestone #' + milestone.number + ': ' + phase.title);
+                } else {
+                  core.info('Reused milestone #' + milestone.number + ': ' + phase.title);
+                }
+              } catch (e) {
+                errors.push('milestone ' + phase.title + ': ' + e.message);
+                continue;
+              }
+              for (const issue_number of phase.issues) {
+                try {
+                  const response = await github.rest.issues.get({ owner, repo, issue_number });
+                  if (response.data.milestone?.number !== milestone.number) {
+                    await github.rest.issues.update({
+                      owner, repo, issue_number, milestone: milestone.number,
+                    });
+                  }
+                  core.info('Linked #' + issue_number + ' to milestone #' + milestone.number);
+                } catch (e) {
+                  errors.push('#' + issue_number + ' -> ' + phase.title + ': ' + e.message);
+                }
+              }
+            }
+            if (errors.length) core.setFailed(errors.join('\n'));

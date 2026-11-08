@@ -1,5 +1,7 @@
 # Relay implementation RFCs — one sequential execution path
 
+**GitHub milestone and RFC traceability:** [all 46 source RFCs → 31 implementation issues → release outcomes](../../RFC-MILESTONE-TRACEABILITY.md). Milestone membership does not change the required IRFC execution order.
+
 **Updated:** 2026-10-28  
 **Target repository:** `PlaybookMediaLLC/relay` → `develop`  
 **Authority:** This index sets the work sequence. Linked historical RFCs hold the full engineering designs and safety contracts.
