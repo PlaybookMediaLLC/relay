@@ -1,8 +1,10 @@
 # Relay RFC delivery plan
 
+> **Current founder-growth direction (November 7, 2026):** The [vision](../../../vision.md) and [growth execution roadmap](../GROWTH-EXECUTION-ROADMAP.md) now decide what to build. This historical RFC delivery plan describes the earlier Protect → Sync → Launch program and retains its technical acceptance rules. Do not treat the old full program as mandatory for the first approved website growth change.
+
 **GitHub milestone and RFC traceability:** [all 46 source RFCs → 31 implementation issues → release outcomes](../RFC-MILESTONE-TRACEABILITY.md). Milestone membership is a planning view; the implementation order below remains authoritative.
 
-> **Current step-by-step implementation order (October 27, 2026):** [IRFC-0001 through IRFC-0032](implementation/README.md). Follow that numbered sequence when assigning coding agents. The historical RFC identifiers below are retained as design records and are **not** a numerical build order.
+> **Historical technical implementation sequence (October 27, 2026):** [IRFC-0001 through IRFC-0032](implementation/README.md). Use this order for an explicitly chosen old workstream, not as the current business roadmap. Original RFC identifiers are preserved source records, not automatic new tasks.
 
 **Updated:** October 25, 2026
 
