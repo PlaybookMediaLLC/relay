@@ -1,0 +1,110 @@
+# One-time and manually rerunnable registration for the company's acquisition scale milestones.
+# GitHub's connected chat adapter lacks createMilestone; the repository-owned token is scoped
+# to issues:write, and no application, publishing, deployment or billing action occurs.
+name: Register Relay acquisition execution milestones
+
+on:
+  push:
+    branches: [develop]
+    paths:
+      - .github/workflows/register-acquisition-execution-milestones.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  register:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Create milestones M15-M18 and attach approved tracking issues
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const source = 'https://github.com/PlaybookMediaLLC/relay/blob/develop/docs/maintainers/ACQUISITION-EXECUTION-SCALE-PLAN.md';
+            const scopes = [
+              {
+                label: 'M15',
+                title: 'Relay M15: Recurring acquisition execution and weekly founder growth cycles',
+                priority: 'P1 after the M13 first live growth result; reuse existing Work, opportunities, history and GitHub execution.',
+                outcome: 'A paying founder uses Relay repeatedly to review qualified acquisition signals, select or reject useful work, approve bounded repeatable playbooks, verify delivery and carry learning forward.',
+                acceptance: 'Meaningful weekly review/decision cycles with source freshness and owner acknowledgment, including defensible no-action weeks; prior rejected or measuring edits do not repeat; provider/reviewer effort and live evidence are recorded.',
+                issues: [271, 272],
+              },
+              {
+                label: 'M16',
+                title: 'Relay M16: Qualified acquisition events and verifiable business-outcome evidence',
+                priority: 'P1 alongside M15, built from existing GSC, GA4, experiments and consented read-only revenue evidence.',
+                outcome: 'A founder can distinguish exactly what Relay shipped, how demand/exposure changed, which qualified behaviors were observed and what financial results can be supported.',
+                acceptance: 'At least one correctly scoped event/identity/consent definition and a four-clock acquisition ledger on an authorized site; absent data, uncertain source joins, confounders and insufficient samples are explicitly inconclusive, never claimed incremental revenue.',
+                issues: [273, 274],
+              },
+              {
+                label: 'M17',
+                title: 'Relay M17: Higher-value recurring programs, retention and expansion economics',
+                priority: 'P0 buyer/offer discovery with M7; P1 packaging only when real paid recurring use is demonstrated.',
+                outcome: 'Move beyond low-price research to bounded acquisition subscriptions that founder-led software customers renew and expand as acquisition workload grows, at sustainable margins.',
+                acceptance: 'Proven payment and repeat-use cohorts, actual service/provider costs, pricing and upgrade tests, renewed/expanded accounts or an explicit lack of evidence; ARR/ACV, GRR/NRR, churn and unit economics reported without invented traction.',
+                issues: [275, 276],
+              },
+              {
+                label: 'M18',
+                title: 'Relay M18: Demand-gated cross-channel acquisition execution and handoffs',
+                priority: 'P3 after credible paid repeat demand, qualified outcome coverage and a separately approved connector safety/cost gate.',
+                outcome: 'Expand one customer-requested acquisition job beyond the initial website loop through a narrowly permissioned, source-backed workflow, using Shots and Verify/Warmbly rather than replicating their specialist capabilities.',
+                acceptance: 'Specific paid buyer need, consented identity/scope, destination ownership, exact authorized action, bounded provider cost, safe failure/revocation and authentic delivery receipt; no default paid-ad spend, bulk outbound or unrestricted marketing automations.',
+                issues: [277, 278],
+              },
+            ];
+            const all = await github.paginate(github.rest.issues.listMilestones, {
+              owner, repo, state: 'all', per_page: 100,
+            });
+            const errors = [];
+            for (const phase of scopes) {
+              let milestone;
+              try {
+                const description = [
+                  phase.priority,
+                  'Customer or commercial outcome: ' + phase.outcome,
+                  'Acceptance: ' + phase.acceptance,
+                  'Source: ' + source,
+                ].join('\n\n');
+                const sameName = all.find((m) => m.title === phase.title);
+                const prefixMatches = all.filter((m) => m.title.startsWith('Relay ' + phase.label + ':'));
+                if (prefixMatches.length > 1) {
+                  throw new Error('Ambiguous existing milestones with ' + phase.label + ' prefix');
+                }
+                milestone = sameName || prefixMatches[0];
+                if (!milestone) {
+                  const created = await github.rest.issues.createMilestone({
+                    owner, repo, title: phase.title, description, state: 'open',
+                  });
+                  milestone = created.data;
+                } else if (milestone.title !== phase.title || milestone.description !== description) {
+                  const updated = await github.rest.issues.updateMilestone({
+                    owner, repo, milestone_number: milestone.number,
+                    title: phase.title, description,
+                  });
+                  milestone = updated.data;
+                }
+                core.info('Registered ' + phase.label + ': #' + milestone.number);
+              } catch (e) {
+                errors.push(phase.label + ': ' + e.message);
+                continue;
+              }
+              for (const issue_number of phase.issues) {
+                try {
+                  const current = await github.rest.issues.get({owner, repo, issue_number});
+                  if (current.data.milestone?.number !== milestone.number) {
+                    await github.rest.issues.update({owner, repo, issue_number, milestone: milestone.number});
+                  }
+                  core.info('Attached issue #' + issue_number + ' to ' + phase.label);
+                } catch (e) {
+                  errors.push(phase.label + ' issue #' + issue_number + ': ' + e.message);
+                }
+              }
+            }
+            if (errors.length > 0) core.setFailed(errors.join('\n'));
