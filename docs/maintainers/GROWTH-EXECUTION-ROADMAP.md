@@ -63,6 +63,74 @@ Do not abandon the inherited OpenSEO services, change approvals, site audits, GS
 
 Tracking issues: [#265 onboarding and first recommendation](https://github.com/PlaybookMediaLLC/relay/issues/265), [#266 first verified growth change](https://github.com/PlaybookMediaLLC/relay/issues/266), [#267 paid pilot comparison](https://github.com/PlaybookMediaLLC/relay/issues/267).
 
+## M13 delivery specification: one trustworthy founder-growth result
+
+The work below is the smallest integrated job worth putting in front of an independent founder. It reuses capabilities in [RFC-0002](rfcs/0002-opportunity-detectors.md), [RFC-0003](rfcs/0003-opportunity-queue.md), [RFC-0004](rfcs/0004-ai-seo-engineer.md), [RFC-0005](rfcs/0005-github-execution.md), [RFC-0006](rfcs/0006-outcome-measurement.md), and existing GitHub proposal/experiments docs. It is **not** authorization to create new providers, a generic growth agent or an alternate persistence model.
+
+### Vertical slices and required proof
+
+| Slice | Reuse first | Change only when needed | Acceptance evidence |
+| --- | --- | --- | --- |
+| **E0 — Founder intent and authorization** | Existing projects, source permissions, GSC connection, setup UX | Capture intended buyer, high-value URLs and one selected conversion definition without forcing all integrations | Authorized site/source; revoked/missing consent is clearly blocked; new site can proceed to limited read-only audit |
+| **E1 — Credible opportunity** | DataForSEO, opportunity detection, Search Console, site audits, review queue | Explain page/query fit, evidence window, freshness, cost and technical actionability; handle no-data and no-action outcomes | Founder's product problem and a specific source-backed recommendation, not fabricated volume/ROI |
+| **E2 — Supported exact proposal** | Publishing file locator, narrow metadata/copy/Markdown diff, current-source checks and approval | Show explicit postcondition and make unsupported targets recoverable via ticket | Exact repo/path/base revision/source fingerprint; stale/dynamic/missing claims are refused |
+| **E3 — Founder-owned execution** | GitHub PR creation, CI checks, execution leases/idempotence | Improve progression UI and duplicate/stale recovery without bypassing the owner | One approved PR and correct state through merge; no automatic deployment |
+| **E4 — Live destination proof** | Existing deployment reads and experiment sources, site snapshots and SEO rule checks | Add the *specific* independently observed destination check that is missing for the supported v1 edit | Timestamped live URL/version/postcondition; a merged PR or passing preview cannot count as success |
+| **E5 — Honest follow-up and memory** | Experiments, Search Console/GA4 windows, This Week, activity and spend history | Join the approved change, live verification and later observations into the same founder-visible work item | Correct 28/7/28-day eligibility and insufficient-data behavior; manual steps clearly labelled until automated |
+
+Implement E0–E5 as a single customer-visible slice rather than building generic schemas for unrelated future products. Code can be staged in small PRs, but the release gate is a real authorized **end-to-end** flow.
+
+### The data-availability decision tree
+
+| Starting situation | Safe next action | Unsupported claim to avoid |
+| --- | --- | --- |
+| GitHub connection and GSC property both available, sufficient first-party query/page history | Select one high-intent opportunity from actual page/query performance | Estimated revenue or causal ranking improvement |
+| Site accessible but GSC history sparse, zero or not connected | Run bounded public technical audit and optional paid external keyword investigation with cost confirmation | Pretending that external keyword volumes are the site's traffic or that query CTR exists |
+| GSC connected but page identity/canonical differs | Explain property, URL and attribution mismatch; require review | Automatically writing to a guessed page |
+| Source route dynamic or generated, or code-to-render mapping ambiguous | Show finding and safe ticket; request file/owner clarification | Arbitrary file editing or copying rendered text into source |
+| GitHub PR merged but deployment cannot be tied to the changed page | Show merged / deployment unknown; offer authorized checks | Successful deployment or technical resolution |
+| Live change verified, but measurement window still incomplete | Show technical completion and scheduled or explicit later observation | Claiming improved customer acquisition |
+| Founder rejects or defers an edit | Preserve reason and cooldown, provide alternate next best action or no-action | Recommending the same rejected edit again immediately |
+
+### Acceptance scenarios to run on a real test property
+
+1. **Positive path:** connect an authorized GitHub-managed Next.js site and evidence source; select a real page-level opportunity; prepare an exact safe edit; approve the PR; allow customer CI/merge/deploy; independently fetch the intended production URL and confirm the original technical postcondition. Link evidence, timestamps, revisions and reviewer/owner.
+2. **No history:** connect a new but authorized site with no usable Search Console query data. Show source freshness and a useful bounded audit or explicit no-action result; do not synthesize traffic or false click trends.
+3. **Source refusal:** choose an unsupported computed/dynamic file or stale base SHA. No write occurs; the founder sees why, which file/rule needs review and how to create a ticket.
+4. **Delivery uncertainty:** simulate merge before deployment, delayed production caching, and an independent fix by the founder. Only the correct final live page can earn technical verification and Relay must not claim credit for a separate fix.
+5. **Measurement uncertainty:** use a changed page without enough baseline data, incomplete post-indexing windows or simultaneous other changes. Preserve an inconclusive, observational result and the next eligible check.
+6. **Security and cost:** revoke a source connection, attempt cross-project access, exhaust a spend cap and retry an interrupted approved PR write. Rejections must be correct, auditable, limited and idempotent.
+
+For every scenario, record which statements were proven on a real site, which used fixtures, which provider calls were paid and what manual operator work remained. No production-seeded harmful regression is required to exercise the Growth v1 opportunity case.
+
+### Explicitly blocked scope for E0–E5
+
+No large Product Reality Engine schema, multi-platform content scheduling, agent-sent campaigns, global competitor crawling, bulk page generation, direct CRM mutations, multi-tenant repository scans without consent, automatic PR merge or hosted execution of customer-supplied code. Add an adapter only when the founder's particular website makes an approved safe outcome impossible without it, and keep its security and cost review separate.
+
+## Commercial experiment design
+
+M7 is not a decorative sales milestone. Founder revenue is the constraint on whether M10 or M14 deserves significant engineering investment.
+
+**Grow proposal:** a fixed-scope, repeatable website acquisition review and a capped number of supported reviewed site changes. A pricing test must account for provider calls, personal review, tech-support time and slow measurement windows; do not advertise unlimited SEO work.
+
+**Protect proposal:** explicit selected pages, check frequency, coverage health, incident confirmation and human-approved technical repair. This may be valuable to an established site that can lose substantial acquisition traffic, but its buyer may differ from a pre-traffic founder. Do not count the two offers as the same demand signal.
+
+Compare both offers using reconstructed *actual* customer workflows, specific account permissions, observed trial execution and actual paid outcomes. Ask whether the founder would rather pay Relay, keep the existing research/coding setup, or pay a consultant. Record the competitor/substitute they actually use, not a hypothetical category.
+
+### Decision record for each pilot
+
+Each pilot should answer: the founder's problem and current baseline; a responsible buyer; the supported scope; initial setup and approval friction; one delivered job or an honest blocked/no-action result; actual external provider spend and human hours; later observation completeness; whether payment and renewal occurred; and whether the customer requested another comparable job without prompting.
+
+The stop/go test should be capable of saying **no**. If a founder will not grant narrow source access, opportunities aren't useful, the service needs extensive manual rewriting, or support/verification costs erase margin, reduce scope or change the wedge before adding connectors. Playbook's own website success cannot replace independent paying-customer evidence.
+
+## Compatibility with the older RFC execution queue
+
+The original [IRFC-0001–0032](rfcs/implementation/README.md) order remains technically authoritative **inside a separately approved historical Protect or Product Reality Engine program**. It is not an unconditional global prerequisite list for M13. Do not prematurely mark source RFCs closed merely because the strategy changed.
+
+For growth execution, prefer existing implemented research/publisher/experiment contracts. For Protect pilots, complete only the required monitoring, incident, repair and original-rule verification contracts. For optional content/AI-search expansion, reuse the related older RFC designs selectively while rechecking the customer, source and cost assumptions. The [full 46-RFC traceability](RFC-MILESTONE-TRACEABILITY.md) retains their history and existing milestone/issue assignments.
+
+When a milestone becomes active, its GitHub issue should point to the exact source modules, safety/rate contracts, test suite, real-site acceptance, and any remaining missing implementation. A resolved PR is an engineering artifact, not the customer's commercially verified result.
+
 ## Existing IRFCs: preserve source truth, change investment priority
 
 **Keep and reuse early:**
