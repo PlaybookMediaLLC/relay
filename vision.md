@@ -1,175 +1,139 @@
-# Relay — vision and path to the north star
+# Relay — growth execution for independent software founders
 
-**Updated:** October 25, 2026
+**Direction adopted:** November 7, 2026  
+**Status:** Product thesis and evidence-gated roadmap, not a claim that every workflow ships today.
 
-**Relay keeps everything a SaaS business promises, publishes, and delivers aligned as its product changes.**
+**Relay helps independent software founders turn observable customer demand into approved website improvements and measurable acquisition learning.**
 
-The long-term direction is the operating system for SaaS customer-facing operations: understand what changed, identify the affected customers and systems, coordinate approved work, verify completion, and retain the evidence for the next decision.
+A founder has limited engineering time and little or no dedicated growth team. Research tools can identify interesting queries and competitors, but they often stop before a useful change reaches the founder's actual website. Content tools can produce material without understanding whether it is accurate, worth publishing, or effective. Relay's job is the accountable work between the opportunity and the outcome: decide what is worth doing, prepare a constrained change in the customer's existing codebase, obtain approval, verify production, and learn from later evidence.
 
-Website release assurance is the first commercial entry point, under **Relay Protect**. **Relay Sync** extends into product-information integrity. **Relay Launch** coordinates the commercial work created by releases. SEO remains a valuable acquisition capability throughout. The buyer, price hypotheses, and paid-validation program are in [company.md](company.md).
+The initial emphasis is **organic discovery, AI-search visibility where evidence exists, high-intent website pages, and acquisition conversion**. Protecting those pages from regressions is an important supporting workflow, not the definition of the whole company. Relay does not aim to become a generic product-operations suite, launch-communications platform, or every-channel marketing agent.
 
-This document describes the intended product and architecture. Planned capabilities and planning horizons are not shipped features or delivery commitments.
+## Who this is for
+
+**First customer hypothesis:** an independent founder building a software product who controls a GitHub-managed website, wants more qualified inbound demand, has little specialist SEO capacity, and can approve source changes. Next.js is the first supported change target because Relay already has a narrow, tested publisher; other stacks require separately validated adapters.
+
+The founder may have established Search Console history or may have just launched. These are different evidence situations. New sites should receive useful public-site diagnostics and clearly limited research rather than fabricated rankings, conversions, or forecasts. Established sites can use query/page performance and measured conversion signals to prioritize.
+
+The buyer, reviewer and operator may be one person. Do not design an enterprise approval hierarchy into the default experience. Explicit source authority remains necessary even for a solo founder.
+
+**Commercial hypothesis to test:** the founder will pay repeatedly for a reliable, constrained growth-workflow service that actually helps them ship better acquisition assets. Research-only usage, dashboard visits and demo praise do not validate it.
 
 ## The north-star experience
 
-Whenever something changes, an owner can ask Relay:
+A founder connects a website, GitHub repository, Search Console and, when available and consented, GA4 or a defined conversion event. They tell Relay who the product is for and which conversions matter. Relay can then answer:
 
-1. What actually changed, and which evidence establishes it?
-2. Which customers, pages, journeys, assets, and published claims are affected?
-3. What needs to happen in each connected system, and who owns it?
-4. Which exact actions are authorized, and which need a person's decision?
-5. Did the work reach its destination, resolve the issue, and produce a measurable result?
+1. Where is there credible, commercially relevant demand that this website is failing to capture?
+2. Which existing page, missing answer, broken acquisition path, or technical regression merits action now? What evidence is missing?
+3. What is the smallest supported change worth making, what is the risk, and what would count as technical completion?
+4. What exact source change is proposed, who approves it, and did it actually reach production?
+5. What did search, AI visibility, signup, or customer-acquisition observations do afterward? Can we tell whether anything improved, or is the result inconclusive?
+6. Which action, if any, deserves the founder's next limited hour, given previous decisions, costs and results?
 
-The loop is **observe → establish facts → determine impact → prepare → approve → execute → verify → learn**. A quiet period, an unsupported action, conflicting evidence, and insufficient outcome data are explicit results.
+The product loop is:
 
-The browser is the place to inspect evidence, review incidents, authorize work, and understand results. The core should be API-first and MCP-accessible so CI, agents, and existing team tools can use the same facts and permissions.
+**connect → understand the business → observe demand → prioritize work → prepare → approve → deploy through the customer's process → independently verify → observe outcomes → retain learning.**
 
-## The Product Reality Engine
+Every stage must return useful facts or an honest no-action result. An agent may help investigate and draft, but the founder can complete supported workflows through ordinary product controls without relying on a chat agent.
 
-Build one shared change lifecycle and evidence model. Each commercial workflow should become more useful because it understands the work and facts used by the others.
+## The first repeatable job
 
-| Capability              | Responsibility                                                                                                           | Evidence and controls                                                                                                                 |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
-| Observe changes         | Connect GitHub, deployments, feature flags, billing configuration, analytics, support, and website observations.         | Record source identity, version, observation time, tenant, and collection health. A missing signal is not proof that nothing changed. |
-| Establish product facts | Describe features, plans, limits, integrations, APIs, availability, audiences, and effective dates.                      | Version evidence and source authority; preserve rollout segments, exceptions, and unresolved conflicts.                               |
-| Determine impact        | Map facts and changes to pages, docs, offers, support answers, sales assets, onboarding, campaigns, and customer groups. | Keep source-to-claim links explicit. Distinguish a confirmed contradiction from a possible inconsistency.                             |
-| Prepare and execute     | Draft supported PRs, content edits, corrected assets, launch tasks, or workflow repairs.                                 | Bind approval to the exact action and version; revalidate source state and authority before execution.                                |
-| Verify and learn        | Check production behavior, published claims, delivery receipts, adoption, conversions, and prior decisions.              | Separate publication, technical resolution, and commercial outcome. Retain failed work and inconclusive results.                      |
+Start with one **existing high-intent page**. Using authentic Search Console and page evidence where available, Relay identifies a query/page mismatch, weak snippet, missing internal link, content gap, or supported technical issue. It proposes the narrowest credible correction.
 
-### Connected records
+The founder reviews the reasons and exact diff. Relay creates a pull request through the existing GitHub approval process. Customer-owned CI, review, merge and deployment stay in place. Relay then verifies the live destination reflects the intended technical change and registers a follow-up observation using existing Search Console and GA4 mechanics when the data supports it.
 
-The planned model connects:
+**Technical verification and marketing performance are separate results.** A live page containing the approved metadata is a verified technical change; a later rise in impressions, clicks, trials or revenue is an observational result, not proof the change caused that rise.
 
-```mermaid
-flowchart LR
-  Change[Product change] --> Fact[Versioned product fact]
-  Fact --> Claim[Published claim]
-  Claim --> Asset[Customer-facing asset or journey]
-  Change --> Action[Proposed action]
-  Asset --> Action
-  Action --> Approval[Exact-version approval]
-  Approval --> Execution[Execution record]
-  Execution --> Verification[Destination verification]
-  Verification --> Outcome[Outcome observation]
-```
+A valuable first run can also conclude that there is insufficient query history, that the source cannot be mapped safely, or that none of the available changes are justified. Relay should not manufacture work to improve engagement.
 
-These are domain concepts to design, not a claim that new database tables already exist. Reuse existing approvals, proposals, deployment signals, and measurement records where they satisfy the contract.
+This flow should not wait for every historic Protect/Sync IRFC to finish. Reuse the already implemented opportunities, AI-assisted investigation, narrow publishing, experiments, site checks, jobs and spend controls. Extend those systems only to close a verified gap.
 
-A **ProductFact** may establish that an integration is available on the Business plan, in the US, after a particular rollout date. A **PublishedClaim** may identify a page that promises it to everyone. That is a confirmed contradiction only when the authoritative evidence, audience, time, and claim meaning are comparable. Ambiguous wording, stale evidence, or an unknown rollout segment needs review.
+## Capability priorities
 
-Facts need an authority policy and provenance, not just an embedding or an LLM summary. A source commit establishes intent; production observations establish observed behavior. Neither alone proves availability for every customer. Grandfathered plans and regional or staged rollouts remain first-class constraints.
+| Work | What Relay should do | Investment rule |
+| --- | --- | --- |
+| Commercial search demand | Use existing keyword research, Search Console, rankings, competitor evidence and page audit signals to identify actionable opportunities | **Core now:** prioritize relevance, data quality and work completion over new detector count |
+| GitHub-native website improvements | Produce exact, reviewable metadata, selected copy or documentation changes; supported link and factual page edits only after safe adapters exist | **Core now:** one real approved, production-verified improvement |
+| Measurement and page memory | Preserve source/approval/deployment receipts, GSC/GA4 observations, uncertainties, previous attempts and cooldowns | **Core now:** do not call before/after movement causal |
+| Protect | Monitor important acquisition pages, catch real regressions, prepare supported repairs and independently verify | **Reuse and test as a separate paid offer:** do not make all of Protect a prerequisite for the first growth change |
+| Conversion integrity | Detect broken critical signup/demo paths and missing conversion measurement where consented, using non-mutating checks | **Selective early expansion:** no live purchase or outreach side effects |
+| AI-search discovery | Observe relevant prompts, mentions/citations and resulting website opportunities where providers can supply reproducible evidence | **Bounded experiment:** no guarantee of model citations or stable rankings |
+| Content and decay recovery | Improve existing pages, enforce history/cooldowns, and eventually create one sourced new page at a time | **After repeat demand:** no content farm or unlimited generative output |
+| Product-claim truth | Prevent generated or edited website claims about plans, integrations and product features from being unsupported | **Guardrail now; broad cross-system fact graph deferred** |
+| API/MCP | Expose small authorized research, opportunity, review and evidence-reading workflows to coding agents | **Reuse existing MCP; additional platform work only for an active customer task** |
 
-### One pricing change, connected work
+### What the existing code already supplies
 
-A hypothetical new pricing model can require:
+Relay is a distinct MIT-licensed derivative of [OpenSEO](https://github.com/every-app/open-seo), retaining upstream attribution and reviewed update flows. It already includes keyword and competitive research, AI visibility, site audits, Search Console and GA4, opportunity detection, ranking and backlinks, GitHub source access and narrowly approved proposals, experiments, revenue attribution, jobs, permissions, spending controls and work reports.
 
-| System                  | Required work                                                                                       |
-| ----------------------- | --------------------------------------------------------------------------------------------------- |
-| Billing                 | Compare configured prices and entitlements with the approved policy.                                |
-| Website                 | Find stale plan references on pricing, product, landing, and comparison pages.                      |
-| Documentation           | Update limits, upgrade instructions, FAQs, and examples.                                            |
-| Sales and support       | Prepare revised briefs, feature matrices, and saved replies.                                        |
-| Onboarding              | Find tutorials and upgrade messages that still describe old plans.                                  |
-| Customer communications | Prepare notices for the authorized, affected groups, respecting grandfathered accounts.             |
-| Acquisition             | Check advertising destinations, search snippets, and observable AI-search answers for stale claims. |
-| Conversion              | Test the advertised purchase path through a safe, agreed journey.                                   |
-| Verification            | Confirm each approved correction is live and report unresolved work.                                |
+Those are **implementation foundations**, not proof of reliable live execution for every supported provider, measurable acquisition gains, or willingness to pay. [The dated implementation audit](docs/maintainers/relay-release-assurance-audit.md) and [RFC index](docs/maintainers/rfcs/README.md) retain their original evidence and caveats.
 
-All actions share one change identity and one approved set of facts. Observing an external search answer does not imply Relay can directly edit it.
+Protect's durable known-good production baselines, confirmed incidents and original-rule repair verification have their own acceptance gates. Preserve that work. Do not reimplement closed historical RFCs to satisfy a new milestone label.
 
-## Commercial sequence
+## How Relay fits within Playbook Media
 
-Sell three understandable workflows first:
+Playbook Media's products should help an independent founder compete without recreating the staffing and tool burden of a larger company. They can interoperate without merging their products or customers into one mandatory workflow.
 
-- **Protect:** Keep revenue-critical website surfaces and supported customer journeys working.
-- **Sync:** Keep what customers are told consistent with verified product capabilities.
-- **Launch:** Turn meaningful releases into coordinated commercial launches.
+| Product | Primary responsibility | Boundary Relay must keep |
+| --- | --- | --- |
+| **Relay** | Identify organic/AI discovery opportunities, improve acquisition pages safely, protect important traffic paths, and measure observed outcomes | Own website growth decisions and verified web changes, not every marketing channel |
+| **Shots** | Produce product visuals, role-specific release kits, announcements, brand assets and social distribution | Shots owns release communication and creative production; Relay may request visuals or use approved links, not rebuild Launch |
+| **Verify and Warmbly** | Find and validate outbound prospects and operate consented outbound campaigns | Relay does not build a contact database, cold-email engine, or general CRM |
+| **Playbook Operator** | Potentially coordinate founder work across specialized products | Relay provides bounded API/MCP operations and does not become a general agent supervisor |
 
-A hypothetical integration release should become one launch operation. Relay establishes capability, permissions, eligible plans, rollout, and affected users; then prepares integration-page updates, setup instructions, example checks, screenshots through **Shots**, a changelog, announcements, and sales materials. Authorized CRM or support data can identify customers who requested it. Publication evidence and activation instrumentation belong to that same release.
+A new integration release may be a **website growth opportunity** for Relay and a **release-communication opportunity** for Shots. They can exchange permitted facts or artifacts through small versioned interfaces if a real workflow warrants it. The fact that both can read GitHub does not justify two full release-orchestration systems.
 
-Each destination has its own approval and verification contract. Generating a launch packet is not equivalent to publishing it, delivering a message, or proving customer adoption.
+## Product architecture: build the smallest useful execution loop
 
-## Longer-term capability map
+Reuse the existing domain and access boundaries. The minimum durable record links:
 
-These are possible product areas built on the common engine, not twelve independently scheduled products or currently available modules.
+`workspace/site → evidence-backed opportunity → decision → exact proposed website edit → approval → source PR → observed deployment → live technical verification → later measurement → next decision`.
 
-| Area          | Work Relay could own                                                                                                             | Customer value                                                                    |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| **Guard**     | Production page and journey checks, tracking, metadata, redirects, accessibility, reproducible incidents, and supported repairs. | Prevent lost leads and failed purchases.                                          |
-| **Truth**     | Reconcile pricing, entitlements, features, screenshots, integration claims, and docs.                                            | Reduce inaccurate promises.                                                       |
-| **Launch**    | Coordinate release notes, pages, announcements, product imagery, and sales briefs.                                               | Make shipped capabilities commercially usable.                                    |
-| **Docs**      | Maintain guides and API instructions, address support-driven gaps, and verify published answers.                                 | Reduce repeated support and broken instructions.                                  |
-| **Growth**    | Research demand, improve pages, repair technical SEO, monitor AI citations, and measure organic acquisition.                     | Create qualified demand from existing capabilities.                               |
-| **Convert**   | Find broken forms and journeys, prepare landing-page improvements, run experiments, and verify tracking to CRM or purchase.      | Improve qualified conversion.                                                     |
-| **Activate**  | Align onboarding, tours, tutorials, and lifecycle messages with deployed features.                                               | Help customers reach their first useful result.                                   |
-| **Enable**    | Maintain briefs, feature matrices, demo assets, objection responses, and account-specific updates.                               | Give sales and customer success current information.                              |
-| **Ecosystem** | Track APIs and SDKs, verify integration instructions, and maintain partner listings.                                             | Reduce integration failures and missed partner demand.                            |
-| **Revenue**   | Compare pricing, billing configuration, and entitlements; check purchase paths and revenue-event delivery.                       | Find inconsistent plans, checkout failures, and reporting errors.                 |
-| **Trust**     | Check accessibility, security claims, policy references, status links, and certification evidence.                               | Identify stale or unsupported customer-facing claims; do not imply certification. |
-| **Learn**     | Connect authorized support, usage, reviews, and feedback to recurring problems and verified corrective work.                     | Turn complaints into improvements that reach customers.                           |
+Record source and collection time, organization/site identity, provider costs, URL, evidence revision, confidence/unknown state, reviewer and change revision. Keep separate clocks for source changes, actual deployment, indexing/analytics availability and conversion observation.
 
-Protect initially draws on Guard; Sync draws on Truth and Docs; Launch consumes the same facts, assets, and verification services. Other areas expand only when a buyer pays for a repeatable workflow.
+Do **not** require a complete Product Reality Engine, generalized fact graph, CRM connector platform, external publishing adapters or an omnichannel execution bus before demonstrating this loop. Existing product-fact verification is a narrow safety check for claims made in a proposed website edit. Broader Sync and cross-system claim reconciliation are separate hypotheses whose RFCs remain available but **are not approved as the next automatic build sequence**.
 
-## Foundation and current gaps
+Maintain:
+- Tenant and project isolation, least-privilege source connections and explicit consent.
+- Exact-change approval and current-source checks; no silent auto-merge, deployment, billing change, customer message or marketing send.
+- Safe parsing and refusal paths for dynamic/ambiguous source, unsupported frameworks and unverified product claims.
+- Cost admission and budgets for DataForSEO, AI models, page rendering and third-party observations.
+- Reproducible production checks, audit history and truthful failed/inconclusive statuses.
+- Secure small interfaces for external agents. No shared generic write tool with all connected credentials.
 
-The [October 23 codebase audit](docs/maintainers/relay-release-assurance-audit.md) records reusable foundations. Its implementation evidence is not acceptance of the broader platform.
+## Commercial validation
 
-| Foundation                                                  | Current position                             | Next extension                                                      |
-| ----------------------------------------------------------- | -------------------------------------------- | ------------------------------------------------------------------- |
-| SEO research, audits, backlinks, AI visibility              | Substantial implementation                   | Acquisition intelligence attached to business changes               |
-| Search Console and GA4                                      | Existing integrations                        | Change-linked observations with honest data coverage                |
-| Source access and reviewed GitHub proposals                 | Supported edits implemented                  | More evidence sources and explicitly supported change classes       |
-| Documentation indexing and Markdown edits                   | Existing foundation                          | Product facts and published-claim verification                      |
-| Experiments and revenue attribution                         | Existing code with acceptance requirements   | Outcome measurement for additional workflows                        |
-| CI and supplied-preview checks                              | Existing checks                              | Bind checks to the exact proposed commit                            |
-| Jobs, spending controls, notifications                      | Existing infrastructure                      | Reuse for recurring operational work                                |
-| Durable production baselines and repair verification        | Still planned in the audited Protect roadmap | Common monitoring and verification services                         |
-| Complete revenue-critical browser journeys                  | Not established as a complete product        | Build or integrate bounded, safe browser checks                     |
-| Cross-system fact and impact model                          | New core work                                | Versioned authority, affected assets, and a shared change lifecycle |
-| Multichannel publishing, CRM execution, adoption automation | Substantial new work                         | Add selective integrations after paid demand                        |
+Test **Grow** and **Protect** as two separate paid-wedge hypotheses among independent software founders instead of preselecting a different customer segment to justify the code:
 
-## Evidence-gated roadmap
+- **Grow:** actionable high-intent demand → owner-approved website edit → observed production change → later measured acquisition signals.
+- **Protect:** selected acquisition pages with agreed monitoring cadence → confirmed regression → owner-approved repair → original problem resolved on production.
 
-These horizons are relative planning ranges, not dates or delivery promises. Each expansion depends on evidence from the preceding work.
+Record actual paid commitments, owner review friction, authorized source access, onboarding time, repeated completion, false findings, provider/model costs, human support effort, retention and requests the existing tools already satisfy. Internal Playbook sites are useful for engineering rehearsal, but internal usage is not proof of external willingness to pay. A founder should be able to refuse a suggested edit without losing the value of the investigation.
 
-| Horizon          | Main investment                                                                                                                                                 | Evidence required before expanding                                                                          |
-| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| **0–3 months**   | Complete Protect: known-good baselines, consequential regressions, safe repairs, production verification, paid pilots, and technically feasible journey checks. | Paying customers, accepted fixes, low false-positive rates, visible coverage, and manageable service costs. |
-| **3–6 months**   | First Product Reality Engine and Sync around pricing, plans, integration availability, docs, and marketing pages.                                               | Repeated verified inconsistencies that customers pay to resolve.                                            |
-| **6–12 months**  | Launch: release interpretation, coordinated packets, docs, sales assets, authorized announcements, and destination verification.                                | Companies repeatedly run launches through Relay.                                                            |
-| **12–18 months** | Expand Growth and Convert: content improvement, acquisition workflows, lead-flow checks, experiments, and attribution integrity.                                | Measurable outcomes with sufficient evidence, repeated use, and renewal.                                    |
-| **18–30 months** | Activate, Enable, and Learn through adoption integrations, education, support-to-product work, and sales-content integrity.                                     | Regular use across departments, identifiable budget owners, and incremental revenue.                        |
-| **30–60 months** | Portfolio and enterprise operations: governance, regional content, policy-controlled actions, partner ecosystems, and broad API access.                         | Proven enterprise demand, reliable controls, viable economics, and sustainable support capacity.            |
-
-The [RFC delivery plan](docs/maintainers/rfcs/README.md) remains the detailed sequence for Protect: pilot scope → production baseline → confirmed incident → source proposal → reviewed PR and commit-bound preview → production verification → recurring service.
-
-Existing history, facts, documentation, and launch RFCs provide reusable pieces. They do not already specify the full Product Reality Engine, Sync, or coordinated Launch product. Define those contracts as separate future increments before implementation. The previous SEO expansion backlog no longer determines the company's long-term priority.
-
-## Product and engineering principles
-
-**Preserve explicit authority.** The initial service requires a person to approve the exact repository change and merge it. Customer CI, branch protection, deployment, and rollback controls remain in force. Agents can investigate and draft within their permissions. Future standing approvals must be scoped, revocable, and revalidated; unrestricted autonomous publishing is outside the vision.
-
-**Verify the destination.** Keep source, preview, deployment, live behavior, and outcome observations linked but distinct. A merge is not a production resolution. A delivery receipt is not proof that a customer read a message. Recheck the original failure or claim, not just a generic health endpoint.
-
-**Keep repairs narrow.** Map observed behavior to supported source edits. Inherited title templates, metadata helpers, dynamic routes, headers, and rewrites need explicit handling or a ticket. Never paste a rendered title into source without understanding its transformation.
-
-**Integrate established systems.** Consume analytics, billing, feature flags, CRM, help-desk, and adoption facts through authorized connections. Do not rebuild those products. Use Shots for visual production.
-
-**Keep core records independent of SEO.** Relay is now outside OpenSEO's GitHub fork network. Retain MIT attribution and useful services, watch upstream security fixes, and review incoming changes. The sync workflow remains configured. Let the facts and change lifecycle drive boundaries when they require separation; avoid a premature platform rewrite.
-
-**Protect tenants and bound execution.** Preserve tenant checks, dual SQLite/Postgres compatibility, spending controls, idempotent execution, and audit records. Every service states scope, cadence, limits, and support expectations. Revoked access, exhausted operational budgets, or stale checks must show lost coverage and a next step.
-
-**Use the right evidence clock.** Technical verification follows publication or deployment. Adoption, search, conversion, and revenue measurement need sufficient observations over appropriate windows. Record positive, negative, and inconclusive results; descriptive changes are not automatically causal gains.
+No price range, growth outcome, customer count or onboarding speed is promised until measured. The founder chooses the repeatable, economic workflow; the unproven offer may be narrowed to a feature or paused.
 
 ## Measuring the north star
 
-The company metric to validate is **weekly paying businesses with verified coverage or completed customer-facing work**. Count each business once per week when it has an active paid scope and either:
+**Primary proposed product metric:** monthly paying independent-founder workspaces with at least one **approved acquisition-related website change independently verified live** in the previous 30 days. Count a workspace once per period; retries, additional generated drafts, unmerged PRs and variant outputs do not add completions. A technical change reaching production is not automatically an SEO improvement.
 
-- Its agreed monitoring ran successfully within cadence and its current coverage report is available; or
-- A customer-authorized correction or launch action reached its destination and passed its defined verification.
+Report alongside it:
+- **Funnel:** connected and authorized founders → evidence-backed opportunities reviewed → approved source changes → production-verified changes → results eligible for observation.
+- **Founder value:** time and money required for each verified change; retention, repeat approved work and willingness to pay.
+- **Business outcomes, separately:** qualified organic visitors, meaningful signups/trials, activated users and paid conversions where instrumented and consented. Use comparable windows and label uncertainty, missingness, channel mix, seasonality and noncausal before/after results.
+- **Reliability guardrails:** bad recommendation/false positive rate, blocked and stale approvals, source/tenant safety, monitoring coverage, deployment verification failures and provider spend.
 
-A generated draft, open PR, enabled schedule, failed check, stale fact, or unverified publication does not qualify by itself. Report protected businesses and completed-work businesses separately alongside the deduplicated total. This is a proposed metric contract, not an existing dashboard claim.
+Quiet or low-data periods remain honest no-action/insufficient-evidence states; do not manufacture changes to maximize the metric. Track those workspaces separately as retained customers rather than pretending a change was shipped.
 
-During Protect validation, retain **weekly active protected paying websites** as the operational measure: each paying site has an agreed monitored set, successful checks within the promised cadence, and a current coverage/work report. Define events and exclusions in RFC-0026 before treating it as instrumented.
+## Roadmap, not release promises
 
-Pair these measures with verified resolutions, accepted claim corrections, repeated launches, alert precision, missed seeded regressions, time to completion, review burden, renewals, and gross margin. Quiet weeks qualify through observed coverage. An outcome report may honestly conclude that the data is insufficient.
+[GitHub milestones](https://github.com/PlaybookMediaLLC/relay/milestones) and the [founder-growth execution roadmap](docs/maintainers/GROWTH-EXECUTION-ROADMAP.md) describe the current investment order. Historic technical [IRFC-0001–0032](docs/maintainers/rfcs/implementation/README.md) are source specifications and acceptance contracts, **not an unconditional instruction to build the old Protect → Product Reality Engine → Sync → Launch plan in full**.
+
+1. **First founder value:** M13 Growth v1 integrates existing opportunity research, M1/M2/M3 evidence/edit/verification capabilities and minimal onboarding. Run M7 independent-founder paid pilot discovery in parallel.
+2. **Reliable repetition:** M5 gives the founder an accountable work history; promote the narrow M10 page-memory and existing-page improvement slices where they prevent repeated ineffective work.
+3. **Acquisition reliability:** complete useful M1–M3 Protect slices and test Grow versus Protect commercially. Promote bounded M9 conversion/journey checks only for a demonstrated acquisition failure.
+4. **Better discovery:** M14 tests whether source-backed AI-search visibility yields actionable, paid growth work. Prioritize observation quality over prompt volume.
+5. **Only after demand:** evaluate selective additional publishing adapters and narrowly scoped M4 product-claim checks; M6 generalized PRE, M8 Relay-owned launch packets, M11 organizational coordination and M12 capital-intensive automation are deferred unless an independent paid use case changes the decision.
+
+**Practical next test:** use a real Playbook GitHub-managed website to prove one search opportunity → reviewed website change → customer-owned deploy → verified live page → honest subsequent observation. Then validate the same workflow with paying independent founders. Fix the broken part of that loop before adding another large module.
+
+The north star is progress toward qualified acquisition that a founder can understand and act on, **not the number of integrations, automated messages, generated pages, or configured monitoring jobs**.

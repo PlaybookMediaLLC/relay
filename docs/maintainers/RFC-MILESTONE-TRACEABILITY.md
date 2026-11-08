@@ -1,10 +1,12 @@
 # Relay RFC → GitHub Milestone Traceability
 
+> **Current product direction, November 7, 2026:** [Relay's founder growth execution vision](../../vision.md) and [active milestone roadmap](GROWTH-EXECUTION-ROADMAP.md) supersede the original Protect → Product Reality Engine → Sync → Launch priority sequence below. This file remains the **source-to-issue historical traceability map**, preserving 46 RFCs and 31 IRFCs. GitHub milestone numbers remain stable, but their titles, investment status and acceptance are now updated in the live GitHub records. M13 is the new first integrated founder-value release; M14 is the demand-gated AI-search experiment. No old RFC is removed or automatically authorized for implementation.
+
 **Inventory reviewed:** 46 canonical technical RFCs (`RFC-0001–0046`) and 31 implementation-ordered IRFC slices (`IRFC-0001–0007, 0009–0032`).  
 **Tracked:** Each active IRFC has one primary GitHub milestone and an implementation/acceptance issue. The historical RFCs map to one **primary reference milestone** below; their overlapping phases are linked through IRFC issues, not duplicated as second implementation tickets.  
 **Decision owner:** Playbook Media LLC. **Due dates:** none inferred. **Status:** mapping, not proof of completion.
 
-## Strategy and execution rules
+## Original October strategy and execution rules (superseded for priority)
 
 1. **First commercial objective:** protect a handful of authorized GitHub-managed Next.js customer pages, confirm a regression, prepare one safe human-approved repair, verify production, and test actual paid recurring demand. A merged PR is not a verified repair. SEO traffic change is not proof of causation.
 2. **Do not split or rebuild implemented foundation.** Historical RFC-0001–0017 code scopes are recorded as implemented with external/live-acceptance follow-ups. The current IRFC work must inspect `develop` and reuse shipped services, schemas, OAuth, approvals and UI.
@@ -12,7 +14,7 @@
 4. **No artificial critical path:** M9–M12 are gated experiments/extensions, not mandatory work before Protect or paid Sync. M12 is research only, not a feature commitment. No arbitrary due dates or auto-publishing/merge authority.
 5. **One primary assignment per issue.** A source RFC can inform multiple IRFC slices, but every IRFC issue belongs to exactly one milestone. Related dependencies go into issue text and the canonical technical spec.
 
-## Milestone taxonomy
+## Original October milestone taxonomy (historical mapping)
 
 | Milestone | Release position | Definition of useful completion |
 | --- | --- | --- |
@@ -29,7 +31,7 @@
 | **M11 — Onboarding/support/enablement integrity** | Demand-gated extension | Onboarding, support and sales/partner asset accuracy without a CRM/help-desk replacement. |
 | **M12 — Optional infrastructure/authorization research** | Optional research only | Decide whether untrusted hosted previews or delegated policies are safe and worth building. |
 
-**Critical path:** M1 → M2 → M3 → M7 (commercial go/no-go); then M6 → M4 → M8. M5 is built incrementally without delaying live Protect. M9–M12 require their own paid-demand and safety gates; they are not an ordered mandatory sequence.
+**Historical critical path, no longer the current investment order:** M1 → M2 → M3 → M7 → M6 → M4 → M8. The active founder-growth path starts with M13 using completed research/publishing/experiments, with M7 paid founder validation in parallel; consult the growth roadmap for revised priorities and conditional gates.
 
 **Commercial vs technical gate:** RFC-0029 is deliberately a founder decision record [issue #263](https://github.com/PlaybookMediaLLC/relay/issues/263), not another IRFC. Do not claim pilot success based only on unit tests, fixtures or the absence of incidents.
 

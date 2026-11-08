@@ -1,0 +1,207 @@
+# Versioned, idempotent milestone realignment for the independent-founder growth north star.
+# Register M13/M14 without removing earlier RFC work or reassigning legacy implementation issues.
+name: Align Relay milestones to founder growth
+
+on:
+  push:
+    branches: [develop]
+    paths:
+      - .github/workflows/align-founder-growth-milestones.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  align:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Update milestone direction and register new growth milestones
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const vision = 'https://github.com/PlaybookMediaLLC/relay/blob/develop/vision.md';
+            const roadmap = 'https://github.com/PlaybookMediaLLC/relay/blob/develop/docs/maintainers/GROWTH-EXECUTION-ROADMAP.md';
+            const scopes = [
+              {
+                number: 1,
+                title: 'Relay M1: Evidence-backed founder acquisition opportunities and site health',
+                stage: 'P0: active foundation; protect-specific work retains its own acceptance gates',
+                outcome: 'Surface credible query/page demand and harmful technical regressions with provenance, confidence, data freshness and a safe recommended next action.',
+                gate: 'An authorized founder can choose a defensible existing-page opportunity; active Protect customers get confirmed, deduplicated site incidents without fabricated search history.',
+              },
+              {
+                number: 2,
+                title: 'Relay M2: Reviewed source-controlled website growth changes',
+                stage: 'P0: active execution foundation',
+                outcome: 'Turn a supported SEO or regression finding into one exact, narrow, founder-approved GitHub PR with source mapping, preview/CI evidence and safe refusal paths.',
+                gate: 'One approved diff opens at most one PR; stale source, unsupported files, changed permissions and failed checks cannot bypass the customer merge and deployment process.',
+              },
+              {
+                number: 3,
+                title: 'Relay M3: Independent production verification and honest growth measurement',
+                stage: 'P0: active verification foundation',
+                outcome: 'Prove the exact technical change or original regression fix actually reached the live destination; keep later search and conversion observations separate from causal claims.',
+                gate: 'Fresh production proof with immutable receipt; GSC/GA4 follow-up observes sufficient windows or returns inconclusive, never a guaranteed ranking/revenue gain.',
+              },
+              {
+                number: 4,
+                title: 'Relay M4: Website claim safety (general Sync platform deferred)',
+                stage: 'P2: safety guardrails when an approved growth edit needs them; old Sync program on hold',
+                outcome: 'Refuse or require review for unsupported pricing, plan, feature, availability and integration claims added to acquisition pages.',
+                gate: 'Source-backed claim evidence or explicit unresolved/reviewer-required result. Do not build full Product Reality Engine, cross-system Sync or claim inventory merely to ship Growth v1.',
+              },
+              {
+                number: 5,
+                title: 'Relay M5: Founder growth workbench and learning history',
+                stage: 'P1: incremental, only for real founder workflow',
+                outcome: 'Give one founder a useful work queue connecting opportunity evidence, decisions, approved changes, live verification, follow-up observations, expense and next action.',
+                gate: 'A verified growth work cycle is inspectable without a separate all-purpose product-operations cockpit; idle/no-action and uncertain results remain visible.',
+              },
+              {
+                number: 6,
+                title: 'Relay M6: Minimal evidence and connectors (general PRE deferred)',
+                stage: 'P2: as-needed infrastructure, not a platform-first critical path',
+                outcome: 'Reuse existing source provenance, project scoping, approvals and connector health for active acquisition workflows.',
+                gate: 'A narrowly consumed evidence/connector contract passes access, revocation, tenant and cost tests; generalized product-fact graph and cross-system work orchestration remain deferred.',
+              },
+              {
+                number: 7,
+                title: 'Relay M7: Paid independent-founder pilots — Grow versus Protect',
+                stage: 'P0: founder/commercial validation in parallel with M13',
+                outcome: 'Compare actual buyer permission, payment, repeat use and unit economics for bounded website growth execution versus protected-page repair.',
+                gate: 'Record real independently approved and production-verified work, provider and human costs, price/refusal/renewal evidence, and a continue/narrow/stop decision. Research credits do not count as customers.',
+              },
+              {
+                number: 8,
+                title: 'Relay M8: Conditional launch-page checks and Shots handoff',
+                stage: 'P3: conditional; Relay-owned release-kit product is not part of current strategy',
+                outcome: 'Preserve supported launch-page SEO/production checks and a narrow artifact or fact handoff to Shots only when an independent founder workflow justifies it.',
+                gate: 'A real authorized cross-product request, specified input/output ownership and destination verification. Shots owns release kits, announcements, visuals and distribution.',
+              },
+              {
+                number: 9,
+                title: 'Relay M9: Acquisition conversion paths and instrumentation',
+                stage: 'P1: selected early extension after first Growth v1 result',
+                outcome: 'Safely detect missing or broken signup/demo paths and attributable conversion signals that prevent a founder understanding acquisition effectiveness.',
+                gate: 'Read-only/sandbox checks reproduce a relevant failure without writing live customers, payments, leads or sensitive CRM joins.',
+              },
+              {
+                number: 10,
+                title: 'Relay M10: Recurring organic growth and page memory',
+                stage: 'P1: promote bounded existing-page work after M13 and pilot evidence',
+                outcome: 'Make selective improvements repeatedly without forgetting what was tried, spamming new pages or repeating poor edits.',
+                gate: 'One approved existing-page content/snippet/link improvement or justified no-action, consistent cooldown/history controls, live destination verification and honest follow-up.',
+              },
+              {
+                number: 11,
+                title: 'Relay M11: Deferred support and sales-asset integrity',
+                stage: 'P3: no automatic investment; overlapping Playbook product boundaries',
+                outcome: 'Retain historical RFC designs for asset consistency but only revisit the parts that correct proven acquisition problems.',
+                gate: 'Specific founder buyer, paid demand, ownership that does not replace Shots/CRM/help desk and demonstrated permissioned destination verification.',
+              },
+              {
+                number: 12,
+                title: 'Relay M12: Optional preview-build and delegated-execution safety',
+                stage: 'P3: feasibility only, not a feature promise',
+                outcome: 'Assess isolated customer-code preview builds and narrowly revocable delegation only if a supported founder workflow cannot proceed otherwise.',
+                gate: 'Independent threat and cost review, safe refusal/teardown, hard authority bounds and explicit go/no-go; customer merge/deploy remains protected.',
+              },
+            ];
+            const growth = [
+              {
+                number: 13,
+                title: 'Relay M13: First founder growth win — opportunity to verified live change',
+                stage: 'P0: first integrated customer-value release',
+                outcome: 'A software founder connects real acquisition evidence, selects a relevant existing-page opportunity, approves a supported exact GitHub edit, sees production verification and receives honest measurement follow-up.',
+                gate: 'One authorized end-to-end flow on a real site with documented setup time, evidence, limits, diff, approval, deploy, verified production state, data sufficiency and provider costs. Does not require the entire old Protect/Sync program.',
+                issues: [265, 266],
+              },
+              {
+                number: 14,
+                title: 'Relay M14: AI-search opportunity to reviewed website action',
+                stage: 'P2: bounded, demand-gated discovery experiment',
+                outcome: 'Reproducible AI-search prompt/mention/citation evidence becomes a source-backed site recommendation, reviewed edit or explicit no-action, not another volume-only visibility dashboard.',
+                gate: 'Real prompt source, uncertainty, scope, repeatability, cost and customer interest recorded; any approved edit uses the existing GitHub and live verification safeguards.',
+                issues: [268],
+              },
+            ];
+            const all = [...scopes, ...growth];
+            const existing = await github.paginate(github.rest.issues.listMilestones, {
+              owner, repo, state: 'all', per_page: 100,
+            });
+            const failures = [];
+            const registered = new Map();
+            for (const spec of all) {
+              try {
+                const description = [
+                  'New product direction: independent-founder website growth execution (November 7, 2026).',
+                  'Priority: ' + spec.stage,
+                  'Customer outcome: ' + spec.outcome,
+                  'Acceptance: ' + spec.gate,
+                  'Vision: ' + vision,
+                  'Roadmap and RFC compatibility: ' + roadmap,
+                ].join('\n\n');
+                let milestone;
+                if (spec.number <= 12) {
+                  milestone = existing.find((v) => v.number === spec.number);
+                  if (!milestone || !milestone.title.startsWith('Relay M' + spec.number + ':')) {
+                    throw new Error('Existing milestone identity changed for M' + spec.number);
+                  }
+                  if (milestone.title !== spec.title || milestone.description !== description) {
+                    const response = await github.rest.issues.updateMilestone({
+                      owner, repo, milestone_number: milestone.number,
+                      title: spec.title, description,
+                    });
+                    milestone = response.data;
+                  }
+                } else {
+                  milestone = existing.find((v) => v.title === spec.title) ||
+                    existing.find((v) => v.title.startsWith('Relay M' + spec.number + ':'));
+                  if (!milestone) {
+                    const response = await github.rest.issues.createMilestone({
+                      owner, repo, title: spec.title, description, state: 'open',
+                    });
+                    milestone = response.data;
+                  } else if (milestone.title !== spec.title || milestone.description !== description) {
+                    const response = await github.rest.issues.updateMilestone({
+                      owner, repo, milestone_number: milestone.number,
+                      title: spec.title, description,
+                    });
+                    milestone = response.data;
+                  }
+                }
+                registered.set(spec.number, milestone.number);
+                core.info('Aligned M' + spec.number + ' to GitHub milestone #' + milestone.number);
+              } catch (e) {
+                failures.push('M' + spec.number + ': ' + e.message);
+              }
+            }
+            const assignments = [
+              { issue: 265, milestone: 13 },
+              { issue: 266, milestone: 13 },
+              { issue: 267, milestone: 7 },
+              { issue: 268, milestone: 14 },
+            ];
+            for (const item of assignments) {
+              const number = registered.get(item.milestone);
+              if (!number) {
+                failures.push('Cannot assign issue #' + item.issue + ': milestone missing');
+                continue;
+              }
+              try {
+                const result = await github.rest.issues.get({ owner, repo, issue_number: item.issue });
+                if (result.data.milestone?.number !== number) {
+                  await github.rest.issues.update({
+                    owner, repo, issue_number: item.issue, milestone: number,
+                  });
+                }
+                core.info('Issue #' + item.issue + ' assigned to M' + item.milestone);
+              } catch (e) {
+                failures.push('Issue #' + item.issue + ': ' + e.message);
+              }
+            }
+            if (failures.length) core.setFailed(failures.join('\n'));

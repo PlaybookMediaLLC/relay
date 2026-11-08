@@ -1,60 +1,44 @@
 # Relay
 
-**Keep what your SaaS promises, publishes, and delivers aligned as the product changes.**
+**Turn real customer demand into safe, measurable website growth work.**
 
-Relay, by Playbook Media LLC, is building a system for the customer-facing work that follows every software change. When a release, pricing update, or new integration affects a website, documentation, customer journey, or sales material, Relay aims to identify what changed, locate the affected claims and workflows, prepare approved work, and verify the result in the system customers actually use.
+Relay, by Playbook Media LLC, is building a code-native growth execution product for **independent software founders**. It connects search and website evidence to one practical improvement: choose a relevant opportunity, prepare a narrow change in the founder's repository, obtain exact approval, verify it live, and track later acquisition observations without claiming unsupported traffic or revenue lift.
 
-**Today:** Relay has an open-source SEO and reviewed GitHub execution foundation. **Next:** commercialize website release assurance through Relay Protect, then build fact-backed content integrity through Relay Sync and coordinated commercial releases through Relay Launch. The broader operating system is a roadmap, not a finished product.
+**Today:** Relay has a substantial open-source SEO, GitHub publishing and measurement foundation. **Next:** validate an end-to-end existing-page opportunity → reviewed GitHub PR → production-verified site change, and test paid founder demand. Release assurance remains a supporting technical capability and a separate commercial experiment. Broad Sync, Product Reality Engine and Relay-owned Launch work are not the default build direction.
 
-[Use Relay](https://relay.playbookmedia.io) · [Company thesis](company.md) · [North star](vision.md) · [Implement in order: IRFC-0001–0032](docs/maintainers/rfcs/implementation/README.md) · [Full technical RFCs](docs/maintainers/rfcs/README.md)
+[Use Relay](https://relay.playbookmedia.io) · [North-star vision](vision.md) · [Company thesis](company.md) · [Active growth milestones](docs/maintainers/GROWTH-EXECUTION-ROADMAP.md) · [RFC implementation specifications](docs/maintainers/rfcs/implementation/README.md)
 
-Relay is an independent, MIT-licensed codebase derived from [OpenSEO](https://github.com/every-app/open-seo). We retain its research foundation, license and attribution. Some package names and agent plugins still say OpenSEO. The upstream-sync workflow remains in place for reviewed changes.
+Relay is an independent, MIT-licensed derivative of [OpenSEO](https://github.com/every-app/open-seo); it retains upstream attribution, core research capabilities and reviewed upstream-sync. Some internal package and plugin names still say OpenSEO.
 
-## Current capabilities
+## What the repository contains
 
-The repository currently contains:
+- Keyword discovery, rank tracking, backlinks, competitor/site research, AI visibility, and metered DataForSEO calls.
+- Google Search Console and GA4 connections; source-backed SEO opportunities, prioritization, investigations and selected AI drafts.
+- [GitHub publishing proposals](docs/GITHUB_PUBLISHING.md) for supported Next.js metadata and narrow copy/Markdown changes with exact reviewer authorization. Customer CI, merging and deployment remain under the customer's control.
+- [Experiments and results](docs/EXPERIMENTS.md), SEO and release checks against supplied previews, before/after observation windows, eligible accessibility/performance tests, and first-touch Stripe attribution.
+- Documentation indexing, scheduled jobs, notifications, spending limits, activity records, MCP and a weekly work view.
 
-- Keyword research, rank tracking, backlinks, site audits, AI visibility and metered DataForSEO research.
-- Google Search Console and GA4 integrations, evidence-backed SEO opportunities, investigations, and supported drafts.
-- [GitHub publishing proposals](docs/GITHUB_PUBLISHING.md) for supported Next.js metadata and narrow text/Markdown changes. An authorized person approves the exact change; the customer keeps PR review, merge and deployment control.
-- [Experiments and results](docs/EXPERIMENTS.md), SEO/release-quality checks against supplied previews, before-and-after measurements, page-group tests, and eligible accessibility/performance workflows.
-- Documentation indexing, supported source-backed MDX/Markdown edits, scheduled jobs, notifications, spend limits, activity logging, and a weekly work view.
-- Stripe revenue attribution and research/agent access subject to their configuration, consent, evidence and cost controls.
-
-This is a substantial foundation, **not a completed Protect, Sync or Launch service**. The [dated release-assurance audit](docs/maintainers/relay-release-assurance-audit.md) describes the acceptance and integration gaps identified at the time of inspection; current implementation must be checked against the source and real deployment. In particular, existing checks or a merged PR do not by themselves prove a protected site is monitored or a production problem resolved.
+These are **implemented foundations**, not proof that a customer gained traffic or that every cross-system workflow is production-ready. The [dated codebase audit](docs/maintainers/relay-release-assurance-audit.md) records its original acceptance limits. The existing Protect baseline/incident/repair path has separate unfinished acceptance gates; the current growth workflow can reuse the already-supported SEO publisher and experiments without waiting for all historical Protect work.
 
 ## What we are building next
 
-Three customer-facing offers share one planned **Product Reality Engine**:
+| Work | Goal | Decision |
+| --- | --- | --- |
+| **Growth v1** | One independent founder connects the relevant website evidence, approves a narrow existing-page edit and sees it independently verified live | [M13: first founder growth win](https://github.com/PlaybookMediaLLC/relay/milestone/13) |
+| **Reusable execution** | Ground recommendations in evidence, keep exact code changes safe, verify deployment and measure later observations honestly | M1–M3; founder work history M5 |
+| **Commercial validation** | Test paid founder interest in recurring **Grow** versus a bounded **Protect** monitoring/repair service | M7, with actual payment and support economics |
+| **Recurring improvements** | Remember attempted changes, stop ineffective repeats, cautiously improve content and key acquisition paths | M10 and selected M9 slices after first real value |
+| **AI-search discovery** | Find reproducible mention/citation opportunities that lead to safe, source-backed website work | M14 is demand-gated and experimental |
 
-| Product           | Customer outcome                                                                                                                                  | Delivery boundary                                                                                                  |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| **Relay Protect** | Keep agreed production pages healthy, catch release regressions, prepare approved repairs and verify that they work.                              | **Initial paid entry.** Start with GitHub-managed Next.js sites; browser journeys are a later validated extension. |
-| **Relay Sync**    | Keep public pricing, plan limits, feature and integration claims, and documentation consistent with verified product facts.                       | **Planned expansion.** Start with accepted facts and narrowly scoped Git-backed assets.                            |
-| **Relay Launch**  | Turn a real product change into reviewed website, docs, announcement and sales-enablement work, with accountable owners and publication receipts. | **Planned expansion.** Start with fact-backed, manually approved launch packets.                                   |
+The old 46 technical RFCs and 31 implementation IRFCs remain preserved, with explicit history and acceptance criteria. Their prior Protect → Product Reality Engine → Sync → Launch queue is **no longer the company-wide automatic investment order**. See [RFC traceability](docs/maintainers/RFC-MILESTONE-TRACEABILITY.md) and the [founder growth roadmap](docs/maintainers/GROWTH-EXECUTION-ROADMAP.md).
 
-The Product Reality Engine will link **source observations → scoped product facts → customer-facing claims and assets → impact findings → approved work → destination verification**. Source commits, deployed behavior, published statements, and measured commercial outcomes remain separate evidence. AI can help investigate and draft but cannot substitute for authority or silently publish.
-
-### Implement in numerical order
-
-The single contributor execution plan is [**IRFC-0001–0032**](docs/maintainers/rfcs/implementation/README.md):
-
-1. **IRFC-0001–0007 — Protect:** record the protected-site scope, capture known-good baselines, detect regressions, prepare source-mapped fixes, test exact previews, verify production and report recurring protection.
-2. **IRFC-0009–0019 — Reality Engine + Sync:** ingest changes, establish scoped facts, match published claims, prepare reviewed corrections and verify outcomes.
-3. **IRFC-0020–0022 — Launch:** check existing launch pages, build coordinated release packets and add read-only API/MCP workflows.
-4. **IRFC-0023–0032 — extensions:** customer journeys, growth, conversion, adoption, support, sales and advanced controls; each has its own acceptance gate.
-
-Each IRFC links to the authoritative technical RFC and specifies the **slice and acceptance test**. The queue holds development work only. Historical RFC-0001–0046 remain intact for code references and design history. Do not rebuild completed features simply to satisfy a number. [Company strategy](company.md) and [north-star vision](vision.md) describe why the milestones exist.
-
-**First useful customer result:** a real production regression is detected, a supported repair is explicitly approved, the customer deploys it, and Relay verifies the original failure has cleared. The next milestone is a product change causing a verified published-claim discrepancy that Relay gets corrected and independently checks.
+Release kits, product visuals, branded posts and distribution belong primarily to [Shots](https://github.com/PlaybookMediaLLC/shots); outbound contacts/campaigns belong to Verify/Warmbly. Relay owns acquisition opportunities, approved website changes and their observed outcomes. Any future connection among these products should be narrow and permissioned.
 
 ## Hosted plans and usage
 
-The current [hosted Relay](https://relay.playbookmedia.io) research service has a free tier with $1 in monthly credits and a $10/month Base Plan with $10 in monthly credits, plus top-ups. DataForSEO and certain agent calls consume metered credits.
+The current [hosted research service](https://relay.playbookmedia.io) documents a free tier with $1 in monthly credits and a $10/month Base Plan with $10 in monthly credits, plus top-ups. DataForSEO and some AI calls consume metered credits. These are **research-plan terms, not priced or validated subscriptions for Grow or Protect**.
 
-**Those hosted research plans are not subscriptions for Protect, Sync or Launch.** Protect is being tested as a bounded per-site paid service. Proposed Sync ($299–$999/month) and Launch ($399–$1,499/month) ranges are commercial hypotheses, not available plans or promised pricing. See [company.md](company.md) and the [pilot specification](docs/maintainers/rfcs/0026-protected-site-pilots-and-service.md).
-
-Self-hosters supply their own provider credentials and cover provider and infrastructure costs. See [DataForSEO API key setup](docs/DATAFORSEO_API_KEY.md).
+A founder-paid growth workflow and a scoped Protect service are separate packaging hypotheses. Their prices, entitlements, real provider costs and renewal behavior require pilots; no Sync/Launch subscription is promised. Self-hosters supply provider credentials and infrastructure resources. See [DataForSEO key setup](docs/DATAFORSEO_API_KEY.md).
 
 ## Self-hosting
 
@@ -73,7 +57,7 @@ Self-hosted feature availability depends on configured integrations, credentials
 
 ## MCP and agent skills
 
-The inherited MCP server and skills expose SEO research and supported growth workflows to agents. Growth tools can read evidence and draft within their permissions; they do not grant approval, merge, or deployment authority. Read-only change-impact APIs, event subscriptions and the broader Product Reality Engine MCP surface are planned, with permissions and costs defined in the implementation RFCs.
+The inherited MCP server and skills expose SEO research and supported growth workflows to agents. Growth tools can read evidence and draft within their permissions; they do not grant approval, merge, or deployment authority. Broader change-impact APIs, event subscriptions and generalized Product Reality Engine tools remain optional proposals; the founder growth workflow and existing safe research endpoints take priority.
 
 The [bundled MCP configuration](plugins/openseo/.mcp.json) points to `https://relay.playbookmedia.io/mcp`. Plugin branding and parts of the [plugin README](plugins/openseo/README.md) still use OpenSEO. The [upstream MCP setup guide](https://openseo.so/docs/mcp) explains client setup; use the Relay endpoint above, or your self-hosted endpoint and its supported authentication.
 
@@ -88,6 +72,6 @@ pnpm types:check
 pnpm format:check
 ```
 
-Read [AGENTS.md](AGENTS.md), the [contribution guide](docs/CONTRIBUTING.md), and the [maintainer documentation](docs/maintainers/README.md). Start with the [sequential implementation queue](docs/maintainers/rfcs/implementation/README.md). The [historical RFC index](docs/maintainers/rfcs/README.md) preserves the detailed specifications, earlier engineering decisions, and live-acceptance caveats.
+Read [AGENTS.md](AGENTS.md), the [contribution guide](docs/CONTRIBUTING.md), and the [maintainer documentation](docs/maintainers/README.md). Start with the [growth execution roadmap](docs/maintainers/GROWTH-EXECUTION-ROADMAP.md). Use the [IRFC implementation queue](docs/maintainers/rfcs/implementation/README.md) as a source of scoped engineering contracts, not an unconditional mandate to implement the old platform sequence. The [historical RFC index](docs/maintainers/rfcs/README.md) preserves the detailed specifications, earlier engineering decisions, and live-acceptance caveats.
 
 Retain upstream attribution and Playbook UI seams when integrating reviewed source improvements. GitHub detachment does not disable the existing upstream-sync workflow. See [LICENSE](LICENSE) for the MIT license and upstream copyright. The shared app theme adapts [Kaneo's CSS](https://github.com/PlaybookMediaLLC/kaneo/blob/develop/apps/web/src/index.css), with its [MIT notice](src/client/styles/kaneo.LICENSE).
