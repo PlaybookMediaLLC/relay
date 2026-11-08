@@ -3,12 +3,12 @@
 **Company:** Playbook Media LLC  
 **Product:** [relay.playbookmedia.io](https://relay.playbookmedia.io)  
 **Repository:** [PlaybookMediaLLC/relay](https://github.com/PlaybookMediaLLC/relay)  
-**Category hypothesis:** Code-native organic acquisition and website growth execution for independent software founders  
+**Category hypothesis:** Recurring customer-acquisition execution for founder-led software businesses, beginning with code-native website growth  
 **Strategy updated:** November 8, 2026
 
 ## The company thesis
 
-**Relay helps independent software founders turn observable customer demand into approved website improvements and measurable acquisition learning.**
+**Relay helps independent software founders run recurring customer-acquisition work: discover demand, choose and execute approved improvements, and distinguish completed work from qualified business outcomes.**
 
 The founder's problem is not a shortage of keyword reports, generated pages or marketing dashboards. It is that deciding *which* acquisition work matters, implementing it safely in the website they own, verifying what shipped and learning from the result usually spans several tools and takes scarce time.
 
