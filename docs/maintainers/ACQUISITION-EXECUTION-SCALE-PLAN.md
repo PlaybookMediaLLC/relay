@@ -175,6 +175,14 @@ For a small cohort, show **actual counts, billed dollars, paid dollars, churn, c
 The go/no-go decision is allowed to be **stop or narrow**. If founders prefer Search Console plus a coding assistant, refuse source access, or require costly manual SEO service to realize value, adding more channels and higher-priced tiers will not solve the underlying problem.
 ## GitHub milestone accountability
 
+### Marketing execution accountability
+
+[**M19 — Founder Marketing & Qualified Distribution**](https://github.com/PlaybookMediaLLC/relay/milestone/19) is a distinct, low-budget marketing workstream. It executes verified founder positioning, technical demonstration and developer-utility channels, founder conversations, content cadence and privacy-respecting activation tracking. See the [Relay Marketing Plan](RELAY-MARKETING-PLAN.md) for campaign acceptance and issues #282–#287.
+
+M17 continues to own paid-offer pricing, retention, account expansion, CAC and payback. M19 provides sourced qualified-funnel results and actual acquisition effort; the milestones do not independently claim that a marketing impression, content post or free research signup is a customer.
+
+
+
 Existing milestones M1–M14 continue to cover research/website evidence, publishing safety, destination checks, founder acquisition first value, initial commercialization, selective conversion and AI-search experiments.
 
 Four additional outcomes distinguish the bigger company from that first tool:
