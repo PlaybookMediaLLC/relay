@@ -172,6 +172,10 @@ A founder with no defensible action can still receive an accurate report and ret
 
 ## How software founders would discover and buy Relay
 
+**Marketing execution:** [M19 — Founder Marketing & Qualified Distribution](https://github.com/PlaybookMediaLLC/relay/milestone/19) owns founder positioning, the developer-utility entry channel, real product demonstrations, community conversations, funnel measurement and a sustainable content cadence. See the [Relay Marketing Plan](docs/maintainers/RELAY-MARKETING-PLAN.md) and its [six issues](https://github.com/PlaybookMediaLLC/relay/milestone/19). M17 remains the commercial owner for pricing, retention, CAC and payback.
+
+
+
 The $100M+ ARR ambition requires an efficient path from a developer or founder encountering Relay to paying for **recurring acquisition work**, not a large inventory of free SEO accounts.
 
 **Initial channel hypotheses:** a useful result from the public [Relay SEO Check GitHub Action](https://github.com/PlaybookMediaLLC/relay-seo-check); evidence-led founder walkthroughs showing a real approved website change and production check; and narrowly targeted conversations with software founders who have a specific ongoing acquisition problem. None is assumed to have proven scalable distribution.
