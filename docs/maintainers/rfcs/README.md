@@ -1,5 +1,7 @@
 # Relay RFC delivery plan
 
+**GitHub milestone and RFC traceability:** [all 46 source RFCs → 31 implementation issues → release outcomes](../RFC-MILESTONE-TRACEABILITY.md). Milestone membership is a planning view; the implementation order below remains authoritative.
+
 > **Current step-by-step implementation order (October 27, 2026):** [IRFC-0001 through IRFC-0032](implementation/README.md). Follow that numbered sequence when assigning coding agents. The historical RFC identifiers below are retained as design records and are **not** a numerical build order.
 
 **Updated:** October 25, 2026
