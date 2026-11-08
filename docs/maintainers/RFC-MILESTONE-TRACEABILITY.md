@@ -4,6 +4,8 @@
 
 > **Company scale decision, November 8, 2026:** [Recurring acquisition execution scale plan](ACQUISITION-EXECUTION-SCALE-PLAN.md) extends the founder-growth thesis beyond a one-off SEO change to paid weekly programs, verified acquisition outcomes, higher-value subscriptions and demand-gated channel integrations. M15–M18 and issues #271–#278 are **additional strategy and delivery tracks**, not 8 historical IRFCs; the 46 canonical technical RFCs and 31 original IRFC implementation mappings below are deliberately unchanged. The current M13 growth wedge and safety contracts remain valid.
 
+> **Distribution accountability, November 8, 2026:** [Founder Acquisition & Distribution](FOUNDER-ACQUISITION-DISTRIBUTION.md) adds [M17 issue #280](https://github.com/PlaybookMediaLLC/relay/issues/280) for repeatable qualified founder acquisition, activation, CAC/payback and renewal. It extends the existing business milestones, not the 46 historical RFCs or 31 IRFC IDs. Paid acquisition programs and their distribution channels are separate from product features, SaaS billing plans and claimed customer acquisition lift.
+
 **Inventory reviewed:** 46 canonical technical RFCs (`RFC-0001–0046`) and 31 implementation-ordered IRFC slices (`IRFC-0001–0007, 0009–0032`).  
 **Tracked:** Each active IRFC has one primary GitHub milestone and an implementation/acceptance issue. The historical RFCs map to one **primary reference milestone** below; their overlapping phases are linked through IRFC issues, not duplicated as second implementation tickets.  
 **Decision owner:** Playbook Media LLC. **Due dates:** none inferred. **Status:** mapping, not proof of completion.
