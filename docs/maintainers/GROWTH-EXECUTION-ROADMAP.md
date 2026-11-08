@@ -3,7 +3,7 @@
 **Strategy authority:** [vision.md](../../vision.md), updated November 7, 2026.  
 **Audience:** independent founders of software businesses with source-controlled acquisition websites.  
 **Execution evidence:** [existing RFC inventory and IRFC traceability](RFC-MILESTONE-TRACEABILITY.md).  
-**Status:** product re-prioritization, not proof that planned features or paid adoption exist.
+**Status:** product re-prioritization and company-scale expansion thesis, not proof that planned features, paid retention or acquisition lift exist.
 
 ## Decision
 
@@ -12,6 +12,26 @@ Relay's first outcome is **an evidence-backed organic-acquisition opportunity th
 Release regression protection still matters. The existing Protect engineering slices remain valid and can be completed when they support acquisition reliability or a separately validated Protect offer. They are **not** a universal prerequisite for an already supported SEO opportunity → GitHub change → measurement workflow.
 
 Do not abandon the inherited OpenSEO services, change approvals, site audits, GSC/GA4 integrations, DataForSEO budgets, experiment history or dual-database safety model. Do not recreate finished historical RFC work to satisfy new milestone labels.
+
+## The bigger ambition and why the roadmap changes
+
+Relay is aiming for a recurring customer-acquisition execution business that could eventually support $100M+ ARR. The existing SEO research and safe GitHub publishing work is an initial wedge, not the complete product. The company must win four larger jobs: **ongoing commercially relevant work, repeat weekly usage, pricing that expands as a founder-led software business grows, and reliable distinctions between shipped code and acquired customers**.
+
+The founder remains the initial customer. The scale test is whether the same founder-led company keeps paying for a more consequential recurring acquisition program as its website, funnels, products, users and purchase budget grow. A low-priced keyword tool, unlimited human SEO consultancy or omnichannel marketing suite is not the plan.
+
+A **paid acquisition program** has an authorized site/product, intended buyer, qualified event definition, source coverage, approved actions, recurring review cadence, spend ceiling, destination checks and service owner. Its weekly review can end in a justified no-action decision. A cron tick and another generated article are not proof of useful recurring work.
+
+The new [acquisition execution company-scale plan](ACQUISITION-EXECUTION-SCALE-PLAN.md) specifies the program contract, proposed subscription tiers, evidence clocks, commercial gates and scale economics.
+
+### What actually has to be demonstrated
+
+- **M13:** a specific opportunity reaches production safely and is technically verified. This is an engineering proof point, not proof of increased signups.
+- **M7 and M17:** founders authorize the job, pay a disclosed price and return or renew; larger accounts expand only when they see additional useful work and cost-effective service.
+- **M15:** multiple weekly acquisition review and completion cycles are genuinely useful without a quota of artificial edits.
+- **M16:** a founder can define qualified trials/customers, trace permitted sources and tell what shipped versus what users did, with uncertainty and attribution assumptions intact.
+- **M18:** only after recurring paid demand, one additional channel can contribute under an approved handoff and verifiable receipt.
+
+**Financial arithmetic is not market evidence:** $100M ARR could mean approximately 10,000 accounts averaging $833 per month or 5,000 accounts averaging $1,667. Do not plan hiring, infrastructure, or marketing spend based on that arithmetic without demonstrated willingness to pay and sustainable acquisition/retention.
 
 ## Current release milestones: purpose, order and boundaries
 
@@ -32,7 +52,12 @@ Do not abandon the inherited OpenSEO services, change approvals, site audits, GS
 | [M11: Support/sales asset integrity](https://github.com/PlaybookMediaLLC/relay/milestone/11) | **P3: deferred** | Distant adjacency not required for founder acquisition v1 | Only reopen for a distinct paid acquisition-related use case |
 | [M12: Preview-build/delegated action feasibility](https://github.com/PlaybookMediaLLC/relay/milestone/12) | **P3: optional safety work** | Hosted untrusted builds and standing delegation have high risk/cost | Time-boxed, bounded isolation and authority tests, buyer-funded reason, documented go/no-go; no blanket automation |
 
-**Milestone numbers are stable GitHub identifiers, not a numeric build order.** M13 is the first customer-value release even though its number comes last. M14 is a separate emerging channel validation, not an early dependency.
+| **M15: Recurring Acquisition Execution** | **P1: after first verified founder work** | Weekly growth decisions, small repeated approved playbooks, no-action state and accumulated founder-specific page history | Repeat paid cycles over several weeks; verified work where appropriate, clear costs, no repetitive edits; [#271](https://github.com/PlaybookMediaLLC/relay/issues/271), [#272](https://github.com/PlaybookMediaLLC/relay/issues/272) |
+| **M16: Qualified Demand & Acquisition Evidence** | **P1: alongside recurring work** | Four evidence clocks: delivery, relevant exposure, qualified behavior and actual economic observations | One consented founder funnel with source coverage, honest weak-data and noncausal labels; [#273](https://github.com/PlaybookMediaLLC/relay/issues/273), [#274](https://github.com/PlaybookMediaLLC/relay/issues/274) |
+| **M17: Higher-Value Programs & Retention** | **P0 discovery; P1 packaging after paid proof** | Test higher program ACV, account expansion, cohort retention and contribution economics | Actual paid/renewal/upgrade evidence; service caps, provider/support costs and go/no-go; [#275](https://github.com/PlaybookMediaLLC/relay/issues/275), [#276](https://github.com/PlaybookMediaLLC/relay/issues/276) |
+| **M18: Demand-Gated Channel Orchestration** | **P3: only after repeat paid demand** | One channel beyond existing website work, preferably an authorized handoff to Shots or Verify/Warmbly | Two paid customers request the same bounded job; ownership, consent, exact approved action, receipt and cost validated; [#277](https://github.com/PlaybookMediaLLC/relay/issues/277), [#278](https://github.com/PlaybookMediaLLC/relay/issues/278) |
+
+**Milestone numbers are stable GitHub identifiers, not a numeric build order.** M13 remains the initial proof despite its number; M15–M17 define the recurring business and M18 is conditional. M14 remains a bounded AI-search experiment, not a universal prerequisite.
 
 ## A practical first growth execution slice (M13)
 
@@ -131,6 +156,38 @@ For growth execution, prefer existing implemented research/publisher/experiment 
 
 When a milestone becomes active, its GitHub issue should point to the exact source modules, safety/rate contracts, test suite, real-site acceptance, and any remaining missing implementation. A resolved PR is an engineering artifact, not the customer's commercially verified result.
 
+## Transition from the first site change to a recurring acquisition program
+
+The roadmap must not end when a website change is live. After M13, the product should know **what the founder is trying to acquire, which important work was considered, what reached the site, and what next week's data allows us to conclude**.
+
+### M15: weekly decision and repeatable execution
+
+Use the current This Week, opportunity, approval, run history and experiment components. Add an agreed acquisition goal, source freshness, current stage, review owner and why work was selected or deferred. Preserve every explicitly rejected idea and cooldown. The first small repeatable playbooks should use already supported Next.js metadata/copy changes and existing protection diagnoses rather than a generic autonomous writer.
+
+**Proof:** at least two different useful acquisition review cycles on a real authorized site; four weekly windows exercised for scheduling/refusals, with manual vs synthetic time distinguished. A no-action week should be legitimate when source coverage is healthy. Track founder review minutes, accepted actions, provider spend and repeat visits.
+
+### M16: outcome accounting before bigger promises
+
+A founder should identify qualified signup/trial/demo/activation goals and, where consented, paid conversion or pipeline source. Reuse GSC, GA4 and existing read-only attribution rather than replicating analytics. The record should distinguish `verified technical completion`, `observed exposure`, `qualified behavior` and `observed economics`.
+
+**Proof:** one source-checked acquisition funnel with complete definitions, data-age coverage and honest missingness. A merged PR that never deployed is not a completed action; a completed action is not proof of incremental sales; first-touch billing labels are not causal attribution.
+
+### M17: contracts worth renewing and expanding
+
+Compare concrete paid offers rather than debating hypothetical tiers. The proposal ranges are founder initial **$199–$499/month**, recurring growth **$750–$2,500/month**, and a scaled founder-led program **$3,000–$8,000+** only where the business stakes and delivered service justify it. These are experiments, not active plans or forecast ARPA.
+
+**Proof:** payment, renewal and actual tier expansion recorded with program scope and provider/compute/human support cost. Segment research-credit users, Grow customers, Protect customers and any assisted work. When evidence is weak, narrow or pause the higher tier rather than selling undeliverable commitments.
+
+### M18: expand responsibility only through source-backed handoffs
+
+The next channel is chosen by a real paying buyer's recurring problem, not a desire for 78 connectors. Website discovery, selected AI visibility and conversion checks already give enough surface to test M13/M15/M16. If distribution, partner outreach, or targeted outbound deserves an integration, the system that already owns creative or sending retains authority.
+
+**Proof:** named customer goal, permission matrix, bounded versioned payload, idempotent request, verified destination state and observably relevant acquisition metric. Do not ship paid ad buying, blanket outbound or raw CRM ingestion as a speculative connector release.
+
+### Decision dependencies
+
+**M13 + paid M7 discovery** start now. M15 builds recurring review/work after M13 is viable. Minimum M16 event definitions can proceed alongside it when an authorized customer provides actual data. M17 pricing research begins alongside pilots and formalizes higher-value packages only after a repeat-use signal. M18 requires the repeat paid program, defensible outcomes and buyer consent. General Product Reality Engine and Relay-owned Launch stay off this critical path.
+
 ## Existing IRFCs: preserve source truth, change investment priority
 
 **Keep and reuse early:**
@@ -162,6 +219,6 @@ Relay may read an approved product description or documentation source to avoid 
 
 Before making another broad RFC mandatory, answer: **Which independent founder pays, which acquisition job improves, what exact proof closes the work, how much does it cost, and why existing OpenSEO/Codex/GitHub tools aren't enough?**
 
-Review the M13 pilot and M7 payment/renewal evidence before escalating M14, generalized PRE, managed CMS writing or portfolio-wide campaign orchestration. It's acceptable to stop or discard an unproven module while keeping its useful internal code.
+Review M13's production result, M7/M17's actual paid repeat usage, M15's founder time and M16's evidence quality before escalating M14, generalized PRE, managed CMS writing or M18 channel orchestration. It's acceptable to stop or discard an unproven module while keeping its useful internal code.
 
 The actual milestone authority is the live GitHub Milestone record; this document is its human-readable strategy and compatibility map. Update both when decisions change.
