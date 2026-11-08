@@ -147,6 +147,16 @@ Each pilot should answer: the founder's problem and current baseline; a responsi
 
 The stop/go test should be capable of saying **no**. If a founder will not grant narrow source access, opportunities aren't useful, the service needs extensive manual rewriting, or support/verification costs erase margin, reduce scope or change the wedge before adding connectors. Playbook's own website success cannot replace independent paying-customer evidence.
 
+## The second loop: distributing Relay itself
+
+M13 proves an acquisition website change can be completed safely for a founder. M15/M16 test recurring work and real qualified demand. Those engineering outcomes still leave a company-level question: **can Relay repeatedly acquire suitable paying founders at acceptable cost?**
+
+Under [M17](https://github.com/PlaybookMediaLLC/relay/milestone/17), [issue #280](https://github.com/PlaybookMediaLLC/relay/issues/280) and the [Founder Acquisition & Distribution plan](FOUNDER-ACQUISITION-DISTRIBUTION.md), test the public GitHub SEO Check and founder-led technical demonstrations as **hypotheses**, not established acquisition channels. Follow qualified arrivals to authorized product activation, useful supported decisions, verified work when eligible, actual paid acquisition programs, second-cycle use, renewal and account expansion. A GitHub install and a $10 research subscriber do not count as a paid Grow or Protect customer.
+
+CAC must include attributable acquisition staff/founder hours as well as out-of-pocket spending; payback uses gross-profit contribution after ordinary provider and support costs. Report self-serve and assisted conversions separately. The early product cannot claim sustainable software economics if every approved site change requires manual Playbook intervention.
+
+**Promotion rule:** expand acquisition spending or distribution partnerships only after a source-backed paid cohort shows useful repeat work, measured full costs and a plausible payback period. If founder acquisition is harder or more expensive than the product can support, reduce support obligations or narrow the customer rather than promising a larger platform.
+
 ## Compatibility with the older RFC execution queue
 
 The original [IRFC-0001–0032](rfcs/implementation/README.md) order remains technically authoritative **inside a separately approved historical Protect or Product Reality Engine program**. It is not an unconditional global prerequisite list for M13. Do not prematurely mark source RFCs closed merely because the strategy changed.
