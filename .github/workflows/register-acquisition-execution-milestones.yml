@@ -46,9 +46,9 @@ jobs:
                 label: 'M17',
                 title: 'Relay M17: Higher-value recurring programs, retention and expansion economics',
                 priority: 'P0 buyer/offer discovery with M7; P1 packaging only when real paid recurring use is demonstrated.',
-                outcome: 'Move beyond low-price research to bounded acquisition subscriptions that founder-led software customers renew and expand as acquisition workload grows, at sustainable margins.',
-                acceptance: 'Proven payment and repeat-use cohorts, actual service/provider costs, pricing and upgrade tests, renewed/expanded accounts or an explicit lack of evidence; ARR/ACV, GRR/NRR, churn and unit economics reported without invented traction.',
-                issues: [275, 276],
+                outcome: 'Move beyond low-price research to bounded acquisition subscriptions that founder-led software customers can discover, adopt, renew and expand through a repeatable qualified distribution motion at sustainable margins.',
+                acceptance: 'Proven qualified channel-to-paid conversion and useful activation, real sales/acquisition human cost, paid repeat-use cohorts, provider/routine-support gross contribution, CAC payback, retention and pricing/upgrade tests; honest lack of evidence reported. ARR/ACV, GRR/NRR, churn and unit economics must have real denominators, not invented traction.',
+                issues: [275, 276, 280],
               },
               {
                 label: 'M18',
@@ -71,6 +71,7 @@ jobs:
                   'Customer or commercial outcome: ' + phase.outcome,
                   'Acceptance: ' + phase.acceptance,
                   'Source: ' + source,
+                  ...(phase.label === 'M17' ? ['Distribution plan: https://github.com/PlaybookMediaLLC/relay/blob/develop/docs/maintainers/FOUNDER-ACQUISITION-DISTRIBUTION.md'] : []),
                 ].join('\n\n');
                 const sameName = all.find((m) => m.title === phase.title);
                 const prefixMatches = all.filter((m) => m.title.startsWith('Relay ' + phase.label + ':'));

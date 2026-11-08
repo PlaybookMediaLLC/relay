@@ -1,5 +1,15 @@
 # Agent guidance
 
+## Relay product direction and source of priority
+
+**Current product direction (November 2026):** Relay is building recurring **customer-acquisition execution for independent software founders**, with a long-term ambition to support a $100M+ ARR business. Start from [vision.md](vision.md), the [growth execution roadmap](docs/maintainers/GROWTH-EXECUTION-ROADMAP.md), [company scale plan](docs/maintainers/ACQUISITION-EXECUTION-SCALE-PLAN.md) and [founder distribution plan](docs/maintainers/FOUNDER-ACQUISITION-DISTRIBUTION.md).
+
+**Do not implement the historical Protect → generalized Product Reality Engine → Sync → Relay-owned Launch RFC sequence merely because an IRFC number is next.** The preserved [IRFC index](docs/maintainers/rfcs/implementation/README.md) is authoritative for a specifically approved technical slice and its prerequisites. The current first product-value gate is M13 (source-backed website opportunity → approved source change → independently verified live postcondition). M7/M17 test actual paid founder demand, repeat use, distribution and account economics in parallel. M15/M16 establish recurring work and credible acquisition evidence. M18 is demand-gated, not a request for generic channel integrations.
+
+For every acquisition feature or agent task, identify the founder job, accepted evidence, authorized next action, supported source/adapter, independently checked technical postcondition, provider and routine support costs, and what counts as a real customer result. Keep **delivery**, **search/exposure observation**, **qualified behavior**, and **economic outcome** separate. No automatic PR merge, customer deployment, unsolicited sending, ad purchase, billing change or claim of incremental acquired revenue without a separately approved and validated contract.
+
+Reuse the substantial OpenSEO research, GitHub publishing, experiments, work, security and spending code before adding schemas/services. Product descriptions, issue trackers, milestones and architectural proposals are **not** proof that a feature is implemented or commercially validated. Preserve existing code acceptance records when changing priorities.
+
 ## Engineering principles
 
 - Prefer simple, readable, flat code with minimal indirection.

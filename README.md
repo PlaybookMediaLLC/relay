@@ -170,6 +170,18 @@ The proposed **primary product north star** is **weekly paying acquisition progr
 
 A founder with no defensible action can still receive an accurate report and retain a valid **no action** state. We will not encourage low-value edits to increase activity metrics.
 
+## How software founders would discover and buy Relay
+
+The $100M+ ARR ambition requires an efficient path from a developer or founder encountering Relay to paying for **recurring acquisition work**, not a large inventory of free SEO accounts.
+
+**Initial channel hypotheses:** a useful result from the public [Relay SEO Check GitHub Action](https://github.com/PlaybookMediaLLC/relay-seo-check); evidence-led founder walkthroughs showing a real approved website change and production check; and narrowly targeted conversations with software founders who have a specific ongoing acquisition problem. None is assumed to have proven scalable distribution.
+
+Track the distinct stages **qualified arrival → website/source authorization → first useful decision → approved technical completion where supported → payment for Grow or Protect → second meaningful review cycle → renewal/expansion**. A research-credit purchase, an installed action, a report view and an actual recurring paid acquisition program are different events.
+
+A disciplined business measures acquisition cost including attributable human acquisition assistance, gross-profit contribution per program after provider and routine support costs, payback, retained ARR and expansion. The aim is to find one repeatable distribution motion before expanding channels or adding enterprise-looking infrastructure.
+
+[Read the founder acquisition and distribution plan](docs/maintainers/FOUNDER-ACQUISITION-DISTRIBUTION.md) · [M17 pricing and economics](https://github.com/PlaybookMediaLLC/relay/milestone/17) · [Distribution validation issue #280](https://github.com/PlaybookMediaLLC/relay/issues/280).
+
 ## Hosted plans and usage
 
 The current [hosted research service](https://relay.playbookmedia.io) documents a free tier with $1 in monthly credits and a $10/month Base Plan with $10 in monthly credits, plus top-ups. DataForSEO and some AI calls consume metered credits. These are **research-plan terms, not priced or validated subscriptions for Grow or Protect**.
