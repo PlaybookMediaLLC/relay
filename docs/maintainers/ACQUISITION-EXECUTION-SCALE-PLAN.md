@@ -143,6 +143,36 @@ Upgrade when the founder's business creates **more useful recurring work or high
 
 Stop or narrow when: founders prefer their existing Search Console + coding assistant workflow; recommendations require extensive human editorial rescue; customers refuse scoped source access; repeat usage is weak; acquired traffic remains unqualified; measurement confidence is too poor to support a higher-value decision; provider or support costs prevent viable margin; or channel expansion duplicates an existing specialized Playbook product.
 
+## Distribution economics: earning enough customers to matter
+
+Pricing and retention cannot carry a $100M ARR company without a repeatable way for qualified software companies to discover, trust and buy Relay. Do not confuse customers' acquisition outcomes with **Relay's own customer acquisition funnel**.
+
+The detailed contract is [Founder Acquisition & Distribution](FOUNDER-ACQUISITION-DISTRIBUTION.md), owned by [M17 issue #280](https://github.com/PlaybookMediaLLC/relay/issues/280). Test one channel at a time: developer-first entry via the existing GitHub SEO check, a founder-led real-work case study, or a focused founder discovery cohort. Each needs source-tagged qualified arrivals, product authorization, first useful action, paid program adoption, second-cycle use, renewal and contribution economics. Do not announce any of these as an established growth channel without data.
+
+### Distinguish product and company funnels
+
+| Funnel | Unit | Evidence to record | What not to infer |
+| --- | --- | --- | --- |
+| **Relay customer acquisition** | Qualified software-founder account | Channel, first need, first useful decision, permissions, pricing acceptance, payment and CAC | Free research visits or GitHub installs are revenue customers |
+| **Relay customer product value** | Paid acquisition program | Reviewed work, approval, technical completion/no-action, provider and review costs | A scheduled check or generated page is useful work |
+| **Relay customer's acquisition result** | Qualified prospect, trial or buyer | Consented source, event semantics, coverage, timing and attribution constraints | A technical change automatically created a paying customer |
+| **Relay account expansion** | Same paying organization | Actual extra contracted recurring work, renewal/upgrade dollars, additional owner capacity and service cost | Feature usage or hypothetical willingness to pay is expansion ARR |
+
+### CAC payback and retention arithmetic
+
+Compute channel acquisition cost from attributable sales/marketing spend plus the human effort used to acquire and onboard the account, divided by **new paying customers**. Keep any founder time estimate explicit. Do not treat customer delivery costs as acquisition costs; they affect gross-profit contribution. Payback in months equals CAC divided by the account's recurring **monthly contribution after delivery/provider/routine support costs**. If contribution is zero or negative, payback is undefined, not zero.
+
+For a small cohort, show **actual counts, billed dollars, paid dollars, churn, contraction, expansion, provider cost and manual minutes** alongside percentages. Report research plans, Grow, Protect and scaled programs separately. Do not extrapolate short pilot renewal into durable NRR. A multi-thousand-dollar ACV subscription is credible only if customers buy, use and renew a correspondingly valuable recurring service.
+
+### Stage gates before distribution spending
+
+1. **First trust:** prove one real authorized opportunity/approved source edit/live verification path (M13), with the cost of provider and founder effort observed.
+2. **Conversion to paid:** qualify an actual founder buyer who agrees to specific monthly scope, permissions and work classes; collect payment rather than counting price-page interest (M7/M17).
+3. **Repeat use and costs:** observe a second useful decision cycle (including justified no-action), a renewed customer or explicit nonrenewal, actual gross contribution and a measured acquisition channel (M15/M17).
+4. **Expansion:** test larger pages/programs/qualified outcomes as the same company grows. An upgrade needs extra customer value and economic margin; release only the technical scope supported by previous verified work (M16/M17).
+5. **Adjacent channels:** enable one narrow permitted handoff only when repeat paying customers request it and delivery receipts and data boundaries are proven (M18).
+
+The go/no-go decision is allowed to be **stop or narrow**. If founders prefer Search Console plus a coding assistant, refuse source access, or require costly manual SEO service to realize value, adding more channels and higher-priced tiers will not solve the underlying problem.
 ## GitHub milestone accountability
 
 Existing milestones M1–M14 continue to cover research/website evidence, publishing safety, destination checks, founder acquisition first value, initial commercialization, selective conversion and AI-search experiments.
