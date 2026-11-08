@@ -3,7 +3,7 @@
 **Direction adopted:** November 7, 2026  
 **Status:** Product thesis and evidence-gated roadmap, not a claim that every workflow ships today.
 
-**Relay helps independent software founders turn observable customer demand into approved website improvements and measurable acquisition learning.**
+**Relay helps independent software founders build a repeatable customer-acquisition operation: discover real demand, execute approved improvements, and learn from independently verified delivery and qualified customer outcomes.**
 
 A founder has limited engineering time and little or no dedicated growth team. Research tools can identify interesting queries and competitors, but they often stop before a useful change reaches the founder's actual website. Content tools can produce material without understanding whether it is accurate, worth publishing, or effective. Relay's job is the accountable work between the opportunity and the outcome: decide what is worth doing, prepare a constrained change in the customer's existing codebase, obtain approval, verify production, and learn from later evidence.
 
