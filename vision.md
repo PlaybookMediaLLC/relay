@@ -324,6 +324,18 @@ Test a packaging ladder with founders: a limited, paid first program; a recurrin
 
 Guardrails still include acquisition recommendation quality, coverage and freshness, safe approval rate, review time, cost per verified change, verified original failures, error/unknown reporting, retention and the percentage of programs that are only being kept active by artificial work.
 
+## How Relay itself earns distribution
+
+Building a recurring acquisition product does not prove Relay can acquire its own customers economically. The proposed route to $100M+ ARR also depends on a repeatable channel that reaches qualified founder-led software businesses, a short enough time to first useful decision, a credible transition to paid Grow/Protect programs, and retention without excessive manual support.
+
+Start with **developer-trusted product entry** through the existing [Relay SEO Check GitHub Action](https://github.com/PlaybookMediaLLC/relay-seo-check) and **founder-led, source-backed demonstrations** of a real recommendation, approved PR, live verification, and honestly described later observations. These are hypotheses, not channels with proven paid conversion. Interview founders about the tools and workflows they currently pay for, and use actual purchase/permission behavior rather than free signups or impressions to decide where to invest.
+
+The company should measure its own funnel: qualified founder arrival → authorized relevant workspace → first reviewed useful decision → supported completed website work where eligible → paid bounded acquisition program → repeat weekly use → renewal or justified expansion. A research-credit subscriber is not automatically a paying Grow customer. A low-data founder may receive a useful no-action decision but must not be counted as having shipped a verified change.
+
+Channel-specific acquisition cost must include attributable sales/marketing spending **and acquisition-specific founder or staff time**. Payback should use gross-profit contribution after routine provider, compute, verification and support costs, not subscription revenue alone. Report absolute accounts and dollars for small cohorts; do not extrapolate from a handful of pilots into a $100M market forecast.
+
+This distribution contract is specified in [Founder Acquisition & Distribution](docs/maintainers/FOUNDER-ACQUISITION-DISTRIBUTION.md), tracked under [M17](https://github.com/PlaybookMediaLLC/relay/milestone/17) and [issue #280](https://github.com/PlaybookMediaLLC/relay/issues/280). It is a commercial learning gate, **not permission to buy ads, send unsolicited campaigns, or build a broad CRM**.
+
 ## Roadmap, not release promises
 
 The current investment order is in [GitHub milestones](https://github.com/PlaybookMediaLLC/relay/milestones), the [founder growth execution roadmap](docs/maintainers/GROWTH-EXECUTION-ROADMAP.md) and the [acquisition scale plan](docs/maintainers/ACQUISITION-EXECUTION-SCALE-PLAN.md). The historical [IRFC-0001–0032](docs/maintainers/rfcs/implementation/README.md) documents technical contracts, **not a requirement to complete the old Protect → Product Reality Engine → Sync → Launch plan**.
