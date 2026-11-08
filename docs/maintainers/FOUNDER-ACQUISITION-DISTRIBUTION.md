@@ -138,6 +138,14 @@ The M18 cross-product handoff is **not a prerequisite** for proving Relay distri
 
 ## Ownership and next step
 
+## Dedicated marketing execution
+
+The distribution thesis is now run through **[M19: Founder Marketing & Qualified Distribution](https://github.com/PlaybookMediaLLC/relay/milestone/19)** and its [six campaign issues #282–#287](RELAY-MARKETING-PLAN.md#marketing-workstreams-and-issue-ownership). M19 owns marketing site positioning, SEO Check funnel, founder-proof content, community participation, attributable activation and weekly publishing decisions. Keep marketing cost and source attribution inspectable even when experiments produce no paid conversion.
+
+**M17** remains the higher-level buyer, package, ARR, renewal, CAC and payback decision owner using those marketing cohort records. **M13** controls what can honestly be promised about live source changes. **Shots** provides opt-in creative production but doesn't become a second Relay distribution platform. This is a separation of responsibilities, not an extra stack or budget.
+
+
+
 The near-term engineering proof remains [M13](https://github.com/PlaybookMediaLLC/relay/milestone/13). The commercial owner runs [M7](https://github.com/PlaybookMediaLLC/relay/milestone/7) and [M17](https://github.com/PlaybookMediaLLC/relay/milestone/17) discovery alongside it. Continuous weekly work and reliable outcome evidence mature under [M15](https://github.com/PlaybookMediaLLC/relay/milestone/15) and [M16](https://github.com/PlaybookMediaLLC/relay/milestone/16). Expand into M18 only when actual buyers request the same second-channel job and the permissions are clear.
 
 **Immediate test:** choose one founder segment and one channel, use a real approved website opportunity to demonstrate Relay's execution capability, offer a bounded paid engagement, and record every step from acquisition source through actual paid repeat use. The next decision is whether that path is economic and repeatable, not whether more integrations can be shipped.
