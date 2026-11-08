@@ -95,6 +95,16 @@ Test the two paid wedges among actual founders. A practical first program, with 
 
 Research-only $10/month Base Plan usage and metered credits remain a separate existing offer; they are not evidence of a viable Grow or Protect subscription. New pricing and entitlement rules require their own paid pilot and usage-cost work.
 
+## Proving our own customer acquisition economics
+
+Relay's own distribution needs a customer-acquisition discipline as concrete as the one it promises buyers. The initial hypotheses are developer utility distribution through [Relay SEO Check](https://github.com/PlaybookMediaLLC/relay-seo-check), real founder case studies with permission and verified outcomes, and targeted problem-led founder discovery. None should be presented as a proven self-serve sales channel.
+
+The commercial sequence is **qualified founder → real website evidence and first useful review → approved change or justified no-action → bounded paid Grow/Protect program → meaningful second decision cycle → renewal and expansion**. Small free research subscriptions, website traffic and GitHub installs are not paying-program conversions. Compare self-serve and manually assisted acquisition independently.
+
+Track paid cohort revenue, gross and net retention, upgrades, CAC by actual channel, and payback on **monthly gross-profit contribution**, including provider/model/verification and routine support cost. Attribute acquisition-specific founder or staff time to CAC rather than treating it as free. Show sample sizes and actual dollars for young cohorts. More channels do not solve poor retention or negative contribution.
+
+[The distribution test plan](docs/maintainers/FOUNDER-ACQUISITION-DISTRIBUTION.md) owns this question alongside the [company scale plan](docs/maintainers/ACQUISITION-EXECUTION-SCALE-PLAN.md). Its GitHub owner is [M17](https://github.com/PlaybookMediaLLC/relay/milestone/17), specifically [issue #280](https://github.com/PlaybookMediaLLC/relay/issues/280). Do not increase acquisition spending merely because the illustrative $100M ARR arithmetic works.
+
 ## What we count
 
 **Proposed product north star:** **weekly paying acquisition programs with a completed, evidence-backed decision cycle**. A program qualifies once per week when source coverage is usable and an authorized reviewer makes or progresses a meaningful acquisition decision or accepts a justified no-action result. A cron run or generated report alone does not qualify.
