@@ -19,6 +19,10 @@ Shared versioned documentation for maintaining the Playbook Media Relay codebase
 
 ## Current engineering posture
 
+**Marketing execution:** [M19 — Founder Marketing & Qualified Distribution](https://github.com/PlaybookMediaLLC/relay/milestone/19) is tracked in the [Relay Marketing Plan](RELAY-MARKETING-PLAN.md). It owns message, channel, content and conversion experiments; M17 owns pricing, retention, CAC and company economics. Preserve the boundaries and truthful claims established in the [Founder Distribution Plan](FOUNDER-ACQUISITION-DISTRIBUTION.md).
+
+
+
 **M13** proves one real, founder-approved website acquisition improvement reaches production with an independently checked technical result. **M7 and M17** validate actual paying founder customers, repeat use, distribution, gross contribution and expansion economics. **M15 and M16** are the next recurring-work and qualified-outcome layers. **M18** is a conditional, permissioned channel handoff, not a general marketing automation mandate.
 
 The earlier Protect → generalized Product Reality Engine → Sync → Relay-owned Launch roadmap is preserved for technical reference. It is **not** the automatic sequence for new agents. The implementation index remains relevant only to an approved historical technical slice; keep its original acceptance and security requirements.
