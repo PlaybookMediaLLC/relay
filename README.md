@@ -1,6 +1,6 @@
 # Relay
 
-**Turn real customer demand into safe, measurable website growth work.**
+**Turn customer demand into approved acquisition work, and learn from what actually happens.**
 
 Relay, by Playbook Media LLC, is building a code-native growth execution product for **independent software founders**. It connects search and website evidence to one practical improvement: choose a relevant opportunity, prepare a narrow change in the founder's repository, obtain exact approval, verify it live, and track later acquisition observations without claiming unsupported traffic or revenue lift.
 
