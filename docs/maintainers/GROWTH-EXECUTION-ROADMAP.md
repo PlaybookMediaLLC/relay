@@ -58,6 +58,18 @@ The new [acquisition execution company-scale plan](ACQUISITION-EXECUTION-SCALE-P
 
 **Milestone numbers are stable GitHub identifiers, not a numeric build order.** M13 remains the initial proof despite its number; M15–M17 define the recurring business and M18 is conditional. M14 remains a bounded AI-search experiment, not a universal prerequisite.
 
+## M20: separate Elmo AI-search evidence service — not another dashboard
+
+**[M20 — Elmo AI-search Evidence Service & Submodule Sync](https://github.com/PlaybookMediaLLC/relay/milestone/20)** implements one bounded source of richer AI-answer, citation, competitor and actual available query-fan-out observations for Relay's existing [M14](https://github.com/PlaybookMediaLLC/relay/milestone/14) experiment. The detailed engineering plan is [Elmo Evidence Integration](ELMO-EVIDENCE-INTEGRATION.md).
+
+The intended architecture is **DigitalOcean App Platform Elmo web API + worker + dedicated PostgreSQL**, serving read-only scoped REST over authenticated HTTPS to Relay's Cloudflare backend. The Playbook [Elmo fork](https://github.com/PlaybookMediaLLC/elmo) is tracked as a **Git submodule** at `vendor/elmo`, with a pinned source SHA; M20 issue #294 specifies adding the real mode-160000 gitlink and an automated scheduled/dispatchable **submodule update PR** whenever the fork's `main` moves. This is not a floating runtime import, automatic PR merge or production redeploy.
+
+The original `elmohq/elmo` → `PlaybookMediaLLC/elmo` fork-sync is a **separate** reviewed hop (#299); upstream source commits do not land automatically in the Playbook fork. Preserve version pinning, paid provider and authorization boundaries, dependency checks, CI and rollback. Elmo's application, authentication, billing and work queue must not be embedded in Relay's Cloudflare runtime.
+
+P0: [#294](https://github.com/PlaybookMediaLLC/relay/issues/294) submodule/update-PR bot, [#295](https://github.com/PlaybookMediaLLC/relay/issues/295) deployment, [#296](https://github.com/PlaybookMediaLLC/relay/issues/296) scoped read-only client. P1: [#297](https://github.com/PlaybookMediaLLC/relay/issues/297) compare evidence, [#298](https://github.com/PlaybookMediaLLC/relay/issues/298) connect opportunities, [#299](https://github.com/PlaybookMediaLLC/relay/issues/299) upstream/rollback. P2: [#300](https://github.com/PlaybookMediaLLC/relay/issues/300) security and retention before external clients.
+
+**Gate:** one Playbook-owned site and ~10–20 relevant prompts must show additional useful AI evidence versus existing DataForSEO tracking and a source-backed founder opportunity or honest no-action. M13 still owns exact authorized GitHub changes and independent production verification. Customer conversion, citation gains and causal ROI are not assumed.
+
 ## A practical first growth execution slice (M13)
 
 ### Founder setup

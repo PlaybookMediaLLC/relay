@@ -170,6 +170,14 @@ The proposed **primary product north star** is **weekly paying acquisition progr
 
 A founder with no defensible action can still receive an accurate report and retain a valid **no action** state. We will not encourage low-value edits to increase activity metrics.
 
+## Optional Elmo evidence integration
+
+The [Elmo integration milestone M20](https://github.com/PlaybookMediaLLC/relay/milestone/20) tracks a **proposed** internal AI-search evidence service: [Playbook's Elmo fork](https://github.com/PlaybookMediaLLC/elmo) will be deployed separately and queried over a scoped read-only REST API. Its repeated answers, citations, competitor judgments and available fan-out queries can enrich Relay's existing AI-search opportunity process, without giving Elmo permission to edit customer websites.
+
+The [implementation plan](docs/maintainers/ELMO-EVIDENCE-INTEGRATION.md) explicitly includes adding Elmo as a **pinned Git submodule** under `vendor/elmo` and a scheduled update bot that proposes GitHub PRs when the Elmo fork advances. A Git submodule does *not* automatically incorporate upstream changes; a reviewed gitlink commit is required, and source-upstream-to-Playbook-fork updates are a separate tracked step. Neither the submodule nor the integration is claimed as deployed or finished by this documentation.
+
+M20 supplies an evidence service to [M14 AI-search opportunity discovery](https://github.com/PlaybookMediaLLC/relay/milestone/14). Relay remains the founder-facing product, reuse of existing DataForSEO tracking is preferred until Elmo proves incremental value, and M13's source-edit approval and production verification remain authoritative.
+
 ## How software founders would discover and buy Relay
 
 **Marketing execution:** [M19 — Founder Marketing & Qualified Distribution](https://github.com/PlaybookMediaLLC/relay/milestone/19) owns founder positioning, the developer-utility entry channel, real product demonstrations, community conversations, funnel measurement and a sustainable content cadence. See the [Relay Marketing Plan](docs/maintainers/RELAY-MARKETING-PLAN.md), including distinct [X](https://github.com/PlaybookMediaLLC/relay/issues/289), [Instagram](https://github.com/PlaybookMediaLLC/relay/issues/290), [YouTube](https://github.com/PlaybookMediaLLC/relay/issues/291) and [TikTok](https://github.com/PlaybookMediaLLC/relay/issues/292) organic strategies, and the [ten M19 issues](https://github.com/PlaybookMediaLLC/relay/milestone/19). M17 remains the commercial owner for pricing, retention, CAC and payback. The four social channels have different jobs: technical conversations on X, visual founder proof on Instagram, evergreen demonstrations on YouTube, and short problem-led discovery on TikTok. A shared verified source case can produce native content for each channel without blindly reposting identical material or assuming an advertising budget.
