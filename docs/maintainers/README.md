@@ -17,6 +17,8 @@ Shared versioned documentation for maintaining the Playbook Media Relay codebase
 | Safety and review invariants | [Review Guidelines](review-guidelines.md) and [AGENTS.md](../../AGENTS.md) |
 | Runtime and deployment notes | [Playbook Deployment](playbook-deployment.md) |
 
+**Elmo source and API integration:** [M20](https://github.com/PlaybookMediaLLC/relay/milestone/20) and the [Elmo Evidence Integration Plan](ELMO-EVIDENCE-INTEGRATION.md) cover deploying Elmo as a separate Node web/worker service, project-scoped read-only REST integration, a real `vendor/elmo` Git submodule, automated update PRs (not silent merges), reviewed upstream fork-sync and compatibility/rollback gates. M14 remains the customer-facing AI-search opportunity validation; M13 owns customer-approved GitHub changes. This is a planned workstream, **not** existing deployed integration.
+
 ## Current engineering posture
 
 **Marketing execution:** [M19 — Founder Marketing & Qualified Distribution](https://github.com/PlaybookMediaLLC/relay/milestone/19) is tracked in the [Relay Marketing Plan](RELAY-MARKETING-PLAN.md). It owns message, channel, content and conversion experiments; M17 owns pricing, retention, CAC and company economics. Preserve the boundaries and truthful claims established in the [Founder Distribution Plan](FOUNDER-ACQUISITION-DISTRIBUTION.md).
