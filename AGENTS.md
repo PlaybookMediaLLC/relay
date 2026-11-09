@@ -10,6 +10,12 @@ For every acquisition feature or agent task, identify the founder job, accepted 
 
 Reuse the substantial OpenSEO research, GitHub publishing, experiments, work, security and spending code before adding schemas/services. Product descriptions, issue trackers, milestones and architectural proposals are **not** proof that a feature is implemented or commercially validated. Preserve existing code acceptance records when changing priorities.
 
+### M20 — Elmo evidence integration and submodule updates
+
+If implementing Elmo work, read [docs/maintainers/ELMO-EVIDENCE-INTEGRATION.md](docs/maintainers/ELMO-EVIDENCE-INTEGRATION.md) and [M20](https://github.com/PlaybookMediaLLC/relay/milestone/20) before changing code. Elmo is a separately deployed **Node web + worker + PostgreSQL** evidence service; Relay remains a Cloudflare Workers app and owns authenticated project-scoped investigation, approved website changes and production verification. Do not import Elmo runtime modules or Elmo database tables into Relay, duplicate current AI tracking or treat Elmo suggestions as trusted execution instructions.
+
+The planned `vendor/elmo` Git submodule points to an exact `PlaybookMediaLLC/elmo` commit. Even with `branch=main`, **submodules do not advance themselves**: a periodic or cross-repo-triggered action must fetch the Elmo fork and **propose a gitlink update PR**, with compatibility tests and human approval. Changes in the original `elmohq/elmo` also require a separate reviewed Playbook fork-sync first. No unreviewed auto-merge, floating `main` runtime image, or automatic customer/Relay production deployment from upstream changes. Keep MIT attribution, credentials and provider spend gates intact.
+
 ## Engineering principles
 
 - Prefer simple, readable, flat code with minimal indirection.
