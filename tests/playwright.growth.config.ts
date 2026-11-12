@@ -12,7 +12,10 @@ export default defineConfig({
   timeout: 180_000,
   expect: { timeout: 15_000 },
   workers: 1,
-  reporter: [["list"]],
+  // `github` annotates the failing assertion on the pull request diff, so a
+  // red run names what broke without opening the log; `list` keeps the
+  // readable per-test timings in it.
+  reporter: process.env.CI ? [["list"], ["github"]] : [["list"]],
   use: {
     baseURL: "http://localhost:3102",
     actionTimeout: 10_000,

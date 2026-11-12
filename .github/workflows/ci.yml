@@ -1,5 +1,16 @@
 name: CI
 
+# One workflow, several jobs that run at the same time. `ci` at the bottom is
+# the summary job: it is the status check branch protection requires, so the
+# jobs above it may be skipped by `changes` without the context disappearing.
+#
+# Which jobs a change selects, and why, is decided by scripts/ci-affected.mjs
+# and printed to the run summary. The static checks and the unit suite are not
+# selectable — they always run.
+#
+# Timings and the reasoning behind this shape:
+# docs/maintainers/ci-performance/.
+
 permissions:
   contents: read
 
@@ -13,10 +24,44 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
-jobs:
-  ci:
-    runs-on: ubuntu-latest
+env:
+  NODE_VERSION: 22.23.4
 
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      app: ${{ steps.select.outputs.app }}
+      website: ${{ steps.select.outputs.website }}
+      docker: ${{ steps.select.outputs.docker }}
+      standalone_image: ${{ steps.select.outputs.standalone_image }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          # Enough history to reach the merge base with the target branch.
+          fetch-depth: 0
+
+      # A push to main is the commit we deploy from, so it is never narrowed:
+      # every job runs regardless of what the commit touched.
+      - name: Select the jobs this change needs
+        id: select
+        run: |
+          if [ "${{ github.event_name }}" != "pull_request" ]; then
+            printf 'app=true\nwebsite=true\ndocker=true\nstandalone_image=true\n' >> "$GITHUB_OUTPUT"
+            echo "Push to ${{ github.ref_name }}: running every job." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          node scripts/ci-affected.mjs \
+            "${{ github.event.pull_request.base.sha }}" \
+            "${{ github.event.pull_request.head.sha }}"
+
+  static:
+    name: static checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,20 +74,80 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22.23.4
+          node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # Prettier walks ~3,000 files and reformats each one to compare. Its own
+      # cache keys on file content and on the resolved options, so a restored
+      # cache can only ever turn a check that would pass into a faster pass.
+      - name: Restore the Prettier cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules/.cache/prettier
+          key: prettier-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            prettier-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+            prettier-${{ runner.os }}-
+
       - name: Run CI checks
         run: pnpm run ci:check
 
+  unit:
+    name: unit and integration tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # github-actions annotates the failing line in the pull request diff, so
+      # a red run names what broke without opening the log.
       - name: Run tests
-        run: pnpm run test:ci
+        run: pnpm run test:ci --reporter=github-actions
 
       - name: Verify dependency security regressions
         run: node --test security/tests/dependency-regressions.test.mjs
+
+  build:
+    name: worker and standalone builds
+    needs: changes
+    if: needs.changes.outputs.app == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       # Runs the leanWorkerBundle generateBundle assertion: fails if a
       # denylisted package (dataforseo-client, autumn-js, ...) re-enters the
@@ -58,6 +163,37 @@ jobs:
       - name: Test standalone crawl gateway
         run: pnpm test:standalone:gateway
 
+  website:
+    name: website checks and build
+    needs: changes
+    if: needs.changes.outputs.website == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            web/pnpm-lock.yaml
+
+      # web/tsconfig.json type-checks web/tests/free-tool-verification.spec.ts,
+      # which imports the root-only @playwright/test, so the website checks
+      # need both workspaces installed. See the 2026-10-06 entry in
+      # .agents/PAPERCUTS.md for the fix that would remove this dependency.
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
       - name: Install website dependencies
         run: pnpm --dir web install --frozen-lockfile
 
@@ -70,8 +206,15 @@ jobs:
       - name: Build website
         run: pnpm --dir web run build
 
+  # Builds the self-host image recipe. That image installs dependencies here
+  # and compiles the application at container start, so the only thing this
+  # build can regress is the recipe and the Linux dependency install — hence
+  # the narrow selection in scripts/ci-affected.mjs.
   docker-build:
+    needs: changes
+    if: needs.changes.outputs.docker == 'true'
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Checkout
@@ -93,8 +236,14 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+  # The application code this image compiles is already built natively by the
+  # `build` job, so this one covers the image recipe, the celld runtime and the
+  # standalone build configuration.
   standalone-image:
+    needs: changes
+    if: needs.changes.outputs.standalone_image == 'true'
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Checkout
@@ -115,3 +264,36 @@ jobs:
           platforms: linux/amd64
           cache-from: type=gha,scope=standalone
           cache-to: type=gha,mode=max,scope=standalone
+
+  # The required status check. Keep this job id `ci`: branch protection on main
+  # requires the context of that name, and the deploy gate waits for it.
+  ci:
+    if: always()
+    needs:
+      - changes
+      - static
+      - unit
+      - build
+      - website
+      - docker-build
+      - standalone-image
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # `skipped` is the expected result for a job this change did not select.
+      # Anything that is not success or skipped — failure, cancelled, timed out
+      # — fails the context.
+      - name: Require every selected job to have succeeded
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: |
+          echo "$RESULTS" | jq -r 'to_entries[] | "- `\(.key)`: \(.value.result)"' \
+            | tee -a "$GITHUB_STEP_SUMMARY"
+          failed=$(echo "$RESULTS" | jq -r '
+            to_entries[]
+            | select(.value.result != "success" and .value.result != "skipped")
+            | .key')
+          if [ -n "$failed" ]; then
+            echo "::error::These CI jobs did not succeed: $(echo "$failed" | tr '\n' ' ')"
+            exit 1
+          fi

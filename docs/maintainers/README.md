@@ -1,13 +1,36 @@
 # Maintainer documentation
 
-Shared, versioned documentation for people maintaining Relay, the Playbook Media fork of OpenSEO. Put engineering decisions, development workflows, and useful maintenance notes here.
+Shared versioned documentation for maintaining the Playbook Media Relay codebase, an MIT-licensed derivative of OpenSEO. Do not store secrets, user-identifying data, private client evidence, or unreviewed provider credentials here.
 
-User-facing documentation belongs in the rest of `docs/` or `web/content/docs/`. This directory is not published to the documentation site, but its contents are tracked in the repository and must not contain secrets.
+## Read these first
 
-`review-guidelines.md` is the shared context for code reviewers, human and agent: hard invariants plus the false-positive controls that keep reviewers from flagging intentional behavior.
+| Purpose | Source |
+| --- | --- |
+| Current product vision and founder customer | [Relay vision](../../vision.md) |
+| Commercial thesis, pricing and buyer boundaries | [Company](../../company.md) |
+| Current engineering and staged investment priorities | [Growth Execution Roadmap](GROWTH-EXECUTION-ROADMAP.md) |
+| How Relay might support $100M+ ARR without assuming traction | [Acquisition Execution Scale Plan](ACQUISITION-EXECUTION-SCALE-PLAN.md) |
+| How to find paying founder-led software businesses economically | [Founder Acquisition & Distribution](FOUNDER-ACQUISITION-DISTRIBUTION.md) |
+| How existing RFCs relate to GitHub issues/milestones | [RFC Milestone Traceability](RFC-MILESTONE-TRACEABILITY.md) |
+| Historical RFC implementation specifications | [RFC index](rfcs/README.md) and [IRFC sequence](rfcs/implementation/README.md) |
+| Dated implementation baseline, not current production proof | [Release Assurance Audit](relay-release-assurance-audit.md) |
+| Safety and review invariants | [Review Guidelines](review-guidelines.md) and [AGENTS.md](../../AGENTS.md) |
+| Runtime and deployment notes | [Playbook Deployment](playbook-deployment.md) |
 
-Create documents when they will help future maintenance or when explicitly requested. Keep task status, PR review notes, and validation results in the PR description. Log repository friction in `.agents/PAPERCUTS.md`.
+**Elmo source and API integration:** [M20](https://github.com/PlaybookMediaLLC/relay/milestone/20) and the [Elmo Evidence Integration Plan](ELMO-EVIDENCE-INTEGRATION.md) cover deploying Elmo as a separate Node web/worker service, project-scoped read-only REST integration, a real `vendor/elmo` Git submodule, automated update PRs (not silent merges), reviewed upstream fork-sync and compatibility/rollback gates. M14 remains the customer-facing AI-search opportunity validation; M13 owns customer-approved GitHub changes. This is a planned workstream, **not** existing deployed integration.
 
-`playbook-deployment.md` describes the PlaybookMediaLLC fork deployment at `relay.playbookmedia.io`: Cloudflare resources, external dependencies, the deploy workflow and one-time setup.
+## Current engineering posture
 
-[The RFC delivery plan](rfcs/README.md) orders release assurance first, then organic growth expansion, with explicit dependencies and acceptance gates. RFC identifiers stay stable. The [current codebase audit](relay-release-assurance-audit.md) separates implemented capabilities from missing integration and customer validation. [Company](../../company.md) and [vision](../../vision.md) define the commercial thesis and north star.
+**Marketing execution:** [M19 — Founder Marketing & Qualified Distribution](https://github.com/PlaybookMediaLLC/relay/milestone/19) is tracked in the [Relay Marketing Plan](RELAY-MARKETING-PLAN.md). It owns message, channel, content and conversion experiments; M17 owns pricing, retention, CAC and company economics. Preserve the boundaries and truthful claims established in the [Founder Distribution Plan](FOUNDER-ACQUISITION-DISTRIBUTION.md).
+
+
+
+**M13** proves one real, founder-approved website acquisition improvement reaches production with an independently checked technical result. **M7 and M17** validate actual paying founder customers, repeat use, distribution, gross contribution and expansion economics. **M15 and M16** are the next recurring-work and qualified-outcome layers. **M18** is a conditional, permissioned channel handoff, not a general marketing automation mandate.
+
+The earlier Protect → generalized Product Reality Engine → Sync → Relay-owned Launch roadmap is preserved for technical reference. It is **not** the automatic sequence for new agents. The implementation index remains relevant only to an approved historical technical slice; keep its original acceptance and security requirements.
+
+Make the distinction between **implemented code**, **staging/test evidence**, **customer-authorized production acceptance**, **paid renewal**, and **observed acquisition benefit** explicit. A successful merged PR is not a production-verified change, and a traffic increase after a change is not a causal customer-acquisition claim. Never rebuild an implemented feature merely because a new milestone names the same domain.
+
+New backend work generally follows existing TanStack server functions → feature services → repositories with project/tenant scope, approval, cost admission, auditable operations and dual SQLite/Postgres parity. Prefer extending shipped components to creating additional infrastructure and repeated shared schemas. Refer to AGENTS.md and review-guidelines.md for code-level instructions.
+
+Keep bug fixes, PR review notes, test results and delivery evidence on their related GitHub PRs and issues. Record repository friction in `.agents/PAPERCUTS.md`. Source documents here can express an ambition, but only live evidence can establish that the product or business achieved it.

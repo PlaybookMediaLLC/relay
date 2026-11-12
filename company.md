@@ -1,142 +1,137 @@
 # Relay — company and commercial thesis
 
-**Company:** Playbook Media LLC
+**Company:** Playbook Media LLC  
+**Product:** [relay.playbookmedia.io](https://relay.playbookmedia.io)  
+**Repository:** [PlaybookMediaLLC/relay](https://github.com/PlaybookMediaLLC/relay)  
+**Category hypothesis:** Recurring customer-acquisition execution for founder-led software businesses, beginning with code-native website growth  
+**Strategy updated:** November 8, 2026
 
-**Product:** [relay.playbookmedia.io](https://relay.playbookmedia.io)
+## The company thesis
 
-**Repository:** [PlaybookMediaLLC/relay](https://github.com/PlaybookMediaLLC/relay)
+**Relay helps independent software founders run recurring customer-acquisition work: discover demand, choose and execute approved improvements, and distinguish completed work from qualified business outcomes.**
 
-**Category:** SaaS customer-facing operations
+The founder's problem is not a shortage of keyword reports, generated pages or marketing dashboards. It is that deciding *which* acquisition work matters, implementing it safely in the website they own, verifying what shipped and learning from the result usually spans several tools and takes scarce time.
 
-**Strategy updated:** October 27, 2026
+Relay should do more of that work without requiring a marketing department or replacing the founder's existing GitHub, analytics and publishing tools. Start with organic search, selected AI-search visibility observations, commercially important website pages and consented acquisition-conversion evidence.
 
-## Company north star
+**The paid job to test:** connect one credible search/acquisition opportunity to one founder-approved website change and an independently verified production result. Later click, trial and revenue movement is observed separately, without assigning causality to a single edit.
 
-**Relay keeps everything a SaaS business promises, publishes, and delivers aligned as its product changes.**
+Release assurance remains useful: for some founders, protecting existing organic traffic may be a more urgent paid job than acquiring new traffic. Test **Grow** and **Protect** against actual buyer behavior rather than preselecting Protect as the company's entire north star.
 
-Build the operating system for a software company's customer-facing operations. Relay should know what a company sells, what has actually shipped, which customers a capability or price applies to, what its website and teams promise, and what work each change creates. It then identifies affected surfaces, prepares precise corrections, secures approval, and verifies completion.
+See the authoritative [growth execution vision](vision.md) and [active milestone priorities](docs/maintainers/GROWTH-EXECUTION-ROADMAP.md).
 
-The unit of value is **one customer-facing change carried through to a verified outcome**. A dashboard, a draft, or a merged pull request is not enough. A repair must resolve the original production failure; a content update must be live at its intended destination; a launch packet must reflect what is actually available to its intended audience.
+## The scale ambition and its constraints
 
-**Protect → Sync → Launch** is the initial commercial progression. SEO intelligence remains an acquisition capability, not the boundary of the company. The broader system may eventually cover conversion and revenue integrity, product activation, support intelligence, sales enablement, API and partner materials, and ongoing growth work. Those extensions require their own commercial evidence.
+**Build a recurring customer-acquisition execution company capable of supporting $100M+ ARR, if actual customer demand and economics justify it.** That figure is a company-building ambition, not a forecast, price promise or current traction claim.
 
-This is the company's direction, not proof that the complete platform exists or that customers will pay for every proposed module.
+The existing site-research → reviewed GitHub change → production-check flow is the wedge. It cannot be the entire business if most accounts pay $29–$99/month, require manual founder intervention for every edit, and leave before the next useful workflow.
 
-## The recurring customer problem
+The larger job is a **paid acquisition program**: a founder-led software company entrusts Relay with a recurring process of diagnosing customer demand, selecting important growth work, preparing specific approved actions, checking delivery, and separately observing qualified customer behavior and financial results. This becomes more valuable as the founder's traffic, products, acquisition workload and need for reliable reporting increase.
 
-A product change creates more work than merging code. A new integration or pricing model can affect billing entitlements, landing pages, documentation, onboarding, support replies, sales materials, customer notices, and acquisition channels. Those systems have different owners and update cycles. The product may be correct while the company continues to make inaccurate promises.
+Four commercial tests determine whether to expand:
+- **Responsibility:** Are we replacing a recurring piece of customer-acquisition work customers currently pay for or perform themselves, rather than supplying another report?
+- **Retention:** Do customers return for useful weekly reviews and approved work, including quiet weeks, without manufactured edits or excessive human support?
+- **Contract expansion:** Will the same customer pay more as page groups, sites, conversions and approved destinations grow, with acceptable marginal costs?
+- **Outcome confidence:** Can a founder distinguish the technical work Relay finished from observed new qualified leads, signups, revenue and any defensible incremental gain?
 
-Consider an illustrative pricing change for _new US Business-plan customers_. Correcting the pricing page does not prove that checkout matches the offer, existing customers keep grandfathered terms, documentation lists the new limits, or sales briefs use the right eligibility rules. Relay's proposed responsibility is to establish those scoped facts, find affected claims and journeys, prepare authorized changes, and independently check their destinations.
+The account begins with an independent founder and may expand **with that founder's company**, without requiring enterprise procurement or a marketing department as the default onboarding model. Higher contracts are justified by more useful work and risk responsibility, not keyword limits or decorative team features.
 
-Most teams already own tools that solve individual parts of this work. Relay should coordinate the unfinished work _between_ them rather than replace analytics, billing, support, CRM, feature flags, or CI. The business only works if customers recognize the recurring costs of missed changes and will pay for verified completion.
+See [the acquisition execution scale plan](docs/maintainers/ACQUISITION-EXECUTION-SCALE-PLAN.md) for the proposed program contract, measurement definitions, illustrative ARR math and staged commercial gates.
 
-## Customer and first commercial scope
+## The first customer
 
-Start with developer-led B2B SaaS companies that release frequently, use GitHub-managed marketing websites, and have limited capacity to coordinate engineering, growth, product marketing, and support.
+An independent founder operating a software product, generally without dedicated SEO engineering, with authority over a GitHub-managed website and a real acquisition problem. The first supported safe-edit stack is Next.js. Research can support a founder with sparse Search Console data, but the product must report limitations and not invent traffic or conversion histories.
 
-- **Initial buyer:** Founder, technical growth lead, or engineering leader.
-- **Initial users:** Software engineers, growth marketers, and website operators.
-- **Initial stack:** Next.js websites on GitHub, with Search Console and GA4 where available. Supported static routes and literal metadata are the first repair targets.
-- **Expansion buyers:** Product operations, product marketing, support leadership, and customer success, once the corresponding workflow has proved valuable.
+Initially, the founder may be all three roles: economic buyer, reviewer and operator. Organizations with marketing departments and complex approval chains are possible later segments, not the design starting point. Agency portfolio operations require their own repeatable single-site economics.
 
-A Protect pilot starts with a small, agreed set of commercially important pages, an owner, a check cadence, and explicit permissions. Add signup, demo-booking, checkout, and conversion-tracking checks only where a bounded journey can be tested safely and verified. Unsupported code or changes outside an approved integration receive a finding or ticket.
+## Commercial jobs and differentiation
 
-Agencies and portfolios follow repeatable single-company delivery. The broader ambition must not turn a first pilot into a demand for access to every customer system.
+| Offer hypothesis | Customer trigger | Work the customer is paying to finish | Guardrail |
+| --- | --- | --- | --- |
+| **Grow** | Inbound demand exists but the founder cannot tell what site improvement to make, or cannot spare implementation time | Find commercially relevant opportunity, prepare a supported exact site edit, get approval, verify live state, track later observations | No ranking/revenue guarantee; do not manufacture a cause from before/after metrics |
+| **Protect** | A valuable acquisition page breaks after deployment or the founder needs reliable technical coverage | Scoped site checks, consequential incident, narrow approved repair, verified original-rule resolution | Only promise coverage/cadence that's observed and affordable; no fictitious protection from creating a project |
+| **AI-search experiment** | The founder has credible evidence that specific relevant AI answers/citations omit or misrepresent their product | Gather a repeatable observation and suggest evidence-backed on-site work within their control | An AI answer is volatile; no assured citation placement |
 
-## Three flagship offers
+OpenSEO, Ahrefs, Semrush and other SEO tools offer research; coding assistants can edit source. Relay must prove the extra value of using trustworthy opportunity signals, a narrow authorized change in the *customer's repository*, independent production checks and retained decision history. A GitHub PR button or more research metrics alone are not a defensible business.
 
-| Offer             | Work customers would pay for                                                                                                                                                                                      | Buyer                                             | Delivery and pricing status                                                                                             |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| **Relay Protect** | Monitor selected production pages, confirm harmful regressions, propose source-backed fixes, and verify that customer-deployed repairs work. Expand to signup, demo, checkout and tracking checks when validated. | Founder, technical growth or engineering leader   | **Initial paid entry.** Per protected site/month, priced and scoped with pilot customers; broader journeys are planned. |
-| **Relay Sync**    | Reconcile scoped, versioned product facts with pricing, feature, integration, marketing and documentation claims. Prepare approved corrections and verify publication.                                            | Product operations, marketing, support or founder | **Planned expansion.** $299–$999/month is a hypothesis, not a live plan.                                                |
-| **Relay Launch**  | Coordinate fact-backed website changes, docs, announcements, sales assets, owners and evidence of publication after a meaningful release.                                                                         | Product marketing, growth or founder              | **Planned expansion.** $399–$1,499/month is a hypothesis, not a live plan.                                              |
+## What is already built
 
-These are three offers using one shared operational model, not three separate sources of truth. Initial sales require bounded contracts: monitored pages and assets, check cadence, permissions, usage limits, support expectations, and named decision-makers. Do not sell unlimited agent execution or assume production automation is ready.
+The MIT-licensed [OpenSEO](https://github.com/every-app/open-seo) foundation and Relay additions contain keyword and competitor research, rank tracking, backlinks, AI visibility, site audits, Search Console and GA4, evidence-backed opportunities, investigations, narrow GitHub publishing, experiments, selected conversion/revenue signals, automated jobs, auditing, credits and spending limits, tenant controls, and a weekly work view.
 
-The hosted application currently has a free research tier with $1 in monthly credits and a $10/month Base Plan with $10 in monthly credits, plus top-ups. **These research plans are not paid Protect, Sync, or Launch subscriptions.**
+This is implementation evidence, **not** proof of complete growth execution on an external customer's deployment or commercial retention. Production regression baselines, incident-sourced repairs and independent original-rule verification have separate remaining Protect acceptance contracts. Some docs reflect historical decisions made before the November growth direction; preserve their requirements but do not treat every later RFC as an approved build order.
 
-## One shared product foundation
+Retain MIT attribution, reviewed upstream maintenance, supported Docker/Cloudflare hosting and dual SQLite/Postgres tests. Reuse existing services before introducing any new agent execution framework or generic connector platform.
 
-The planned **Product Reality Engine** provides a common model for Protect, Sync and Launch:
+## The recurring service we would sell
 
-1. **Observe:** ingest authenticated change events and production observations with source identity, version, scope, timestamps and collection health. A commit is not proof of deployment.
-2. **Establish facts:** record versioned prices, entitlements, feature availability, APIs, integrations, release cohorts, geographies and effective dates. Conflicting or missing evidence is explicit.
-3. **Determine impact:** link accepted facts to claims, assets, journeys and owners. An approximate text match isn't proof that a published statement is wrong.
-4. **Prepare and approve:** assemble the specific work, source revision, diff, permissions and review decision. Use existing GitHub approval and publishing controls before adding any new writer.
-5. **Execute, verify and learn:** distinguish prepared work, a merged PR, observed deployment, confirmed production resolution, and later business outcome. Record failed and inconclusive results as well as successful ones.
+A paid **acquisition program** has an approved product and intended buyer, a website or other authorized destination, defined conversion goal, monitored sources, named reviewer, allowed classes of work, cadence, provider budgets and independent destination checks.
 
-The intended lifecycle is **observe → establish facts → determine impact → prepare → approve → execute → verify → learn**. The review interface should expose real evidence and pending decisions; APIs, MCP tools, CI and connected software should apply the same tenant and permission rules. Agents can investigate and draft but do not inherit authority to publish, merge, charge, or send communications.
+The weekly customer experience is: review fresh evidence → select work that might improve qualified discovery or conversion → authorize a safe change → confirm where it landed → record later results or the reason they are not measurable. Some weeks legitimately produce no edits; a real, source-backed decision is more important than generating activity.
 
-Start with Git-backed changes, pricing and integration facts, and public content. Reuse existing authorization, docs indexing, GitHub publishing, measurement, jobs and spend controls. Integrate external analytics, billing, CRM, support and feature-flag providers rather than rebuilding them. Shots can supply visual materials for Launch when explicitly connected and authorized.
+An initial founder subscription may cover one site, limited reviews and supported website edits. As the company grows, a more substantial program could cover repeated prioritized work, commercially important page groups, safe acquisition-path protection, defined conversion tracking and greater review capacity. Advanced accounts could have multiple approved products/destinations and stronger operating commitments. The offering must be clearly bounded, with separate metering for paid data and expensive jobs.
 
-The [vision](vision.md) defines the long-term model, while the [numbered IRFC implementation queue](docs/maintainers/rfcs/implementation/README.md) defines the actual work order. Build the smallest customer-valuable slice of this architecture, not the entire schema before the first paid use.
+**Pricing is a test, not a deployed feature:** investigate $199–$499/month for a founder's initial program, $750–$2,500/month for a recurring growth program, and $3,000–$8,000+ only for demonstrably valuable higher-capacity founder-led accounts. All of those ranges may prove wrong. Do not assume that monthly enterprise-looking prices are attainable because a business is growing.
 
-## Current foundation and limits
+The company does not guarantee a particular ranking, lead count or revenue result. Its initial enforceable commitment is to provide the contracted review/work scope, respect permissions, and verify technical completion. Stronger commercial outcome claims require consented reliable measurements and appropriate comparison designs.
 
-Relay is an independent MIT-licensed repository derived from [OpenSEO](https://github.com/every-app/open-seo), outside its GitHub fork network. Retain the license and attribution, reusable research services, tenant isolation, dual SQLite/Postgres support, exact-change approvals, spending controls, and audit records.
+## Product and portfolio boundaries
 
-The repository includes SEO research, audits, Search Console and GA4 integrations, opportunities, investigations, reviewed GitHub publishing, documentation indexing, experiments, CI checks, accessibility and performance workflows, Stripe attribution, scheduling, and a weekly work view.
+- **Relay:** website acquisition research, priority selection, narrow source-controlled SEO/landing-page improvements, important technical-page protection, observational measurement and learning.
+- **Shots:** visual production, brand assets, product screenshots, release-communication kits, social/media distribution, and downstream campaign materials. It owns the full release-readiness/launch-product motion.
+- **Verify and Warmbly:** contact discovery/validation and outbound campaign execution, subject to their own product boundaries and consent requirements.
+- **Playbook Operator:** potential cross-product workflow coordination for independent founders. Relay should supply secure, bounded operations rather than evolve into a general-purpose agent supervisor.
 
-The [October 23 codebase audit](docs/maintainers/relay-release-assurance-audit.md) recorded remaining integration and acceptance work: durable known-good production snapshots, confirmed regressions, incident-sourced repairs, proposal-bound checks, production verification of the original failure, and a validated paid service. Recheck these gaps against the latest `develop` revision during implementation; an audit is a dated baseline, not an eternal assertion. Full revenue-critical journey protection, cross-system facts and impact analysis, Sync and coordinated Launch are proposed, not shipped.
+Shared source facts can be exchanged through authorized, versioned interfaces if a paid workflow requires it. Don't build two competing release-intelligence and launch systems merely because both products connect to GitHub.
 
-Closed RFCs, source code, and smoke tests are engineering evidence. They do not prove paying customers, complete production coverage, reliable renewals, or causal revenue gains.
+## Pilot: find a repeat paid job
 
-GitHub detachment did not disable the existing upstream-sync workflow. Review incoming improvements and security fixes while allowing Relay's operational model to evolve independently. Separate core operational services from SEO-specific components when the product-fact model and change lifecycle require it; do not make a large service split a prerequisite for a pilot.
+Test the two paid wedges among actual founders. A practical first program, with durations counted from the day it starts rather than from this document:
 
-## One numbered execution plan
+1. Reconstruct real recent website/acquisition decisions with qualified founders; record current tools, developer time, budget and permissions. Pursue a small group of paid/restricted pilots.
+2. For Grow, demonstrate an evidence-backed existing-page opportunity → founder-approved exact diff → customer merge/deploy → verified live page → honest follow-up measurement. Run the same workflow on Playbook properties as engineering rehearsal, not as customer traction.
+3. For Protect, validate scope, cadence, false-alert rate and a production-verified repair on authorized properties where owners actually recognize the need.
+4. Measure paid acceptance, repeat use, renewals when due, reviewer labor, setup burden, support expense, provider/AI cost, observed acquisition data, and reasons prospects decline.
+5. Choose to continue, narrow, reposition or stop based on payments and repeat completion. Do not promote unrelated RFCs because they are easy to implement.
 
-Engineers and coding agents should start at the [implementation index: IRFC-0001–0032](docs/maintainers/rfcs/implementation/README.md). Each IRFC names the exact technical slice, the original detailed RFC, its prerequisites, required acceptance evidence, and what is deferred. Original RFC-0001–0046 numbers remain stable historical design references; completed scopes are not to be implemented again.
+Research-only $10/month Base Plan usage and metered credits remain a separate existing offer; they are not evidence of a viable Grow or Protect subscription. New pricing and entitlement rules require their own paid pilot and usage-cost work.
 
-| Implementation order | Milestone                                                                                                                                      | Investment gate                                                                                                               |
-| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| **IRFC-0001–0007**   | Protect: paid pilot, monitored pages, confirmed incidents, reviewed source repairs, previews, production verification and recurring reporting. | Actual payments and working customer-owned repair outcomes, with manageable cost and reliable coverage.                       |
-| **IRFC-0009–0019**   | Product Reality Engine's minimum useful slice and Relay Sync: accepted facts → affected claims → authorized corrections → verified results.    | A buyer repeatedly pays for an accurately detected, corrected and independently verified inconsistency.                       |
-| **IRFC-0020–0022**   | Customer-created page launch checks, approved Relay Launch packets and selective read-only API/MCP access.                                     | Repeated releases coordinated and used by customers; no assumption that read-only integrations require a new platform.        |
-| **IRFC-0023–0032**   | Broader growth, journeys, revenue integrity, support, sales, delegated authority and sandboxes.                                                | Demand, safety and cost gates for each optional workflow. Skip or defer failures rather than manufacture implementation work. |
+## Proving our own customer acquisition economics
 
-**Sequence is about proven customer outcomes, not the number of implemented RFCs.** Discovery can happen in parallel; a paid validation failure should change the investment decision. Coding agents should inspect the current branch before each item, reuse existing code and preserve human approval and independent production verification.
+Relay's own distribution needs a customer-acquisition discipline as concrete as the one it promises buyers. The initial hypotheses are developer utility distribution through [Relay SEO Check](https://github.com/PlaybookMediaLLC/relay-seo-check), real founder case studies with permission and verified outcomes, and targeted problem-led founder discovery. None should be presented as a proven self-serve sales channel.
 
-## First experiment: three companies, five changes each
+The commercial sequence is **qualified founder → real website evidence and first useful review → approved change or justified no-action → bounded paid Grow/Protect program → meaningful second decision cycle → renewal and expansion**. Small free research subscriptions, website traffic and GitHub installs are not paying-program conversions. Compare self-serve and manually assisted acquisition independently.
 
-Recruit **three developer-led SaaS companies** with frequent releases. Examine Protect, Sync, and Launch as three related paid workflows:
+Track paid cohort revenue, gross and net retention, upgrades, CAC by actual channel, and payback on **monthly gross-profit contribution**, including provider/model/verification and routine support cost. Attribute acquisition-specific founder or staff time to CAC rather than treating it as free. Show sample sizes and actual dollars for young cohorts. More channels do not solve poor retention or negative contribution.
 
-1. Reconstruct each company's last five meaningful product changes.
-2. Record what needed updating outside the product, what actually changed, what was missed, who corrected it, and how long that took.
-3. Prepare a read-only change-impact report using authorized GitHub and website evidence. Add billing-plan configuration or documentation repositories only with permission.
-4. Agree a bounded recurring review-and-correction service, with named reviewers, exact-change approvals, and destination checks.
-5. Record actual payments, repeated use, approved corrections, completion evidence, costs, and reasons for refusal.
+[The distribution test plan](docs/maintainers/FOUNDER-ACQUISITION-DISTRIBUTION.md) owns this question alongside the [company scale plan](docs/maintainers/ACQUISITION-EXECUTION-SCALE-PLAN.md). Its GitHub owner is [M17](https://github.com/PlaybookMediaLLC/relay/milestone/17), specifically [issue #280](https://github.com/PlaybookMediaLLC/relay/issues/280). Do not increase acquisition spending merely because the illustrative $100M ARR arithmetic works.
 
-The purchase question is whether the buyer pays Relay to own recurring review and correction. Interest in a useful report alone is insufficient. Assisted delivery is acceptable when disclosed.
+## What we count
 
-## First 90 days of Protect validation
+**Proposed product north star:** **weekly paying acquisition programs with a completed, evidence-backed decision cycle**. A program qualifies once per week when source coverage is usable and an authorized reviewer makes or progresses a meaningful acquisition decision or accepts a justified no-action result. A cron run or generated report alone does not qualify.
 
-These periods begin when the program starts. They are targets, not achieved results or calendar commitments. Broader workflow discovery can run alongside this first product.
+**Delivery companion:** monthly paying workspaces with at least one independently production-verified acquisition-related website change. Never reward arbitrary edits merely to satisfy the count.
 
-| Period     | Work                                                                                                     | Required evidence                                                                                                                                |
-| ---------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Days 1–14  | Interview 15–20 qualified buyers and operators; run the five-change reconstruction with three companies. | Target three restricted-access paid pilots; distinguish commitments from payments and record refusals.                                           |
-| Days 15–30 | Agree important pages, coverage, response ownership, and review permissions.                             | Reproducible findings, visible monitoring health, and a usable approval workflow.                                                                |
-| Days 31–60 | Complete reviewed repairs through customers' release processes.                                          | Target two approved, deployed, production-verified repairs across separate organizations; measure false alerts, delay, cost, and support effort. |
-| Days 61–90 | Test repeatability and renewal.                                                                          | Paying-website target (set privately); record renewals when due and assess acquisition cost and gross margin.                                    |
+Maintain four distinct evidence layers:
 
-If customers will not authorize the necessary workflow or pay for recurring protection, revisit the thesis before expanding. A larger collection of generated content or modules does not resolve a failed validation test.
+| Layer | What is observable | What it does not prove |
+| --- | --- | --- |
+| **Work completed** | Exact approved source change, merged PR, fresh independent production postcondition | Qualified visitors or revenue |
+| **Discovery/exposure** | Search impressions/clicks, sampled AI visibility, permissioned site sessions | A purchase or causal benefit from this edit |
+| **Qualified behavior** | Defined demo, trial, signup, activation or other consented downstream event | That every event was tracked or was caused by Relay |
+| **Economic result** | Paid customer or qualified pipeline from an authorized and correctly defined source | Incremental business value without an adequate comparison |
 
-Start distribution through useful checks in the [Relay SEO Check GitHub Action](https://github.com/PlaybookMediaLLC/relay-seo-check), founder-led outreach, and software-engineering communities. Publish customer case studies only with permission and supporting evidence.
+All outcomes include provenance, observation window, uncertainty, provider and consent coverage. First-touch attribution is useful as a convention but is not proof of incrementality.
 
-## How we measure progress
+Financial discipline matters as much as product usage: report paid programs, ARR, ARPA/ACV, gross and net revenue retention, expansion/contraction, real renewal and cancellation, total provider and routine support costs, contribution/gross margin, customer acquisition expense and payback. When cohorts are small report actual account and dollar counts, not just impressive retention percentages.
 
-The company metric to validate is **weekly paying businesses with verified coverage or completed customer-facing work**, defined in [vision.md](vision.md). During Protect validation, retain the narrower operational measure of weekly active protected paying websites.
+A $100M ARR company could arithmetically mean 10,000 accounts around $833 MRR, or 5,000 around $1,667 MRR. Those are illustrative calculations, **not a customer forecast** or evidence that founders will pay that amount. Reaching scale requires durable recurring demand and efficient distribution as well as product capability.
 
-Track coverage freshness, actionable-alert precision, missed seeded regressions, verified contradictions, accepted corrections, production-verified resolutions, time to completion, approval effort, repeat launches, and unresolved or blocked work. Pair these with payment, renewal, revenue per customer, acquisition cost, service spending, support time, and gross margin.
+## Execution policy
 
-Keep a verified correction separate from its commercial effect. Adoption, conversion, and revenue observations require appropriate data and measurement windows. Before/after movement alone does not establish causation.
+The current engineering entry milestone is [M13, first founder growth win](https://github.com/PlaybookMediaLLC/relay/milestone/13). It is a technical proof point, **not** the finished business. M7 runs paid buyer discovery in parallel. M15 tests weekly recurring execution; M16 establishes credible qualified acquisition and outcome reporting; M17 tests materially higher contract value, retention and unit economics; and M18 is a demand-gated channel expansion. M1–M3, M5, M9, M10 and M14 remain reusable specialized work rather than parallel companies.
 
-Quiet weeks are valid: report what was checked and whether coverage held. Never manufacture work to justify a subscription.
+**Not an automatic roadmap:** the earlier Protect → Product Reality Engine → Sync → Launch progression was documented in the October 25–28 strategy. Its 46 source RFCs and 31 implementation issue records remain available as engineering specifications, but broad PRE/Sync and Relay-owned Launch work are on hold pending a separate founder value and paid-demand case. [RFC milestone compatibility](docs/maintainers/RFC-MILESTONE-TRACEABILITY.md) records the mapping; the [growth execution roadmap](docs/maintainers/GROWTH-EXECUTION-ROADMAP.md) decides what to do now.
 
-## Competitive hypothesis and business scale
+Every new action preserves explicit project/tenant authorization, exact source revisions, necessary human approval, safe preview and CI constraints, independent destination checks, privacy and bounded provider cost. Agents can propose work but cannot silently publish or merge.
 
-Documentation maintenance, product analytics, adoption, launch communications, monitoring, and agent-assisted fixes are established areas. Relay's hypothesis is that important work still falls between independent systems.
-
-The proposed advantage is precise source-to-claim mapping, dependable integrations, explicit authority, verified completion, and accumulated customer-specific decisions. Incumbents can pursue the same work. Relay must prove that it completes these workflows more reliably and with less setup than customers' existing combination of tools.
-
-Expansion economics depend on proven per-workflow willingness to pay, customer acquisition cost, provider and compute expenses, human support time, renewal, and whether multiple departments truly adopt the same evidence and execution system. Revenue scenarios should be modeled from observed customer segments and pricing tests rather than presented as a market forecast.
+The question that decides each expansion is: **Which acquisition job does the customer repeatedly need completed, why is Relay trusted to finish it, what reliable evidence shows the result, and why will they pay more or stay longer as the work grows?**
