@@ -56,3 +56,5 @@ dist/
 
 # code-review-graph database (built per session)
 .code-review-graph/
+# built by `stripe apps upload`
+deploy/stripe-app/.build/

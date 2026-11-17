@@ -4,7 +4,7 @@
   "sideEffects": [
     "./src/standalone-server.ts"
   ],
-  "version": "0.1.24",
+  "version": "0.1.28",
   "type": "module",
   "packageManager": "pnpm@10.34.8",
   "scripts": {
@@ -101,7 +101,7 @@
     "@better-auth/api-key": "1.7.11",
     "@cloudflare/think": "0.19.0",
     "@cloudflare/workers-oauth-provider": "^1.2.3",
-    "@every-app/sdk": "0.3.0-rc.14",
+    "@every-app/sdk": "0.3.0",
     "@fontsource-variable/geist": "^5.3.0",
     "@fontsource-variable/geist-mono": "^5.3.0",
     "@fontsource-variable/inter": "^5.3.0",
@@ -126,6 +126,7 @@
     "class-variance-authority": "^0.7.1",
     "cloudflare": "^5.2.0",
     "cn": "^0.3.0",
+    "country-flag-icons": "^1.6.20",
     "drizzle-orm": "^0.45.2",
     "fast-xml-parser": "^5.4.1",
     "fumadocs-core": "^16.16.2",
@@ -189,7 +190,7 @@
     "cheerio": "^1.2.0",
     "drizzle-kit": "^0.31.10",
     "effect": "4.0.0-beta.93",
-    "everyapp": "0.3.0-rc.14",
+    "everyapp": "0.3.0",
     "knip": "^5.88.1",
     "oxlint": "^1.50.0",
     "oxlint-tsgolint": "^0.15.0",

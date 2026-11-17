@@ -113,6 +113,8 @@ overrides:
   "body-parser@2": "^2.4.0"
   browserslist: "^4.28.7"
   baseline-browser-mapping: "^2.11.0"
+  # GHSA-9qw7-j9xw-fv9c — waiting on @cloudflare/shell (via @cloudflare/think).
+  "isomorphic-git@1": "^1.38.6"
   # GHSA-qr28-fpjm-wq7f — autumn-js uses query-string 9, which supports the
   # patched ESM decoder.
   "query-string>decode-uri-component": "^0.5.1"
@@ -127,6 +129,14 @@ overrides:
 # that actually succeeded. Fixed upstream in 1.0.0-rc; drop on upgrade.
 patchedDependencies:
   "@distilled.cloud/cloudflare@0.28.2": patches/@distilled.cloud__cloudflare@0.28.2.patch
+  # Two independent fixes in one file (pnpm allows one patch per version):
+  # - Workers/WorkerProvider.js: the custom-domain zone lookup read only the
+  #   first page (20 zones), so a CUSTOM_DOMAIN on a larger account failed with
+  #   "Could not infer Cloudflare Zone". It now reads every page; send upstream.
+  # - Access/Application.{js,d.ts}: backports 2.0.0-beta.68's
+  #   `oauthConfiguration` (Managed OAuth) prop, so deploys stop turning
+  #   Managed OAuth off. Already upstream; drop this part on upgrade.
+  "alchemy@2.0.0-beta.61": patches/alchemy@2.0.0-beta.61.patch
 
 # Build scripts pnpm may run on install; it skips every other package's and
 # warns "Ignored build scripts". esbuild and workerd fetch their binaries.

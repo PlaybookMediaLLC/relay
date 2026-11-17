@@ -16,6 +16,7 @@ import { requireOrgPermission } from "@/server/auth/org-gate";
 import { captureServerEvent } from "@/server/lib/posthog";
 import { markOnboardingMilestone } from "@/server/email/onboarding-drip";
 import { getPublicOrigin } from "@/server/mcp/public-origin";
+import { captureMetaSetupStep, MetaSetupEvent } from "@/server/referrals/meta";
 import {
   requireAuthenticatedContext,
   requireProjectContext,
@@ -113,6 +114,11 @@ export const setGscSite = createServerFn({ method: "POST" })
     });
     await auditAfter(context, "integration.gsc_connected"); // playbook-seam
     await markOnboardingMilestone(context, "gscConnected");
+    await captureMetaSetupStep(
+      MetaSetupEvent.SearchConsoleConnected,
+      context.organizationId,
+      getRequest(),
+    );
     waitUntil(
       captureServerEvent({
         distinctId: context.userId,

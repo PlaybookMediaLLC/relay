@@ -73,11 +73,6 @@ async function site(gscSiteUrl: string | null = "sc-domain:example.com") {
     sql: "INSERT INTO projects (id, organization_id, name, domain) VALUES (?, ?, 'Acme', 'example.com')",
     args: [projectId, organizationId],
   });
-  if (gscSiteUrl)
-    await database.client.execute({
-      sql: "INSERT INTO gsc_connections (id, project_id, site_url, organization_id, connected_by_user_id) VALUES (?, ?, ?, ?, 'test')",
-      args: [projectId, projectId, gscSiteUrl, organizationId],
-    });
   const join = async (role: string | null): Promise<Context> => {
     const userId = crypto.randomUUID();
     userIds.push(userId);
@@ -105,9 +100,16 @@ async function site(gscSiteUrl: string | null = "sc-domain:example.com") {
       project: { id: projectId, name: "Acme", domain: "example.com" },
     };
   };
+  const owner = await join("owner");
+  // A connection counts only while its connector is a member (connectorIsMember).
+  if (gscSiteUrl)
+    await database.client.execute({
+      sql: "INSERT INTO gsc_connections (id, project_id, site_url, organization_id, connected_by_user_id) VALUES (?, ?, ?, ?, ?)",
+      args: [projectId, projectId, gscSiteUrl, organizationId, owner.userId],
+    });
   return {
     projectId,
-    owner: await join("owner"),
+    owner,
     admin: await join("admin"),
     member: await join("member"),
     join,

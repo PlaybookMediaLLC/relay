@@ -1,5 +1,9 @@
 import { queryOptions, useMutation, useQuery } from "@tanstack/react-query";
-import { DownloadSimpleIcon as Download } from "@phosphor-icons/react";
+import {
+  DownloadSimpleIcon as Download,
+  ReceiptIcon as ReceiptText,
+} from "@phosphor-icons/react";
+import { EmptyState } from "@/client/components/EmptyState";
 import { QueryError } from "@/client/components/QueryState";
 import { buttonVariants } from "@/client/components/ui/button";
 import {
@@ -139,7 +143,14 @@ function InvoiceTable() {
   const { invoices, hasMore } = invoicesQuery.data;
 
   if (invoices.length === 0) {
-    return <p className="text-sm text-muted-foreground">No invoices yet.</p>;
+    return (
+      <EmptyState
+        variant="plain"
+        icon={ReceiptText}
+        title="No invoices yet"
+        description="Invoices for your plan and credit purchases show up here."
+      />
+    );
   }
 
   return (

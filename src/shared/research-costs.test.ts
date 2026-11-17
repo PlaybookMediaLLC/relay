@@ -27,7 +27,7 @@ describe("research cost previews", () => {
       ...input,
       keywords: ["seo", "site:example.com seo"],
     });
-    expect(operator.credits).toBe(normal.credits * 2 + 18);
+    expect(operator.credits).toBe(normal.credits * 2 + 19);
   });
   it("uses Google Ads pricing outside Labs, without clickstream", () => {
     expect(

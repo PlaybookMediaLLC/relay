@@ -5,6 +5,7 @@ import {
   ListIcon as List,
   PencilSimpleIcon as Pencil,
   PlayIcon as Play,
+  GridNineIcon as Grid3x3,
 } from "@phosphor-icons/react";
 import { getLocalTracker, startLocalCheck } from "@/serverFunctions/local-seo";
 import { QueryError, QueryState } from "@/client/components/QueryState";
@@ -19,6 +20,7 @@ import {
   localAreaLabel,
   LocalScanStatus,
 } from "@/shared/local-seo";
+import { LocalAreaDialog } from "./LocalAreaDialog";
 import { LocalKeywordMap } from "./LocalKeywordMap";
 import { LocalKeywordsDialog } from "./LocalKeywordsDialog";
 import { LocalKeywordsTable, latestKeywordScan } from "./LocalKeywordsTable";
@@ -83,6 +85,7 @@ function TrackerContent({
   const queryClient = useQueryClient();
   const [confirm, setConfirm] = useState<string | null>(null);
   const [managingKeywords, setManagingKeywords] = useState(false);
+  const [changingArea, setChangingArea] = useState(false);
   const keyword =
     keywords.find((row) => row.id === search.keyword) ?? keywords[0];
   const latestScan = keyword && latestKeywordScan(scans, keyword.id);
@@ -133,6 +136,15 @@ function TrackerContent({
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
+            <Button
+              size="sm"
+              variant="outline"
+              disabled={Boolean(active)}
+              onClick={() => setChangingArea(true)}
+            >
+              <Grid3x3 data-icon="inline-start" />
+              Change area
+            </Button>
             <Button
               size="sm"
               variant="outline"
@@ -251,6 +263,13 @@ function TrackerContent({
           trackerId={tracker.id}
           keywords={keywords}
           onClose={() => setManagingKeywords(false)}
+        />
+      )}
+      {changingArea && (
+        <LocalAreaDialog
+          projectId={projectId}
+          tracker={tracker}
+          onClose={() => setChangingArea(false)}
         />
       )}
       {confirm && (

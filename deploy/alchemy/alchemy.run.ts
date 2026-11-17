@@ -156,11 +156,29 @@ const optionalVar = (name: string) =>
     Config.map((value) => value.trim()),
   );
 
+/**
+ * A self-host's own hostname (seo.example.com), in a zone on this account. The
+ * Worker must list it, or each deploy detaches it. In Cloudflare Access mode
+ * the deploy-created Access application protects it too. Hosted prod serves
+ * its fixed domains instead.
+ */
+const readCustomDomain = (prod: boolean) =>
+  Effect.gen(function* () {
+    if (prod) return "";
+    const domain = yield* optionalVar("CUSTOM_DOMAIN");
+    if (domain && !/^[a-z0-9.-]+$/i.test(domain)) {
+      return yield* Effect.die(
+        new Error("CUSTOM_DOMAIN must be a bare hostname (seo.example.com)."),
+      );
+    }
+    return domain;
+  });
+
 const optionalSecret = (name: string) =>
   Config.redacted(name).pipe(Config.withDefault(Redacted.make("")));
 
 const accessScopeHint =
-  " (if this is a permissions error, re-run `pnpm alchemy login --configure`, answer yes to “Customize OAuth scopes?”, and select access:write alongside the defaults)";
+  " (if this is a permissions error, re-run `pnpm alchemy login deploy/alchemy/alchemy.run.ts --configure`, answer yes to “Customize OAuth scopes?”, and select access:write alongside the defaults)";
 
 /**
  * The account's workers.dev subdomain (`<name>.workers.dev`): the configured
@@ -223,7 +241,11 @@ const resolveSelfHostAccess = (
         Effect.catch((error) =>
           Effect.die(
             new Error(
-              `Could not read the Zero Trust organization: ${String(error)}${accessScopeHint}`,
+              // A 403 access.api.error.not_enabled means Zero Trust was never
+              // turned on for the account, not a missing login scope.
+              String(error).includes("not_enabled")
+                ? "Zero Trust isn't enabled on this Cloudflare account yet. Open https://one.dash.cloudflare.com once and pick the Free plan (Cloudflare creates the team for you), then redeploy."
+                : `Could not read the Zero Trust organization: ${String(error)}${accessScopeHint}`,
             ),
           ),
         ),
@@ -267,6 +289,7 @@ const resolveSelfHostAccess = (
         // is disabled below), so the gate must cover exactly that hostname.
         domain: customDomain || `${workerName(stage)}.${subdomain}`,
         emails: allowedEmails,
+        managedOAuth: true,
       });
       policyAud = application.aud;
     }
@@ -291,6 +314,9 @@ const dataEnv = {
   GOOGLE_CLIENT_ID: optionalVar("GOOGLE_CLIENT_ID"),
   GOOGLE_CLIENT_SECRET: optionalSecret("GOOGLE_CLIENT_SECRET"),
   GOOGLE_MAPS_API_KEY: optionalSecret("GOOGLE_MAPS_API_KEY"),
+  // Sign in with ChatGPT (hosted only). Unset = no button.
+  OPENAI_SIWC_CLIENT_ID: optionalVar("OPENAI_SIWC_CLIENT_ID"),
+  OPENAI_SIWC_CLIENT_SECRET: optionalSecret("OPENAI_SIWC_CLIENT_SECRET"),
   OPENROUTER_API_KEY: optionalSecret("OPENROUTER_API_KEY"),
   OPENROUTER_BASE_URL: optionalVar("OPENROUTER_BASE_URL"),
   OPENROUTER_MODEL: optionalVar("OPENROUTER_MODEL"),
@@ -298,6 +324,9 @@ const dataEnv = {
   AUTUMN_SECRET_KEY: optionalSecret("AUTUMN_SECRET_KEY"),
   AUTUMN_WEBHOOK_SECRET: optionalSecret("AUTUMN_WEBHOOK_SECRET"),
   DUB_API_KEY: optionalSecret("DUB_API_KEY"),
+  STRIPE_PROJECTS_SIGNING_SECRET: optionalSecret(
+    "STRIPE_PROJECTS_SIGNING_SECRET",
+  ),
   META_PIXEL_ID: optionalVar("META_PIXEL_ID"),
   META_CONVERSIONS_API_TOKEN: optionalSecret("META_CONVERSIONS_API_TOKEN"),
   LOOPS_API_KEY: optionalSecret("LOOPS_API_KEY"),
@@ -323,6 +352,12 @@ const dataEnv = {
   ),
   TURNSTILE_SECRET_KEY: optionalSecret("TURNSTILE_SECRET_KEY"),
   TURNSTILE_SITE_KEY: optionalVar("TURNSTILE_SITE_KEY"),
+  // Trustpilot review invitations (src/server/trustpilot). Unset = inert.
+  TRUSTPILOT_API_KEY: optionalSecret("TRUSTPILOT_API_KEY"),
+  TRUSTPILOT_API_SECRET: optionalSecret("TRUSTPILOT_API_SECRET"),
+  TRUSTPILOT_BUSINESS_UNIT_ID: optionalVar("TRUSTPILOT_BUSINESS_UNIT_ID"),
+  TRUSTPILOT_BUSINESS_USER_ID: optionalVar("TRUSTPILOT_BUSINESS_USER_ID"),
+  TRUSTPILOT_TEMPLATE_ID: optionalVar("TRUSTPILOT_TEMPLATE_ID"),
   // Alchemy reconciles worker vars and secrets on every deploy, so every value
   // must come from the env file / GitHub environment — a dashboard-set one
   // would be wiped.
@@ -364,14 +399,7 @@ export default Alchemy.Stack(
     const workersSubdomain = yield* readWorkersSubdomain({ required: false });
     // Optional custom hostname for a non-prod stage (e.g. a team deployment on
     // its own zone). The zone must already exist in the Cloudflare account.
-    const customDomain = (yield* optionalVar("CUSTOM_DOMAIN")).toLowerCase();
-    if (customDomain && !/^[a-z0-9-]+(\.[a-z0-9-]+)+$/.test(customDomain)) {
-      return yield* Effect.die(
-        new Error(
-          "CUSTOM_DOMAIN must be a bare hostname like seo.example.com.",
-        ),
-      );
-    }
+    const customDomain = (yield* readCustomDomain(prod)).toLowerCase();
 
     // Auth needs an absolute BETTER_AUTH_URL. Prod sets it explicitly;
     // previews always derive it from the deterministic worker name — a wrong
@@ -454,9 +482,14 @@ export default Alchemy.Stack(
         flags: wrangler.compatibility_flags,
       },
       // Audit workflow steps parse and persist batches of HTML — the same
-      // CPU allowance the app worker used to carry for them. Configurable
-      // CPU limits are a paid-plan feature (see selfHostPlan).
-      ...(selfHostPlan ? {} : { limits: { cpuMs: 300_000 } }),
+      // CPU allowance the app worker used to carry for them. A workflow run
+      // shares one subrequest budget across its steps, and a 10,000-page
+      // audit spent the 10,000 default before its Lighthouse and billing
+      // calls. Configurable limits are a paid-plan feature (see
+      // selfHostPlan).
+      ...(selfHostPlan
+        ? {}
+        : { limits: { cpuMs: 300_000, subrequests: 200_000 } }),
       // playbook-seam: Axiom export (deploy/alchemy/relay-env.ts)
       observability: yield* relayObservability({
         enabled: wrangler.observability?.enabled ?? true,
@@ -577,11 +610,29 @@ export default Alchemy.Stack(
         }),
         ...relayBindings(), // playbook-seam: RFC-0009 paid action rate limit
 
-        // Per-IP throttle for email sign-in (see src/routes/api/auth/$.ts).
-        // Generous enough that no real person or shared office IP hits it.
+        // Throttle for password sign-in and the reset and verification
+        // emails, per IP and per email address (see
+        // src/server/auth/auth-rate-limit.ts). Generous enough that no real
+        // person or shared office IP hits it.
         AUTH_RATE_LIMIT: Cloudflare.RateLimit("AUTH_RATE_LIMIT", {
           namespaceId: 1002,
           simple: { limit: 20, period: 60 },
+        }),
+
+        // Per-organization throttle on saving keywords (see
+        // src/server/features/keywords/services/research/saved-keywords.ts).
+        // One call per 50 keywords: 60 a minute is 3,000 keywords a minute.
+        SAVE_KEYWORDS_RATE_LIMIT: Cloudflare.RateLimit(
+          "SAVE_KEYWORDS_RATE_LIMIT",
+          { namespaceId: 1003, simple: { limit: 60, period: 60 } },
+        ),
+
+        // Per-IP throttle on the reports browsers post about the report-only
+        // Content-Security-Policy (see src/server/lib/csp.ts). A page that
+        // trips the policy sends a handful at once.
+        CSP_REPORT_RATE_LIMIT: Cloudflare.RateLimit("CSP_REPORT_RATE_LIMIT", {
+          namespaceId: 1004,
+          simple: { limit: 30, period: 60 },
         }),
 
         // Durable Objects (the chat agents; the audit scratchpad lives

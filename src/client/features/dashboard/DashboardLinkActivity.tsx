@@ -10,10 +10,12 @@ import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { LinkIcon as Link2 } from "@phosphor-icons/react";
 import { CardShell } from "@/client/components/CardShell";
+import { EmptyState } from "@/client/components/EmptyState";
+import { Button } from "@/client/components/ui/button";
 import { QueryState } from "@/client/components/QueryState";
 import { getDashboardLinkActivity } from "@/serverFunctions/dashboard";
 import { DashboardInfo, ExternalPage, Freshness } from "./siteTabParts";
-import { moreDetailsClass } from "./cardParts";
+import { cardTableClass, moreDetailsClass } from "./cardParts";
 export function DashboardLinkActivity({
   projectId,
   domain,
@@ -30,6 +32,7 @@ export function DashboardLinkActivity({
   return (
     <CardShell
       title="New backlinks"
+      icon={<Link2 className="size-5" />}
       titleInfo={
         <DashboardInfo label="About new links">
           <p>
@@ -47,6 +50,7 @@ export function DashboardLinkActivity({
           params={{ projectId }}
           search={{ tab: "backlinks" }}
           className={moreDetailsClass}
+          aria-label="View all new backlinks"
         >
           View all →
         </Link>
@@ -57,7 +61,7 @@ export function DashboardLinkActivity({
           <>
             <Freshness {...data} />
             {data.value.length ? (
-              <Table>
+              <Table className={cardTableClass}>
                 <TableHeader>
                   <TableRow>
                     <TableHead>Referring domain</TableHead>
@@ -81,7 +85,7 @@ export function DashboardLinkActivity({
                 </TableBody>
               </Table>
             ) : data.links.length ? (
-              <Table>
+              <Table className={cardTableClass}>
                 <TableHeader>
                   <TableRow>
                     <TableHead>Referring page</TableHead>
@@ -108,21 +112,27 @@ export function DashboardLinkActivity({
                 </TableBody>
               </Table>
             ) : (
-              <div className="flex flex-1 flex-col items-center justify-center gap-3 py-8 text-center">
-                <Link2 className="size-7 text-muted-foreground" />
-                <h3 className="font-medium">No new links this week</h3>
-                <p className="text-sm text-muted-foreground">
-                  Explore the sites already linking to you.
-                </p>
-                <Link
-                  to="/p/$projectId"
-                  params={{ projectId }}
-                  search={{ tab: "backlinks" }}
-                  className="text-sm text-primary hover:underline"
-                >
-                  View backlinks →
-                </Link>
-              </div>
+              <EmptyState
+                variant="plain"
+                icon={Link2}
+                title="No new links this week"
+                description="Explore the sites already linking to you."
+                action={
+                  <Button
+                    variant="outline"
+                    nativeButton={false}
+                    render={
+                      <Link
+                        to="/p/$projectId"
+                        params={{ projectId }}
+                        search={{ tab: "backlinks" }}
+                      />
+                    }
+                  >
+                    View backlinks
+                  </Button>
+                }
+              />
             )}
           </>
         )}

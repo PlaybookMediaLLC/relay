@@ -11,6 +11,7 @@ import {
 // The project context tools carry brand terms through playbook-seam lines.
 const mocks = vi.hoisted(() => ({
   getProjectForOrganization: vi.fn(),
+  getBrandName: vi.fn(),
   listSections: vi.fn(),
   listCompetitors: vi.fn(),
   listKeyPages: vi.fn(),
@@ -40,6 +41,7 @@ vi.mock("../repositories/BrandTermRepository", () => ({
 
 beforeEach(() => {
   mocks.getProjectForOrganization.mockResolvedValue({ id: "project_1" });
+  mocks.getBrandName.mockResolvedValue(null);
   for (const list of [
     mocks.listSections,
     mocks.listCompetitors,

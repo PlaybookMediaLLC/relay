@@ -41,6 +41,7 @@ beforeEach(() => {
     (projectsOf.get(organizationId) ?? []).map((id) => ({
       id,
       name: `site ${id.slice(0, 4)}`,
+      brandName: null,
       domain: "example.com",
       locationCode: 2840,
       languageCode: "en",

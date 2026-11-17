@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import type { UseQueryResult } from "@tanstack/react-query";
 import { TrashIcon as Trash2 } from "@phosphor-icons/react";
-import { FileMagnifyingGlassIcon as ScanSearch } from "@phosphor-icons/react";
+import { AuditChecksIllustration } from "@/client/components/EmptyIllustrations";
 import type { getAuditHistory } from "@/serverFunctions/audit";
 import { ConfirmDialog } from "@/client/components/ConfirmDialog";
 import { EmptyState } from "@/client/components/EmptyState";
@@ -60,7 +60,13 @@ function AuditHistoryTable({
   onDelete: (auditId: string) => void;
 }) {
   if (history.length === 0) {
-    return <EmptyState icon={ScanSearch} title="No audits yet" />;
+    return (
+      <EmptyState
+        illustration={<AuditChecksIllustration />}
+        title="Find what's holding your site back"
+        description="An audit crawls your pages for broken links, missing titles and pages Google can't index."
+      />
+    );
   }
 
   return (
@@ -74,7 +80,7 @@ function AuditHistoryTable({
             <TableHead>Date</TableHead>
             <TableHead>URL</TableHead>
             <TableHead>Status</TableHead>
-            <TableHead>Pages</TableHead>
+            <TableHead className="text-right">Pages</TableHead>
             <TableHead>Lighthouse</TableHead>
             <TableHead />
           </TableRow>
@@ -91,7 +97,9 @@ function AuditHistoryTable({
               <TableCell>
                 <StatusBadge status={audit.status} />
               </TableCell>
-              <TableCell>{audit.pagesTotal || audit.pagesCrawled}</TableCell>
+              <TableCell className="text-right tabular-nums">
+                {audit.pagesTotal || audit.pagesCrawled}
+              </TableCell>
               <TableCell>
                 {audit.ranLighthouse ? (
                   <Badge variant="outline" size="sm">

@@ -17,6 +17,7 @@ export function createProtectionTestDatabase() {
         ALTER TABLE projects ADD COLUMN language_code TEXT DEFAULT 'en';
         ALTER TABLE projects ADD COLUMN created_at TEXT;
         ALTER TABLE projects ADD COLUMN ai_research_keywords TEXT;
+        ALTER TABLE projects ADD COLUMN brand_name TEXT;
         ALTER TABLE gsc_connections ADD COLUMN gsc_account_id TEXT;
         ALTER TABLE gsc_connections ADD COLUMN connected_account_email TEXT;
         ALTER TABLE gsc_connections ADD COLUMN created_at TEXT;
