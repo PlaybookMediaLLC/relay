@@ -113,6 +113,8 @@ overrides:
   "body-parser@2": "^2.4.0"
   browserslist: "^4.28.7"
   baseline-browser-mapping: "^2.11.0"
+  # GHSA-9qw7-j9xw-fv9c — waiting on @cloudflare/shell (via @cloudflare/think).
+  "isomorphic-git@1": "^1.38.6"
   # GHSA-qr28-fpjm-wq7f — autumn-js uses query-string 9, which supports the
   # patched ESM decoder.
   "query-string>decode-uri-component": "^0.5.1"
