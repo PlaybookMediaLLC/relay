@@ -1,3 +1,4 @@
+// oxlint-disable max-lines -- playbook-seam: the fork's saved-keyword seam pushes this upstream route past 400 lines
 import {
   createFileRoute,
   stripSearchParams,
@@ -63,8 +64,10 @@ import {
   savedKeywordsSearchSchema,
   type SavedKeywordsSearch,
 } from "@/types/schemas/keywords";
+import { pageHead } from "@/client/lib/pageHead";
 
 export const Route = createFileRoute("/_app/p/$projectId/saved")({
+  head: () => pageHead("Saved Keywords"),
   validateSearch: savedKeywordsSearchSchema,
   // The project switcher keeps this page; filter drafts must not follow.
   remountDeps: ({ params }) => params.projectId,

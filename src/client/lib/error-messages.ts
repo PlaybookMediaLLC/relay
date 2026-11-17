@@ -54,7 +54,7 @@ const STANDARD_MESSAGES: Record<ErrorCode, string> = {
     "The AI visibility request could not be completed. Review the tracking settings and try again.",
   DATAFORSEO_AUTH_FAILED: isEveryAppClientAuthMode()
     ? "DataForSEO isn't set up on your Every App gateway yet, or rejected the key it holds. An owner or admin sets it with pnpm everyapp secret set DATAFORSEO_API_KEY."
-    : "DataForSEO rejected the credentials. Check that DATAFORSEO_API_KEY is the base64 of your DataForSEO login:password, and that the DataForSEO account is verified and has API access.",
+    : "DataForSEO rejected the credentials. Check that DATAFORSEO_API_KEY is the base64 of your DataForSEO login:password, and that the DataForSEO account is verified and has API access. If you use TREG_API_TOKEN instead, check the token and its balance at treg.to.",
   DATAFORSEO_NOT_CONFIGURED:
     "DataForSEO isn't set up on this server yet. Add DATAFORSEO_API_KEY to the server's environment, then try again.",
   RATE_LIMITED: "Too many requests. Please wait and try again.",

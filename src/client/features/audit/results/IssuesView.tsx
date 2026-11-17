@@ -1,5 +1,6 @@
 import { useMemo, useState, type ReactNode } from "react";
 import { CaretRightIcon as ChevronRight } from "@phosphor-icons/react";
+import { useQuery } from "@tanstack/react-query";
 import { sort } from "remeda";
 import {
   getIssueDescriptor,
@@ -10,8 +11,12 @@ import type { AuditResultsData } from "@/client/features/audit/results/types";
 import { SeverityBadge } from "@/client/features/audit/shared";
 import { CopyButton } from "@/client/components/CopyButton";
 import { EmptyState } from "@/client/components/EmptyState";
+import { QueryState } from "@/client/components/QueryState";
+import { Skeleton } from "@/client/components/ui/skeleton";
+import { getAuditIssues } from "@/serverFunctions/audit";
 
-type AuditIssueRow = AuditResultsData["issues"][number];
+type IssueGroupSummary = AuditResultsData["issueGroups"][number];
+type AuditRef = { projectId: string; auditId: string };
 
 const MAX_RENDERED_URLS = 100;
 
@@ -33,7 +38,7 @@ interface IssueGroup {
   title: string;
   explanation: string;
   howToFix: string;
-  issues: AuditIssueRow[];
+  count: number;
 }
 
 export function resolveIssueSeverity(issue: {
@@ -47,41 +52,37 @@ export function resolveIssueSeverity(issue: {
     : "info";
 }
 
-function groupIssues(issues: AuditIssueRow[]): IssueGroup[] {
-  const groups = new Map<string, IssueGroup>();
-  for (const issue of issues) {
-    let group = groups.get(issue.issueType);
-    if (!group) {
-      const descriptor = getIssueDescriptor(issue.issueType);
-      group = {
-        issueType: issue.issueType,
-        severity: resolveIssueSeverity(issue),
-        title: descriptor?.title ?? issue.issueType,
-        explanation: descriptor?.explanation ?? "",
-        howToFix: descriptor?.howToFix ?? "",
-        issues: [],
-      };
-      groups.set(issue.issueType, group);
-    }
-    group.issues.push(issue);
-  }
+function toIssueGroups(summaries: IssueGroupSummary[]): IssueGroup[] {
+  const groups = summaries.map((summary) => {
+    const descriptor = getIssueDescriptor(summary.issueType);
+    return {
+      issueType: summary.issueType,
+      severity: resolveIssueSeverity(summary),
+      title: descriptor?.title ?? summary.issueType,
+      explanation: descriptor?.explanation ?? "",
+      howToFix: descriptor?.howToFix ?? "",
+      count: summary.count,
+    };
+  });
 
   return sort(
-    Array.from(groups.values()),
+    groups,
     (a, b) =>
       ISSUE_SEVERITY_ORDER[a.severity] - ISSUE_SEVERITY_ORDER[b.severity] ||
-      b.issues.length - a.issues.length,
+      b.count - a.count,
   );
 }
 
 export function IssuesView({
-  issues,
+  auditRef,
+  issueGroups,
   tabs,
 }: {
-  issues: AuditIssueRow[];
+  auditRef: AuditRef;
+  issueGroups: IssueGroupSummary[];
   tabs: ReactNode;
 }) {
-  const groups = useMemo(() => groupIssues(issues), [issues]);
+  const groups = useMemo(() => toIssueGroups(issueGroups), [issueGroups]);
 
   const sections = useMemo(
     () =>
@@ -97,7 +98,7 @@ export function IssuesView({
   return (
     <div className="overflow-hidden rounded-xl border border-border bg-card">
       {tabs}
-      {issues.length === 0 ? (
+      {groups.length === 0 ? (
         <EmptyState
           variant="plain"
           title="No issues found."
@@ -106,7 +107,11 @@ export function IssuesView({
       ) : (
         <div>
           {sections.map((section) => (
-            <IssueSection key={section.severity} section={section} />
+            <IssueSection
+              key={section.severity}
+              auditRef={auditRef}
+              section={section}
+            />
           ))}
         </div>
       )}
@@ -115,12 +120,14 @@ export function IssuesView({
 }
 
 function IssueSection({
+  auditRef,
   section,
 }: {
+  auditRef: AuditRef;
   section: { severity: IssueSeverity; groups: IssueGroup[] };
 }) {
   const issueCount = section.groups.reduce(
-    (sum, group) => sum + group.issues.length,
+    (sum, group) => sum + group.count,
     0,
   );
 
@@ -134,14 +141,20 @@ function IssueSection({
       </div>
       <div className="divide-y divide-border">
         {section.groups.map((group) => (
-          <IssueRow key={group.issueType} group={group} />
+          <IssueRow key={group.issueType} auditRef={auditRef} group={group} />
         ))}
       </div>
     </div>
   );
 }
 
-function IssueRow({ group }: { group: IssueGroup }) {
+function IssueRow({
+  auditRef,
+  group,
+}: {
+  auditRef: AuditRef;
+  group: IssueGroup;
+}) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -162,7 +175,7 @@ function IssueRow({ group }: { group: IssueGroup }) {
           {group.title}
         </span>
         <span className="text-xs tabular-nums text-muted-foreground shrink-0">
-          {group.issues.length} {group.issues.length === 1 ? "page" : "pages"}
+          {group.count} {group.count === 1 ? "page" : "pages"}
         </span>
         <ChevronRight
           className={`size-4 shrink-0 text-muted-foreground transition-transform ${
@@ -193,8 +206,7 @@ function IssueRow({ group }: { group: IssueGroup }) {
               `Severity: ${group.severity}`,
               group.explanation,
               `Suggested fix: ${group.howToFix}`,
-              "Affected pages:",
-              ...group.issues.map((issue) => issue.pageUrl),
+              `Affected pages: ${group.count}`,
               "Verify the fix against a new audit before closing this issue.",
             ].join("\n\n")}
           />
@@ -202,41 +214,74 @@ function IssueRow({ group }: { group: IssueGroup }) {
             Paste this brief into your task tracker or agent. Copying does not
             assign work or change your site.
           </p>
-          <AffectedUrlList issues={group.issues} />
+          <AffectedUrlList auditRef={auditRef} group={group} />
         </div>
       )}
     </div>
   );
 }
 
-function AffectedUrlList({ issues }: { issues: AuditIssueRow[] }) {
-  const rendered = issues.slice(0, MAX_RENDERED_URLS);
-  const remaining = issues.length - rendered.length;
+/** Loads the group's first URLs only when it is opened. */
+function AffectedUrlList({
+  auditRef,
+  group,
+}: {
+  auditRef: AuditRef;
+  group: IssueGroup;
+}) {
+  const query = useQuery({
+    queryKey: ["audit-issues", auditRef, group.issueType],
+    queryFn: () =>
+      getAuditIssues({
+        data: {
+          ...auditRef,
+          issueType: group.issueType,
+          pageSize: MAX_RENDERED_URLS,
+        },
+      }),
+  });
+  const remaining = group.count - MAX_RENDERED_URLS;
 
   return (
     <div className="max-h-[320px] overflow-y-auto rounded border border-border bg-card">
-      {rendered.map((issue) => (
-        <div
-          key={issue.id}
-          className="px-3 py-1.5 text-sm flex flex-col gap-0.5 border-b border-border last:border-b-0"
-        >
-          <a
-            className="text-foreground/80 truncate hover:underline"
-            href={issue.pageUrl}
-            target="_blank"
-            rel="noreferrer"
-            title={issue.pageUrl}
-          >
-            {issue.pageUrl}
-          </a>
-          <IssueDetails detailsJson={issue.detailsJson} />
-        </div>
-      ))}
-      {remaining > 0 && (
-        <div className="px-3 py-2 text-xs text-muted-foreground">
-          …and {remaining} more — export the issues CSV for the full list.
-        </div>
-      )}
+      <QueryState
+        query={query}
+        loading={
+          <div className="space-y-2 p-3">
+            <Skeleton className="h-4 w-3/4" />
+            <Skeleton className="h-4 w-2/3" />
+            <Skeleton className="h-4 w-1/2" />
+          </div>
+        }
+        errorFallback="Could not load the affected URLs"
+      >
+        {(issues) => (
+          <>
+            {issues.map((issue) => (
+              <div
+                key={issue.id}
+                className="px-3 py-1.5 text-sm flex flex-col gap-0.5 border-b border-border last:border-b-0"
+              >
+                <a
+                  className="text-foreground/80 truncate hover:underline"
+                  href={issue.pageUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  title={issue.pageUrl}
+                >
+                  {issue.pageUrl}
+                </a>
+                <IssueDetails detailsJson={issue.detailsJson} />
+              </div>
+            ))}
+            {remaining > 0 && (
+              <div className="px-3 py-2 text-xs text-muted-foreground">
+                …and {remaining} more — export the issues CSV for the full list.
+              </div>
+            )}
+          </>
+        )}
+      </QueryState>
     </div>
   );
 }

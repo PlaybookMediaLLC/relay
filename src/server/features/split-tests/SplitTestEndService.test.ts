@@ -51,6 +51,7 @@ beforeAll(async () => {
       ALTER TABLE projects ADD COLUMN language_code TEXT DEFAULT 'en';
       ALTER TABLE projects ADD COLUMN created_at TEXT;
       ALTER TABLE projects ADD COLUMN ai_research_keywords TEXT;
+      ALTER TABLE projects ADD COLUMN brand_name TEXT;
     `);
 });
 afterAll(() => database.close());

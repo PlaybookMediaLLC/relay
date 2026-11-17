@@ -196,6 +196,21 @@ import type { Plugin } from "vite";
  *   token and post it (src/client/features/auth/linkToken.ts,
  *   src/server/auth/verifyEmailLink.ts). The reset page shows its
  *   expired-link screen when the posted token is dead.
+ * - src/server/auth/chatgpt-sign-in.ts, src/server/auth/sign-up-analytics.ts,
+ *   src/lib/auth.ts, src/lib/auth-client.ts and useSocialAuth.ts: Sign in with
+ *   ChatGPT runs on better-auth 1.7. It starts at /sign-in/social, returns to
+ *   /callback/:id, reads OpenAI's issuer and JWKS through discovery, checks
+ *   better-auth's own nonce from the sign-in state and keys the account on sub.
+ * - src/server/stripe-projects/service.ts: better-auth 1.7's createUser takes
+ *   a provisioning source.
+ * - src/server/mcp/tools/get-rank-tracker.ts: the text for the spend_limit
+ *   skip reason.
+ * - websiteResearch.ts and LocalSeoService.test.ts: fork lines push these
+ *   upstream files past the line limits, so they carry a max-lines exemption.
+ * - site-audit-tools.test.ts, stripe-projects/handler.test.ts and
+ *   web/tests/subscribe.test.ts: the fork's URL policy blocks a host with no
+ *   public address, upstream migrations arrive as one file, and the newsletter
+ *   form also passes Turnstile.
  */
 const RELAY = "https://relay.playbookmedia.io";
 

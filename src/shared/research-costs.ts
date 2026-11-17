@@ -4,7 +4,10 @@ import { costPerSerpAtDepth, serpKeywordCostMultiplier } from "./rank-tracking";
 
 // Shared with the provider metering estimates; costs are raw USD before markup.
 export const GOOGLE_ADS_LIVE_TASK_USD = 0.09;
-export const KEYWORD_SERP_INITIAL_DEPTH = 20;
+export const KEYWORD_SERP_INITIAL_DEPTH = 10;
+// ponytail: mirrors SERP_READS_PER_QUERY (3) high-priority (2x) reads in
+// server/lib/dataforseo/pricing.ts; move that constant to src/shared if it changes.
+const KEYWORD_SERP_READ_FACTOR = 3 * 2;
 export const WEBSITE_RESEARCH_ESTIMATED_CREDITS = 200;
 
 export function labsUsd(rows: number, clickstream = false) {
@@ -43,7 +46,8 @@ export function keywordResearchCost(input: {
     return [
       ...research,
       ...(input.locationName ? [GOOGLE_ADS_LIVE_TASK_USD] : []),
-      costPerSerpAtDepth(KEYWORD_SERP_INITIAL_DEPTH, "live") *
+      KEYWORD_SERP_READ_FACTOR *
+        costPerSerpAtDepth(KEYWORD_SERP_INITIAL_DEPTH) *
         serpKeywordCostMultiplier(keyword),
     ];
   });

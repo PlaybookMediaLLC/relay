@@ -2,8 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ProjectPageHeader } from "@/client/features/projects/ProjectPageHeader";
 import { ProjectContextPage } from "@/client/features/projects/project-context/ProjectContextPage";
 import { BrandTermsSection } from "@/client/features/opportunities/BrandTermsSection"; // playbook-seam
+import { pageHead } from "@/client/lib/pageHead";
 
 export const Route = createFileRoute("/_app/p/$projectId/context")({
+  head: () => pageHead("Context"),
   component: ProjectContextRoute,
 });
 

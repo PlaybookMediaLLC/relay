@@ -3,6 +3,7 @@ import {
   HeadContent,
   Outlet,
   Scripts,
+  ScriptOnce,
   createRootRoute,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
@@ -28,6 +29,16 @@ import { RelayClientOnly } from "@/client/components/RelayClientOnly"; // playbo
 // Capture Google link error params before the router starts — a route loader
 // redirect would otherwise replace the URL and lose them. See googleLinkError.ts.
 captureGoogleLinkError();
+
+// Zod speeds up object parsing with `new Function`, after probing once whether
+// the page allows it. A Content-Security-Policy without 'unsafe-eval' refuses
+// the probe and reports it on every page load, so the browser is told not to
+// try. Zod reads this global when it loads, which is before any app module
+// could call `z.config`.
+//
+// The three inline scripts below go through ScriptOnce, which gives each the
+// response's Content-Security-Policy nonce (router.tsx).
+const zodJitlessScript = "globalThis.__zod_globalConfig={jitless:true}";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -83,10 +94,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" /* playbook-seam */ suppressHydrationWarning translate="no">
       <head>
-        <script
-          dangerouslySetInnerHTML={{ __html: themePreferenceInitScript }}
-        />
-        <script dangerouslySetInnerHTML={{ __html: runtimeAuthModeScript() }} />
+        <ScriptOnce>{themePreferenceInitScript}</ScriptOnce>
+        <ScriptOnce>{runtimeAuthModeScript()}</ScriptOnce>
+        <ScriptOnce>{zodJitlessScript}</ScriptOnce>
         <HeadContent />
       </head>
       <body>

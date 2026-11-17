@@ -1,10 +1,11 @@
 import { sort } from "remeda";
 import type { EnsuredUserContext } from "@/middleware/ensure-user/types";
 import { ProjectRepository } from "@/server/features/projects/repositories/ProjectRepository";
-import { createDataforseoClient } from "@/server/lib/dataforseo/client";
+import { readMergedSerps } from "@/server/features/keywords/services/research/serpReads";
 import { dataforseoPricing } from "@/server/lib/dataforseo/pricing";
 import { SERP_ANALYSIS_DEPTH } from "@/server/lib/dataforseo/serp";
 import { AppError } from "@/server/lib/errors";
+import { buildCacheKey } from "@/server/lib/r2-cache";
 import { creditsForProviderUsd } from "@/shared/billing";
 import type { SerpCheck } from "@/types/schemas/opportunities";
 import {
@@ -72,7 +73,7 @@ async function plan(
   const credits = cached
     ? 0
     : creditsForProviderUsd(
-        dataforseoPricing.serp.live({
+        dataforseoPricing.serp.readsTaskPost({
           keyword: top.query,
           ...market,
           depth: SERP_ANALYSIS_DEPTH,
@@ -115,10 +116,30 @@ async function check(
       "CONFLICT",
       `The estimate is now ${credits} credits. Review it and confirm again. Nothing was bought.`,
     );
-  const items = await createDataforseoClient({
-    ...context,
-    projectId: input.projectId,
-  }).serp.live({ keyword, ...market, depth: SERP_ANALYSIS_DEPTH });
+  // Merged reads replace the single live read (upstream serpReads.ts). The
+  // receipt lets a retry collect the same reads at no charge.
+  const query = { keyword, ...market, depth: SERP_ANALYSIS_DEPTH };
+  const [outcome] = await readMergedSerps(
+    { ...context, projectId: input.projectId },
+    [
+      {
+        query,
+        receiptKey: await buildCacheKey("opportunities:serp-check-reads", {
+          organizationId: context.organizationId,
+          projectId: input.projectId,
+          ...query,
+        }),
+      },
+    ],
+  );
+  if (outcome.status === "failed") throw outcome.error;
+  if (outcome.status === "processing") {
+    throw new AppError(
+      "UPSTREAM_UNAVAILABLE",
+      "These search results are taking longer than usual. Try again in a minute; the retry costs nothing.",
+    );
+  }
+  const items = outcome.items;
   const opportunity = detail.opportunity;
   const pageKey = urlJoinKey(opportunity.url);
   const page = items.find(

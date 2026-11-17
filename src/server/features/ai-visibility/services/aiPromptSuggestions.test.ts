@@ -23,6 +23,8 @@ vi.mock("@/server/lib/runtime-env", () => ({
 }));
 vi.mock("@/server/billing/subscription", () => ({
   checkUsageCreditsDepleted: async () => ({ depleted: false }),
+  holdTaskCredits: async () => ({ lockId: "task_hold" }),
+  releaseTaskCredits: async () => undefined,
 }));
 // playbook-seam: RFC-0009 holds the estimate and settles the steps on it.
 vi.mock("@/server/billing/researchHold", () => ({

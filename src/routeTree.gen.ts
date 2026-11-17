@@ -14,6 +14,7 @@ import { Route as AppRouteRouteImport } from './routes/_app/route'
 import { Route as AuthRouteImport } from './routes/_auth'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as AuthErrorRouteImport } from './routes/auth-error'
+import { Route as ConnectRouteImport } from './routes/connect'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
@@ -33,8 +34,8 @@ import { Route as AuthSignInRouteImport } from './routes/_auth.sign-in'
 import { Route as AuthSignUpRouteImport } from './routes/_auth.sign-up'
 import { Route as AuthenticatedOauthConsentRouteImport } from './routes/_authenticated.oauth-consent'
 import { Route as AuthenticatedSubscribeRouteImport } from './routes/_authenticated.subscribe'
-import { Route as AuthenticatedYcRouteImport } from './routes/_authenticated.yc'
 import { Route as AcceptInvitationIdRouteImport } from './routes/accept-invitation.$id'
+import { Route as ApiCspReportRouteImport } from './routes/api/csp-report'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as ApiPrivacyRegionRouteImport } from './routes/api/privacy-region'
 import { Route as ApiSearchRouteImport } from './routes/api/search'
@@ -43,6 +44,7 @@ import { Route as ApiVerifyEmailLinkRouteImport } from './routes/api/verify-emai
 import { Route as DocsSplatRouteImport } from './routes/docs/$'
 import { Route as MediaNameRouteImport } from './routes/media.$name'
 import { Route as RReportIdRouteImport } from './routes/r/$reportId'
+import { Route as StripeProjectsLoginRouteImport } from './routes/stripe-projects.login'
 import { Route as AppBillingFixPaymentRouteImport } from './routes/_app/billing_.fix-payment'
 import { Route as AppHelpDataforseoApiKeyRouteImport } from './routes/_app/help/dataforseo-api-key'
 import { Route as AppHelpOpenrouterApiKeyRouteImport } from './routes/_app/help/openrouter-api-key'
@@ -131,6 +133,11 @@ const AuthenticatedRoute = AuthenticatedRouteImport.update({
 const AuthErrorRoute = AuthErrorRouteImport.update({
   id: '/auth-error',
   path: '/auth-error',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConnectRoute = ConnectRouteImport.update({
+  id: '/connect',
+  path: '/connect',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
@@ -231,14 +238,14 @@ const AuthenticatedSubscribeRoute = AuthenticatedSubscribeRouteImport.update({
   path: '/subscribe',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AuthenticatedYcRoute = AuthenticatedYcRouteImport.update({
-  id: '/yc',
-  path: '/yc',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
 const AcceptInvitationIdRoute = AcceptInvitationIdRouteImport.update({
   id: '/accept-invitation/$id',
   path: '/accept-invitation/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCspReportRoute = ApiCspReportRouteImport.update({
+  id: '/api/csp-report',
+  path: '/api/csp-report',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiHealthRoute = ApiHealthRouteImport.update({
@@ -279,6 +286,11 @@ const MediaNameRoute = MediaNameRouteImport.update({
 const RReportIdRoute = RReportIdRouteImport.update({
   id: '/r/$reportId',
   path: '/r/$reportId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StripeProjectsLoginRoute = StripeProjectsLoginRouteImport.update({
+  id: '/stripe-projects/login',
+  path: '/stripe-projects/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppBillingFixPaymentRoute = AppBillingFixPaymentRouteImport.update({
@@ -653,6 +665,7 @@ const ApiLocalSeoMapsProjectIdZXYRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth-error': typeof AuthErrorRoute
+  '/connect': typeof ConnectRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -672,8 +685,8 @@ export interface FileRoutesByFullPath {
   '/sign-up': typeof AuthSignUpRoute
   '/oauth-consent': typeof AuthenticatedOauthConsentRoute
   '/subscribe': typeof AuthenticatedSubscribeRoute
-  '/yc': typeof AuthenticatedYcRoute
   '/accept-invitation/$id': typeof AcceptInvitationIdRoute
+  '/api/csp-report': typeof ApiCspReportRoute
   '/api/health': typeof ApiHealthRoute
   '/api/privacy-region': typeof ApiPrivacyRegionRoute
   '/api/search': typeof ApiSearchRoute
@@ -682,6 +695,7 @@ export interface FileRoutesByFullPath {
   '/docs/$': typeof DocsSplatRoute
   '/media/$name': typeof MediaNameRoute
   '/r/$reportId': typeof RReportIdRoute
+  '/stripe-projects/login': typeof StripeProjectsLoginRoute
   '/p/$projectId': typeof AppPProjectIdRouteRouteWithChildren
   '/billing/fix-payment': typeof AppBillingFixPaymentRoute
   '/help/dataforseo-api-key': typeof AppHelpDataforseoApiKeyRoute
@@ -753,6 +767,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth-error': typeof AuthErrorRoute
+  '/connect': typeof ConnectRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -771,8 +786,8 @@ export interface FileRoutesByTo {
   '/sign-up': typeof AuthSignUpRoute
   '/oauth-consent': typeof AuthenticatedOauthConsentRoute
   '/subscribe': typeof AuthenticatedSubscribeRoute
-  '/yc': typeof AuthenticatedYcRoute
   '/accept-invitation/$id': typeof AcceptInvitationIdRoute
+  '/api/csp-report': typeof ApiCspReportRoute
   '/api/health': typeof ApiHealthRoute
   '/api/privacy-region': typeof ApiPrivacyRegionRoute
   '/api/search': typeof ApiSearchRoute
@@ -781,6 +796,7 @@ export interface FileRoutesByTo {
   '/docs/$': typeof DocsSplatRoute
   '/media/$name': typeof MediaNameRoute
   '/r/$reportId': typeof RReportIdRoute
+  '/stripe-projects/login': typeof StripeProjectsLoginRoute
   '/billing/fix-payment': typeof AppBillingFixPaymentRoute
   '/help/dataforseo-api-key': typeof AppHelpDataforseoApiKeyRoute
   '/help/openrouter-api-key': typeof AppHelpOpenrouterApiKeyRoute
@@ -851,6 +867,7 @@ export interface FileRoutesById {
   '/_auth': typeof AuthRouteWithChildren
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/auth-error': typeof AuthErrorRoute
+  '/connect': typeof ConnectRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -870,8 +887,8 @@ export interface FileRoutesById {
   '/_auth/sign-up': typeof AuthSignUpRoute
   '/_authenticated/oauth-consent': typeof AuthenticatedOauthConsentRoute
   '/_authenticated/subscribe': typeof AuthenticatedSubscribeRoute
-  '/_authenticated/yc': typeof AuthenticatedYcRoute
   '/accept-invitation/$id': typeof AcceptInvitationIdRoute
+  '/api/csp-report': typeof ApiCspReportRoute
   '/api/health': typeof ApiHealthRoute
   '/api/privacy-region': typeof ApiPrivacyRegionRoute
   '/api/search': typeof ApiSearchRoute
@@ -880,6 +897,7 @@ export interface FileRoutesById {
   '/docs/$': typeof DocsSplatRoute
   '/media/$name': typeof MediaNameRoute
   '/r/$reportId': typeof RReportIdRoute
+  '/stripe-projects/login': typeof StripeProjectsLoginRoute
   '/_app/p/$projectId': typeof AppPProjectIdRouteRouteWithChildren
   '/_app/billing_/fix-payment': typeof AppBillingFixPaymentRoute
   '/_app/help/dataforseo-api-key': typeof AppHelpDataforseoApiKeyRoute
@@ -953,6 +971,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth-error'
+    | '/connect'
     | '/forgot-password'
     | '/privacy'
     | '/reset-password'
@@ -972,8 +991,8 @@ export interface FileRouteTypes {
     | '/sign-up'
     | '/oauth-consent'
     | '/subscribe'
-    | '/yc'
     | '/accept-invitation/$id'
+    | '/api/csp-report'
     | '/api/health'
     | '/api/privacy-region'
     | '/api/search'
@@ -982,6 +1001,7 @@ export interface FileRouteTypes {
     | '/docs/$'
     | '/media/$name'
     | '/r/$reportId'
+    | '/stripe-projects/login'
     | '/p/$projectId'
     | '/billing/fix-payment'
     | '/help/dataforseo-api-key'
@@ -1053,6 +1073,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth-error'
+    | '/connect'
     | '/forgot-password'
     | '/privacy'
     | '/reset-password'
@@ -1071,8 +1092,8 @@ export interface FileRouteTypes {
     | '/sign-up'
     | '/oauth-consent'
     | '/subscribe'
-    | '/yc'
     | '/accept-invitation/$id'
+    | '/api/csp-report'
     | '/api/health'
     | '/api/privacy-region'
     | '/api/search'
@@ -1081,6 +1102,7 @@ export interface FileRouteTypes {
     | '/docs/$'
     | '/media/$name'
     | '/r/$reportId'
+    | '/stripe-projects/login'
     | '/billing/fix-payment'
     | '/help/dataforseo-api-key'
     | '/help/openrouter-api-key'
@@ -1150,6 +1172,7 @@ export interface FileRouteTypes {
     | '/_auth'
     | '/_authenticated'
     | '/auth-error'
+    | '/connect'
     | '/forgot-password'
     | '/privacy'
     | '/reset-password'
@@ -1169,8 +1192,8 @@ export interface FileRouteTypes {
     | '/_auth/sign-up'
     | '/_authenticated/oauth-consent'
     | '/_authenticated/subscribe'
-    | '/_authenticated/yc'
     | '/accept-invitation/$id'
+    | '/api/csp-report'
     | '/api/health'
     | '/api/privacy-region'
     | '/api/search'
@@ -1179,6 +1202,7 @@ export interface FileRouteTypes {
     | '/docs/$'
     | '/media/$name'
     | '/r/$reportId'
+    | '/stripe-projects/login'
     | '/_app/p/$projectId'
     | '/_app/billing_/fix-payment'
     | '/_app/help/dataforseo-api-key'
@@ -1254,6 +1278,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRouteWithChildren
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AuthErrorRoute: typeof AuthErrorRoute
+  ConnectRoute: typeof ConnectRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   PrivacyRoute: typeof PrivacyRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
@@ -1263,6 +1288,7 @@ export interface RootRouteChildren {
   Char91DotwellKnownChar93HttpMessageSignaturesDirectoryRoute: typeof Char91DotwellKnownChar93HttpMessageSignaturesDirectoryRoute
   Char91DotwellKnownChar93OpenaiAppsChallengeRoute: typeof Char91DotwellKnownChar93OpenaiAppsChallengeRoute
   AcceptInvitationIdRoute: typeof AcceptInvitationIdRoute
+  ApiCspReportRoute: typeof ApiCspReportRoute
   ApiHealthRoute: typeof ApiHealthRoute
   ApiPrivacyRegionRoute: typeof ApiPrivacyRegionRoute
   ApiSearchRoute: typeof ApiSearchRoute
@@ -1271,6 +1297,7 @@ export interface RootRouteChildren {
   DocsSplatRoute: typeof DocsSplatRoute
   MediaNameRoute: typeof MediaNameRoute
   RReportIdRoute: typeof RReportIdRoute
+  StripeProjectsLoginRoute: typeof StripeProjectsLoginRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiAutumnSplatRoute: typeof ApiAutumnSplatRoute
   ApiDocsSplatRoute: typeof ApiDocsSplatRoute
@@ -1326,6 +1353,13 @@ declare module '@tanstack/react-router' {
       path: '/auth-error'
       fullPath: '/auth-error'
       preLoaderRoute: typeof AuthErrorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/connect': {
+      id: '/connect'
+      path: '/connect'
+      fullPath: '/connect'
+      preLoaderRoute: typeof ConnectRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/forgot-password': {
@@ -1461,18 +1495,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSubscribeRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/yc': {
-      id: '/_authenticated/yc'
-      path: '/yc'
-      fullPath: '/yc'
-      preLoaderRoute: typeof AuthenticatedYcRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
     '/accept-invitation/$id': {
       id: '/accept-invitation/$id'
       path: '/accept-invitation/$id'
       fullPath: '/accept-invitation/$id'
       preLoaderRoute: typeof AcceptInvitationIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/csp-report': {
+      id: '/api/csp-report'
+      path: '/api/csp-report'
+      fullPath: '/api/csp-report'
+      preLoaderRoute: typeof ApiCspReportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/health': {
@@ -1529,6 +1563,13 @@ declare module '@tanstack/react-router' {
       path: '/r/$reportId'
       fullPath: '/r/$reportId'
       preLoaderRoute: typeof RReportIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stripe-projects/login': {
+      id: '/stripe-projects/login'
+      path: '/stripe-projects/login'
+      fullPath: '/stripe-projects/login'
+      preLoaderRoute: typeof StripeProjectsLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_app/billing_/fix-payment': {
@@ -2208,14 +2249,12 @@ const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 interface AuthenticatedRouteChildren {
   AuthenticatedOauthConsentRoute: typeof AuthenticatedOauthConsentRoute
   AuthenticatedSubscribeRoute: typeof AuthenticatedSubscribeRoute
-  AuthenticatedYcRoute: typeof AuthenticatedYcRoute
   AuthenticatedOnboardingIndexRoute: typeof AuthenticatedOnboardingIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedOauthConsentRoute: AuthenticatedOauthConsentRoute,
   AuthenticatedSubscribeRoute: AuthenticatedSubscribeRoute,
-  AuthenticatedYcRoute: AuthenticatedYcRoute,
   AuthenticatedOnboardingIndexRoute: AuthenticatedOnboardingIndexRoute,
 }
 
@@ -2241,6 +2280,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRouteWithChildren,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AuthErrorRoute: AuthErrorRoute,
+  ConnectRoute: ConnectRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   PrivacyRoute: PrivacyRoute,
   ResetPasswordRoute: ResetPasswordRoute,
@@ -2252,6 +2292,7 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotwellKnownChar93OpenaiAppsChallengeRoute:
     Char91DotwellKnownChar93OpenaiAppsChallengeRoute,
   AcceptInvitationIdRoute: AcceptInvitationIdRoute,
+  ApiCspReportRoute: ApiCspReportRoute,
   ApiHealthRoute: ApiHealthRoute,
   ApiPrivacyRegionRoute: ApiPrivacyRegionRoute,
   ApiSearchRoute: ApiSearchRoute,
@@ -2260,6 +2301,7 @@ const rootRouteChildren: RootRouteChildren = {
   DocsSplatRoute: DocsSplatRoute,
   MediaNameRoute: MediaNameRoute,
   RReportIdRoute: RReportIdRoute,
+  StripeProjectsLoginRoute: StripeProjectsLoginRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiAutumnSplatRoute: ApiAutumnSplatRoute,
   ApiDocsSplatRoute: ApiDocsSplatRoute,

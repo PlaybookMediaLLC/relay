@@ -9,6 +9,7 @@ vi.mock("cloudflare:workers", () => ({
     GOOGLE_CLIENT_ID: "id",
     GOOGLE_CLIENT_SECRET: "secret",
   },
+  waitUntil: vi.fn(),
 }));
 
 // Playbook fork: login CSRF. A link that signs in lets any page sign a visitor

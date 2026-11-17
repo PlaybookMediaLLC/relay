@@ -32,6 +32,7 @@ type EmptyStateKind = "no-data" | "filtered" | "error";
 export function EmptyState({
   kind = "no-data",
   icon: Icon = KIND_ICONS[kind],
+  illustration,
   title,
   description,
   action,
@@ -41,6 +42,8 @@ export function EmptyState({
   kind?: EmptyStateKind;
   /** Pass `null` for a text-only empty state. */
   icon?: AppIcon | null;
+  /** Takes the icon's place. */
+  illustration?: ReactNode;
   title: ReactNode;
   description?: ReactNode;
   action?: ReactNode;
@@ -55,7 +58,9 @@ export function EmptyState({
       role={kind === "error" ? "alert" : undefined}
     >
       <EmptyHeader>
-        {Icon ? (
+        {illustration ? (
+          <EmptyMedia>{illustration}</EmptyMedia>
+        ) : Icon ? (
           <EmptyMedia
             variant="icon"
             className={
