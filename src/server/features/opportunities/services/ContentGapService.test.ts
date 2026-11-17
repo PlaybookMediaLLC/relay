@@ -27,7 +27,7 @@ const mocks = vi.hoisted(() => ({
   ga4: vi.fn(),
   client: vi.fn(),
   rankedKeywords: vi.fn(),
-  serpLive: vi.fn(),
+  readMergedSerps: vi.fn(),
 }));
 vi.mock("cloudflare:workers", () => ({ env: {}, waitUntil: vi.fn() }));
 vi.mock("./opportunityGa4", () => ({ fetchGa4LandingPages: vi.fn() }));
@@ -86,6 +86,9 @@ vi.mock("@/server/features/ga4/repositories/Ga4ConnectionRepository", () => ({
 vi.mock("@/server/lib/dataforseo/client", () => ({
   createDataforseoClient: mocks.client,
 }));
+vi.mock("@/server/features/keywords/services/research/serpReads", () => ({
+  readMergedSerps: mocks.readMergedSerps,
+}));
 
 const context = {
   organizationId: "org-1",
@@ -135,7 +138,6 @@ beforeEach(() => {
   mocks.ga4.mockResolvedValue(null);
   mocks.client.mockReturnValue({
     domain: { rankedKeywords: mocks.rankedKeywords },
-    serp: { live: mocks.serpLive },
   });
   mocks.rankedKeywords.mockResolvedValue({
     items: [rankedItem("crm pricing")],
@@ -317,7 +319,7 @@ describe("SerpCheckService", () => {
     ],
   ])("%s", async (_name, items, delta, confidence) => {
     mocks.detail.mockResolvedValue(lowCtr());
-    mocks.serpLive.mockResolvedValue(items);
+    mocks.readMergedSerps.mockResolvedValue([{ status: "completed", items }]);
     const { credits } = await SerpCheckService.estimate(
       context,
       projectId,
@@ -364,7 +366,7 @@ describe("SerpCheckService", () => {
         confirmedCredits: 0,
       }),
     ).toMatchObject({ id: "check-1" });
-    expect(mocks.serpLive).not.toHaveBeenCalled();
+    expect(mocks.readMergedSerps).not.toHaveBeenCalled();
   });
 
   it("checks only low click-through opportunities", async () => {

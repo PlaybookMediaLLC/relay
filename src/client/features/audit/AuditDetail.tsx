@@ -23,7 +23,7 @@ import {
 } from "@/client/components/ui/progress";
 import { Spinner } from "@/client/components/ui/spinner";
 import {
-  getAuditResults,
+  getAuditSummary,
   getAuditStatus,
   getCrawlProgress,
 } from "@/serverFunctions/audit";
@@ -69,7 +69,7 @@ export function AuditDetail({
   // partial crawl instead of a dead end.
   const resultsQuery = useQuery({
     queryKey: ["audit-results", projectId, auditId],
-    queryFn: () => getAuditResults({ data: { projectId, auditId } }),
+    queryFn: () => getAuditSummary({ data: { projectId, auditId } }),
     enabled: isComplete || isFailed,
   });
 
@@ -95,9 +95,7 @@ export function AuditDetail({
   }
 
   const status = statusQuery.data;
-  const partialPageCount = isFailed
-    ? (resultsQuery.data?.pages.length ?? 0)
-    : 0;
+  const partialPageCount = isFailed ? (resultsQuery.data?.pageCount ?? 0) : 0;
   const failedWithResults = isFailed && partialPageCount > 0;
   // Wait for the results fetch before choosing between the "partial results"
   // banner and the zero-page banner, so the zero-page banner doesn't flash.
@@ -113,7 +111,9 @@ export function AuditDetail({
     isComplete &&
     status.pagesCrawled <= 1 &&
     results !== undefined &&
-    results.pages.every((page) => page.fetchClass === "blocked");
+    Object.entries(results.fetchClassCounts).every(
+      ([fetchClass, count]) => fetchClass === "blocked" || count === 0,
+    );
 
   return (
     <div className="page-pad overflow-auto">

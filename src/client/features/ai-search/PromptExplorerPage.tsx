@@ -4,7 +4,6 @@ import { Link } from "@tanstack/react-router";
 import { identity, sortBy } from "remeda";
 import {
   ColumnsIcon as Columns3,
-  ChatTextIcon as MessageSquare,
   SparkleIcon as Sparkles,
   ListMagnifyingGlassIcon as SearchCheck,
 } from "@phosphor-icons/react";
@@ -26,6 +25,7 @@ import type {
   SearchTabInput,
 } from "@/client/features/search-tabs/types";
 import { useSearchTabNavigation } from "@/client/features/search-tabs/useSearchTabNavigation";
+import { ModelAnswersIllustration } from "@/client/components/EmptyIllustrations";
 import { RecentSearches } from "@/client/components/RecentSearches";
 import { BackLink } from "@/client/components/PageHeader";
 import { formatModelLabel } from "@/shared/prompt-explorer-labels";
@@ -261,8 +261,9 @@ export function PromptExplorerPage({
           items={history}
           loaded={historyLoaded}
           onRemove={removeHistoryItem}
-          emptyIcon={MessageSquare}
-          emptyTitle="Enter a prompt to compare model answers"
+          emptyIllustration={<ModelAnswersIllustration />}
+          emptyTitle="See what AI says about your market"
+          emptyDescription="Each model's answer comes with the sources it cited."
           getTitle={(item) => item.prompt}
           getSubtitle={(item) => item.models.map(formatModelLabel).join(", ")}
           renderLink={(item, props) => (

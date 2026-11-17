@@ -1,12 +1,16 @@
 # Relay implementation RFCs — one sequential execution path
 
+**GitHub milestone and RFC traceability:** [all 46 source RFCs → 31 implementation issues → release outcomes](../../RFC-MILESTONE-TRACEABILITY.md). Milestone membership does not change the required IRFC execution order.
+
 **Updated:** 2026-10-28  
 **Target repository:** `PlaybookMediaLLC/relay` → `develop`  
 **Authority:** This index sets the work sequence. Linked historical RFCs hold the full engineering designs and safety contracts.
 
+> **Current investment direction, November 7, 2026:** [independent-founder growth execution](../../../../vision.md) and the [growth roadmap](../../GROWTH-EXECUTION-ROADMAP.md) supersede this document **as the company-wide priority list**. This IRFC index remains the authoritative technical sequence **within an approved historical Protect/Product Reality Engine/Sync/Launch workstream**, but the company is not committed to implementing every IRFC. Start with M13 Growth v1 and reuse existing SEO opportunity, publishing and measurement code; do not require full Protect or PRE completion before a supported growth change. Historical source IDs and acceptance contracts remain intact.
+
 ## Start here
 
-**Work through IRFC-0001, IRFC-0002, and so on.** These numbers are the implementation order, not historical RFC IDs. RFC-0001–0017 in the parent folder already have mostly closed implementation scopes and remain as reusable foundations; they are not seventeen projects to rebuild. The old source RFC identifiers stay unchanged because code comments, prior PRs, specifications, and handoffs already depend on them.
+**When a specific historical workstream is approved, work through its required IRFC prerequisites in order.** For current company priorities, begin with the growth roadmap and M13, not the lowest unfinished number in this table. These numbers are the implementation order, not historical RFC IDs. RFC-0001–0017 in the parent folder already have mostly closed implementation scopes and remain as reusable foundations; they are not seventeen projects to rebuild. The old source RFC identifiers stay unchanged because code comments, prior PRs, specifications, and handoffs already depend on them.
 
 At each item: inspect current `develop`, implement only the specified slice, run its acceptance checks, and record either **verified existing**, **completed**, or **blocked**. Optional items do not prevent unrelated later features from advancing. Progress is measured by verified workflows, not documentation count. This queue covers development work only; sales work is not tracked here. Completion notes and PRs never include customer names, prices or payment details.
 
@@ -48,7 +52,9 @@ At each item: inspect current `develop`, implement only the specified slice, run
 
 Two numbers are missing on purpose. IRFC-0008 (commercial stop/go gates) was removed because it held no development work. IRFC-0033 (multi-website and portfolio operations) was removed once its code shipped; [RFC-0007 section 6](../0007-portfolio-operations.md#6-design-sketch-and-what-was-built) records what was built, and its status line tracks the pending live acceptance.
 
-## Milestones
+## Milestones (historical technical phase groups)
+
+The groups below describe the earlier Protect → Product Reality Engine → Sync → Launch program. They are not the current investment priorities; live GitHub milestone titles and the growth roadmap now control product decisions.
 
 - **IRFC-0001–0007 — Relay Protect:** protected-site scope, production baselines, incidents, approved PRs, preview checks, verified repairs and recurring work reports.
 - **IRFC-0009–0019 — Product Reality Engine and Relay Sync:** minimally sufficient architecture, secure ingestion, scoped facts, claim matching, impact analysis, approved work, verification and the first Sync workflow.
@@ -63,8 +69,9 @@ Historical [RFC-0001–0017](../README.md#complete-inventory-and-audited-status)
 ## How coding agents should execute
 
 ```text
-Read docs/maintainers/rfcs/implementation/README.md.
-Start with the lowest incomplete IRFC number.
+Read vision.md and docs/maintainers/GROWTH-EXECUTION-ROADMAP.md.
+Choose the active, validated founder-growth milestone first.
+For a specifically approved historical slice, read its linked IRFC and prerequisite order.
 Inspect its canonical source RFC and the current implementation.
 Implement only the linked phase and its stated acceptance gate.
 Run applicable verification and document actual evidence.

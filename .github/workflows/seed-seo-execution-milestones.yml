@@ -1,0 +1,103 @@
+# One-time, idempotent milestone registration requested by the repository owner.
+# Runs on merge to develop; can be retriggered manually if GitHub Actions had a transient failure.
+name: Register Relay SEO execution milestones
+
+on:
+  push:
+    branches: [develop]
+    paths:
+      - .github/workflows/seed-seo-execution-milestones.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  register:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Create milestones and associate umbrella issues
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const spec = 'https://github.com/PlaybookMediaLLC/relay/pull/225';
+            const phases = [
+              {
+                title: 'Relay M1: Evidence-backed SEO findings to actionable work',
+                issue: 226,
+                description: [
+                  'Outcome: credible, deduplicated SEO opportunities and production regressions become reviewable, evidence-backed work items.',
+                  'Gate: source/freshness/baseline/confidence recorded; safe deduplication and no-action states; tenant and provider budgets honored.',
+                  'Align with IRFC-0002–0003; IRFC-0023 is a later extension.',
+                  'Scope: ' + spec,
+                ].join('\n\n'),
+              },
+              {
+                title: 'Relay M2: Safe source-mapped, approved website changes',
+                issue: 227,
+                description: [
+                  'Outcome: a supported finding yields an exact, human-approved GitHub PR with verified source-to-URL mapping, constrained edit and safe failure behavior.',
+                  'Gate: exact source SHA/diff, explicit approval, CI and preview ownership, refusal on unsupported or stale targets; no auto-merge or deploy.',
+                  'Align with IRFC-0004–0005.',
+                  'Scope: ' + spec,
+                ].join('\n\n'),
+              },
+              {
+                title: 'Relay M3: Independently verified production outcomes',
+                issue: 228,
+                description: [
+                  'Outcome: a real authorized customer deployment resolves the original failing production rule and leaves auditable receipts; SEO measurement follows independently.',
+                  'Gate: PR != deployment; fresh site checks and provenance, unknown/regressed states, GSC minimum-data and observation safeguards, one real-site demonstrated fix.',
+                  'Align with IRFC-0006–0007 and the existing Experiments feature.',
+                  'Scope: ' + spec,
+                ].join('\n\n'),
+              },
+              {
+                title: 'Relay M4: Truthful product claims in SEO and content changes',
+                issue: 229,
+                description: [
+                  'Outcome: SEO/content proposals do not introduce unsupported feature, plan, price, integration or eligibility claims.',
+                  'Gate: claim evidence and reviewer controls; then accepted scoped product facts, affected claims, approved corrections and verified publication.',
+                  'Align with IRFC-0013–0019; full Sync must not block the initial Protect release.',
+                  'Scope: ' + spec,
+                ].join('\n\n'),
+              },
+              {
+                title: 'Relay M5: Unified workbench and measured value',
+                issue: 230,
+                description: [
+                  'Outcome: each finding links evidence, reviewer decision, exact diff, PR, deployment, production verification, observed SEO follow-up and cost in one work history.',
+                  'Gate: live-site inspection, explicit blocked/unknown states, metrics for operator time, costs, precision and verified repairs; pilot-ready reporting.',
+                  'Align with IRFC-0007 and IRFC-0018. Reuse the current Work UI.',
+                  'Scope: ' + spec,
+                ].join('\n\n'),
+              },
+            ];
+            const existing = await github.paginate(github.rest.issues.listMilestones, {
+              owner, repo, state: 'all', per_page: 100,
+            });
+            const errors = [];
+            for (const phase of phases) {
+              try {
+                let milestone = existing.find((entry) => entry.title === phase.title);
+                if (!milestone) {
+                  const response = await github.rest.issues.createMilestone({
+                    owner, repo, title: phase.title, description: phase.description, state: 'open',
+                  });
+                  milestone = response.data;
+                  core.info('Created milestone #' + milestone.number + ': ' + phase.title);
+                } else {
+                  core.info('Reusing milestone #' + milestone.number + ': ' + phase.title);
+                }
+                await github.rest.issues.update({
+                  owner, repo, issue_number: phase.issue, milestone: milestone.number,
+                });
+                core.info('Linked issue #' + phase.issue + ' to milestone #' + milestone.number);
+              } catch (error) {
+                errors.push(phase.title + ': ' + error.message);
+              }
+            }
+            if (errors.length) core.setFailed(errors.join('\n'));

@@ -39,11 +39,74 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Resolve the Playwright version
+        id: playwright
+        run: |
+          version=$(pnpm exec playwright --version | awk '{print $2}')
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      # The browser download is the step that fails on a bad CDN day (and the
+      # one with a multi-minute tail when it does not). The cache key is the
+      # exact Playwright version, so a browser upgrade always re-downloads.
+      - name: Restore the Chromium download
+        id: chromium-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}-chromium
+
+      # Deliberately not `--with-deps`. On ubuntu-24.04 that installs nine
+      # packages and every one of them is a font (CJK, Cyrillic, Thai,
+      # Unifont) -- "0 upgraded, 9 newly installed" -- because the runner
+      # image already carries every shared library Chromium needs. The app
+      # ships its own webfonts, so those packages change nothing these specs
+      # assert on, and apt was the step's whole long tail: a 522 s P95, six
+      # outright failures, and two stalls on cache hits where the browser was
+      # already on disk. The second stall left a held dpkg lock that failed
+      # the retry too.
+      #
+      # If a future runner image does drop a library, Chromium fails to launch
+      # and Playwright names the missing one in the first test's error.
       - name: Install Chromium
-        run: pnpm exec playwright install --with-deps chromium
+        run: |
+          for attempt in 1 2; do
+            if timeout 180 pnpm exec playwright install chromium; then
+              exit 0
+            fi
+            echo "::warning::Chromium download attempt $attempt timed out or failed."
+          done
+          echo "::error::Could not download Chromium after two attempts."
+          exit 1
+
+      # 111 migrations through wrangler take about 40 seconds and depend only
+      # on the SQL files, the binding and the wrangler version, so the applied
+      # state is cached under all three. A miss just replays them.
+      - name: Restore the migrated local D1 state
+        id: d1-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .wrangler/state/v3/d1
+          # v2: entries written before the WAL checkpoint are not reusable.
+          key: d1-local-v2-${{ runner.os }}-${{ hashFiles('drizzle/sqlite/**', 'wrangler.jsonc', 'pnpm-lock.yaml') }}
 
       - name: Migrate the local D1 database
-        run: pnpm db:migrate:local
+        if: steps.d1-cache.outputs.cache-hit != 'true'
+        run: |
+          pnpm db:migrate:local
+          # The migrations leave a 5.8 MB write-ahead log against a 2.1 MB
+          # database. Cached as-is, replaying it on restore costs about what
+          # replaying the migrations would have.
+          node scripts/ci-checkpoint-d1.mjs
+
+      # Saved here, not at the end of the job: the spec writes the growth
+      # workflow's rows into this database, and a cache holding one run's rows
+      # would change what the next run sees.
+      - name: Save the migrated local D1 state
+        if: steps.d1-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: .wrangler/state/v3/d1
+          key: ${{ steps.d1-cache.outputs.cache-primary-key }}
 
       # The worker reads AUTH_MODE from .env.local, as in local development.
       # A shell variable reaches only the client build.

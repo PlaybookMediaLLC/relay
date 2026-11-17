@@ -3,8 +3,17 @@ name: Postgres real-SQL tests (Playbook)
 permissions:
   contents: read
 
-# The opportunity, publishing, experiment and tenancy suites run on SQLite in
-# CI. This job runs the same files against a real Postgres, as RFC-0007 asks.
+# The suites that exercise real SQL run on in-memory SQLite in the main unit
+# job. This workflow runs the same files against a real Postgres, as RFC-0007
+# asks, because a passing SQLite run is not evidence about Postgres.
+#
+# Which files those are is discovered by scripts/ci-postgres-suites.mjs rather
+# than listed here: the list this workflow used to carry had fallen 21 suites
+# behind, including all three billing spend suites.
+#
+# Each shard gets its own Postgres service container, so the suites that race
+# on shared rows (see .agents/PAPERCUTS.md) cannot reach each other's data.
+# Within a shard, files still run one at a time for the same reason.
 on:
   pull_request:
   push:
@@ -16,8 +25,14 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  postgres:
+  shard:
+    name: postgres shard ${{ matrix.shard }}
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3]
     services:
       postgres:
         image: postgres:16
@@ -35,6 +50,7 @@ jobs:
     env:
       # The suites accept only a disposable localhost/openseo_growth_test.
       OPPORTUNITY_TEST_PG_URL: postgres://openseo_test@127.0.0.1:5432/openseo_growth_test
+      SHARD_COUNT: "3"
 
     steps:
       - name: Checkout
@@ -59,17 +75,39 @@ jobs:
         env:
           POSTGRES_DATABASE_URL: ${{ env.OPPORTUNITY_TEST_PG_URL }}
 
-      # One file at a time: the suites share one database (see PAPERCUTS.md).
-      - name: Run real-SQL suites on Postgres
+      # The script fails if the import closure returns a suspiciously short
+      # list, so a broken closure cannot quietly shrink what Postgres checks.
+      - name: Find the real-SQL suites
+        run: |
+          node scripts/ci-postgres-suites.mjs > suites.txt
+          echo "Shard ${{ matrix.shard }} of ${{ env.SHARD_COUNT }}, from $(wc -l < suites.txt | tr -d ' ') real-SQL suites." \
+            >> "$GITHUB_STEP_SUMMARY"
+
+      # One file at a time within the shard: these suites share this shard's
+      # database and race on shared rows (.agents/PAPERCUTS.md). Shards run in
+      # parallel instead, each against its own container.
+      - name: Run this shard against Postgres
         run: >-
-          pnpm exec vitest run
-          src/server/features/opportunities
-          src/server/features/publishing
-          src/server/features/experiments
-          src/server/features/growth
-          src/server/features/seo-checks
-          src/server/features/split-tests
-          src/server/features/portfolio
-          src/server/features/protection
-          src/server/features/reports/services/ReportBrandingService.test.ts
+          pnpm exec vitest run $(cat suites.txt)
+          --shard=${{ matrix.shard }}/${{ env.SHARD_COUNT }}
           --no-file-parallelism
+          --reporter=dot
+          --reporter=github-actions
+
+  # The status check the deploy gate waits for. Keep this job id `postgres`:
+  # a matrix job reports one check per shard, and no single `postgres` context.
+  postgres:
+    if: always()
+    needs: shard
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Require every shard to have succeeded
+        env:
+          RESULT: ${{ needs.shard.result }}
+        run: |
+          echo "Postgres shards: $RESULT" >> "$GITHUB_STEP_SUMMARY"
+          [ "$RESULT" = success ] || {
+            echo "::error::A Postgres shard did not succeed ($RESULT)."
+            exit 1
+          }

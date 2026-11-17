@@ -12,6 +12,12 @@ import {
 import { Alert, AlertDescription } from "@/client/components/ui/alert";
 import { Card, CardContent } from "@/client/components/ui/card";
 import {
+  Field,
+  FieldDescription,
+  FieldLabel,
+} from "@/client/components/ui/field";
+import { Input } from "@/client/components/ui/input";
+import {
   Table,
   TableHeader,
   TableBody,
@@ -40,6 +46,7 @@ export function WebsiteSetupReview({
   /** Omit when there is no earlier step to return to. */
   onBack?: () => void;
 }) {
+  const [brandName, setBrandName] = useState(research.name);
   const [competitors, setCompetitors] = useState<WebsiteCompetitor[]>(
     research.competitors.map(({ name, domain, notes }) => ({
       id: crypto.randomUUID(),
@@ -57,7 +64,7 @@ export function WebsiteSetupReview({
           onSubmit={(event) => {
             event.preventDefault();
             onSave({
-              name: research.name,
+              name: brandName.trim(),
               domain: research.domain,
               overview: research.overview,
               suggestedTopics: research.suggestedTopics,
@@ -74,7 +81,7 @@ export function WebsiteSetupReview({
             <h1 className="text-heading tracking-tight">
               {research.preserveCompetitors
                 ? "Complete project setup"
-                : "Edit competitors"}
+                : "Edit your brand and competitors"}
             </h1>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               You can edit your{" "}
@@ -89,6 +96,19 @@ export function WebsiteSetupReview({
             </p>
           </div>
           <fieldset disabled={saving} className="min-w-0 space-y-5">
+            <Field>
+              <FieldLabel htmlFor="setup-brand-name">Brand name</FieldLabel>
+              <Input
+                id="setup-brand-name"
+                value={brandName}
+                onChange={(event) => setBrandName(event.target.value)}
+                maxLength={120}
+                required
+              />
+              <FieldDescription>
+                We look for this name in AI answers.
+              </FieldDescription>
+            </Field>
             {research.preserveCompetitors ? (
               <p className="text-sm text-muted-foreground">
                 We’ll use the competitors already saved in your project context.
@@ -175,9 +195,12 @@ export function WebsiteSetupReview({
               )}
               <Button
                 type="submit"
-                disabled={competitors.some(
-                  (row) => !row.name.trim() || !row.domain.trim(),
-                )}
+                disabled={
+                  !brandName.trim() ||
+                  competitors.some(
+                    (row) => !row.name.trim() || !row.domain.trim(),
+                  )
+                }
               >
                 {saving && <LoaderCircle className="size-4 animate-spin" />}{" "}
                 Continue

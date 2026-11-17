@@ -1,0 +1,75 @@
+# Idempotent native milestone registration for Relay's separately deployed Elmo evidence service.
+# This action only manages GitHub milestone M20 and the seven scoped issues.
+# Submodule addition and update-PR automation are separate implementation issues (#294, #299).
+name: Register Relay Elmo Integration M20
+
+on:
+  push:
+    branches: [develop]
+    paths:
+      - .github/workflows/register-elmo-evidence-m20.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  register:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Register M20 and attach Elmo evidence implementation issues
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const title = 'Relay M20: Elmo AI-search Evidence Service & Submodule Sync';
+            const description = [
+              'P1: bounded internal evidence-service pilot, complementary to M14 AI-search opportunity discovery; M13 safe website PR and production verification remains the release dependency.',
+              'Customer outcome: a founder can use new, auditable Elmo AI-answer and citation evidence to review a specific acquisition opportunity inside Relay without managing a second product or losing source-control approval.',
+              'Architecture: self-host PlaybookMediaLLC/elmo as an isolated DigitalOcean web API and worker, dedicated PostgreSQL database, provider spend limits, and authenticated read-only server-to-server HTTPS access from Relay Cloudflare Workers. Do not merge apps or share runtime databases.',
+              'Git submodule requirement: add the Playbook fork https://github.com/PlaybookMediaLLC/elmo.git as vendor/elmo (branch main) with .gitmodules and an actual pinned gitlink SHA. A submodule does not advance automatically. Add a scheduled and manually dispatchable job that detects changes to fork main and opens or refreshes a reviewable Relay PR updating the pinned SHA. Validate tests, licensing, provider/auth/schema changes, fork provenance and rollback before merging; no silent auto-merge or production deploy.',
+              'Two-hop upstream: elmohq/elmo upstream -> PlaybookMediaLLC/elmo fork -> Relay vendor/elmo gitlink. Document and test reviewed upstream fork-sync and downstream submodule PR creation separately. Upstream source changes alone do not advance the Playbook fork.',
+              'Acceptance: one Playbook-owned project; pinned Elmo web/worker and PostgreSQL; real sampled prompts; scoped read-only Elmo API client; comparable cost/coverage vs existing Relay AI tracking; one well-grounded opportunity or honest no-action; synthetic/real verification of automated update PR and blocked unsafe promotion.',
+              'Scope: #294 gitlink and updater; #295 deployment; #296 API/tenant mapping; #297 evidence comparison; #298 M14 opportunities; #299 upstream-sync/versioning/rollback; #300 security/retention/license.',
+              'Strategy: https://github.com/PlaybookMediaLLC/relay/blob/develop/docs/maintainers/ELMO-EVIDENCE-INTEGRATION.md',
+              'Related: https://github.com/PlaybookMediaLLC/relay/milestone/14 and https://github.com/PlaybookMediaLLC/relay/issues/268',
+            ].join('\n\n');
+            const expected = [294, 295, 296, 297, 298, 299, 300];
+            const current = await github.paginate(github.rest.issues.listMilestones, {
+              owner, repo, state: 'all', per_page: 100,
+            });
+            const matching = current.filter(m => m.title === title || m.title.startsWith('Relay M20:'));
+            if (matching.length > 1) {
+              core.setFailed('Ambiguous M20 milestones: refusing to create another');
+              return;
+            }
+            let milestone = matching[0];
+            if (!milestone) {
+              const created = await github.rest.issues.createMilestone({ owner, repo, title, description, state: 'open' });
+              milestone = created.data;
+              core.info('Created M20 #' + milestone.number);
+            } else if (milestone.title !== title || milestone.description !== description) {
+              const updated = await github.rest.issues.updateMilestone({
+                owner, repo, milestone_number: milestone.number, title, description,
+              });
+              milestone = updated.data;
+              core.info('Updated M20 #' + milestone.number);
+            }
+            const failures = [];
+            for (const issue_number of expected) {
+              try {
+                const { data: issue } = await github.rest.issues.get({ owner, repo, issue_number });
+                if (!issue.title.startsWith('Elmo M20 ')) {
+                  throw new Error('Issue title does not match the approved Elmo M20 scope');
+                }
+                if (issue.milestone?.number !== milestone.number) {
+                  await github.rest.issues.update({ owner, repo, issue_number, milestone: milestone.number });
+                }
+                core.info('Attached issue #' + issue_number + ' to milestone #' + milestone.number);
+              } catch (error) {
+                failures.push('#' + issue_number + ': ' + error.message);
+              }
+            }
+            if (failures.length) core.setFailed(failures.join('\n'));

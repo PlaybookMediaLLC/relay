@@ -1,5 +1,21 @@
 # Agent guidance
 
+## Relay product direction and source of priority
+
+**Current product direction (November 2026):** Relay is building recurring **customer-acquisition execution for independent software founders**, with a long-term ambition to support a $100M+ ARR business. Start from [vision.md](vision.md), the [growth execution roadmap](docs/maintainers/GROWTH-EXECUTION-ROADMAP.md), [company scale plan](docs/maintainers/ACQUISITION-EXECUTION-SCALE-PLAN.md) and [founder distribution plan](docs/maintainers/FOUNDER-ACQUISITION-DISTRIBUTION.md).
+
+**Do not implement the historical Protect → generalized Product Reality Engine → Sync → Relay-owned Launch RFC sequence merely because an IRFC number is next.** The preserved [IRFC index](docs/maintainers/rfcs/implementation/README.md) is authoritative for a specifically approved technical slice and its prerequisites. The current first product-value gate is M13 (source-backed website opportunity → approved source change → independently verified live postcondition). M7/M17 test actual paid founder demand, repeat use, distribution and account economics in parallel. M15/M16 establish recurring work and credible acquisition evidence. M18 is demand-gated, not a request for generic channel integrations.
+
+For every acquisition feature or agent task, identify the founder job, accepted evidence, authorized next action, supported source/adapter, independently checked technical postcondition, provider and routine support costs, and what counts as a real customer result. Keep **delivery**, **search/exposure observation**, **qualified behavior**, and **economic outcome** separate. No automatic PR merge, customer deployment, unsolicited sending, ad purchase, billing change or claim of incremental acquired revenue without a separately approved and validated contract.
+
+Reuse the substantial OpenSEO research, GitHub publishing, experiments, work, security and spending code before adding schemas/services. Product descriptions, issue trackers, milestones and architectural proposals are **not** proof that a feature is implemented or commercially validated. Preserve existing code acceptance records when changing priorities.
+
+### M20 — Elmo evidence integration and submodule updates
+
+If implementing Elmo work, read [docs/maintainers/ELMO-EVIDENCE-INTEGRATION.md](docs/maintainers/ELMO-EVIDENCE-INTEGRATION.md) and [M20](https://github.com/PlaybookMediaLLC/relay/milestone/20) before changing code. Elmo is a separately deployed **Node web + worker + PostgreSQL** evidence service; Relay remains a Cloudflare Workers app and owns authenticated project-scoped investigation, approved website changes and production verification. Do not import Elmo runtime modules or Elmo database tables into Relay, duplicate current AI tracking or treat Elmo suggestions as trusted execution instructions.
+
+The planned `vendor/elmo` Git submodule points to an exact `PlaybookMediaLLC/elmo` commit. Even with `branch=main`, **submodules do not advance themselves**: a periodic or cross-repo-triggered action must fetch the Elmo fork and **propose a gitlink update PR**, with compatibility tests and human approval. Changes in the original `elmohq/elmo` also require a separate reviewed Playbook fork-sync first. No unreviewed auto-merge, floating `main` runtime image, or automatic customer/Relay production deployment from upstream changes. Keep MIT attribution, credentials and provider spend gates intact.
+
 ## Engineering principles
 
 - Prefer simple, readable, flat code with minimal indirection.

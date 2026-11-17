@@ -1,0 +1,80 @@
+# Owner-requested one-time marketing milestone registration.
+# May be rerun manually; only creates/reconciles the exact native milestone and ten issues.
+name: Register Relay Marketing M19
+
+on:
+  push:
+    branches: [develop]
+    paths:
+      - .github/workflows/register-relay-marketing-milestone.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  register:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Create marketing milestone and assign campaign issues
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const title = 'Relay M19: Founder Marketing & Qualified Distribution';
+            const description = [
+              'P0: Founder-led marketing for Relay itself, concurrent with M13 technical first value and M7 paid buyer discovery.',
+              'Goal: find and convert qualified independent software founders who have recurring website-acquisition work. M19 owns campaign execution, message testing, trust-building content and activation funnel evidence.',
+              'Priority channels: Relay SEO Check developer-led entry, truthful demonstrations, and four organic social roles: X for technical founder conversations (#289); Instagram for Reels/carousels and visual trust (#290); YouTube for evergreen technical demos and Shorts (#291); TikTok for short native founder discovery (#292).',
+              'Initial cadence is a bounded 4–6 week capacity experiment, not algorithm advice: X 4–5 useful posts per week; Instagram 2–3 Reels plus one carousel when evidence supports them; YouTube one actual technical walkthrough about every two weeks and selected Shorts; TikTok around three original founder clips weekly. Cut formats when workload exceeds qualified value.',
+              'One approved and verifiable source dossier can become four platform-native interpretations with different openings, framing and CTA. No blind identical cross-posts, fake customer proof, overclaimed autonomous deployment or invented SEO and revenue outcomes.',
+              'Acceptance: at least one bounded channel experiment with actual founder-qualified arrival -> consented first useful Relay decision -> paid Grow/Protect offer where relevant, with truthful counts, cost, conversion/refusal and a repeat/change/stop decision. Zero paid conversions must be reported honestly, not invented.',
+              'Guardrails: no paid ad budget assumed; no fabricated testimonials, ranking/revenue uplift, current plan availability or autonomous publishing; no broad unsolicited outreach. Separate free research users from paid acquisition programs.',
+              'Ownership: M19 = marketing execution; M17 = pricing, retained ARR, CAC/payback and business economics. Avoid reimplementing M13/M15/M16 product work.',
+              'Marketing issues: #282 positioning/site; #283 developer entry; #284 case studies; #285 community/outreach; #286 attribution; #287 weekly content/cross-platform repurposing; #289 X; #290 Instagram; #291 YouTube; #292 TikTok.',
+              'Strategy: https://github.com/PlaybookMediaLLC/relay/blob/develop/docs/maintainers/FOUNDER-ACQUISITION-DISTRIBUTION.md',
+              'Release marketing plan: https://github.com/PlaybookMediaLLC/relay/blob/develop/docs/maintainers/RELAY-MARKETING-PLAN.md',
+            ].join('\n\n');
+            const expected = [282, 283, 284, 285, 286, 287, 289, 290, 291, 292];
+            const all = await github.paginate(github.rest.issues.listMilestones, {
+              owner, repo, state: 'all', per_page: 100,
+            });
+            const matching = all.filter((m) => m.title === title || m.title.startsWith('Relay M19:'));
+            if (matching.length > 1) {
+              core.setFailed('Multiple M19 milestones already exist; refusing duplicate registration.');
+              return;
+            }
+            let milestone = matching[0];
+            if (!milestone) {
+              const created = await github.rest.issues.createMilestone({
+                owner, repo, title, description, state: 'open',
+              });
+              milestone = created.data;
+              core.info('Created M19 milestone #' + milestone.number);
+            } else if (milestone.title !== title || milestone.description !== description) {
+              const updated = await github.rest.issues.updateMilestone({
+                owner, repo, milestone_number: milestone.number, title, description,
+              });
+              milestone = updated.data;
+              core.info('Updated M19 milestone #' + milestone.number);
+            }
+            const failures = [];
+            for (const issue_number of expected) {
+              try {
+                const issue = await github.rest.issues.get({ owner, repo, issue_number });
+                if (!(issue.data.title.startsWith('Marketing M19:') || issue.data.title.startsWith('Marketing M19 —'))) {
+                  throw new Error('Unexpected issue title; refusing to assign unrelated work');
+                }
+                if (issue.data.milestone?.number !== milestone.number) {
+                  await github.rest.issues.update({
+                    owner, repo, issue_number, milestone: milestone.number,
+                  });
+                }
+                core.info('Assigned marketing issue #' + issue_number + ' to M19 #' + milestone.number);
+              } catch (error) {
+                failures.push('#' + issue_number + ': ' + error.message);
+              }
+            }
+            if (failures.length) core.setFailed(failures.join('\n'));

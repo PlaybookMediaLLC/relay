@@ -90,7 +90,7 @@ We implement security measures designed to protect your information from unautho
 
 You have the right at any time to prevent us from contacting you for marketing purposes. When we send a promotional communication to a user, the user can opt out of further promotional communications by following the unsubscribe instructions provided in each promotional e-mail. You can also indicate that you do not wish to receive marketing communications from us by contacting us at team@playbookmedia.io. Please note that notwithstanding the promotional preferences you indicate by either unsubscribing or contacting us, we may continue to send you administrative or transactional emails including, for example, account verification, password reset, billing, security, support, and periodic updates to our Privacy Policy.
 
-You may also manage available cookie choices through our preference center where offered, disconnect linked accounts using available settings, and request deletion of your hosted account.
+You may also manage available cookie choices through our preference center where offered and disconnect linked accounts using available settings. You can delete your hosted account yourself: sign in, go to [Settings](https://app.openseo.so/settings), and click **Delete account**. Your account is scheduled for deletion 14 days later, and you are signed out of it right away. To keep the account, email support@openseo.so before the deletion date. If you own a workspace that other people still use, remove them first in Organization settings, or email support@openseo.so to hand the workspace to one of them.
 
 ## VI. U.S. PRIVACY RIGHTS AND DISCLOSURES
 

@@ -23,6 +23,7 @@ import {
 } from "./rankCheckRunGuards";
 import {
   estimateRankCheckCredits,
+  isRankCheckDelayed,
   MAX_CONFIGS_PER_PROJECT,
   rankCheckCostApprovalError,
 } from "@/shared/rank-tracking";
@@ -260,7 +261,6 @@ async function triggerCheck(input: {
       keywords.map((kw) => kw.keyword),
       config.devices,
       config.serpDepth,
-      "live",
     );
     if (costCredits > input.maxCostCredits) {
       throw new AppError(
@@ -332,12 +332,7 @@ async function getLatestRun(configId: string, projectId: string) {
   // this read path caused a race where the original workflow kept running
   // while a replacement was started.
   const reconciliation = await reconcileActiveRankCheckRun(run);
-  if (reconciliation) {
-    return formatRun(run, {
-      maybeStale: true,
-      staleReason: reconciliation.errorMessage,
-    });
-  }
+  if (reconciliation) return formatRun(run, reconciliation.errorMessage);
 
   return formatRun(run);
 }
@@ -492,10 +487,7 @@ type RunRow = NonNullable<
   Awaited<ReturnType<typeof RankTrackingRepository.getLatestRunForConfig>>
 >;
 
-function formatRun(
-  run: RunRow,
-  stale?: { maybeStale: boolean; staleReason: string },
-) {
+function formatRun(run: RunRow, staleReason?: string) {
   return {
     id: run.id,
     status: run.status,
@@ -505,8 +497,9 @@ function formatRun(
     errorMessage: run.errorMessage,
     startedAt: run.startedAt,
     completedAt: run.completedAt,
-    maybeStale: stale?.maybeStale ?? false,
-    staleReason: stale?.staleReason ?? null,
+    isDelayed: isRankCheckDelayed(run),
+    maybeStale: staleReason !== undefined,
+    staleReason: staleReason ?? null,
   };
 }
 

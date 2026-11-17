@@ -33,6 +33,7 @@ import * as sqliteWork from "./work.schema";
 import * as sqliteLocalSeo from "./local-seo.schema";
 import * as sqlitePortfolio from "./portfolio.schema";
 import * as sqliteProtection from "./protection.schema";
+import * as sqliteStripeProjects from "./stripe-projects.schema";
 import * as pgApp from "./pg/app.schema";
 import * as pgProjectContext from "./pg/project-context.schema";
 import * as pgReports from "./pg/reports.schema";
@@ -67,6 +68,7 @@ import * as pgWork from "./pg/work.schema";
 import * as pgLocalSeo from "./pg/local-seo.schema";
 import * as pgPortfolio from "./pg/portfolio.schema";
 import * as pgProtection from "./pg/protection.schema";
+import * as pgStripeProjects from "./pg/stripe-projects.schema";
 
 // Canonical schema barrel. Repositories import their tables from here and the
 // provider-aware `db` from "@/db", so each repository is written ONCE for both
@@ -111,7 +113,8 @@ type AppSchema = typeof sqliteApp &
   typeof sqliteWork &
   typeof sqliteLocalSeo &
   typeof sqlitePortfolio &
-  typeof sqliteProtection;
+  typeof sqliteProtection &
+  typeof sqliteStripeProjects;
 
 const runtimeSchema =
   getDatabaseProvider() === "postgres"
@@ -150,6 +153,7 @@ const runtimeSchema =
         ...pgLocalSeo,
         ...pgPortfolio,
         ...pgProtection,
+        ...pgStripeProjects,
       }
     : {
         ...sqliteApp,
@@ -186,6 +190,7 @@ const runtimeSchema =
         ...sqliteLocalSeo,
         ...sqlitePortfolio,
         ...sqliteProtection,
+        ...sqliteStripeProjects,
       };
 
 // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- guarded by schema-parity.test.ts
@@ -195,6 +200,7 @@ export const {
   userOnboardingAnswers,
   userSignupCampaigns,
   accountDeletionRequests,
+  guestAccounts,
   projects,
   savedKeywords,
   savedKeywordTags,
@@ -337,4 +343,6 @@ export const {
   protectionEnrollments,
   monitoredPages,
   protectionScopeChanges,
+  stripeProjectsGrants,
+  stripeProjectsResources,
 } = schema;

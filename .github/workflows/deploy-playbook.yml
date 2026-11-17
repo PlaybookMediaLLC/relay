@@ -29,6 +29,11 @@ on:
       - web/**
       - tests/badseo/**
   workflow_dispatch:
+    inputs:
+      deploy_without_checks:
+        description: Deploy even if this commit has no passing CI, E2E and Postgres runs (hotfix only)
+        type: boolean
+        default: false
 
 # Never run two deploys of the same stage at once, and never cancel one
 # mid-flight: a half-applied D1 migration is worse than a queued deploy.
@@ -38,6 +43,8 @@ concurrency:
 
 permissions:
   contents: read
+  # The gate below reads this commit's check runs.
+  checks: read
 
 env:
   STAGE: playbook
@@ -46,25 +53,78 @@ env:
   CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
 jobs:
-  checks:
+  # Wait for the checks that already ran on THIS commit, rather than running a
+  # second copy of them. Until this job existed the deploy ran its own
+  # tsc/lint/Knip/prettier/vitest pass -- about four minutes of work CI had
+  # already done for the same SHA -- and it started while the browser and
+  # Postgres suites for that SHA were still running, so a red E2E run could
+  # not stop a deploy. Now nothing ships until all four are green for the
+  # exact commit being deployed.
+  gate:
     if: github.repository == 'PlaybookMediaLLC/relay'
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22.23.4
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - name: Type check, lint, Knip and format
-        run: pnpm exec tsc --noEmit && pnpm lint && pnpm exec knip && pnpm exec prettier --check .
-      - name: Unit and integration tests
-        run: pnpm test:ci
+      # Check-run names: ci.yml's summary job plus the three suites that run
+      # on every push to main. Keep this list and those job names together.
+      - name: Require green checks for this commit
+        if: ${{ !inputs.deploy_without_checks }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.sha }}
+          REQUIRED: ci e2e-core e2e-growth postgres
+        run: |
+          deadline=$(( $(date +%s) + 25 * 60 ))
+          while :; do
+            # The endpoint returns the latest run per check name by default,
+            # so a re-run replaces its earlier result here too.
+            gh api --paginate \
+              "repos/$GITHUB_REPOSITORY/commits/$SHA/check-runs?per_page=100" \
+              --jq '.check_runs[] | "\(.name)|\(.status)|\(.conclusion // "")"' \
+              > runs.txt
+            pending=""
+            bad=""
+            for name in $REQUIRED; do
+              line=$(grep -E "^${name}\|" runs.txt | tail -1 || true)
+              if [ -z "$line" ]; then
+                pending="$pending $name(not-started)"
+                continue
+              fi
+              status=${line#*|}
+              status=${status%%|*}
+              conclusion=${line##*|}
+              if [ "$status" != completed ]; then
+                pending="$pending $name($status)"
+              elif [ "$conclusion" != success ]; then
+                bad="$bad $name($conclusion)"
+              fi
+            done
+            if [ -n "$bad" ]; then
+              echo "::error::Not deploying $SHA:$bad did not pass. A cancelled check usually means a newer commit superseded this one."
+              exit 1
+            fi
+            if [ -z "$pending" ]; then
+              echo "All required checks passed for \`$SHA\`." >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+            if [ "$(date +%s)" -ge "$deadline" ]; then
+              echo "::error::Timed out waiting for$pending on $SHA. Re-run those workflows, then re-run this deploy."
+              exit 1
+            fi
+            echo "waiting for$pending"
+            sleep 15
+          done
+
+      - name: Record a deploy that skipped the gate
+        if: ${{ inputs.deploy_without_checks }}
+        env:
+          SHA: ${{ github.sha }}
+        run: |
+          echo "::warning::Deploying $SHA without requiring its CI, E2E and Postgres runs."
+          echo "**Gate skipped** for \`$SHA\` (\`deploy_without_checks\`)." >> "$GITHUB_STEP_SUMMARY"
 
   deploy:
-    needs: checks
+    needs: gate
     if: github.repository == 'PlaybookMediaLLC/relay'
     runs-on: ubuntu-latest
     timeout-minutes: 30
